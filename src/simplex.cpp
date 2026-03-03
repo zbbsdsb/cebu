@@ -1,5 +1,6 @@
 #include "cebu/simplex.h"
 #include <algorithm>
+#include <stdexcept>
 
 namespace cebu {
 
