@@ -9,27 +9,27 @@
 namespace cebu {
 
 /**
- * @brief Labeled simplicial complex class
+ * @brief Labeled simplicial complex class (primary template)
  *
  * Extends SimplicialComplex with label support. Labels can be any type
  * and are managed through a label system.
  *
  * @tparam LabelType Type of the label (e.g., double, Absurdity, custom struct)
- * @tparam LabelSystemType Label system implementation (defaults to DefaultLabelSystem)
+ * @tparam LabelSystemType Label system implementation (must inherit from LabelSystem<LabelType>)
  */
-template<typename LabelType, template<typename> class LabelSystemType = DefaultLabelSystem>
+template<typename LabelType, typename LabelSystemType = DefaultLabelSystem<LabelType>>
 class SimplicialComplexLabeled {
 public:
-    using LabelSys = LabelSystemType<LabelType>;
+    using LabelSys = LabelSystemType;
     using Predicate = typename LabelSystem<LabelType>::Predicate;
 
     /**
      * @brief Constructor
      * @param label_system Optional label system (if nullptr, creates default)
      */
-    explicit SimplicialComplexLabeled(std::unique_ptr<LabelSys> label_system = nullptr)
+    explicit SimplicialComplexLabeled(std::unique_ptr<LabelSystemType> label_system = nullptr)
         : complex_(std::make_unique<SimplicialComplex>()),
-          label_system_(label_system ? std::move(label_system) : std::make_unique<LabelSys>()) {}
+          label_system_(label_system ? std::move(label_system) : std::make_unique<LabelSystemType>()) {}
 
     // Forward basic operations to underlying complex
 
