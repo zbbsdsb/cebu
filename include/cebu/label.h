@@ -1,5 +1,6 @@
 #pragma once
 
+#include "cebu/simplex.h"
 #include <string>
 #include <vector>
 #include <functional>
