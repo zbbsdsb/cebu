@@ -139,16 +139,16 @@ void test_vertex_mapping_after_removal() {
     SimplexID e01 = complex.add_edge(v0, v1);
     SimplexID e12 = complex.add_edge(v1, v2);
 
-    // v1 should be in two edges
+    // v1 should be in vertex itself + two edges = 3 simplices
     auto simplices_with_v1 = complex.get_simplices_containing_vertex(v1);
-    assert(simplices_with_v1.size() == 2);
+    assert(simplices_with_v1.size() == 3);
 
     // Remove e01
     complex.remove_simplex(e01, false);
 
-    // v1 should now be in only one edge
+    // v1 should now be in vertex itself + one edge = 2 simplices
     simplices_with_v1 = complex.get_simplices_containing_vertex(v1);
-    assert(simplices_with_v1.size() == 1);
+    assert(simplices_with_v1.size() == 2);
 
     std::cout << "  OK: Vertex mapping after removal works" << std::endl;
 }

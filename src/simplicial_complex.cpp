@@ -45,10 +45,18 @@ SimplexID SimplicialComplex::add_simplex(const std::vector<VertexID>& vertices) 
     }
 
     // Check if simplex already exists
-    std::string hash = compute_hash(vertices);
+    // Sort vertices for consistent comparison
+    std::vector<VertexID> sorted_vertices = vertices;
+    std::sort(sorted_vertices.begin(), sorted_vertices.end());
+
     for (const auto& [id, simplex] : simplices_) {
-        if (simplex.vertices() == vertices) {
-            return id;  // Return the ID of the existing simplex
+        const auto& simplex_vertices = simplex.vertices();
+        if (simplex_vertices.size() == sorted_vertices.size()) {
+            std::vector<VertexID> sorted_simplex_vertices = simplex_vertices;
+            std::sort(sorted_simplex_vertices.begin(), sorted_simplex_vertices.end());
+            if (sorted_simplex_vertices == sorted_vertices) {
+                return id;  // Return the ID of the existing simplex
+            }
         }
     }
 

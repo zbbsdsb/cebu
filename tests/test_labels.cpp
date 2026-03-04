@@ -206,6 +206,7 @@ void test_absurdity_labels() {
 
     // Find high absurdity
     auto high = complex.label_system().find_high_absurdity(0.6);
+    std::cout << "  High absurdity count: " << high.size() << " (expected 2)" << std::endl;
     assert(high.size() == 2);
 
     // Find low absurdity

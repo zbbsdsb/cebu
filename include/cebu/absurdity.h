@@ -174,7 +174,7 @@ public:
     std::vector<SimplexID> find_high_absurdity(double threshold = 0.7) const {
         std::vector<SimplexID> result;
         for (const auto& pair : labels_) {
-            if (pair.second > threshold) {
+            if (pair.second.midpoint() > threshold) {
                 result.push_back(pair.first);
             }
         }
@@ -187,7 +187,7 @@ public:
     std::vector<SimplexID> find_low_absurdity(double threshold = 0.3) const {
         std::vector<SimplexID> result;
         for (const auto& pair : labels_) {
-            if (pair.second < threshold) {
+            if (pair.second.midpoint() < threshold) {
                 result.push_back(pair.first);
             }
         }
