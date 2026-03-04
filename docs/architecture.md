@@ -377,6 +377,35 @@ Current implementation is **not thread-safe**:
   - Partial labeling
   - Combined topology+label queries
 
+- `test_story_events.cpp`: Story event system (9 tests)
+  - Add/retrieve events
+  - Time-range queries
+  - Event removal and clearing
+  - Invalid input handling
+  - Multiple events
+
+- `test_timeline.cpp`: Timeline management (12 tests)
+  - Timeline bounds and duration
+  - Milestone management
+  - Time containment
+  - Navigation (next/previous milestone)
+  - Invalid input handling
+
+- `test_topology_ops.cpp`: Topological operations (9 tests)
+  - Vertex gluing
+  - Boundary computation
+  - Dimension filtering
+  - Connected components
+  - Error handling
+
+- `test_narrative.cpp`: Narrative complex integration (8 tests)
+  - Basic narrative complex operations
+  - Event addition and application
+  - Timeline evolution
+  - Bounds validation
+  - Multi-component scenarios
+  - Milestone integration
+
 ### Test Coverage Goals
 
 - All public methods tested
@@ -384,13 +413,16 @@ Current implementation is **not thread-safe**:
 - Memory leak testing
 - Stress testing for large complexes
 - Label system correctness (type safety, query accuracy)
+- Timeline consistency and validation
+- Narrative evolution correctness
 
 ### Integration Tests (Future)
 
 - End-to-end workflows
 - Performance benchmarks
 - Concurrency tests (when thread safety is added)
-- Narrative-driven topology scenarios
+- Complex narrative scenarios with multiple events
+- Absurdity-driven topological transformations
 
 ## Build System
 
