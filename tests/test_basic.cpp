@@ -10,7 +10,7 @@ void test_basic_construction() {
 
     SimplicialComplex complex;
 
-    // 测试添加顶点
+    // Test adding vertices
     VertexID v0 = complex.add_vertex();
     VertexID v1 = complex.add_vertex();
     VertexID v2 = complex.add_vertex();
@@ -23,7 +23,7 @@ void test_basic_construction() {
 
     assert(complex.vertex_count() == 4);
 
-    std::cout << "  ✓ Vertex addition works" << std::endl;
+    std::cout << "  OK: Vertex addition works" << std::endl;
 }
 
 void test_edge_creation() {
@@ -35,7 +35,7 @@ void test_edge_creation() {
     VertexID v1 = complex.add_vertex();
     VertexID v2 = complex.add_vertex();
 
-    // 添加边
+    // Add edges
     SimplexID e01 = complex.add_edge(v0, v1);
     SimplexID e12 = complex.add_edge(v1, v2);
     SimplexID e02 = complex.add_edge(v0, v2);
@@ -44,7 +44,7 @@ void test_edge_creation() {
     assert(complex.has_simplex(e12));
     assert(complex.has_simplex(e02));
 
-    std::cout << "  ✓ Edge creation works" << std::endl;
+    std::cout << "  OK: Edge creation works" << std::endl;
 }
 
 void test_triangle_creation() {
@@ -56,7 +56,7 @@ void test_triangle_creation() {
     VertexID v1 = complex.add_vertex();
     VertexID v2 = complex.add_vertex();
 
-    // 添加三角形
+    // Add triangle
     SimplexID tri = complex.add_triangle(v0, v1, v2);
 
     assert(complex.has_simplex(tri));
@@ -65,7 +65,7 @@ void test_triangle_creation() {
     assert(triangle.dimension() == 2);
     assert(triangle.vertices().size() == 3);
 
-    std::cout << "  ✓ Triangle creation works" << std::endl;
+    std::cout << "  OK: Triangle creation works" << std::endl;
 }
 
 void test_vertex_to_simplex_mapping() {
@@ -80,11 +80,11 @@ void test_vertex_to_simplex_mapping() {
     SimplexID e01 = complex.add_edge(v0, v1);
     SimplexID tri = complex.add_triangle(v0, v1, v2);
 
-    // 查找包含 v0 的单纯形
+    // Find simplices containing v0
     auto simplices_with_v0 = complex.get_simplices_containing_vertex(v0);
-    assert(simplices_with_v0.size() >= 2);  // 应该包含 e01 和 tri
+    assert(simplices_with_v0.size() >= 2);  // Should contain e01 and tri
 
-    std::cout << "  ✓ Vertex to simplex mapping works" << std::endl;
+    std::cout << "  OK: Vertex to simplex mapping works" << std::endl;
 }
 
 void test_adjacency() {
@@ -102,13 +102,13 @@ void test_adjacency() {
     SimplexID tri012 = complex.add_triangle(v0, v1, v2);
     SimplexID tri123 = complex.add_triangle(v1, v2, v3);
 
-    // 边 e01 应该与 tri012 相邻（共享顶点）
+    // Edge e01 should be adjacent to triangle tri012 (sharing vertices)
     auto adjacent_to_e01 = complex.get_adjacent_simplices(e01);
     bool found_tri012 = std::find(adjacent_to_e01.begin(), adjacent_to_e01.end(),
                                    tri012) != adjacent_to_e01.end();
     assert(found_tri012);
 
-    std::cout << "  ✓ Adjacency works" << std::endl;
+    std::cout << "  OK: Adjacency works" << std::endl;
 }
 
 void test_facets() {
@@ -120,28 +120,28 @@ void test_facets() {
     VertexID v1 = complex.add_vertex();
     VertexID v2 = complex.add_vertex();
 
-    // 先添加边（三角形的面）
+    // Add edges first (faces of the triangle)
     SimplexID e01 = complex.add_edge(v0, v1);
     SimplexID e12 = complex.add_edge(v1, v2);
     SimplexID e02 = complex.add_edge(v0, v2);
 
-    // 添加三角形
+    // Add triangle
     SimplexID tri = complex.add_triangle(v0, v1, v2);
 
-    // 获取三角形的面
+    // Get facets of the triangle
     auto facets = complex.get_facets(tri);
 
-    // 应该有三个面（三条边）
+    // Should have three facets (three edges)
     assert(facets.size() == 3);
 
-    // 检查所有边都在面列表中
+    // Check that all edges are in the facet list
     bool has_e01 = std::find(facets.begin(), facets.end(), e01) != facets.end();
     bool has_e12 = std::find(facets.begin(), facets.end(), e12) != facets.end();
     bool has_e02 = std::find(facets.begin(), facets.end(), e02) != facets.end();
 
     assert(has_e01 && has_e12 && has_e02);
 
-    std::cout << "  ✓ Facets work" << std::endl;
+    std::cout << "  OK: Facets work" << std::endl;
 }
 
 void test_dimension_query() {
@@ -157,19 +157,19 @@ void test_dimension_query() {
     complex.add_edge(v1, v2);
     complex.add_triangle(v0, v1, v2);
 
-    // 查询 0-单纯形（顶点）
+    // Query 0-simplices (vertices)
     auto vertices = complex.get_simplices_of_dimension(0);
     assert(vertices.size() == 3);
 
-    // 查询 1-单纯形（边）
+    // Query 1-simplices (edges)
     auto edges = complex.get_simplices_of_dimension(1);
     assert(edges.size() == 2);
 
-    // 查询 2-单纯形（三角形）
+    // Query 2-simplices (triangles)
     auto triangles = complex.get_simplices_of_dimension(2);
     assert(triangles.size() == 1);
 
-    std::cout << "  ✓ Dimension query works" << std::endl;
+    std::cout << "  OK: Dimension query works" << std::endl;
 }
 
 void test_duplicate_prevention() {
@@ -180,13 +180,13 @@ void test_duplicate_prevention() {
     VertexID v0 = complex.add_vertex();
     VertexID v1 = complex.add_vertex();
 
-    // 添加相同的边两次
+    // Add the same edge twice
     SimplexID e1 = complex.add_edge(v0, v1);
-    SimplexID e2 = complex.add_edge(v1, v0);  // 顶点顺序不同，但边相同
+    SimplexID e2 = complex.add_edge(v1, v0);  // Different vertex order, same edge
 
-    assert(e1 == e2);  // 应该返回相同的 ID
+    assert(e1 == e2);  // Should return the same ID
 
-    std::cout << "  ✓ Duplicate prevention works" << std::endl;
+    std::cout << "  OK: Duplicate prevention works" << std::endl;
 }
 
 void tetrahedron_test() {
@@ -199,14 +199,14 @@ void tetrahedron_test() {
     VertexID v2 = complex.add_vertex();
     VertexID v3 = complex.add_vertex();
 
-    // 添加四面体
+    // Add tetrahedron
     SimplexID tetra = complex.add_simplex({v0, v1, v2, v3});
 
     const Simplex& simplex = complex.get_simplex(tetra);
     assert(simplex.dimension() == 3);
     assert(simplex.vertices().size() == 4);
 
-    std::cout << "  ✓ Tetrahedron creation works" << std::endl;
+    std::cout << "  OK: Tetrahedron creation works" << std::endl;
 }
 
 int main() {
@@ -226,7 +226,7 @@ int main() {
         tetrahedron_test();
 
         std::cout << "========================================" << std::endl;
-        std::cout << "All tests passed! ✓" << std::endl;
+        std::cout << "All tests passed!" << std::endl;
         std::cout << "========================================" << std::endl;
 
         return 0;
