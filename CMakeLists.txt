@@ -11,6 +11,7 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 add_library(cebu_core
     src/simplex.cpp
     src/simplicial_complex.cpp
+    src/absurdity.cpp
 )
 
 # Test executable
@@ -27,7 +28,15 @@ add_executable(test_dynamic
 
 target_link_libraries(test_dynamic cebu_core)
 
+# Label test executable
+add_executable(test_labels
+    tests/test_labels.cpp
+)
+
+target_link_libraries(test_labels cebu_core)
+
 # Enable testing
 enable_testing()
 add_test(NAME basic_test COMMAND test_basic)
 add_test(NAME dynamic_test COMMAND test_dynamic)
+add_test(NAME labels_test COMMAND test_labels)
