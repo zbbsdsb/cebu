@@ -31,8 +31,8 @@ void test_add_multiple_events() {
 
     StoryEventSystem system;
 
-    AbsurdityContext ctx1{0.2, 0.1, 0.3, 0.4};
-    AbsurdityContext ctx2{0.6, 0.5, 0.7, 0.8};
+    AbsurdityContext ctx1{0.2, 0.1, 0.3, 0.4, 1.0};
+    AbsurdityContext ctx2{0.6, 0.5, 0.7, 0.8, 1.0};
 
     EventID id1 = system.add_event("Event 1", 0.1, {1}, ctx1);
     EventID id2 = system.add_event("Event 2", 0.5, {2, 3}, ctx2);
@@ -48,7 +48,7 @@ void test_get_events_in_range() {
 
     StoryEventSystem system;
 
-    AbsurdityContext context{0.1, 0.2, 0.3, 0.4};
+    AbsurdityContext context{0.1, 0.2, 0.3, 0.4, 1.0};
 
     system.add_event("Early", 0.1, {1}, context);
     system.add_event("Middle 1", 0.3, {2}, context);
@@ -72,7 +72,7 @@ void test_remove_event() {
 
     StoryEventSystem system;
 
-    AbsurdityContext context{0.1, 0.2, 0.3, 0.4};
+    AbsurdityContext context{0.1, 0.2, 0.3, 0.4, 1.0};
     EventID id = system.add_event("To remove", 0.5, {1, 2, 3}, context);
 
     assert(system.event_count() == 1);
@@ -97,7 +97,7 @@ void test_clear_all_events() {
 
     StoryEventSystem system;
 
-    AbsurdityContext context{0.1, 0.2, 0.3, 0.4};
+    AbsurdityContext context{0.1, 0.2, 0.3, 0.4, 1.0};
     system.add_event("Event 1", 0.1, {1}, context);
     system.add_event("Event 2", 0.2, {2}, context);
     system.add_event("Event 3", 0.3, {3}, context);
@@ -116,7 +116,7 @@ void test_invalid_timestamp() {
 
     StoryEventSystem system;
 
-    AbsurdityContext context{0.1, 0.2, 0.3, 0.4};
+    AbsurdityContext context{0.1, 0.2, 0.3, 0.4, 1.0};
 
     // Negative timestamp should throw
     bool threw = false;
@@ -135,7 +135,7 @@ void test_invalid_range() {
 
     StoryEventSystem system;
 
-    AbsurdityContext context{0.1, 0.2, 0.3, 0.4};
+    AbsurdityContext context{0.1, 0.2, 0.3, 0.4, 1.0};
     system.add_event("Valid", 0.5, {1}, context);
 
     // Start > end should throw
