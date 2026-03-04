@@ -26,6 +26,7 @@ void test_basic_labels() {
     // Get labels
     auto label_v0 = complex.get_label(v0);
     assert(label_v0.has_value());
+    std::cout << "  Expected: 0.1, Got: " << *label_v0 << std::endl;
     assert(*label_v0 == 0.1);
 
     auto label_tri = complex.get_label(tri);
