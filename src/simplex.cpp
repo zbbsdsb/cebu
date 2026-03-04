@@ -6,12 +6,12 @@ namespace cebu {
 
 Simplex::Simplex(const std::vector<VertexID>& vertices, SimplexID id)
     : id_(id), vertices_(vertices) {
-    // 顶点列表必须非空
+    // Vertex list must not be empty
     if (vertices_.empty()) {
         throw std::invalid_argument("Simplex must have at least one vertex");
     }
 
-    // 对顶点排序，确保相同集合的顶点产生相同的表示
+    // Sort vertices to ensure the same set of vertices produces the same representation
     std::sort(vertices_.begin(), vertices_.end());
 }
 
