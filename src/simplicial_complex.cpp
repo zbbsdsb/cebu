@@ -23,42 +23,42 @@ SimplexID SimplicialComplex::add_triangle(VertexID v1, VertexID v2, VertexID v3)
 }
 
 SimplexID SimplicialComplex::add_simplex(const std::vector<VertexID>& vertices) {
-    // 检查顶点数量
+    // Check vertex count
     if (vertices.empty()) {
         throw std::invalid_argument("Simplex must have at least one vertex");
     }
 
-    // 检查所有顶点是否存在
+    // Check if all vertices exist
     for (VertexID v : vertices) {
         if (v >= vertices_.size()) {
             throw std::invalid_argument("Vertex does not exist");
         }
     }
 
-    // 检查单纯形是否已存在
+    // Check if simplex already exists
     std::string hash = compute_hash(vertices);
     for (const auto& [id, simplex] : simplices_) {
         if (simplex.vertices() == vertices) {
-            return id;  // 返回已存在的单纯形 ID
+            return id;  // Return the ID of the existing simplex
         }
     }
 
-    // 创建新单纯形
+    // Create new simplex
     SimplexID new_id = next_simplex_id_++;
     auto result = simplices_.emplace(new_id, Simplex(vertices, new_id));
     Simplex& simplex = result.first->second;
 
-    // 更新顶点到单纯形的映射
+    // Update vertex-to-simplex mapping
     for (VertexID v : vertices) {
         vertex_to_simplices_[v].insert(new_id);
     }
 
-    // 建立邻接关系：找到所有与此单纯形相邻的单纯形
+    // Build adjacency relations: find all simplices adjacent to this simplex
     for (const auto& [id, other] : simplices_) {
         if (id == new_id) continue;
 
-        // 两个单纯形相邻当且仅当它们的交集是一个共同的面
-        // 这里简化：如果它们共享至少一个顶点，则认为相邻
+        // Two simplices are adjacent if their intersection is a common face
+        // Simplified: if they share at least one vertex, they are adjacent
         const auto& other_vertices = other.vertices();
         bool adjacent = false;
 
@@ -122,15 +122,15 @@ std::vector<SimplexID> SimplicialComplex::get_facets(SimplexID simplex_id) const
 
     std::vector<SimplexID> result;
 
-    // 对于 k-单纯形，它的面是所有 (k-1)-单纯形
-    // 即移除一个顶点后的所有组合
+    // For a k-simplex, its faces are all (k-1)-simplices
+    // That is, all combinations after removing one vertex
     if (simplex.dimension() == 0) {
-        // 0-单纯形（顶点）没有面
+        // 0-simplex (vertex) has no faces
         return result;
     }
 
     for (size_t i = 0; i < vertices.size(); ++i) {
-        // 创建一个面：移除第 i 个顶点
+        // Create a face: remove the i-th vertex
         std::vector<VertexID> facet_vertices;
         for (size_t j = 0; j < vertices.size(); ++j) {
             if (j != i) {
@@ -138,7 +138,7 @@ std::vector<SimplexID> SimplicialComplex::get_facets(SimplexID simplex_id) const
             }
         }
 
-        // 查找这个面是否已存在
+        // Check if this face already exists
         std::string facet_hash = compute_hash(facet_vertices);
         for (const auto& [id, s] : simplices_) {
             if (s.vertices() == facet_vertices) {
