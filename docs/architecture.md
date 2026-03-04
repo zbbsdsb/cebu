@@ -28,6 +28,53 @@ cebu/
 
 ## Core Components
 
+### 0. Label System (v0.2.0+)
+
+**Purpose**: Attaches semantic data to simplices for narrative-driven topology.
+
+**Design Rationale**:
+- Template-based design supports arbitrary label types
+- Separation of storage logic from complex management
+- Query capabilities for labeled simplices
+
+**Key Classes**:
+
+1. **LabelSystem<T>** (Base class)
+   - Pure virtual interface for label operations
+   - Predicate-based queries for flexible filtering
+   - Type-safe label storage and retrieval
+
+2. **DefaultLabelSystem<T>**
+   - Unordered_map-based storage for O(1) operations
+   - Suitable for numeric and simple label types
+   - Provides range queries (high/low/in_range) for arithmetic types
+
+3. **AbsurdityLabelSystem**
+   - Specialized for interval-valued fuzzy numbers
+   - Provides absurdity-specific queries (high/low absurdity, uncertainty)
+   - Supports context-driven evolution
+
+4. **SimplicialComplexLabeled<LabelType, LabelSystemType>**
+   - Wraps SimplicialComplex with label support
+   - Forwards topology operations to underlying complex
+   - Provides unified API for topology + labels
+
+**Label Types**:
+
+1. **Absurdity**: Interval fuzzy number [lower, upper] × confidence
+   - Represents narrative absurdity with uncertainty
+   - Evolves based on AbsurdityContext
+   - Metrics: midpoint, uncertainty (range width)
+
+2. **AbsurdityContext**: Environmental factors for evolution
+   - surprisal, logical_deviation, user_laughter, narrative_tension
+   - Drives dynamic absurdity changes
+
+**Query Mechanisms**:
+- Predicate-based: `find_by_label([](const auto& label) { return label > threshold; })`
+- Range queries: `find_high_labels(0.7)`, `find_labels_in_range(min, max)`
+- Type-specific: `find_high_absurdity(0.5)`, `find_high_uncertainty(0.3)`
+
 ### 1. Simplex Class
 
 **Purpose**: Represents a single simplex in the complex.
@@ -252,9 +299,28 @@ Current implementation is **not thread-safe**:
 
 ### Unit Tests
 
-- `test_basic.cpp`: Core functionality
-- `test_dynamic.cpp`: Dynamic operations
-- Tests cover: creation, querying, removal, adjacency, cascade
+- `test_basic.cpp`: Core functionality (9 tests)
+  - Vertex/edge/triangle creation
+  - Adjacency and facet queries
+  - Dimension queries
+  - Duplicate prevention
+  - Tetrahedron (3-simplex) support
+
+- `test_dynamic.cpp`: Dynamic operations (9 tests)
+  - Simplex and vertex removal
+  - Cascade deletion
+  - Add/remove cycles
+  - Adjacency consistency after removal
+  - Vertex-to-simplex mapping
+
+- `test_labels.cpp`: Label system (10 tests)
+  - Basic label operations (set/get/remove)
+  - Label queries (high/low/range)
+  - Predicate-based filtering
+  - Simplex removal with labels
+  - Absurdity labels and evolution
+  - Partial labeling
+  - Combined topology+label queries
 
 ### Test Coverage Goals
 
@@ -262,12 +328,14 @@ Current implementation is **not thread-safe**:
 - Edge cases covered (empty complex, invalid IDs, etc.)
 - Memory leak testing
 - Stress testing for large complexes
+- Label system correctness (type safety, query accuracy)
 
 ### Integration Tests (Future)
 
 - End-to-end workflows
 - Performance benchmarks
 - Concurrency tests (when thread safety is added)
+- Narrative-driven topology scenarios
 
 ## Build System
 
@@ -286,6 +354,12 @@ Current implementation is **not thread-safe**:
 
 - **External**: None (STL only)
 - **Internal**: None
+
+**C++17 Features Used**:
+- `std::optional` for nullable return values
+- `std::unordered_map` for efficient lookups
+- Template metaprogramming for type-safe label system
+- `std::enable_if_t` for SFINAE-based type constraints
 
 ## Documentation
 
