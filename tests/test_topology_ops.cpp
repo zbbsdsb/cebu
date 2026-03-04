@@ -219,7 +219,7 @@ void test_compute_connected_components_multiple() {
     for (const auto& comp : components) {
         total += comp.size();
     }
-    assert(total == 5);  // 5 vertices + 2 edges
+    assert(total == 7);  // 5 vertices + 2 edges
 
     std::cout << "  OK: Compute connected components multiple works" << std::endl;
 }
