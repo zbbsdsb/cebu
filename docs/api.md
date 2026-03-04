@@ -28,8 +28,10 @@ A simplicial complex is a set of simplices that satisfies:
 
 ```cpp
 using SimplexID = uint64_t;      // Unique identifier for a simplex
-using VertexID = uint32_t;       // Unique identifier for a vertex
+using VertexID = uint32_t;       // Unique identifier for a vertex (alias for 0-simplex ID)
 ```
+
+**Important**: Vertices are 0-simplices. `VertexID` is conceptually the same as the `SimplexID` of a 0-simplex. All simplices (including vertices) share a unified ID space.
 
 ### Simplex Class
 
@@ -96,7 +98,7 @@ Creates an empty simplicial complex.
 ```cpp
 VertexID add_vertex();
 ```
-Adds a new vertex (0-simplex) and returns its ID.
+Adds a new vertex (0-simplex) and returns its ID. **Note**: This creates a 0-simplex with vertices={id}, which means the vertex ID equals its simplex ID.
 
 ```cpp
 SimplexID add_edge(VertexID v1, VertexID v2);
@@ -275,11 +277,20 @@ ctest
 
 ## Implementation Details
 
+### Unified Simplex Model
+
+**Innovation**: Vertices are themselves 0-simplices (dimension=0, vertices={id}). This design:
+
+- Eliminates ID conflicts between vertices and higher-dim simplices
+- Provides a unified framework for all simplex operations
+- Ensures mathematical consistency with combinatorial topology
+- Simplifies label system (no need for separate vertex/simplex label stores)
+
 ### Data Structures
 
-- **Vertices**: Stored in a `std::vector<VertexID>`
-- **Simplices**: Stored in a `std::unordered_map<SimplexID, Simplex>`
-- **Vertex mappings**: `std::unordered_map<VertexID, std::unordered_set<SimplexID>>`
+- **Simplices**: All simplices (including 0-simplices/vertices) stored in `std::unordered_map<SimplexID, Simplex>`
+- **Vertex mappings**: `std::unordered_map<VertexID, std::unordered_set<SimplexID>>` for reverse lookup
+- **Unified ID space**: `SimplexID` counter shared by all simplex types
 
 ### Adjacency Relations
 
@@ -293,13 +304,204 @@ Adding a simplex with the same vertices as an existing simplex returns the ID of
 
 When removing a simplex with `cascade=true`, the library recursively removes all simplices that contain the removed simplex as a face.
 
+## Label System
+
+The label system allows attaching arbitrary data to simplices for semantic enrichment.
+
+### Label Types
+
+#### Default Label System (Numeric Labels)
+
+```cpp
+using SimplicialComplexDouble = SimplicialComplexLabeled<double>;
+```
+
+For numeric labels (int, float, double, etc.).
+
+#### Absurdity Label System
+
+```cpp
+using SimplicialComplexAbsurdity = SimplicialComplexLabeled<Absurdity, AbsurdityLabelSystem>;
+```
+
+For interval-valued fuzzy numbers representing absurdity metrics.
+
+### SimplicialComplexLabeled Class
+
+Template class that extends `SimplicialComplex` with label support.
+
+#### Template Parameters
+
+```cpp
+template<typename LabelType, typename LabelSystemType = DefaultLabelSystem<LabelType>>
+class SimplicialComplexLabeled;
+```
+
+- `LabelType`: Type of the label (e.g., `double`, `Absurdity`)
+- `LabelSystemType`: Label system implementation (defaults to `DefaultLabelSystem<LabelType>`)
+
+#### Label Operations
+
+```cpp
+void set_label(SimplexID simplex_id, const LabelType& label);
+```
+Sets a label for a simplex.
+
+```cpp
+std::optional<LabelType> get_label(SimplexID simplex_id) const;
+```
+Gets the label for a simplex. Returns empty optional if not set.
+
+```cpp
+bool remove_label(SimplexID simplex_id);
+```
+Removes the label from a simplex.
+
+```cpp
+bool has_label(SimplexID simplex_id) const;
+```
+Checks if a simplex has a label.
+
+```cpp
+size_t labeled_count() const;
+```
+Returns the number of labeled simplices.
+
+```cpp
+void clear_labels();
+```
+Removes all labels.
+
+#### Label Queries
+
+```cpp
+std::vector<SimplexID> find_by_label(Predicate predicate) const;
+```
+Finds all simplices with labels matching a predicate.
+
+```cpp
+std::vector<SimplexID> find_high_labels(double threshold = 0.7) const;
+```
+Finds simplices with numeric labels above threshold (only for arithmetic types).
+
+```cpp
+std::vector<SimplexID> find_low_labels(double threshold = 0.3) const;
+```
+Finds simplices with numeric labels below threshold (only for arithmetic types).
+
+```cpp
+std::vector<SimplexID> find_labels_in_range(double min, double max) const;
+```
+Finds simplices with numeric labels in range (only for arithmetic types).
+
+#### Absurdity-Specific Queries
+
+```cpp
+std::vector<SimplexID> find_high_absurdity(double threshold = 0.7) const;
+```
+Finds simplices with absurdity midpoint above threshold.
+
+```cpp
+std::vector<SimplexID> find_low_absurdity(double threshold = 0.3) const;
+```
+Finds simplices with absurdity midpoint below threshold.
+
+```cpp
+std::vector<SimplexID> find_high_uncertainty(double threshold = 0.3) const;
+```
+Finds simplices with uncertainty (range width) above threshold.
+
+### Absurdity Class
+
+Represents interval-valued fuzzy numbers for narrative-driven topology.
+
+```cpp
+class Absurdity {
+public:
+    Absurdity(double lower = 0.5, double upper = 0.5, double confidence = 1.0);
+
+    double lower() const;           // Lower bound of absurdity [0,1]
+    double upper() const;           // Upper bound of absurdity [0,1]
+    double confidence() const;       // Confidence in estimate [0,1]
+    double midpoint() const;        // Midpoint of range
+    double uncertainty() const;      // Width of range (upper - lower)
+
+    void evolve(const AbsurdityContext& ctx);  // Update based on context
+};
+```
+
+### AbsurdityContext
+
+Environmental factors influencing absurdity evolution.
+
+```cpp
+struct AbsurdityContext {
+    double surprisal;              // Unexpectedness [0,1]
+    double logical_deviation;      // Deviation from logic [0,1]
+    double user_laughter;          // User laughter intensity [0,1]
+    double narrative_tension;     // Narrative tension [0,1]
+    double dt;                     // Time step
+};
+```
+
+### Usage Example: Numeric Labels
+
+```cpp
+#include "cebu/simplicial_complex_labeled.h"
+
+using namespace cebu;
+
+SimplicialComplexDouble complex;
+
+VertexID v0 = complex.add_vertex();
+VertexID v1 = complex.add_vertex();
+SimplexID tri = complex.add_triangle(v0, v1, complex.add_vertex());
+
+// Set labels
+complex.set_label(v0, 0.1);
+complex.set_label(v1, 0.9);
+complex.set_label(tri, 0.5);
+
+// Query labels
+auto high = complex.find_high_labels(0.7);  // Returns {v1}
+```
+
+### Usage Example: Absurdity Labels
+
+```cpp
+#include "cebu/simplicial_complex_labeled.h"
+#include "cebu/absurdity.h"
+
+using namespace cebu;
+
+SimplicialComplexAbsurdity complex;
+
+VertexID v0 = complex.add_vertex();
+VertexID v1 = complex.add_vertex();
+
+// Set absurdity labels
+Absurdity a1(0.6, 0.8, 0.9);  // High absurdity, high confidence
+complex.set_label(v0, a1);
+
+Absurdity a2(0.1, 0.3, 0.5);  // Low absurdity, low confidence
+complex.set_label(v1, a2);
+
+// Find high absurdity regions
+auto high = complex.label_system().find_high_absurdity(0.5);
+
+// Evolve absurdity
+AbsurdityContext ctx(0.9, 0.8, 0.0, 0.5, 0.1);
+complex.label_system().update_all(ctx);
+```
+
 ## Future Extensions
 
-- Label system for attaching semantic data to simplices
 - Morph operations for dynamic topology changes
 - Non-Hausdorff topology support (gluing operations)
 - Event system for external integration
 - Serialization/deserialization
+- Narrative layer for story-driven topology
+- Visualization tools
 
 ## License
 

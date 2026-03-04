@@ -64,19 +64,24 @@ Simplex
 1. **Simplices Map**: `std::unordered_map<SimplexID, Simplex>`
    - O(1) lookup by ID
    - Stable IDs after deletion (never reused)
+   - Contains ALL simplices including 0-simplices (vertices)
 
-2. **Vertex List**: `std::vector<VertexID>`
-   - Linear storage for vertices
-   - Efficient iteration
-   - Uses `INVALID_VERTEX_ID` marker for deleted vertices
-
-3. **Vertex-to-Simplex Mapping**: `std::unordered_map<VertexID, std::unordered_set<SimplexID>>`
+2. **Vertex-to-Simplex Mapping**: `std::unordered_map<VertexID, std::unordered_set<SimplexID>>`
    - Reverse lookup: find all simplices containing a vertex
    - Essential for cascade deletion
+   - Key design: Vertices are themselves 0-simplices
 
-4. **ID Generation**: `SimplexID next_simplex_id_`
+3. **ID Generation**: `SimplexID next_simplex_id_`
    - Monotonically increasing counter
    - Never reuses IDs to avoid stale references
+   - **Critical**: Vertices and higher-dim simplices share same ID space
+
+**Design Innovation - Unified Simplex Model**:
+- Vertices are NOT separate entities from simplices
+- A vertex IS a 0-simplex (dimension = 0, vertices = {id})
+- This eliminates ID conflicts between vertices and simplices
+- VertexID is just an alias for the SimplexID of 0-simplices
+- All topological operations work uniformly across all dimensions
 
 ## Key Algorithms
 
@@ -301,7 +306,17 @@ Current implementation is **not thread-safe**:
 
 ## Version History
 
-### v0.1.0 (Current)
+### v0.2.0 (Current) - Label System & Unified Topology
+- **Unified Simplex Model**: Vertices are now 0-simplices
+- Template-based label system for arbitrary label types
+- DefaultLabelSystem for numeric labels
+- AbsurdityLabelSystem for interval-valued fuzzy numbers
+- Labeled simplicial complex with query support
+- Range queries and predicate-based filters
+- Absurdity metrics with confidence and uncertainty
+- All tests passing (basic, dynamic, labels)
+
+### v0.1.0
 - Basic simplex representation
 - Dynamic simplicial complex
 - Add/remove operations

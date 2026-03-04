@@ -18,9 +18,7 @@ void test_basic_labels() {
     SimplexID tri = complex.add_triangle(v0, v1, v2);
 
     // Set labels
-    std::cout << "  v0=" << v0 << ", v1=" << v1 << ", v2=" << v2 << ", tri=" << tri << std::endl;
     complex.set_label(v0, 0.1);
-    std::cout << "  Set label for v0: 0.1" << std::endl;
     complex.set_label(v1, 0.5);
     complex.set_label(v2, 0.9);
     complex.set_label(tri, 0.7);
@@ -28,7 +26,6 @@ void test_basic_labels() {
     // Get labels
     auto label_v0 = complex.get_label(v0);
     assert(label_v0.has_value());
-    std::cout << "  Expected: 0.1, Got: " << *label_v0 << std::endl;
     assert(*label_v0 == 0.1);
 
     auto label_tri = complex.get_label(tri);
@@ -206,7 +203,6 @@ void test_absurdity_labels() {
 
     // Find high absurdity
     auto high = complex.label_system().find_high_absurdity(0.6);
-    std::cout << "  High absurdity count: " << high.size() << " (expected 2)" << std::endl;
     assert(high.size() == 2);
 
     // Find low absurdity
