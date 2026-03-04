@@ -77,7 +77,7 @@ public:
     /**
      * @brief Get all vertex IDs
      */
-    const std::vector<VertexID>& get_vertices() const { return vertices_; }
+    std::vector<VertexID> get_vertices() const;
 
     /**
      * @brief Get all simplices
@@ -134,10 +134,9 @@ public:
     /**
      * @brief Get the number of vertices
      */
-    size_t vertex_count() const { return vertices_.size(); }
+    size_t vertex_count() const;
 
 private:
-    std::vector<VertexID> vertices_;
     std::unordered_map<SimplexID, Simplex> simplices_;
     SimplexID next_simplex_id_;
 

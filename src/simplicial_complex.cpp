@@ -8,10 +8,19 @@ namespace cebu {
 SimplicialComplex::SimplicialComplex() : next_simplex_id_(0) {}
 
 VertexID SimplicialComplex::add_vertex() {
-    VertexID new_id = static_cast<VertexID>(vertices_.size());
-    vertices_.push_back(new_id);
-    vertex_to_simplices_[new_id] = std::unordered_set<SimplexID>();
-    return new_id;
+    // Create vertex as a 0-simplex with a single vertex
+    // The vertex ID is the same as its simplex ID
+    SimplexID new_id = next_simplex_id_++;
+    VertexID vertex_id = static_cast<VertexID>(new_id);
+
+    // Create 0-simplex (vertex)
+    auto result = simplices_.emplace(new_id, Simplex({vertex_id}, new_id));
+    Simplex& simplex = result.first->second;
+
+    // Update vertex-to-simplex mapping
+    vertex_to_simplices_[vertex_id] = std::unordered_set<SimplexID>({new_id});
+
+    return vertex_id;
 }
 
 SimplexID SimplicialComplex::add_edge(VertexID v1, VertexID v2) {
@@ -30,7 +39,7 @@ SimplexID SimplicialComplex::add_simplex(const std::vector<VertexID>& vertices) 
 
     // Check if all vertices exist
     for (VertexID v : vertices) {
-        if (v >= vertices_.size()) {
+        if (vertex_to_simplices_.find(v) == vertex_to_simplices_.end()) {
             throw std::invalid_argument("Vertex does not exist");
         }
     }
@@ -238,7 +247,8 @@ bool SimplicialComplex::remove_simplex(SimplexID simplex_id, bool cascade) {
 }
 
 bool SimplicialComplex::remove_vertex(VertexID vertex_id, bool cascade) {
-    if (vertex_id >= vertices_.size()) {
+    // Check if vertex exists
+    if (vertex_to_simplices_.find(vertex_id) == vertex_to_simplices_.end()) {
         return false;
     }
 
@@ -253,8 +263,10 @@ bool SimplicialComplex::remove_vertex(VertexID vertex_id, bool cascade) {
         }
     }
 
-    // Remove vertex from vertex list and mapping
-    vertices_[vertex_id] = INVALID_VERTEX_ID;
+    // Remove vertex simplex
+    remove_simplex(vertex_id, false);
+
+    // Remove vertex mapping
     vertex_to_simplices_.erase(vertex_id);
 
     return true;
