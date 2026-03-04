@@ -49,6 +49,13 @@ add_executable(test_timeline
 
 target_link_libraries(test_timeline cebu_core)
 
+# Topology operations test executable
+add_executable(test_topology_ops
+    tests/test_topology_ops.cpp
+)
+
+target_link_libraries(test_topology_ops cebu_core)
+
 # Enable testing
 enable_testing()
 add_test(NAME basic_test COMMAND test_basic)
@@ -56,3 +63,4 @@ add_test(NAME dynamic_test COMMAND test_dynamic)
 add_test(NAME labels_test COMMAND test_labels)
 add_test(NAME story_events_test COMMAND test_story_events)
 add_test(NAME timeline_test COMMAND test_timeline)
+add_test(NAME topology_ops_test COMMAND test_topology_ops)
