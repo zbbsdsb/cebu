@@ -2,6 +2,7 @@
 
 #include "cebu/simplicial_complex.h"
 #include "cebu/label.h"
+#include "cebu/absurdity.h"
 #include <memory>
 #include <type_traits>
 
