@@ -12,6 +12,7 @@ cmake-build-*/
 *.gch
 *.pch
 
+
 # Compiled Dynamic libraries
 *.so
 *.dylib
@@ -54,3 +55,4 @@ tests/build/
 docs/_build/
 docs/.doctrees/
 prepare/
+.codebuddy/
