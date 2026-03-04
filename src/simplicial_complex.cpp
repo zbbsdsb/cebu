@@ -272,4 +272,17 @@ bool SimplicialComplex::remove_vertex(VertexID vertex_id, bool cascade) {
     return true;
 }
 
+std::vector<VertexID> SimplicialComplex::get_vertices() const {
+    std::vector<VertexID> vertices;
+    vertices.reserve(vertex_to_simplices_.size());
+    for (const auto& [vertex_id, simplices] : vertex_to_simplices_) {
+        vertices.push_back(vertex_id);
+    }
+    return vertices;
+}
+
+size_t SimplicialComplex::vertex_count() const {
+    return vertex_to_simplices_.size();
+}
+
 } // namespace cebu
