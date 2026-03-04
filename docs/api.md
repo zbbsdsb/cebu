@@ -494,14 +494,267 @@ AbsurdityContext ctx(0.9, 0.8, 0.0, 0.5, 0.1);
 complex.label_system().update_all(ctx);
 ```
 
+## Phase 3: Narrative-Driven Topology (v0.3.0)
+
+### StoryEvent
+
+A `StoryEvent` represents a narrative event that affects the simplicial complex.
+
+```cpp
+struct StoryEvent {
+    EventID id;                           // Unique event identifier
+    std::string description;              // Human-readable description
+    double timestamp;                     // Event time on timeline
+    std::vector<SimplexID> affected_simplices;  // Simplices influenced by this event
+    AbsurdityContext impact;              // Context driving absurdity evolution
+};
+```
+
+### StoryEventSystem
+
+Manages a collection of story events with time-based queries.
+
+```cpp
+class StoryEventSystem {
+public:
+    StoryEventSystem();
+
+    // Add a new event to the timeline
+    EventID add_event(const std::string& description, double timestamp,
+                     const std::vector<SimplexID>& simplices,
+                     const AbsurdityContext& impact);
+
+    // Get all events within a time range [start, end]
+    std::vector<StoryEvent> get_events_in_range(double start, double end) const;
+
+    // Get event by ID
+    const StoryEvent& get_event(EventID id) const;
+
+    // Remove an event from the system
+    void remove_event(EventID id);
+
+    // Get total number of events
+    size_t event_count() const;
+
+    // Get all events (unsorted)
+    const std::unordered_map<EventID, StoryEvent>& get_all_events() const;
+
+    // Clear all events
+    void clear();
+};
+```
+
+### Timeline
+
+Manages a timeline for narrative events with milestones.
+
+```cpp
+class Timeline {
+public:
+    explicit Timeline(double start = 0.0, double end = 1.0);
+
+    // Set timeline bounds
+    void set_bounds(double start, double end);
+
+    // Get current timeline bounds
+    std::pair<double, double> get_bounds() const;
+
+    // Check if a timestamp is within timeline bounds
+    bool contains(double timestamp) const;
+
+    // Get total duration of timeline
+    double duration() const;
+
+    // Add a milestone at a specific time
+    void add_milestone(double time, const std::string& label);
+
+    // Get all milestones sorted by time
+    std::vector<std::pair<double, std::string>> get_milestones() const;
+
+    // Get milestones in a time range
+    std::vector<std::pair<double, std::string>> get_milestones_in_range(double start, double end) const;
+
+    // Get milestone at specific time, or nullptr if not found
+    const std::string* get_milestone_at(double time) const;
+
+    // Remove milestone at specific time
+    bool remove_milestone(double time);
+
+    // Clear all milestones
+    void clear_milestones();
+
+    // Get number of milestones
+    size_t milestone_count() const;
+
+    // Get next milestone time after given time
+    const std::string* get_next_milestone(double time) const;
+
+    // Get previous milestone time before given time
+    const std::string* get_previous_milestone(double time) const;
+};
+```
+
+### TopologyOperations
+
+Provides topological operations on simplicial complexes.
+
+```cpp
+class TopologyOperations {
+public:
+    // Glue two vertices together (identify them as the same vertex)
+    static VertexID glue_vertices(SimplicialComplex& complex,
+                              VertexID v1, VertexID v2);
+
+    // Compute the boundary of the complex
+    static std::vector<SimplexID> compute_boundary(const SimplicialComplex& complex);
+
+    // Get all simplices of a specific dimension
+    static std::vector<SimplexID> get_simplices_of_dimension(
+        const SimplicialComplex& complex, size_t dimension);
+
+    // Compute the connected components of the complex
+    static std::vector<std::vector<SimplexID>> compute_connected_components(
+        const SimplicialComplex& complex);
+};
+```
+
+### SimplicialComplexNarrative
+
+Narrative-driven simplicial complex with timeline and events.
+
+```cpp
+template<typename LabelType>
+class SimplicialComplexNarrative : public SimplicialComplexLabeled<LabelType> {
+public:
+    using Base = SimplicialComplexLabeled<LabelType>;
+
+    // Constructor
+    SimplicialComplexNarrative(
+        double timeline_start = 0.0,
+        double timeline_end = 1.0);
+
+    // Constructor with custom label system
+    template<typename LabelSystemType>
+    SimplicialComplexNarrative(
+        std::unique_ptr<LabelSystemType> label_system,
+        double timeline_start = 0.0,
+        double timeline_end = 1.0);
+
+    // Get timeline
+    Timeline& timeline();
+    const Timeline& timeline() const;
+
+    // Get event system
+    StoryEventSystem& events();
+    const StoryEventSystem& events() const;
+
+    // Evolve complex to a specific timestamp
+    void evolve_to(double timestamp);
+
+    // Apply a single event to complex
+    void apply_event(const StoryEvent& event);
+
+    // Add event and optionally apply it
+    EventID add_event(const std::string& description, double timestamp,
+                    const std::vector<SimplexID>& simplices,
+                    const AbsurdityContext& impact,
+                    bool apply_now = false);
+
+    // Get current simulation time
+    double current_time() const;
+
+    // Reset simulation to beginning of timeline
+    void reset();
+};
+```
+
+### Convenience Aliases
+
+```cpp
+using SimplicialComplexNarrativeDouble = SimplicialComplexNarrative<double>;
+using SimplicialComplexNarrativeAbsurdity = SimplicialComplexNarrative<Absurdity>;
+```
+
+### Usage Example: Narrative-Driven Topology
+
+```cpp
+#include "cebu/simplicial_complex_narrative.h"
+
+using namespace cebu;
+
+SimplicialComplexNarrativeAbsurdity complex(0.0, 100.0);
+
+// Create triangle
+VertexID v0 = complex.add_vertex();
+VertexID v1 = complex.add_vertex();
+VertexID v2 = complex.add_vertex();
+SimplexID tri = complex.add_triangle(v0, v1, v2);
+
+// Set initial absurdity
+complex.set_label(tri, Absurdity(0.3, 0.4, 0.8));
+
+// Add timeline milestones
+complex.timeline().add_milestone(25.0, "First Act");
+complex.timeline().add_milestone(50.0, "Climax");
+complex.timeline().add_milestone(75.0, "Resolution");
+
+// Add events
+AbsurdityContext ctx1{0.5, 0.3, 0.4, 0.6, 1.0};
+complex.add_event("Dramatic twist", 30.0, {tri}, ctx1);
+
+AbsurdityContext ctx2{0.8, 0.6, 0.7, 0.9, 1.0};
+complex.add_event("Plot resolution", 70.0, {tri}, ctx2);
+
+// Evolve through timeline
+complex.evolve_to(50.0);  // Apply first event
+
+// Get current label
+auto label = complex.get_label(tri);
+if (label) {
+    double absurdity = label->midpoint();
+}
+```
+
+### Usage Example: Topological Operations
+
+```cpp
+#include "cebu/topology_operations.h"
+
+using namespace cebu;
+
+SimplicialComplex complex;
+
+VertexID v0 = complex.add_vertex();
+VertexID v1 = complex.add_vertex();
+VertexID v2 = complex.add_vertex();
+VertexID v3 = complex.add_vertex();
+
+// Create edges
+complex.add_edge(v0, v1);
+complex.add_edge(v1, v2);
+complex.add_edge(v2, v3);
+
+// Glue v0 into v1 (identify them)
+TopologyOperations::glue_vertices(complex, v0, v1);
+
+// Compute boundary
+auto boundary = TopologyOperations::compute_boundary(complex);
+
+// Get all vertices (0-simplices)
+auto vertices = TopologyOperations::get_simplices_of_dimension(complex, 0);
+
+// Compute connected components
+auto components = TopologyOperations::compute_connected_components(complex);
+```
+
 ## Future Extensions
 
-- Morph operations for dynamic topology changes
-- Non-Hausdorff topology support (gluing operations)
-- Event system for external integration
-- Serialization/deserialization
-- Narrative layer for story-driven topology
-- Visualization tools
+- Advanced gluing operations (simplex boundary identification)
+- Non-Hausdorff topology support for narrative-driven topology
+- Event composition and undo/redo
+- Serialization/deserialization of narrative state
+- Visualization of timeline evolution
+- Absurdity-driven topological transformations
 
 ## License
 

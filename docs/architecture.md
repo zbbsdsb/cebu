@@ -28,7 +28,62 @@ cebu/
 
 ## Core Components
 
-### 0. Label System (v0.2.0+)
+### 0. Narrative Layer (v0.3.0+)
+
+**Purpose**: Enables timeline-driven narrative evolution of simplicial complexes.
+
+**Design Rationale**:
+- Separation of concerns: timeline, events, and complex management
+- Event-driven architecture for flexible narrative composition
+- Integration with label system for absurdity evolution
+
+**Key Classes**:
+
+1. **StoryEvent**
+   - Represents a single narrative event
+   - Contains timestamp, description, and affected simplices
+   - Carries AbsurdityContext for label evolution
+
+2. **StoryEventSystem**
+   - Manages collection of story events
+   - Time-range queries for event retrieval
+   - Validations for timestamps and event operations
+
+3. **Timeline**
+   - Manages narrative time bounds [start, end]
+   - Supports milestones at specific times
+   - Navigation methods (next/previous milestone)
+   - Validation for event timestamps
+
+4. **TopologyOperations**
+   - Static utility class for topological operations
+   - Vertex gluing (identification)
+   - Boundary computation
+   - Connected components analysis
+   - Dimension filtering
+
+5. **SimplicialComplexNarrative<LabelType>**
+   - Extends SimplicialComplexLabeled with narrative support
+   - Integrates timeline and event system
+   - Evolves labels based on events through timeline
+   - Template-based for flexible label types
+
+**Data Flow**:
+```
+Timeline → Events → Simplices → Labels
+   ↓           ↓           ↓          ↓
+Milestones  Context    Selection   Evolution
+```
+
+**Evolution Process**:
+1. User calls `evolve_to(timestamp)`
+2. Timeline validates timestamp
+3. Event system returns events in range [start, timestamp]
+4. For each event, apply to affected simplices
+5. Labels evolve based on AbsurdityContext
+6. Current time updates to timestamp
+
+### 1. Label System (v0.2.0+)
 
 **Purpose**: Attaches semantic data to simplices for narrative-driven topology.
 
@@ -380,7 +435,15 @@ Current implementation is **not thread-safe**:
 
 ## Version History
 
-### v0.2.0 (Current) - Label System & Unified Topology
+### v0.3.0 (Current) - Narrative-Driven Topology
+- **Story Event System**: Timeline-based narrative events affecting simplices
+- **Timeline Management**: Time bounds, milestones, and navigation
+- **Topology Operations**: Vertex gluing, boundary computation, connected components
+- **Narrative Complex**: Integration of events, timeline, and label evolution
+- **Absurdity Evolution**: Dynamic label changes based on narrative context
+- All tests passing (basic, dynamic, labels, story_events, timeline, topology_ops, narrative)
+
+### v0.2.0 - Label System & Unified Topology
 - **Unified Simplex Model**: Vertices are now 0-simplices
 - Template-based label system for arbitrary label types
 - DefaultLabelSystem for numeric labels
