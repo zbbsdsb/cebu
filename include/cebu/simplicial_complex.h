@@ -10,13 +10,13 @@
 namespace cebu {
 
 /**
- * @brief Static simplicial complex class
+ * @brief Dynamic simplicial complex class
  *
  * A simplicial complex is a set of simplices that satisfies:
  * 1. If simplex A is in the complex, all faces of A are also in the complex
  * 2. The intersection of two simplices is a common face (or empty)
  *
- * This implementation provides a static complex that can add simplices but does not support removal.
+ * This implementation provides a dynamic complex that supports both adding and removing simplices.
  */
 class SimplicialComplex {
 public:
@@ -57,6 +57,22 @@ public:
      * @throw std::invalid_argument If vertices do not exist or insufficient count
      */
     SimplexID add_simplex(const std::vector<VertexID>& vertices);
+
+    /**
+     * @brief Remove a simplex from the complex
+     * @param simplex_id ID of the simplex to remove
+     * @param cascade If true, also remove all simplices that contain this simplex
+     * @return true if the simplex was removed, false if it didn't exist
+     */
+    bool remove_simplex(SimplexID simplex_id, bool cascade = false);
+
+    /**
+     * @brief Remove a vertex from the complex
+     * @param vertex_id ID of the vertex to remove
+     * @param cascade If true, also remove all simplices that contain this vertex
+     * @return true if the vertex was removed, false if it didn't exist
+     */
+    bool remove_vertex(VertexID vertex_id, bool cascade = true);
 
     /**
      * @brief Get all vertex IDs
@@ -132,6 +148,18 @@ private:
      * @brief Compute a unique identifier for a simplex based on its vertex list (for duplicate checking)
      */
     std::string compute_hash(const std::vector<VertexID>& vertices) const;
+
+    /**
+     * @brief Remove simplex from adjacency relations
+     * @param simplex_id ID of the simplex to remove from adjacency lists
+     */
+    void remove_from_adjacency(SimplexID simplex_id);
+
+    /**
+     * @brief Remove simplex from vertex mappings
+     * @param simplex_id ID of the simplex to remove
+     */
+    void remove_from_vertex_mappings(SimplexID simplex_id);
 };
 
 } // namespace cebu

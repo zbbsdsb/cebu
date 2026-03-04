@@ -20,6 +20,14 @@ add_executable(test_basic
 
 target_link_libraries(test_basic cebu_core)
 
+# Dynamic test executable
+add_executable(test_dynamic
+    tests/test_dynamic.cpp
+)
+
+target_link_libraries(test_dynamic cebu_core)
+
 # Enable testing
 enable_testing()
 add_test(NAME basic_test COMMAND test_basic)
+add_test(NAME dynamic_test COMMAND test_dynamic)

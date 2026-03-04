@@ -9,6 +9,8 @@ namespace cebu {
 using SimplexID = uint64_t;
 using VertexID = uint32_t;
 
+constexpr VertexID INVALID_VERTEX_ID = static_cast<VertexID>(-1);
+
 /**
  * @brief Simplex class representing a simplex (vertex, edge, triangle, etc.)
  *

@@ -160,4 +160,104 @@ std::string SimplicialComplex::compute_hash(
     return oss.str();
 }
 
+void SimplicialComplex::remove_from_adjacency(SimplexID simplex_id) {
+    // Remove this simplex from all its neighbors' adjacency lists
+    auto it = simplices_.find(simplex_id);
+    if (it == simplices_.end()) return;
+
+    const Simplex& simplex = it->second;
+    for (SimplexID neighbor_id : simplex.neighbors()) {
+        auto neighbor_it = simplices_.find(neighbor_id);
+        if (neighbor_it != simplices_.end()) {
+            const_cast<Simplex&>(neighbor_it->second).remove_neighbor(simplex_id);
+        }
+    }
+}
+
+void SimplicialComplex::remove_from_vertex_mappings(SimplexID simplex_id) {
+    // Remove this simplex from all vertices that contain it
+    auto it = simplices_.find(simplex_id);
+    if (it == simplices_.end()) return;
+
+    const Simplex& simplex = it->second;
+    for (VertexID v : simplex.vertices()) {
+        auto v_it = vertex_to_simplices_.find(v);
+        if (v_it != vertex_to_simplices_.end()) {
+            v_it->second.erase(simplex_id);
+            if (v_it->second.empty()) {
+                vertex_to_simplices_.erase(v_it);
+            }
+        }
+    }
+}
+
+bool SimplicialComplex::remove_simplex(SimplexID simplex_id, bool cascade) {
+    auto it = simplices_.find(simplex_id);
+    if (it == simplices_.end()) {
+        return false;
+    }
+
+    if (cascade) {
+        // Collect all simplices that contain this simplex as a face
+        std::vector<SimplexID> to_remove;
+        for (const auto& [id, simplex] : simplices_) {
+            if (id == simplex_id) continue;
+
+            const auto& vertices = simplex.vertices();
+            const auto& target_vertices = it->second.vertices();
+
+            // Check if the target simplex is a face of this simplex
+            bool contains = true;
+            if (vertices.size() > target_vertices.size()) {
+                for (VertexID v : target_vertices) {
+                    if (std::find(vertices.begin(), vertices.end(), v) == vertices.end()) {
+                        contains = false;
+                        break;
+                    }
+                }
+                if (contains) {
+                    to_remove.push_back(id);
+                }
+            }
+        }
+
+        // Recursively remove simplices that contain this simplex
+        for (SimplexID id : to_remove) {
+            remove_simplex(id, true);
+        }
+    }
+
+    // Remove from adjacency relations and vertex mappings
+    remove_from_adjacency(simplex_id);
+    remove_from_vertex_mappings(simplex_id);
+
+    // Remove the simplex itself
+    simplices_.erase(it);
+
+    return true;
+}
+
+bool SimplicialComplex::remove_vertex(VertexID vertex_id, bool cascade) {
+    if (vertex_id >= vertices_.size()) {
+        return false;
+    }
+
+    if (cascade) {
+        // Remove all simplices that contain this vertex
+        auto it = vertex_to_simplices_.find(vertex_id);
+        if (it != vertex_to_simplices_.end()) {
+            std::vector<SimplexID> to_remove(it->second.begin(), it->second.end());
+            for (SimplexID simplex_id : to_remove) {
+                remove_simplex(simplex_id, false);
+            }
+        }
+    }
+
+    // Remove vertex from vertex list and mapping
+    vertices_[vertex_id] = INVALID_VERTEX_ID;
+    vertex_to_simplices_.erase(vertex_id);
+
+    return true;
+}
+
 } // namespace cebu
