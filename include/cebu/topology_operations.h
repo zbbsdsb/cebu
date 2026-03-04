@@ -29,11 +29,12 @@ public:
             throw std::invalid_argument("Cannot glue vertex to itself");
         }
 
-        // Check if vertices exist
-        if (!complex.has_vertex(v1)) {
+        // Check if vertices exist by checking if they are in vertex_to_simplices mapping
+        // We use has_simplex since vertices are 0-simplices
+        if (!complex.has_simplex(v1)) {
             throw std::invalid_argument("Vertex v1 does not exist");
         }
-        if (!complex.has_vertex(v2)) {
+        if (!complex.has_simplex(v2)) {
             throw std::invalid_argument("Vertex v2 does not exist");
         }
 
@@ -52,7 +53,7 @@ public:
             const Simplex& simplex = complex.get_simplex(sid);
             std::vector<VertexID> new_vertices;
 
-            for (VertexID vid : simplex.get_vertices()) {
+            for (VertexID vid : simplex.vertices()) {
                 if (vid == v1) {
                     new_vertices.push_back(v2);
                 } else {
@@ -81,13 +82,13 @@ public:
     static std::vector<SimplexID> compute_boundary(const SimplicialComplex& complex) {
         std::vector<SimplexID> boundary;
 
-        for (const auto& pair : complex.get_all_simplices()) {
+        for (const auto& pair : complex.get_simplices()) {
             SimplexID sid = pair.first;
             const Simplex& simplex = pair.second;
 
             // Check if this simplex is a face of any higher-dimensional simplex
             bool is_face = false;
-            for (const auto& other_pair : complex.get_all_simplices()) {
+            for (const auto& other_pair : complex.get_simplices()) {
                 SimplexID other_sid = other_pair.first;
                 const Simplex& other = other_pair.second;
 
@@ -120,7 +121,7 @@ public:
         const SimplicialComplex& complex, size_t dimension) {
 
         std::vector<SimplexID> result;
-        for (const auto& pair : complex.get_all_simplices()) {
+        for (const auto& pair : complex.get_simplices()) {
             if (pair.second.dimension() == dimension) {
                 result.push_back(pair.first);
             }
@@ -138,7 +139,7 @@ public:
         std::unordered_set<SimplexID> visited;
         std::vector<std::vector<SimplexID>> components;
 
-        for (const auto& pair : complex.get_all_simplices()) {
+        for (const auto& pair : complex.get_simplices()) {
             SimplexID start = pair.first;
 
             if (visited.count(start)) {
@@ -162,7 +163,7 @@ public:
 
                 // Add neighbors to queue
                 const Simplex& simplex = complex.get_simplex(current);
-                for (SimplexID neighbor : simplex.get_neighbors()) {
+                for (SimplexID neighbor : simplex.neighbors()) {
                     if (!visited.count(neighbor)) {
                         queue.push_back(neighbor);
                     }
@@ -181,17 +182,17 @@ private:
     /// Check if simplex a is a face of simplex b
     static bool is_face_of(const Simplex& a, const Simplex& b) {
         // a must have fewer vertices than b
-        if (a.get_vertices().size() >= b.get_vertices().size()) {
+        if (a.vertices().size() >= b.vertices().size()) {
             return false;
         }
 
         // All vertices of a must be in b
         std::unordered_set<VertexID> b_vertices(
-            b.get_vertices().begin(),
-            b.get_vertices().end()
+            b.vertices().begin(),
+            b.vertices().end()
         );
 
-        for (VertexID vid : a.get_vertices()) {
+        for (VertexID vid : a.vertices()) {
             if (b_vertices.find(vid) == b_vertices.end()) {
                 return false;
             }
