@@ -21,7 +21,7 @@ void test_glue_vertices_basic() {
     VertexID result = TopologyOperations::glue_vertices(complex, v0, v1);
 
     assert(result == v1);
-    assert(!complex.has_vertex(v0));
+    assert(!complex.has_simplex(v0));  // v0 no longer exists
     assert(complex.vertex_count() == 2);
 
     // Edge e01 should now be between v1 and v1 (degenerate edge)
@@ -103,11 +103,12 @@ void test_compute_boundary_edge() {
 
     auto boundary = TopologyOperations::compute_boundary(complex);
 
-    // Edge's boundary should be the two vertices
-    assert(boundary.size() == 2);
-    assert(std::find(boundary.begin(), boundary.end(), v0) != boundary.end());
-    assert(std::find(boundary.begin(), boundary.end(), v1) != boundary.end());
-    assert(std::find(boundary.begin(), boundary.end(), edge) == boundary.end());
+    // Edge is not a face of any higher-dimensional simplex, so it's on boundary
+    // Vertices are faces of the edge, so they are NOT on boundary
+    assert(boundary.size() == 1);
+    assert(boundary[0] == edge);
+    assert(std::find(boundary.begin(), boundary.end(), v0) == boundary.end());
+    assert(std::find(boundary.begin(), boundary.end(), v1) == boundary.end());
 
     std::cout << "  OK: Compute boundary edge works" << std::endl;
 }
@@ -125,13 +126,13 @@ void test_compute_boundary_triangle() {
 
     auto boundary = TopologyOperations::compute_boundary(complex);
 
-    // Triangle's boundary should be the three vertices
-    assert(boundary.size() == 3);
-    assert(std::find(boundary.begin(), boundary.end(), v0) != boundary.end());
-    assert(std::find(boundary.begin(), boundary.end(), v1) != boundary.end());
-    assert(std::find(boundary.begin(), boundary.end(), v2) != boundary.end());
-    // Triangle itself and its edges should not be on boundary
-    assert(std::find(boundary.begin(), boundary.end(), tri) == boundary.end());
+    // Triangle is not a face of any higher-dimensional simplex, so it's on boundary
+    // Vertices and edges are faces of triangle, so they are NOT on boundary
+    assert(boundary.size() == 1);
+    assert(boundary[0] == tri);
+    assert(std::find(boundary.begin(), boundary.end(), v0) == boundary.end());
+    assert(std::find(boundary.begin(), boundary.end(), v1) == boundary.end());
+    assert(std::find(boundary.begin(), boundary.end(), v2) == boundary.end());
 
     std::cout << "  OK: Compute boundary triangle works" << std::endl;
 }
