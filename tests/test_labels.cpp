@@ -18,7 +18,9 @@ void test_basic_labels() {
     SimplexID tri = complex.add_triangle(v0, v1, v2);
 
     // Set labels
+    std::cout << "  v0=" << v0 << ", v1=" << v1 << ", v2=" << v2 << ", tri=" << tri << std::endl;
     complex.set_label(v0, 0.1);
+    std::cout << "  Set label for v0: 0.1" << std::endl;
     complex.set_label(v1, 0.5);
     complex.set_label(v2, 0.9);
     complex.set_label(tri, 0.7);
