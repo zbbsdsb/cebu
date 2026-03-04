@@ -159,10 +159,10 @@ public:
      */
     std::vector<SimplexID> find_in_range(double min, double max) const {
         std::vector<SimplexID> result;
-        for (const auto& [id, label] : labels_) {
-            double mid = label.midpoint();
+        for (const auto& pair : labels_) {
+            double mid = pair.second.midpoint();
             if (mid >= min && mid <= max) {
-                result.push_back(id);
+                result.push_back(pair.first);
             }
         }
         return result;
@@ -173,9 +173,9 @@ public:
      */
     std::vector<SimplexID> find_high_absurdity(double threshold = 0.7) const {
         std::vector<SimplexID> result;
-        for (const auto& [id, label] : labels_) {
-            if (label > threshold) {
-                result.push_back(id);
+        for (const auto& pair : labels_) {
+            if (pair.second > threshold) {
+                result.push_back(pair.first);
             }
         }
         return result;
@@ -186,9 +186,9 @@ public:
      */
     std::vector<SimplexID> find_low_absurdity(double threshold = 0.3) const {
         std::vector<SimplexID> result;
-        for (const auto& [id, label] : labels_) {
-            if (label < threshold) {
-                result.push_back(id);
+        for (const auto& pair : labels_) {
+            if (pair.second < threshold) {
+                result.push_back(pair.first);
             }
         }
         return result;
@@ -199,9 +199,9 @@ public:
      */
     std::vector<SimplexID> find_high_uncertainty(double threshold = 0.3) const {
         std::vector<SimplexID> result;
-        for (const auto& [id, label] : labels_) {
-            if (label.width() > threshold) {
-                result.push_back(id);
+        for (const auto& pair : labels_) {
+            if (pair.second.width() > threshold) {
+                result.push_back(pair.first);
             }
         }
         return result;
@@ -227,8 +227,8 @@ public:
      * @brief Update all absurdities based on context
      */
     void update_all(const AbsurdityContext& ctx) {
-        for (auto& [id, label] : labels_) {
-            label = label.update(ctx);
+        for (auto& pair : labels_) {
+            pair.second = pair.second.update(ctx);
         }
     }
 

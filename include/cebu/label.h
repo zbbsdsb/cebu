@@ -99,9 +99,9 @@ public:
 
     std::vector<SimplexID> find_by_label(Predicate predicate) const override {
         std::vector<SimplexID> result;
-        for (const auto& [id, label] : labels_) {
-            if (predicate(label)) {
-                result.push_back(id);
+        for (const auto& pair : labels_) {
+            if (predicate(pair.second)) {
+                result.push_back(pair.first);
             }
         }
         return result;
@@ -137,12 +137,15 @@ private:
 /**
  * @brief Label system optimized for numeric labels with range queries
  */
-class NumericLabelSystem : public LabelSystem<double> {
+template<>
+class DefaultLabelSystem<double> : public LabelSystem<double> {
 public:
-    NumericLabelSystem() = default;
-    ~NumericLabelSystem() override = default;
+    using Predicate = std::function<bool(const double&)>;
 
-    void set_label(SimplexID simplex_id, double label) override {
+    DefaultLabelSystem() = default;
+    ~DefaultLabelSystem() override = default;
+
+    void set_label(SimplexID simplex_id, const double& label) override {
         labels_[simplex_id] = label;
     }
 
@@ -156,9 +159,9 @@ public:
 
     std::vector<SimplexID> find_by_label(Predicate predicate) const override {
         std::vector<SimplexID> result;
-        for (const auto& [id, label] : labels_) {
-            if (predicate(label)) {
-                result.push_back(id);
+        for (const auto& pair : labels_) {
+            if (predicate(pair.second)) {
+                result.push_back(pair.first);
             }
         }
         return result;
@@ -171,9 +174,9 @@ public:
      */
     std::vector<SimplexID> find_in_range(double min, double max) const {
         std::vector<SimplexID> result;
-        for (const auto& [id, label] : labels_) {
-            if (label >= min && label <= max) {
-                result.push_back(id);
+        for (const auto& pair : labels_) {
+            if (pair.second >= min && pair.second <= max) {
+                result.push_back(pair.first);
             }
         }
         return result;
@@ -184,9 +187,9 @@ public:
      */
     std::vector<SimplexID> find_greater_than(double threshold) const {
         std::vector<SimplexID> result;
-        for (const auto& [id, label] : labels_) {
-            if (label > threshold) {
-                result.push_back(id);
+        for (const auto& pair : labels_) {
+            if (pair.second > threshold) {
+                result.push_back(pair.first);
             }
         }
         return result;
@@ -197,9 +200,9 @@ public:
      */
     std::vector<SimplexID> find_less_than(double threshold) const {
         std::vector<SimplexID> result;
-        for (const auto& [id, label] : labels_) {
-            if (label < threshold) {
-                result.push_back(id);
+        for (const auto& pair : labels_) {
+            if (pair.second < threshold) {
+                result.push_back(pair.first);
             }
         }
         return result;
@@ -219,6 +222,13 @@ public:
 
     void clear() override {
         labels_.clear();
+    }
+
+    /**
+     * @brief Get all labels
+     */
+    const std::unordered_map<SimplexID, double>& get_all_labels() const {
+        return labels_;
     }
 
     /**
@@ -251,8 +261,8 @@ public:
     std::optional<double> average_label() const {
         if (labels_.empty()) return std::nullopt;
         double sum = 0.0;
-        for (const auto& [id, label] : labels_) {
-            sum += label;
+        for (const auto& pair : labels_) {
+            sum += pair.second;
         }
         return sum / labels_.size();
     }
@@ -260,5 +270,8 @@ public:
 private:
     std::unordered_map<SimplexID, double> labels_;
 };
+
+// Alias for backward compatibility
+using NumericLabelSystem = DefaultLabelSystem<double>;
 
 } // namespace cebu

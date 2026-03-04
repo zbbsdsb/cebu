@@ -201,9 +201,10 @@ public:
     std::enable_if_t<std::is_arithmetic_v<T>, std::vector<SimplexID>>
     find_high_labels(double threshold = 0.7) const {
         std::vector<SimplexID> result;
-        for (const auto& [id, label] : static_cast<const DefaultLabelSystem<T>*>(label_system_.get())->get_all_labels()) {
-            if (label > threshold) {
-                result.push_back(id);
+        const auto& labels = static_cast<const DefaultLabelSystem<T>*>(label_system_.get())->get_all_labels();
+        for (const auto& pair : labels) {
+            if (pair.second > threshold) {
+                result.push_back(pair.first);
             }
         }
         return result;
@@ -216,9 +217,10 @@ public:
     std::enable_if_t<std::is_arithmetic_v<T>, std::vector<SimplexID>>
     find_low_labels(double threshold = 0.3) const {
         std::vector<SimplexID> result;
-        for (const auto& [id, label] : static_cast<const DefaultLabelSystem<T>*>(label_system_.get())->get_all_labels()) {
-            if (label < threshold) {
-                result.push_back(id);
+        const auto& labels = static_cast<const DefaultLabelSystem<T>*>(label_system_.get())->get_all_labels();
+        for (const auto& pair : labels) {
+            if (pair.second < threshold) {
+                result.push_back(pair.first);
             }
         }
         return result;
@@ -231,9 +233,10 @@ public:
     std::enable_if_t<std::is_arithmetic_v<T>, std::vector<SimplexID>>
     find_labels_in_range(double min, double max) const {
         std::vector<SimplexID> result;
-        for (const auto& [id, label] : static_cast<const DefaultLabelSystem<T>*>(label_system_.get())->get_all_labels()) {
-            if (label >= min && label <= max) {
-                result.push_back(id);
+        const auto& labels = static_cast<const DefaultLabelSystem<T>*>(label_system_.get())->get_all_labels();
+        for (const auto& pair : labels) {
+            if (pair.second >= min && pair.second <= max) {
+                result.push_back(pair.first);
             }
         }
         return result;
