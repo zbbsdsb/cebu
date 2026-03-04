@@ -184,15 +184,15 @@ public:
     /**
      * @brief Get access to the label system
      */
-    LabelSys& label_system() {
-        return *label_system_;
+    LabelSystemType& label_system() {
+        return *static_cast<LabelSystemType*>(label_system_.get());
     }
 
     /**
      * @brief Get const access to the label system
      */
-    const LabelSys& label_system() const {
-        return *label_system_;
+    const LabelSystemType& label_system() const {
+        return *static_cast<const LabelSystemType*>(label_system_.get());
     }
 
     /**
