@@ -168,19 +168,19 @@ void test_next_previous_milestone() {
     timeline.add_milestone(8.0, "C");
 
     // Next milestone
-    assert(timeline.get_next_milestone(1.0) == std::string("A"));
-    assert(timeline.get_next_milestone(2.0) == std::string("B"));
-    assert(timeline.get_next_milestone(5.0) == std::string("C"));
+    assert(*timeline.get_next_milestone(1.0) == std::string("A"));
+    assert(*timeline.get_next_milestone(2.0) == std::string("B"));
+    assert(*timeline.get_next_milestone(5.0) == std::string("C"));
     assert(timeline.get_next_milestone(8.0) == nullptr);
     assert(timeline.get_next_milestone(10.0) == nullptr);
 
     // Previous milestone
     assert(timeline.get_previous_milestone(1.0) == nullptr);
     assert(timeline.get_previous_milestone(2.0) == nullptr);
-    assert(timeline.get_previous_milestone(3.0) == std::string("A"));
-    assert(timeline.get_previous_milestone(5.0) == std::string("A"));
-    assert(timeline.get_previous_milestone(6.0) == std::string("B"));
-    assert(timeline.get_previous_milestone(10.0) == std::string("C"));
+    assert(*timeline.get_previous_milestone(3.0) == std::string("A"));
+    assert(*timeline.get_previous_milestone(5.0) == std::string("A"));
+    assert(*timeline.get_previous_milestone(6.0) == std::string("B"));
+    assert(*timeline.get_previous_milestone(10.0) == std::string("C"));
 
     std::cout << "  OK: Next/previous milestone works" << std::endl;
 }
