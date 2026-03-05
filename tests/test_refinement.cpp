@@ -14,7 +14,7 @@ void test_edge_refinement() {
     // Create an edge
     VertexID v0 = complex.add_vertex();
     VertexID v1 = complex.add_vertex();
-    EdgeID edge = complex.add_edge(v0, v1);
+    SimplexID edge = complex.add_edge(v0, v1);
     
     // Set a label on the edge
     complex.set_label(edge, 1.5);
@@ -248,7 +248,7 @@ void test_custom_label_function() {
     
     VertexID v0 = complex.add_vertex();
     VertexID v1 = complex.add_vertex();
-    EdgeID edge = complex.add_edge(v0, v1);
+    SimplexID edge = complex.add_edge(v0, v1);
     complex.set_label(edge, 10.0);
     
     // Custom function: divide label by index + 1
@@ -279,9 +279,9 @@ void test_adaptive_refinement() {
     VertexID v2 = complex.add_vertex();
     VertexID v3 = complex.add_vertex();
     
-    EdgeID e0 = complex.add_edge(v0, v1);
-    EdgeID e1 = complex.add_edge(v1, v2);
-    EdgeID e2 = complex.add_edge(v2, v3);
+    SimplexID e0 = complex.add_edge(v0, v1);
+    SimplexID e1 = complex.add_edge(v1, v2);
+    SimplexID e2 = complex.add_edge(v2, v3);
     
     complex.set_label(e0, 0.3);  // Low
     complex.set_label(e1, 0.8);  // High
@@ -314,7 +314,7 @@ void test_refinement_result_tracking() {
     VertexID v1 = complex.add_vertex();
     VertexID v2 = complex.add_vertex();
     
-    EdgeID edge = complex.add_edge(v0, v1);
+    SimplexID edge = complex.add_edge(v0, v1);
     SimplexID tri = complex.add_triangle(v0, v1, v2);
     
     complex.set_label(edge, 1.0);
@@ -343,8 +343,8 @@ void test_region_coarsening() {
     VertexID v1 = complex.add_vertex();
     VertexID v2 = complex.add_vertex();
     
-    EdgeID e0 = complex.add_edge(v0, v1);
-    EdgeID e1 = complex.add_edge(v1, v2);
+    SimplexID e0 = complex.add_edge(v0, v1);
+    SimplexID e1 = complex.add_edge(v1, v2);
     
     complex.set_label(e0, 1.0);
     complex.set_label(e1, 2.0);

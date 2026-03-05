@@ -11,7 +11,7 @@ namespace cebu {
 
 template<typename LabelType>
 RefinementResult SimplicialComplexRefinement<LabelType>::refine_edge(
-    EdgeID edge_id,
+    SimplexID edge_id,
     const RefinementOptions<LabelType>& options) {
     
     RefinementResult result;
@@ -48,8 +48,8 @@ RefinementResult SimplicialComplexRefinement<LabelType>::refine_edge(
     this->remove_simplex(edge_id, false);
     
     // Create two new edges: v0-mid and mid-v1
-    EdgeID edge0 = this->add_edge(v0, mid);
-    EdgeID edge1 = this->add_edge(mid, v1);
+    SimplexID edge0 = this->add_edge(v0, mid);
+    SimplexID edge1 = this->add_edge(mid, v1);
     
     result.new_simplices_count = 2;
     result.original_to_children[edge_id] = {edge0, edge1};
@@ -179,7 +179,7 @@ RefinementResult SimplicialComplexRefinement<LabelType>::refine_simplex(
     
     switch (dim) {
         case 1:
-            return refine_edge(static_cast<EdgeID>(simplex_id), options);
+            return refine_edge(simplex_id, options);
         case 2:
             return refine_triangle(simplex_id, options);
         default:
@@ -277,7 +277,7 @@ bool SimplicialComplexRefinement<LabelType>::coarsen_triangle(
     
     // Get the three corner vertices (connected to center)
     std::vector<VertexID> corners;
-    for (EdgeID e : edges) {
+    for (SimplexID e : edges) {
         auto vertices = this->get_vertices_of_simplex(e);
         VertexID corner = static_cast<VertexID>(
             vertices[0] == center_vertex_id ? vertices[1] : vertices[0]);
@@ -293,7 +293,7 @@ bool SimplicialComplexRefinement<LabelType>::coarsen_triangle(
     }
     
     // Remove edges and center vertex
-    for (EdgeID e : edges) {
+    for (SimplexID e : edges) {
         this->remove_simplex(e, false);
     }
     this->remove_vertex(center_vertex_id, false);
