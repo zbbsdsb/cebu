@@ -2,6 +2,7 @@
 #include <stdexcept>
 #include <cstring>
 #include <algorithm>
+#include <cmath>
 
 // Check if zlib is available
 #ifdef ZLIB_FOUND

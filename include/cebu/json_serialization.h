@@ -3,7 +3,7 @@
 #include "cebu/simplicial_complex.h"
 #include "cebu/simplicial_complex_labeled.h"
 #include "cebu/simplicial_complex_narrative.h"
-#include "cebu/simplicial_complex_refinement.h"
+#include "cebu/refinement.h"
 #include "cebu/simplicial_complex_non_hausdorff.h"
 #include "cebu/simplicial_complex_non_hausdorff_labeled.h"
 #include <nlohmann/json.hpp>
