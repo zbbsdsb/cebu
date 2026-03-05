@@ -1,8 +1,28 @@
 cmake_minimum_required(VERSION 3.14)
-project(cebu VERSION 0.7.0 LANGUAGES CXX)
+project(cebu VERSION 0.7.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Find and include dependencies
+find_package(nlohmann_json 3.2.0 QUIET)
+
+if (NOT nlohmann_json_FOUND)
+    # Fetch nlohmann/json if not found
+    include(FetchContent)
+    FetchContent_Declare(
+        json
+        URL https://github.com/nlohmann/json/releases/download/v3.11.2/json.tar.xz
+    )
+    FetchContent_MakeAvailable(json)
+endif()
+
+# Find ZLIB (optional)
+find_package(ZLIB QUIET)
+
+if (ZLIB_FOUND)
+    add_definitions(-DZLIB_FOUND)
+endif()
 
 # Include directories
 include_directories(${PROJECT_SOURCE_DIR}/include)
@@ -17,6 +37,8 @@ add_library(cebu_core
     src/refinement.cpp
     src/event_system.cpp
     src/persistence.cpp
+    src/json_serialization.cpp
+    src/compression.cpp
 )
 
 # Test executable
@@ -131,6 +153,27 @@ add_executable(test_persistence
 
 target_link_libraries(test_persistence cebu_core)
 
+# JSON serialization test executable
+add_executable(test_json_serialization
+    tests/test_json_serialization.cpp
+)
+
+target_link_libraries(test_json_serialization cebu_core)
+
+# Compression test executable
+add_executable(test_compression
+    tests/test_compression.cpp
+)
+
+target_link_libraries(test_compression cebu_core)
+
+# Non-Hausdorff serialization test executable
+add_executable(test_non_hausdorff_serialization
+    tests/test_non_hausdorff_serialization.cpp
+)
+
+target_link_libraries(test_non_hausdorff_serialization cebu_core)
+
 # Enable testing
 enable_testing()
 add_test(NAME basic_test COMMAND test_basic)
@@ -149,3 +192,6 @@ add_test(NAME refinement_test COMMAND test_refinement)
 add_test(NAME binary_serialization_test COMMAND test_binary_serialization)
 add_test(NAME event_system_test COMMAND test_event_system)
 add_test(NAME persistence_test COMMAND test_persistence)
+add_test(NAME json_serialization_test COMMAND test_json_serialization)
+add_test(NAME compression_test COMMAND test_compression)
+add_test(NAME non_hausdorff_serialization_test COMMAND test_non_hausdorff_serialization)
