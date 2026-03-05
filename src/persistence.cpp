@@ -1,4 +1,5 @@
 #include "cebu/persistence.h"
+#include "cebu/compression.h"
 #include <algorithm>
 #include <chrono>
 #include <ctime>
@@ -25,13 +26,15 @@ bool Persistence::save(const SimplicialComplex& complex,
 
         std::vector<uint8_t> final_data = data;
         if (options.compression == Compression::ZLIB) {
-            final_data = compress_zlib(data);
+            final_data = Compression::compress(
+                data, Compression::Algorithm::ZLIB, options.compression_level);
         }
 
-        return write_binary_file(filename, final_data, Compression::NONE);
+        return write_binary_file(filename, final_data);
     } else if (format == FileFormat::JSON) {
-        std::string json = JsonSerializer::serialize(complex);
-        return write_json_file(filename, json);
+        auto json = JsonSerializer::serialize(complex);
+        std::string json_str = JsonSerializer::pretty_print(json, 2);
+        return write_json_file(filename, json_str);
     }
 
     return false;
