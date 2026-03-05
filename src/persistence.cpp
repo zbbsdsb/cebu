@@ -54,7 +54,14 @@ LoadResult<SimplicialComplex> Persistence::load(
     try {
         if (format == FileFormat::BINARY) {
             auto data = read_binary_file(filename);
-            result.complex = BinarySerializer::deserialize(data);
+
+            // Check if compressed and decompress if needed
+            std::vector<uint8_t> decompressed_data = data;
+            if (Compression::is_zlib_compressed(data)) {
+                decompressed_data = Compression::decompress_zlib(data);
+            }
+
+            result.complex = BinarySerializer::deserialize(decompressed_data);
             result.success = true;
             result.metadata = create_metadata(result.complex, data.size());
 
@@ -66,7 +73,7 @@ LoadResult<SimplicialComplex> Persistence::load(
                 }
             }
         } else if (format == FileFormat::JSON) {
-            result.complex = JsonSerializer::deserialize_complex(
+            result.complex = JsonSerializer::deserialize(
                 read_json_file(filename));
             result.success = true;
             result.metadata = create_metadata(result.complex, 0);

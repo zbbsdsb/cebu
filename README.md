@@ -5,7 +5,7 @@ Cebu Space is a non-Hausdorff, narrative-driven topological structure where geom
 
 ## Features
 
-### Current (v0.7.0)
+### Current (v0.7.1)
 - Dynamic addition/removal of simplices (vertices, edges, faces, etc.)
 - Cascade deletion for maintaining complex consistency
 - Query simplices by dimension, connectivity, and containment
@@ -30,7 +30,18 @@ Cebu Space is a non-Hausdorff, narrative-driven topological structure where geom
 - Automatic file format detection (.bin, .ceb, .json)
 - File metadata extraction
 - File validation and integrity checking
-- Comprehensive test suite
+- **JSON serialization support** 🆕
+- Human-readable JSON format for debugging and data exchange
+- JSON Schema validation
+- Support for 6 complex types in JSON
+- **ZLIB compression support** 🆕
+- Automatic compression/decompression
+- Configurable compression levels (0-9)
+- Compression ratio estimation
+- **Non-Hausdorff serialization** 🆕
+- Equivalence classes preservation
+- Glue/separate operation history
+- **Comprehensive test suite**
 
 ### Planned
 - 3D tetrahedron refinement
@@ -163,6 +174,65 @@ std::cout << "File contains " << metadata.simplex_count << " simplices\n";
 if (Persistence::validate_file("data.bin")) {
     std::cout << "File is valid\n";
 }
+```
+
+### JSON Serialization
+
+```cpp
+#include "cebu/json_serialization.h"
+
+using namespace cebu;
+
+SimplicialComplexLabeled<double> complex;
+// ... build complex ...
+
+// Serialize to JSON
+auto j = JsonSerializer::serialize_labeled(complex);
+
+// Pretty print
+std::string pretty = JsonSerializer::pretty_print(j, 2);
+std::cout << pretty << std::endl;
+
+// Save to file
+std::ofstream out("complex.json");
+out << pretty;
+
+// Validate
+if (JsonSerializer::validate(j)) {
+    std::cout << "JSON is valid\n";
+}
+
+// Get schema
+auto schema = JsonSerializer::get_schema();
+```
+
+### Compression
+
+```cpp
+#include "cebu/compression.h"
+
+using namespace cebu;
+
+SimplicialComplex complex;
+// ... build complex ...
+
+// Save with compression
+PersistenceOptions options;
+options.compression = Compression::ZLIB;
+options.compression_level = 6;  // 0-9
+
+Persistence::save(complex, "compressed.bin", options);
+
+// Compression info
+std::vector<uint8_t> data = BinarySerializer::serialize(complex);
+auto [compressed, info] = Compression::compress_with_info(
+    data, Compression::Algorithm::ZLIB, 6);
+
+std::cout << "Compression ratio: " 
+          << (info.compression_ratio * 100.0) << "%\n";
+
+// Auto-detects compression on load
+auto result = Persistence::load("compressed.bin");
 ```
 
 ## Build
