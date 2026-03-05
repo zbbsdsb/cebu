@@ -16,6 +16,7 @@ add_library(cebu_core
     src/simplicial_complex_non_hausdorff.cpp
     src/refinement.cpp
     src/event_system.cpp
+    src/persistence.cpp
 )
 
 # Test executable
@@ -123,6 +124,13 @@ add_executable(test_event_system
 
 target_link_libraries(test_event_system cebu_core)
 
+# Persistence test executable
+add_executable(test_persistence
+    tests/test_persistence.cpp
+)
+
+target_link_libraries(test_persistence cebu_core)
+
 # Enable testing
 enable_testing()
 add_test(NAME basic_test COMMAND test_basic)
@@ -140,3 +148,4 @@ add_test(NAME non_hausdorff_test COMMAND test_non_hausdorff)
 add_test(NAME refinement_test COMMAND test_refinement)
 add_test(NAME binary_serialization_test COMMAND test_binary_serialization)
 add_test(NAME event_system_test COMMAND test_event_system)
+add_test(NAME persistence_test COMMAND test_persistence)
