@@ -660,11 +660,25 @@ private:
                                      size_t& pos,
                                      SimplicialComplexLabeled<LabelType>& complex) {
         uint64_t count = read_uint64(data, pos);
-        
+
         for (uint64_t i = 0; i < count; ++i) {
             SimplexID sid = read_uint64(data, pos);
             LabelType label = read_label<LabelType>(data, pos);
             complex.set_label(sid, label);
+        }
+    }
+
+    // Read refinement levels section
+    template<typename LabelType>
+    static void read_refinement_levels_section(const std::vector<uint8_t>& data,
+                                                size_t& pos,
+                                                SimplicialComplexRefinement<LabelType>& complex) {
+        uint64_t count = read_uint64(data, pos);
+
+        for (uint64_t i = 0; i < count; ++i) {
+            SimplexID sid = read_uint64(data, pos);
+            int32_t level = static_cast<int32_t>(read_uint32(data, pos));
+            complex.set_refinement_level(sid, level);
         }
     }
 
