@@ -70,6 +70,13 @@ add_executable(test_topology_ops_advanced
 
 target_link_libraries(test_topology_ops_advanced cebu_core)
 
+# Command history test executable
+add_executable(test_command_history
+    tests/test_command_history.cpp
+)
+
+target_link_libraries(test_command_history cebu_core)
+
 # Enable testing
 enable_testing()
 add_test(NAME basic_test COMMAND test_basic)
@@ -80,3 +87,4 @@ add_test(NAME timeline_test COMMAND test_timeline)
 add_test(NAME topology_ops_test COMMAND test_topology_ops)
 add_test(NAME narrative_test COMMAND test_narrative)
 add_test(NAME topology_ops_advanced_test COMMAND test_topology_ops_advanced)
+add_test(NAME command_history_test COMMAND test_command_history)
