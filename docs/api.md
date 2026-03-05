@@ -648,6 +648,213 @@ if (complex.can_undo()) {
     complex.undo();
 }
 
+### Event System
+
+The event system provides a publish-subscribe pattern for external integration with the simplicial complex.
+
+```cpp
+/// Event types for simplicial complex operations
+enum class EventType {
+    ON_ADD_SIMPLEX,          ///< A simplex was added
+    ON_REMOVE_SIMPLEX,       ///< A simplex was removed
+    ON_LABEL_CHANGE,         ///< A label was changed
+    ON_TOPOLOGY_CHANGE,      ///< Batch topology change began/ended
+    ON_REFINE_BEGIN,         ///< Refinement operation began
+    ON_REFINE_END,           ///< Refinement operation ended
+    ON_COARSEN_BEGIN,        ///< Coarsening operation began
+    ON_COARSEN_END,          ///< Coarsening operation ended
+    ON_GLUE,                 ///< Two simplices were glued together
+    ON_SEPARATE,             ///< Glued simplices were separated
+    ON_MORPH_BEGIN,          ///< Morph operation began
+    ON_MORPH_END             ///< Morph operation ended
+};
+
+/// Basic event data structure
+struct EventData {
+    EventType type;                                    ///< Event type
+    SimplexID simplex_id;                              ///< Affected simplex ID
+    size_t dimension;                                  ///< Dimension of simplex
+    std::string description;                           ///< Human-readable description
+    std::optional<SimplexID> related_id;              ///< Related simplex ID
+    std::vector<SimplexID> affected_simplices;         ///< List of affected simplices
+    std::string operation_name;                        ///< Name of operation
+};
+
+/// Label change event
+struct LabelChangeEvent : EventData {
+    bool label_was_added;          ///< True if label was added
+    bool label_exists_after;       ///< Whether label exists after the change
+};
+
+/// Refinement event
+struct RefinementEvent : EventData {
+    int refinement_level;          ///< Current refinement level
+    size_t new_simplices_count;    ///< Number of new simplices created
+    size_t new_vertices_count;     ///< Number of new vertices created
+};
+
+/// Coarsening event
+struct CoarseningEvent : EventData {
+    int refinement_level;          ///< Current refinement level
+    size_t removed_simplices_count;///< Number of simplices removed
+    size_t removed_vertices_count; ///< Number of vertices removed
+};
+
+/// Glue event
+struct GlueEvent : EventData {
+    GlueEvent(SimplexID sid1, SimplexID sid2, const std::string& desc);
+};
+
+/// Separate event
+struct SeparateEvent : EventData {
+    SeparateEvent(SimplexID sid1, SimplexID sid2, const std::string& desc);
+};
+
+/// Topology change event
+struct TopologyChangeEvent : EventData {
+    bool is_begin;                 ///< True if change began, false if ended
+};
+
+/// Typed callback function (with label access)
+template<typename LabelType>
+using EventCallback = std::function<void(const EventData&, const LabelType*)>;
+
+/// Generic callback function (without label access)
+using GenericEventCallback = std::function<void(const EventData&)>;
+
+/// Event system for managing callbacks and triggering events
+template<typename LabelType>
+class EventSystem {
+public:
+    /// Register a typed callback
+    CallbackID register_callback(EventType type, EventCallback<LabelType> callback);
+
+    /// Register a generic callback
+    CallbackID register_callback(EventType type, GenericEventCallback callback);
+
+    /// Unregister a callback
+    bool unregister_callback(EventType type, CallbackID callback_id);
+
+    /// Clear callbacks for a specific event type
+    void clear_callbacks(EventType type);
+
+    /// Clear all callbacks
+    void clear_all_callbacks();
+
+    /// Trigger an event
+    void trigger_event(const EventData& event, const LabelType* label = nullptr);
+
+    /// Enable/disable event triggering
+    void set_enabled(bool enabled);
+    bool is_enabled() const;
+
+    /// Enable/disable event batching
+    void set_batching(bool batching);
+    void flush_events();
+};
+
+/// Simplicial complex with automatic event triggering
+template<typename LabelType>
+class SimplicialComplexLabeledEvents
+    : public SimplicialComplexLabeled<LabelType>
+    , public EventEmitter<LabelType> {
+public:
+    // Inherits all methods from SimplicialComplexLabeled
+    // All operations automatically trigger events
+
+    /// Notify batch topology change begin
+    void notify_topology_change_begin(const std::string& operation_name,
+                                   const std::vector<SimplexID>& affected_simplices = {});
+
+    /// Notify batch topology change end
+    void notify_topology_change_end(const std::string& operation_name,
+                                 const std::vector<SimplexID>& affected_simplices = {});
+
+    /// Notify refinement begin
+    void notify_refine_begin(SimplexID simplex_id, int level);
+
+    /// Notify refinement end
+    void notify_refine_end(SimplexID simplex_id, int level,
+                          size_t new_simplices, size_t new_vertices);
+
+    /// Notify coarsening begin
+    void notify_coarsen_begin(SimplexID simplex_id, int level);
+
+    /// Notify coarsening end
+    void notify_coarsen_end(SimplexID simplex_id, int level,
+                           size_t removed_simplices, size_t removed_vertices);
+
+    /// Notify glue operation
+    void notify_glue(SimplexID id1, SimplexID id2, const std::string& description);
+
+    /// Notify separate operation
+    void notify_separate(SimplexID id1, SimplexID id2, const std::string& description);
+
+    /// Notify morph begin
+    void notify_morph_begin(const std::string& operation_name,
+                          const std::vector<SimplexID>& affected_simplices = {});
+
+    /// Notify morph end
+    void notify_morph_end(const std::string& operation_name,
+                        const std::vector<SimplexID>& affected_simplices = {});
+};
+```
+
+### Usage Example: Event System
+
+```cpp
+#include "cebu/simplicial_complex_labeled_events.h"
+
+using namespace cebu;
+
+SimplicialComplexLabeledEvents<double> complex;
+
+// Register callbacks
+complex.register_callback(EventType::ON_ADD_SIMPLEX,
+    [](const EventData& event, const double* label) {
+        std::cout << "Added simplex " << event.simplex_id << "\n";
+        if (label) {
+            std::cout << "  Label: " << *label << "\n";
+        }
+    });
+
+complex.register_callback(EventType::ON_LABEL_CHANGE,
+    [](const EventData& event, const double* label) {
+        std::cout << "Label changed for simplex " << event.simplex_id;
+        if (label) {
+            std::cout << " to " << *label;
+        }
+        std::cout << "\n";
+    });
+
+// Operations automatically trigger events
+VertexID v0 = complex.add_vertex();  // Triggers ON_ADD_SIMPLEX
+complex.set_label(v0, 0.8);         // Triggers ON_LABEL_CHANGE
+
+// Register generic callback (no label access)
+complex.register_callback(EventType::ON_REMOVE_SIMPLEX,
+    [](const EventData& event) {
+        std::cout << "Removed simplex " << event.simplex_id << "\n";
+    });
+
+complex.remove_simplex(v0);  // Triggers ON_REMOVE_SIMPLEX
+
+// Unregister callback
+auto callback_id = complex.register_callback(EventType::ON_ADD_SIMPLEX, ...);
+complex.unregister_callback(EventType::ON_ADD_SIMPLEX, callback_id);
+
+// Event batching for performance
+complex.set_events_enabled(false);
+complex.get_event_system().set_batching(true);
+
+for (int i = 0; i < 100; ++i) {
+    complex.add_vertex();  // Events queued
+}
+
+complex.set_events_enabled(true);
+complex.get_event_system().flush_events();  // Process all at once
+```
+
 // Redo
 if (complex.can_redo()) {
     complex.redo();

@@ -5,7 +5,7 @@ Cebu Space is a non-Hausdorff, narrative-driven topological structure where geom
 
 ## Features
 
-### Current (v0.5.0)
+### Current (v0.6.0)
 - Dynamic addition/removal of simplices (vertices, edges, faces, etc.)
 - Cascade deletion for maintaining complex consistency
 - Query simplices by dimension, connectivity, and containment
@@ -18,9 +18,13 @@ Cebu Space is a non-Hausdorff, narrative-driven topological structure where geom
 - Serialization/deserialization
 - Binary serialization with narrative support
 - Undo/redo system with command history
-- **Fractal dimension dynamic adjustment (Refinement/Coarsening)** 🆕
+- **Fractal dimension dynamic adjustment (Refinement/Coarsening)**
 - Adaptive mesh refinement based on labels
 - Multi-resolution analysis support
+- **Event system for external integration** 🆕
+- Publish-subscribe pattern for topology changes
+- 12 event types (add, remove, label change, refinement, etc.)
+- Automatic event triggering in all operations
 - Comprehensive test suite
 
 ### Planned
@@ -90,6 +94,35 @@ auto result = complex.adaptive_refine(
 );
 
 std::cout << "Refined " << result.new_simplices_count << " simplices\n";
+```
+
+### Event System
+
+```cpp
+#include "cebu/simplicial_complex_labeled_events.h"
+
+using namespace cebu;
+
+SimplicialComplexLabeledEvents<double> complex;
+
+// Register callbacks
+complex.register_callback(EventType::ON_ADD_SIMPLEX,
+    [](const EventData& event, const double* label) {
+        std::cout << "Added simplex " << event.simplex_id << "\n";
+    });
+
+complex.register_callback(EventType::ON_LABEL_CHANGE,
+    [](const EventData& event, const double* label) {
+        std::cout << "Label changed for simplex " << event.simplex_id;
+        if (label) {
+            std::cout << " to " << *label;
+        }
+        std::cout << "\n";
+    });
+
+// Operations automatically trigger events
+VertexID v0 = complex.add_vertex();  // Triggers ON_ADD_SIMPLEX
+complex.set_label(v0, 0.8);         // Triggers ON_LABEL_CHANGE
 ```
 
 ## Build

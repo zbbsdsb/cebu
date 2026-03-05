@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(cebu VERSION 0.4.0 LANGUAGES CXX)
+project(cebu VERSION 0.6.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -15,6 +15,7 @@ add_library(cebu_core
     src/equivalence_classes.cpp
     src/simplicial_complex_non_hausdorff.cpp
     src/refinement.cpp
+    src/event_system.cpp
 )
 
 # Test executable
@@ -115,6 +116,13 @@ add_executable(test_binary_serialization
 
 target_link_libraries(test_binary_serialization cebu_core)
 
+# Event system test executable
+add_executable(test_event_system
+    tests/test_event_system.cpp
+)
+
+target_link_libraries(test_event_system cebu_core)
+
 # Enable testing
 enable_testing()
 add_test(NAME basic_test COMMAND test_basic)
@@ -131,3 +139,4 @@ add_test(NAME equivalence_classes_test COMMAND test_equivalence_classes)
 add_test(NAME non_hausdorff_test COMMAND test_non_hausdorff)
 add_test(NAME refinement_test COMMAND test_refinement)
 add_test(NAME binary_serialization_test COMMAND test_binary_serialization)
+add_test(NAME event_system_test COMMAND test_event_system)
