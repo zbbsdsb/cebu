@@ -43,9 +43,6 @@ add_library(cebu_core
     src/snapshot_manager.cpp
     src/streaming_io.cpp
     src/version_control.cpp
-    src/bvh.cpp
-    src/octree.cpp
-    src/spatial_index.cpp
 )
 
 # Test executable
@@ -209,27 +206,6 @@ add_executable(test_version_control
 
 target_link_libraries(test_version_control cebu_core)
 
-# BVH test executable
-add_executable(test_bvh
-    tests/test_bvh.cpp
-)
-
-target_link_libraries(test_bvh cebu_core)
-
-# Octree test executable
-add_executable(test_octree
-    tests/test_octree.cpp
-)
-
-target_link_libraries(test_octree cebu_core)
-
-# Spatial index test executable
-add_executable(test_spatial_index
-    tests/test_spatial_index.cpp
-)
-
-target_link_libraries(test_spatial_index cebu_core)
-
 # Enable testing
 enable_testing()
 add_test(NAME basic_test COMMAND test_basic)
@@ -255,6 +231,3 @@ add_test(NAME change_tracker_test COMMAND test_change_tracker)
 add_test(NAME snapshot_manager_test COMMAND test_snapshot_manager)
 add_test(NAME streaming_io_test COMMAND test_streaming_io)
 add_test(NAME version_control_test COMMAND test_version_control)
-add_test(NAME bvh_test COMMAND test_bvh)
-add_test(NAME octree_test COMMAND test_octree)
-add_test(NAME spatial_index_test COMMAND test_spatial_index)

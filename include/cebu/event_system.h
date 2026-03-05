@@ -1,6 +1,5 @@
 #pragma once
 
-#include "cebu/types.h"
 #include "cebu/simplex.h"
 #include <functional>
 #include <unordered_map>
