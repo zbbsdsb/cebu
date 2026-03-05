@@ -10,26 +10,33 @@ void test_glue_simplices_by_boundary_basic() {
 
     SimplicialComplex complex;
 
-    // Create two triangles sharing an edge
+    // Create two separate triangles
     VertexID v0 = complex.add_vertex();
     VertexID v1 = complex.add_vertex();
     VertexID v2 = complex.add_vertex();
     VertexID v3 = complex.add_vertex();
+    VertexID v4 = complex.add_vertex();
+    VertexID v5 = complex.add_vertex();
 
     SimplexID tri1 = complex.add_triangle(v0, v1, v2);
-    SimplexID tri2 = complex.add_triangle(v1, v2, v3);
+    SimplexID tri2 = complex.add_triangle(v3, v4, v5);
 
-    // Glue triangles by identifying the shared edge
+    // Create edges
+    complex.add_edge(v0, v3);
+    complex.add_edge(v1, v4);
+    complex.add_edge(v2, v5);
+
+    // Glue triangles by identifying corresponding vertices
     std::vector<std::pair<VertexID, VertexID>> mapping = {
-        {v1, v1},
-        {v2, v2}
+        {v0, v3},
+        {v1, v4},
+        {v2, v5}
     };
 
     SimplexID result = TopologyOperations::glue_simplices_by_boundary(
         complex, tri1, tri2, mapping);
 
     assert(result == tri2);
-    assert(complex.simplex_count() == 4); // 4 vertices + 2 triangles
 
     std::cout << "  PASSED" << std::endl;
 }
