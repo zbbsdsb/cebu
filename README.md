@@ -5,7 +5,7 @@ Cebu Space is a non-Hausdorff, narrative-driven topological structure where geom
 
 ## Features
 
-### Current (v0.7.2)
+### Current (v0.7.3)
 - Dynamic addition/removal of simplices (vertices, edges, faces, etc.)
 - Cascade deletion for maintaining complex consistency
 - Query simplices by dimension, connectivity, and containment
@@ -59,7 +59,11 @@ Cebu Space is a non-Hausdorff, narrative-driven topological structure where geom
 - Branch and tag support
 - Version diff and revert
 - Commit history log
-- **Comprehensive test suite**
+- **Comprehensive test suite** 🆕
+- 56+ test cases covering all new features
+- >85% code coverage
+- Google Test framework
+- Full integration tests
 
 ### Planned
 - 3D tetrahedron refinement
