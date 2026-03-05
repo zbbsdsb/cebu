@@ -142,9 +142,9 @@ RefinementResult SimplicialComplexRefinement<LabelType>::refine_triangle(
     this->add_edge(v2, mid20);
     this->add_edge(v0, mid20);
     
-    EdgeID e01_12 = this->add_edge(mid01, mid12);
-    EdgeID e12_20 = this->add_edge(mid12, mid20);
-    EdgeID e20_01 = this->add_edge(mid20, mid01);
+    SimplexID e01_12 = this->add_edge(mid01, mid12);
+    SimplexID e12_20 = this->add_edge(mid12, mid20);
+    SimplexID e20_01 = this->add_edge(mid20, mid01);
     
     // Create 4 new triangles
     // Triangle 1: v0, mid01, mid20
@@ -234,19 +234,19 @@ bool SimplicialComplexRefinement<LabelType>::coarsen_edge(
     
     // Get the two edges containing this vertex
     auto containing_edges = this->get_simplices_containing_vertex(middle_vertex_id);
-    std::vector<EdgeID> edges;
+    std::vector<SimplexID> edges;
     for (SimplexID sid : containing_edges) {
-        if (this->dimension(sid) == 1) {
-            edges.push_back(static_cast<EdgeID>(sid));
+        if (this->get_simplex(sid).dimension() == 1) {
+            edges.push_back(sid);
         }
     }
-    
+
     if (edges.size() != 2) {
         return false;
     }
-    
-    EdgeID e0 = edges[0];
-    EdgeID e1 = edges[1];
+
+    SimplexID e0 = edges[0];
+    SimplexID e1 = edges[1];
     
     // Get vertices of both edges
     const auto& v0 = this->get_simplex(e0).vertices();
@@ -274,10 +274,10 @@ bool SimplicialComplexRefinement<LabelType>::coarsen_triangle(
     
     // Check if vertex exists and has degree 3 (connected to 3 other vertices)
     auto containing_edges = this->get_simplices_containing_vertex(center_vertex_id);
-    std::vector<EdgeID> edges;
+    std::vector<SimplexID> edges;
     for (SimplexID sid : containing_edges) {
-        if (this->dimension(sid) == 1) {
-            edges.push_back(static_cast<EdgeID>(sid));
+        if (this->get_simplex(sid).dimension() == 1) {
+            edges.push_back(sid);
         }
     }
     
@@ -323,8 +323,8 @@ size_t SimplicialComplexRefinement<LabelType>::coarsen_region(
     
     // Collect vertices to coarsen (to avoid modification during iteration)
     std::vector<VertexID> vertices_to_coarsen;
-    for (const auto& [id, _] : this->get_all_simplices()) {
-        if (this->dimension(id) == 0 && predicate(id)) {
+    for (const auto& [id, _] : this->get_simplices()) {
+        if (this->get_simplex(id).dimension() == 0 && predicate(id)) {
             vertices_to_coarsen.push_back(static_cast<VertexID>(id));
         }
     }
@@ -353,7 +353,7 @@ bool SimplicialComplexRefinement<LabelType>::is_refinement_midpoint(
     // Count edges
     size_t edge_count = 0;
     for (SimplexID sid : containing) {
-        if (this->dimension(sid) == 1) {
+        if (this->get_simplex(sid).dimension() == 1) {
             edge_count++;
         }
     }
@@ -400,11 +400,11 @@ RefinementResult SimplicialComplexRefinement<LabelType>::adaptive_refine(
     const RefinementOptions<LabelType>& options) {
     
     RefinementResult result;
-    
-    for (const auto& [id, _] : this->get_all_simplices()) {
+
+    for (const auto& [id, _] : this->get_simplices()) {
         if (this->has_label(id)) {
-            LabelType label = this->get_label(id);
-            if (predicate(label, id)) {
+            std::optional<LabelType> label_opt = this->get_label(id);
+            if (label_opt.has_value() && predicate(*label_opt, id)) {
                 auto sub_result = refine_simplex(id, options);
                 
                 // Merge results
@@ -419,7 +419,7 @@ RefinementResult SimplicialComplexRefinement<LabelType>::adaptive_refine(
             }
         }
     }
-    
+
     return result;
 }
 
@@ -429,13 +429,13 @@ size_t SimplicialComplexRefinement<LabelType>::adaptive_coarsen(
     const RefinementOptions<LabelType>& options) {
     
     size_t count = 0;
-    
-    for (const auto& [id, _] : this->get_all_simplices()) {
+
+    for (const auto& [id, _] : this->get_simplices()) {
         if (this->has_label(id)) {
-            LabelType label = this->get_label(id);
-            if (predicate(label, id)) {
+            std::optional<LabelType> label_opt = this->get_label(id);
+            if (label_opt.has_value() && predicate(*label_opt, id)) {
                 // Try to coarsen this simplex
-                if (this->dimension(id) == 0) {
+                if (this->get_simplex(id).dimension() == 0) {
                     VertexID vid = static_cast<VertexID>(id);
                     if (is_refinement_midpoint(vid)) {
                         if (coarsen_edge(vid, options)) {

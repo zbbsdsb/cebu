@@ -14,6 +14,7 @@ add_library(cebu_core
     src/absurdity.cpp
     src/equivalence_classes.cpp
     src/simplicial_complex_non_hausdorff.cpp
+    src/refinement.cpp
 )
 
 # Test executable
