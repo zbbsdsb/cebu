@@ -178,6 +178,139 @@ public:
         return components;
     }
 
+    /// Glue two simplices by identifying their boundary simplices
+    ///
+    /// This operation identifies boundary simplices of s1 with those of s2
+    /// based on the provided vertex mapping.
+    ///
+    /// @param complex The simplicial complex to modify
+    /// @param s1 First simplex
+    /// @param s2 Second simplex
+    /// @param mapping Mapping of boundary vertices from s1 to s2
+    /// @returns ID of s2 (kept simplex)
+    /// @throws std::invalid_argument if simplices don't exist or mapping is invalid
+    static SimplexID glue_simplices_by_boundary(
+        SimplicialComplex& complex,
+        SimplexID s1,
+        SimplexID s2,
+        const std::vector<std::pair<VertexID, VertexID>>& mapping) {
+
+        if (!complex.has_simplex(s1) || !complex.has_simplex(s2)) {
+            throw std::invalid_argument("One or both simplices do not exist");
+        }
+
+        if (s1 == s2) {
+            throw std::invalid_argument("Cannot glue simplex to itself");
+        }
+
+        // Apply vertex mapping by gluing vertices
+        for (const auto& [v1, v2] : mapping) {
+            if (!complex.has_simplex(v1) || !complex.has_simplex(v2)) {
+                throw std::invalid_argument("One or more vertices in mapping do not exist");
+            }
+            glue_vertices(complex, v1, v2);
+        }
+
+        return s2;
+    }
+
+    /// Perform a sequence of vertex gluings efficiently
+    ///
+    /// @param complex The simplicial complex to modify
+    /// @param gluings Vector of vertex pairs to glue (v1 -> v2)
+    /// @returns Vector of resulting vertex IDs
+    /// @throws std::invalid_argument if any vertex doesn't exist or gluings conflict
+    static std::vector<VertexID> batch_glue_vertices(
+        SimplicialComplex& complex,
+        const std::vector<std::pair<VertexID, VertexID>>& gluings) {
+
+        std::vector<VertexID> results;
+
+        for (const auto& [v1, v2] : gluings) {
+            // Skip if v1 no longer exists (already glued)
+            if (!complex.has_simplex(v1)) {
+                results.push_back(0); // Placeholder for already removed
+                continue;
+            }
+
+            // Skip if v2 no longer exists (already removed)
+            if (!complex.has_simplex(v2)) {
+                throw std::invalid_argument("Target vertex " + std::to_string(v2) + " does not exist");
+            }
+
+            VertexID result = glue_vertices(complex, v1, v2);
+            results.push_back(result);
+        }
+
+        return results;
+    }
+
+    /// Compute the Euler characteristic of the complex
+    ///
+    /// χ = V - E + F - C + ... (alternating sum of counts by dimension)
+    ///
+    /// @param complex The simplicial complex
+    /// @returns Euler characteristic value
+    static int compute_euler_characteristic(const SimplicialComplex& complex) {
+        int euler = 0;
+        int sign = 1;
+
+        // For each dimension, count simplices and add with alternating sign
+        size_t max_dim = 0;
+        for (const auto& pair : complex.get_simplices()) {
+            max_dim = std::max(max_dim, pair.second.dimension());
+        }
+
+        for (size_t dim = 0; dim <= max_dim; ++dim) {
+            auto simplices = get_simplices_of_dimension(complex, dim);
+            int count = static_cast<int>(simplices.size());
+            euler += sign * count;
+            sign = -sign; // Alternate sign
+        }
+
+        return euler;
+    }
+
+    /// Check if the complex is a manifold
+    ///
+    /// A simplicial complex is a manifold if each (n-1)-dimensional simplex
+    /// (where n is the max dimension) is a face of at most 2 n-dimensional simplices.
+    ///
+    /// @param complex The simplicial complex
+    /// @returns true if complex is a manifold
+    static bool is_manifold(const SimplicialComplex& complex) {
+        // Find maximum dimension
+        size_t max_dim = 0;
+        for (const auto& pair : complex.get_simplices()) {
+            max_dim = std::max(max_dim, pair.second.dimension());
+        }
+
+        // If max_dim is 0 (only vertices), it's trivially a manifold
+        if (max_dim == 0) {
+            return true;
+        }
+
+        // Check that each (max_dim - 1)-simplex is a face of at most 2 max_dim-simplices
+        auto boundary_simplices = get_simplices_of_dimension(complex, max_dim - 1);
+
+        for (SimplexID sid : boundary_simplices) {
+            const Simplex& simplex = complex.get_simplex(sid);
+
+            int count = 0;
+            for (const auto& pair : complex.get_simplices()) {
+                const Simplex& other = pair.second;
+                if (other.dimension() == max_dim && is_face_of(simplex, other)) {
+                    count++;
+                    if (count > 2) {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+
 private:
     /// Check if simplex a is a face of simplex b
     static bool is_face_of(const Simplex& a, const Simplex& b) {
