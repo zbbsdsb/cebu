@@ -101,9 +101,4 @@ std::vector<SimplexID> SimplicialComplexNonHausdorff::get_simplices_containing_v
     return std::vector<SimplexID>(result.begin(), result.end());
 }
 
-void SimplicialComplexNonHausdorff::on_simplex_removed(SimplexID simplex_id) {
-    // Update equivalence classes
-    equiv_manager_.remove_simplex(simplex_id);
-}
-
 } // namespace cebu

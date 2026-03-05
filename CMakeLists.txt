@@ -12,6 +12,8 @@ add_library(cebu_core
     src/simplex.cpp
     src/simplicial_complex.cpp
     src/absurdity.cpp
+    src/equivalence_classes.cpp
+    src/simplicial_complex_non_hausdorff.cpp
 )
 
 # Test executable
@@ -84,6 +86,20 @@ add_executable(test_serialization
 
 target_link_libraries(test_serialization cebu_core)
 
+# Equivalence classes test executable
+add_executable(test_equivalence_classes
+    tests/test_equivalence_classes.cpp
+)
+
+target_link_libraries(test_equivalence_classes cebu_core)
+
+# Non-Hausdorff test executable
+add_executable(test_non_hausdorff
+    tests/test_non_hausdorff.cpp
+)
+
+target_link_libraries(test_non_hausdorff cebu_core)
+
 # Enable testing
 enable_testing()
 add_test(NAME basic_test COMMAND test_basic)
@@ -96,3 +112,5 @@ add_test(NAME narrative_test COMMAND test_narrative)
 add_test(NAME topology_ops_advanced_test COMMAND test_topology_ops_advanced)
 add_test(NAME command_history_test COMMAND test_command_history)
 add_test(NAME serialization_test COMMAND test_serialization)
+add_test(NAME equivalence_classes_test COMMAND test_equivalence_classes)
+add_test(NAME non_hausdorff_test COMMAND test_non_hausdorff)

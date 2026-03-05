@@ -130,12 +130,6 @@ public:
         return equiv_manager_;
     }
 
-protected:
-    /**
-     * @brief Called when a simplex is removed, update equivalence classes
-     */
-    void on_simplex_removed(SimplexID simplex_id) override;
-
 private:
     EquivalenceClassManager equiv_manager_;
 };
