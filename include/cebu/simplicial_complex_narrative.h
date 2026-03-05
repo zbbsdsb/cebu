@@ -5,9 +5,12 @@
 #include "cebu/story_event.h"
 #include "cebu/timeline.h"
 #include "cebu/absurdity.h"
+#include "cebu/command_history.h"
+#include "cebu/serialization.h"
 #include <vector>
 #include <algorithm>
 #include <type_traits>
+#include <memory>
 
 namespace cebu {
 
@@ -18,6 +21,8 @@ namespace cebu {
  * - Timeline management for narrative progression
  * - Story events that affect topology and labels
  * - Evolution of labels (especially absurdity) based on events
+ * - Command history for undo/redo functionality
+ * - Serialization support for saving/loading state
  *
  * @tparam LabelType The type of labels attached to simplices
  */
@@ -49,6 +54,10 @@ public:
     /// Get event system
     StoryEventSystem& events() { return events_; }
     const StoryEventSystem& events() const { return events_; }
+
+    /// Get command history for undo/redo
+    CommandHistory& command_history() { return command_history_; }
+    const CommandHistory& command_history() const { return command_history_; }
 
     /// Evolve complex to a specific timestamp
     /// Applies all events up to and including the given timestamp
@@ -108,6 +117,59 @@ public:
         // For full reset, you would need to store initial labels
     }
 
+    /// Save current state to string
+    std::string serialize_state() const {
+        return JsonSerializer::serialize_narrative(*this);
+    }
+
+    /// Load state from string (not implemented - requires JSON parser)
+    void load_state(const std::string& state) {
+        // Full implementation requires a JSON parser library
+        // This is a placeholder for future enhancement
+        throw std::runtime_error("load_state not yet implemented - requires JSON parser");
+    }
+
+    /// Create a snapshot at current time
+    struct StateSnapshot {
+        double time;
+        std::string label_data;
+    };
+
+    StateSnapshot create_snapshot() const {
+        StateSnapshot snapshot;
+        snapshot.time = current_time_;
+        snapshot.label_data = JsonSerializer::serialize_narrative(*this);
+        return snapshot;
+    }
+
+    /// Restore from snapshot
+    void restore_snapshot(const StateSnapshot& snapshot) {
+        // Reset timeline
+        current_time_ = snapshot.time;
+        // Full restoration would require deserialization
+        throw std::runtime_error("restore_snapshot not yet implemented - requires JSON parser");
+    }
+
+    /// Undo last command
+    void undo() {
+        command_history_.undo();
+    }
+
+    /// Redo last undone command
+    void redo() {
+        command_history_.redo();
+    }
+
+    /// Check if undo is available
+    bool can_undo() const {
+        return command_history_.can_undo();
+    }
+
+    /// Check if redo is available
+    bool can_redo() const {
+        return command_history_.can_redo();
+    }
+
 protected:
     /// Evolution hook for custom label types
     /// Override this to provide custom evolution logic
@@ -125,6 +187,7 @@ protected:
 private:
     Timeline timeline_;
     StoryEventSystem events_;
+    CommandHistory command_history_;
     double current_time_ = 0.0;
 };
 

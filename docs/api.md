@@ -496,6 +496,224 @@ complex.label_system().update_all(ctx);
 
 ## Phase 3: Narrative-Driven Topology (v0.3.0)
 
+### Advanced Topology Operations
+
+```cpp
+/// Glue two simplices by identifying their boundary simplices
+static SimplexID glue_simplices_by_boundary(
+    SimplicialComplex& complex,
+    SimplexID s1,
+    SimplexID s2,
+    const std::vector<std::pair<VertexID, VertexID>>& mapping);
+
+/// Perform a sequence of vertex gluings efficiently
+static std::vector<VertexID> batch_glue_vertices(
+    SimplicialComplex& complex,
+    const std::vector<std::pair<VertexID, VertexID>>& gluings);
+
+/// Compute the Euler characteristic of the complex
+static int compute_euler_characteristic(const SimplicialComplex& complex);
+
+/// Check if the complex is a manifold
+static bool is_manifold(const SimplicialComplex& complex);
+```
+
+### Command System
+
+```cpp
+/// Base class for reversible commands
+class Command {
+public:
+    virtual void execute() = 0;
+    virtual void undo() = 0;
+    virtual std::string description() const = 0;
+};
+
+/// Command for adding a simplex
+template<typename ComplexType>
+class AddSimplexCommand : public Command { /* ... */ };
+
+/// Command for removing a simplex
+template<typename ComplexType>
+class RemoveSimplexCommand : public Command { /* ... */ };
+
+/// Command for setting a label
+template<typename ComplexType, typename LabelType>
+class SetLabelCommand : public Command { /* ... */ };
+
+/// Command for applying a story event
+template<typename ComplexType, typename LabelType>
+class ApplyEventCommand : public Command { /* ... */ };
+
+/// Manages command history with undo/redo support
+class CommandHistory {
+public:
+    void execute(std::unique_ptr<Command> command);
+    void undo();
+    void redo();
+    bool can_undo() const;
+    bool can_redo() const;
+    void clear();
+    void set_max_size(size_t size);
+};
+```
+
+### Serialization
+
+```cpp
+/// JSON serialization format for simplicial complexes
+class JsonSerializer {
+public:
+    static std::string serialize(const SimplicialComplex& complex);
+    static std::string serialize_labeled_double(
+        const SimplicialComplexLabeled<double>& complex);
+    static std::string serialize_labeled_absurdity(
+        const SimplicialComplexLabeled<Absurdity>& complex);
+    template<typename LabelType>
+    static std::string serialize_narrative(
+        const SimplicialComplexNarrative<LabelType>& complex);
+};
+
+/// Binary serialization format for efficient storage
+class BinarySerializer {
+public:
+    static std::vector<uint8_t> serialize(const SimplicialComplex& complex);
+    static SimplicialComplex deserialize(const std::vector<uint8_t>& data);
+};
+```
+
+### Enhanced Narrative Complex
+
+```cpp
+template<typename LabelType>
+class SimplicialComplexNarrative : public SimplicialComplexLabeled<LabelType> {
+public:
+    // Get command history
+    CommandHistory& command_history();
+    const CommandHistory& command_history() const;
+
+    // Undo/redo
+    void undo();
+    void redo();
+    bool can_undo() const;
+    bool can_redo() const;
+
+    // Serialization
+    std::string serialize_state() const;
+    void load_state(const std::string& state);
+
+    // Snapshots
+    struct StateSnapshot { /* ... */ };
+    StateSnapshot create_snapshot() const;
+    void restore_snapshot(const StateSnapshot& snapshot);
+
+    // Existing methods...
+    Timeline& timeline();
+    StoryEventSystem& events();
+    void evolve_to(double timestamp);
+    void apply_event(const StoryEvent& event);
+    EventID add_event(const std::string& description, double timestamp,
+                    const std::vector<SimplexID>& simplices,
+                    const AbsurdityContext& impact,
+                    bool apply_now = false);
+    double current_time() const;
+    void reset();
+};
+```
+
+### Usage Example: Undo/Redo
+
+```cpp
+#include "cebu/simplicial_complex_narrative.h"
+#include "cebu/command_history.h"
+
+using namespace cebu;
+
+SimplicialComplexNarrativeAbsurdity complex;
+
+// Create triangle
+VertexID v0 = complex.add_vertex();
+VertexID v1 = complex.add_vertex();
+VertexID v2 = complex.add_vertex();
+SimplexID tri = complex.add_triangle(v0, v1, v2);
+
+// Set label with command tracking
+auto cmd = std::make_unique<SetLabelCommand<
+    decltype(complex), Absurdity>>(
+    complex, tri, Absurdity(0.3, 0.5, 0.8));
+complex.command_history().execute(std::move(cmd));
+
+// Undo
+if (complex.can_undo()) {
+    complex.undo();
+}
+
+// Redo
+if (complex.can_redo()) {
+    complex.redo();
+}
+```
+
+### Usage Example: Serialization
+
+```cpp
+#include "cebu/simplicial_complex_narrative.h"
+#include "cebu/serialization.h"
+
+using namespace cebu;
+
+SimplicialComplexNarrativeAbsurdity complex;
+
+// ... setup complex ...
+
+// Serialize to JSON
+std::string json = JsonSerializer::serialize_narrative(complex);
+std::cout << json << std::endl;
+
+// Serialize to binary
+auto binary = BinarySerializer::serialize(complex);
+
+// Deserialize (binary)
+SimplicialComplex loaded = BinarySerializer::deserialize(binary);
+```
+
+### Usage Example: Advanced Topology
+
+```cpp
+#include "cebu/topology_operations.h"
+
+using namespace cebu;
+
+SimplicialComplex complex;
+
+// Create two separate triangles
+VertexID v0 = complex.add_vertex();
+VertexID v1 = complex.add_vertex();
+VertexID v2 = complex.add_vertex();
+VertexID v3 = complex.add_vertex();
+VertexID v4 = complex.add_vertex();
+VertexID v5 = complex.add_vertex();
+
+SimplexID tri1 = complex.add_triangle(v0, v1, v2);
+SimplexID tri2 = complex.add_triangle(v3, v4, v5);
+
+// Glue triangles by identifying vertices
+std::vector<std::pair<VertexID, VertexID>> mapping = {
+    {v0, v3},
+    {v1, v4},
+    {v2, v5}
+};
+
+TopologyOperations::glue_simplices_by_boundary(
+    complex, tri1, tri2, mapping);
+
+// Compute Euler characteristic
+int euler = TopologyOperations::compute_euler_characteristic(complex);
+
+// Check if manifold
+bool is_manifold = TopologyOperations::is_manifold(complex);
+```
+
 ### StoryEvent
 
 A `StoryEvent` represents a narrative event that affects the simplicial complex.

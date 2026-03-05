@@ -28,6 +28,94 @@ cebu/
 
 ## Core Components
 
+### 0.1. Command System (v0.3.1+)
+
+**Purpose**: Enables undo/redo functionality for all reversible operations.
+
+**Design Rationale**:
+- Command pattern for reversible operations
+- State capture for accurate undo
+- History management with size limits
+- Template-based for flexibility across complex types
+
+**Key Classes**:
+
+1. **Command** (Base class)
+   - Abstract interface for all commands
+   - Execute/Undo methods
+   - Description for debugging
+
+2. **Concrete Commands**
+   - AddSimplexCommand: Stores vertices, removes simplex on undo
+   - RemoveSimplexCommand: Stores simplex data for recreation
+   - SetLabelCommand: Stores old label for restoration
+   - ApplyEventCommand: Stores old labels of affected simplices
+
+3. **CommandHistory**
+   - Manages command execution stack
+   - Supports undo/redo navigation
+   - Size limits to control memory usage
+   - Truncates future commands on new execution
+
+**Data Flow**:
+```
+User Action → Command::execute() → History.push()
+             ↓
+         State Change
+         ↓
+         History.position++
+
+Undo → Command::undo() → State Restore → History.position--
+Redo → Command::execute() → State Change → History.position++
+```
+
+**Memory Management**:
+- Commands capture minimal state needed for undo
+- Max size prevents unbounded memory growth
+- Unique_ptr ensures proper ownership
+
+### 0.2. Serialization System (v0.3.1+)
+
+**Purpose**: Enables saving and loading complex states for persistence.
+
+**Design Rationale**:
+- JSON format for human-readable storage
+- Binary format for efficient storage
+- Template-based for all complex types
+- Versioning support for future compatibility
+
+**Key Classes**:
+
+1. **JsonSerializer**
+   - Serialize basic complexes (simplices only)
+   - Serialize labeled complexes (includes labels)
+   - Serialize narrative complexes (includes timeline, events)
+   - Hierarchical JSON structure
+
+2. **BinarySerializer**
+   - Compact binary format
+   - Magic number and versioning
+   - Efficient deserialization
+   - Direct binary read/write
+
+**JSON Format**:
+```json
+{
+  "version": "1.0",
+  "type": "narrative",
+  "simplices": [...],
+  "labels": {...},
+  "timeline": {...},
+  "events": [...],
+  "current_time": 50.0
+}
+```
+
+**Binary Format**:
+- Header: 4-byte magic + 4-byte version
+- Simplex count: 8 bytes
+- Per-simplex: ID (8) + vertex count (8) + vertices (4 each)
+
 ### 0. Narrative Layer (v0.3.0+)
 
 **Purpose**: Enables timeline-driven narrative evolution of simplicial complexes.
@@ -58,9 +146,13 @@ cebu/
 4. **TopologyOperations**
    - Static utility class for topological operations
    - Vertex gluing (identification)
+   - Batch vertex gluing
+   - Simplex boundary gluing
    - Boundary computation
    - Connected components analysis
    - Dimension filtering
+   - Euler characteristic computation
+   - Manifold checking
 
 5. **SimplicialComplexNarrative<LabelType>**
    - Extends SimplicialComplexLabeled with narrative support
@@ -406,6 +498,30 @@ Current implementation is **not thread-safe**:
   - Multi-component scenarios
   - Milestone integration
 
+- `test_topology_ops_advanced.cpp`: Advanced topology operations (13 tests)
+  - Simplex boundary gluing
+  - Batch vertex gluing
+  - Euler characteristic computation
+  - Manifold checking
+  - Error handling
+
+- `test_command_history.cpp`: Command system (14 tests)
+  - AddSimplexCommand
+  - RemoveSimplexCommand
+  - SetLabelCommand
+  - CommandHistory basic operations
+  - Undo/redo functionality
+  - Multiple undo/redo
+  - History size limits
+  - Error cases
+
+- `test_serialization.cpp`: Serialization system (11 tests)
+  - JSON serialization (basic, labeled, absurdity, narrative)
+  - Binary serialization
+  - Round-trip testing
+  - Error handling
+  - Format validity
+
 ### Test Coverage Goals
 
 - All public methods tested
@@ -467,7 +583,28 @@ Current implementation is **not thread-safe**:
 
 ## Version History
 
-### v0.3.0 (Current) - Narrative-Driven Topology
+### v0.3.1 (Current) - Advanced Narrative Features
+- **Advanced Topology Operations**:
+  - Simplex boundary gluing (glue_simplices_by_boundary)
+  - Batch vertex gluing (batch_glue_vertices)
+  - Euler characteristic computation (compute_euler_characteristic)
+  - Manifold checking (is_manifold)
+- **Command System**: Undo/redo support for reversible operations
+  - Command base class and concrete implementations
+  - CommandHistory manager with size limits
+  - Support for AddSimplex, RemoveSimplex, SetLabel, ApplyEvent commands
+- **Serialization System**:
+  - JSON serialization for basic, labeled, and narrative complexes
+  - Binary serialization for efficient storage
+  - Round-trip serialization/deserialization
+- **Enhanced Narrative Complex**:
+  - Integrated CommandHistory for undo/redo
+  - State serialization methods
+  - Snapshot creation and restoration
+  - Helper methods: undo(), redo(), can_undo(), can_redo()
+- All tests passing (basic, dynamic, labels, story_events, timeline, topology_ops, narrative, topology_ops_advanced, serialization)
+
+### v0.3.0 - Narrative-Driven Topology
 - **Story Event System**: Timeline-based narrative events affecting simplices
 - **Timeline Management**: Time bounds, milestones, and navigation
 - **Topology Operations**: Vertex gluing, boundary computation, connected components
