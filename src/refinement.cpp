@@ -297,7 +297,8 @@ bool SimplicialComplexRefinement<LabelType>::coarsen_triangle(
     // Remove old triangles (should be 4 of them)
     auto containing_faces = this->get_simplices_containing_vertex(center_vertex_id);
     for (SimplexID face_id : containing_faces) {
-        if (this->dimension(face_id) == 2) {
+        const auto& face = this->get_simplex(face_id);
+        if (face.vertices().size() - 1 == 2) {  // Triangle has 3 vertices
             this->remove_simplex(face_id, false);
         }
     }

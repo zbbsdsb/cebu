@@ -358,12 +358,12 @@ DataDistribution SpatialIndex::analyze_distribution() const {
 
     size_t simplex_count = 0;
     std::array<double, 3> sum{0.0, 0.0, 0.0};
-    std::array<double, 3> min{std::numeric_limits<double>::max(),
-                            std::numeric_limits<double>::max(),
-                            std::numeric_limits<double>::max()};
-    std::array<double, 3> max{std::numeric_limits<double>::lowest(),
-                            std::numeric_limits<double>::lowest(),
-                            std::numeric_limits<double>::lowest()};
+    std::array<double, 3> bbox_min{std::numeric_limits<double>::max(),
+                                   std::numeric_limits<double>::max(),
+                                   std::numeric_limits<double>::max()};
+    std::array<double, 3> bbox_max{std::numeric_limits<double>::lowest(),
+                                   std::numeric_limits<double>::lowest(),
+                                   std::numeric_limits<double>::lowest()};
 
     if (complex_) {
         simplex_count = complex_->simplex_count();
@@ -373,12 +373,12 @@ DataDistribution SpatialIndex::analyze_distribution() const {
                 sum[0] += vertex.x;
                 sum[1] += vertex.y;
                 sum[2] += vertex.z;
-                min[0] = std::min(min[0], vertex.x);
-                min[1] = std::min(min[1], vertex.y);
-                min[2] = std::min(min[2], vertex.z);
-                max[0] = std::max(max[0], vertex.x);
-                max[1] = std::max(max[1], vertex.y);
-                max[2] = std::max(max[2], vertex.z);
+                bbox_min[0] = std::min(bbox_min[0], vertex.x);
+                bbox_min[1] = std::min(bbox_min[1], vertex.y);
+                bbox_min[2] = std::min(bbox_min[2], vertex.z);
+                bbox_max[0] = std::max(bbox_max[0], vertex.x);
+                bbox_max[1] = std::max(bbox_max[1], vertex.y);
+                bbox_max[2] = std::max(bbox_max[2], vertex.z);
             }
         }
     } else if (labeled_complex_) {
@@ -389,12 +389,12 @@ DataDistribution SpatialIndex::analyze_distribution() const {
                 sum[0] += vertex.x;
                 sum[1] += vertex.y;
                 sum[2] += vertex.z;
-                min[0] = std::min(min[0], vertex.x);
-                min[1] = std::min(min[1], vertex.y);
-                min[2] = std::min(min[2], vertex.z);
-                max[0] = std::max(max[0], vertex.x);
-                max[1] = std::max(max[1], vertex.y);
-                max[2] = std::max(max[2], vertex.z);
+                bbox_min[0] = std::min(bbox_min[0], vertex.x);
+                bbox_min[1] = std::min(bbox_min[1], vertex.y);
+                bbox_min[2] = std::min(bbox_min[2], vertex.z);
+                bbox_max[0] = std::max(bbox_max[0], vertex.x);
+                bbox_max[1] = std::max(bbox_max[1], vertex.y);
+                bbox_max[2] = std::max(bbox_max[2], vertex.z);
             }
         }
     }
@@ -408,9 +408,9 @@ DataDistribution SpatialIndex::analyze_distribution() const {
         };
 
         double extents[3] = {
-            max[0] - min[0],
-            max[1] - min[1],
-            max[2] - min[2]
+            bbox_max[0] - bbox_min[0],
+            bbox_max[1] - bbox_min[1],
+            bbox_max[2] - bbox_min[2]
         };
         double max_extent = std::max({extents[0], extents[1], extents[2]});
         double min_extent = std::min({extents[0], extents[1], extents[2]});
