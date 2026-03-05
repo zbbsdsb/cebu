@@ -1,10 +1,13 @@
 #ifndef CEBU_COMMAND_HISTORY_H
 #define CEBU_COMMAND_HISTORY_H
 
+#include "cebu/simplicial_complex_labeled.h"
+#include "cebu/types.h"
 #include <memory>
 #include <vector>
 #include <stdexcept>
 #include <functional>
+#include <unordered_map>
 
 namespace cebu {
 
