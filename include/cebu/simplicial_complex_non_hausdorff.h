@@ -130,6 +130,14 @@ public:
         return equiv_manager_;
     }
 
+    /**
+     * @brief Remove a simplex from the complex (updates equivalence classes)
+     * @param simplex_id ID of the simplex to remove
+     * @param cascade If true, also remove all simplices that contain this simplex
+     * @return true if the simplex was removed, false if it didn't exist
+     */
+    bool remove_simplex(SimplexID simplex_id, bool cascade = false);
+
 private:
     EquivalenceClassManager equiv_manager_;
 };

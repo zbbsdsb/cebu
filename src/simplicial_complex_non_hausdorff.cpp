@@ -101,4 +101,16 @@ std::vector<SimplexID> SimplicialComplexNonHausdorff::get_simplices_containing_v
     return std::vector<SimplexID>(result.begin(), result.end());
 }
 
+bool SimplicialComplexNonHausdorff::remove_simplex(SimplexID simplex_id, bool cascade) {
+    // First call parent's remove_simplex
+    bool removed = SimplicialComplex::remove_simplex(simplex_id, cascade);
+
+    // Update equivalence classes
+    if (removed) {
+        equiv_manager_.remove_simplex(simplex_id);
+    }
+
+    return removed;
+}
+
 } // namespace cebu

@@ -234,12 +234,13 @@ void test_removing_glued_simplices() {
     complex.glue_vertices(v1, v2);
     complex.glue_vertices(v2, v3);
 
+    assert(complex.is_glued(v1));
     assert(complex.class_size(v1) == 3);
 
     // Remove v2 (middle of chain)
     complex.remove_vertex(v2, false);
 
-    // v1 and v3 should still be glued
+    // v1 and v3 should still be glued (they share the same representative)
     assert(complex.are_glued(v1, v3));
     assert(complex.class_size(v1) == 2);
 
