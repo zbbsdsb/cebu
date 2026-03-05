@@ -965,6 +965,312 @@ auto vertices = TopologyOperations::get_simplices_of_dimension(complex, 0);
 auto components = TopologyOperations::compute_connected_components(complex);
 ```
 
+## Phase 5: Fractal Dimension Dynamic Adjustment (Refinement/Coarsening)
+
+### RefinementResult
+
+Contains information about refinement operations.
+
+```cpp
+struct RefinementResult {
+    // Map from original simplex IDs to their refined children
+    std::unordered_map<SimplexID, std::vector<SimplexID>> original_to_children;
+
+    // Map from new vertices to their parent edges
+    std::unordered_map<VertexID, SimplexID> new_vertex_parent_edge;
+
+    // Total number of new simplices created
+    size_t new_simplices_count = 0;
+
+    // Total number of new vertices created
+    size_t new_vertices_count = 0;
+};
+```
+
+### LabelInheritanceStrategy
+
+Strategy for handling labels during refinement.
+
+```cpp
+enum class LabelInheritanceStrategy {
+    INHERIT_COPY,         // All children get the same label as parent
+    INHERIT_INTERPOLATE,   // Labels are interpolated (numeric types)
+    INHERIT_DISTRIBUTE,    // Labels are distributed (split values)
+    INHERIT_CUSTOM         // Use a custom function
+};
+```
+
+### RefinementOptions
+
+Options for refinement operations.
+
+```cpp
+template<typename LabelType = double>
+struct RefinementOptions {
+    // Strategy for handling labels
+    LabelInheritanceStrategy label_strategy = LabelInheritanceStrategy::INHERIT_COPY;
+
+    // Custom label inheritance function
+    std::function<LabelType(const LabelType&, size_t, size_t)> custom_label_func;
+
+    // Maximum refinement level (to prevent infinite recursion)
+    int max_level = 10;
+
+    // Current refinement level
+    int current_level = 0;
+
+    // Preserve labels on parent simplices after refinement
+    bool preserve_parent_labels = false;
+};
+```
+
+### SimplicialComplexRefinement
+
+Provides refinement and coarsening operations for dynamic mesh adjustment.
+
+```cpp
+template<typename LabelType = double>
+class SimplicialComplexRefinement : public SimplicialComplexLabeled<LabelType> {
+public:
+    // Refine a single edge by inserting a midpoint vertex
+    RefinementResult refine_edge(SimplexID edge_id,
+                              const RefinementOptions<LabelType>& options = {});
+
+    // Refine a triangle into 4 smaller triangles
+    RefinementResult refine_triangle(SimplexID triangle_id,
+                                 const RefinementOptions<LabelType>& options = {});
+
+    // Refine a simplex of any dimension
+    RefinementResult refine_simplex(SimplexID simplex_id,
+                                  const RefinementOptions<LabelType>& options = {});
+
+    // Refine all simplices in a region
+    RefinementResult refine_region(const std::vector<SimplexID>& simplex_ids,
+                               const RefinementOptions<LabelType>& options = {});
+
+    // Coarsen a refined edge (undo refine_edge)
+    bool coarsen_edge(VertexID middle_vertex_id,
+                     const RefinementOptions<LabelType>& options = {});
+
+    // Coarsen a refined triangle (undo refine_triangle)
+    bool coarsen_triangle(VertexID center_vertex_id,
+                       const RefinementOptions<LabelType>& options = {});
+
+    // Coarsen a region based on a predicate
+    size_t coarsen_region(std::function<bool(SimplexID)> predicate,
+                         const RefinementOptions<LabelType>& options = {});
+
+    // Check if a vertex is a refinement midpoint (degree 2)
+    bool is_refinement_midpoint(VertexID vertex_id) const;
+
+    // Get the refinement level of a simplex
+    int get_refinement_level(SimplexID simplex_id) const;
+
+    // Set the refinement level of a simplex
+    void set_refinement_level(SimplexID simplex_id, int level);
+
+    // Get all simplices at a specific refinement level
+    std::vector<SimplexID> get_simplices_at_level(int level) const;
+
+    // Adaptive refinement based on labels
+    RefinementResult adaptive_refine(
+        std::function<bool(const LabelType&, SimplexID)> predicate,
+        const RefinementOptions<LabelType>& options = {});
+
+    // Adaptive coarsening based on labels
+    size_t adaptive_coarsen(
+        std::function<bool(const LabelType&, SimplexID)> predicate,
+        const RefinementOptions<LabelType>& options = {});
+};
+```
+
+### RefinementUtils
+
+Utility functions for refinement operations.
+
+```cpp
+class RefinementUtils {
+public:
+    // Calculate ideal refinement level based on local geometry
+    static int calculate_ideal_level(const std::vector<VertexID>& vertices);
+
+    // Estimate fractal dimension of a region
+    static double estimate_fractal_dimension(const std::vector<SimplexID>& simplices);
+};
+```
+
+### Usage Example: Basic Edge Refinement
+
+```cpp
+#include "cebu/refinement.h"
+
+using namespace cebu;
+
+SimplicialComplexRefinement<double> complex;
+
+// Create an edge
+VertexID v0 = complex.add_vertex();
+VertexID v1 = complex.add_vertex();
+SimplexID edge = complex.add_edge(v0, v1);
+
+// Set label
+complex.set_label(edge, 0.8);
+
+// Refine the edge
+RefinementResult result = complex.refine_edge(edge);
+
+std::cout << "Created " << result.new_vertices_count << " new vertices\n";
+std::cout << "Created " << result.new_simplices_count << " new edges\n";
+```
+
+### Usage Example: Triangle Refinement
+
+```cpp
+// Create a triangle
+VertexID v0 = complex.add_vertex();
+VertexID v1 = complex.add_vertex();
+VertexID v2 = complex.add_vertex();
+SimplexID tri = complex.add_triangle(v0, v1, v2);
+
+// Set label
+complex.set_label(tri, 0.9);
+
+// Refine with custom label inheritance
+RefinementOptions<double> options;
+options.label_strategy = LabelInheritanceStrategy::INHERIT_CUSTOM;
+options.custom_label_func = [](const double& parent, size_t index, size_t total) {
+    return parent * (1.0 - static_cast<double>(index) / total);
+};
+
+RefinementResult result = complex.refine_triangle(tri, options);
+
+// Query refinement level
+for (auto child_id : result.original_to_children[tri]) {
+    int level = complex.get_refinement_level(child_id);
+    std::cout << "Child " << child_id << " at level " << level << "\n";
+}
+```
+
+### Usage Example: Adaptive Refinement
+
+```cpp
+// Refine all simplices with label > 0.5
+RefinementOptions<double> options;
+options.label_strategy = LabelInheritanceStrategy::INHERIT_COPY;
+
+auto result = complex.adaptive_refine(
+    [](const double& label, SimplexID id) {
+        return label > 0.5;
+    },
+    options
+);
+
+std::cout << "Refined " << result.new_simplices_count << " simplices\n";
+```
+
+### Usage Example: Coarsening
+
+```cpp
+// Find and coarsen midpoints
+auto vertices = complex.get_vertices();
+size_t coarsened = 0;
+
+for (VertexID vid : vertices) {
+    if (complex.is_refinement_midpoint(vid)) {
+        if (complex.coarsen_edge(vid)) {
+            coarsened++;
+        }
+    }
+}
+
+std::cout << "Coarsened " << coarsened << " edges\n";
+```
+
+### Usage Example: Multi-Resolution Analysis
+
+```cpp
+// Analyze at different refinement levels
+for (int level = 0; level <= 5; ++level) {
+    auto simplices = complex.get_simplices_at_level(level);
+
+    std::cout << "Level " << level << ": "
+              << simplices.size() << " simplices\n";
+
+    // Analyze features at this resolution
+    analyze_features(complex, simplices);
+}
+```
+
+### Refinement Algorithms
+
+#### Edge Refinement
+
+Inserts a midpoint vertex, splitting one edge into two:
+
+```
+Before:  v0 ---------- v1
+After:   v0 -- vm -- v1
+```
+
+- Creates 1 new vertex (midpoint)
+- Creates 2 new edges
+- Removes 1 old edge
+- Preserves or inherits label
+
+#### Triangle Refinement
+
+Inserts midpoints on all three edges and connects them:
+
+```
+Before:        v0
+              /  \
+             /    \
+            v1 --- v2
+
+After:         v0
+              / | \
+             /  |  \
+           vm01--|  vm20
+             \  |  /
+              \ | /
+               v1
+                |
+               vm12
+                |
+               v2
+```
+
+- Creates 3 new vertices (edge midpoints)
+- Creates 9 new edges (6 boundary + 3 interior)
+- Creates 4 new triangles (3 corner + 1 center)
+- Removes 1 old triangle
+- Preserves or inherits label
+
+#### Coarsening
+
+Reverse of refinement operations:
+
+- **Edge coarsening**: Merges two consecutive edges into one
+- **Triangle coarsening**: Merges four triangles into one
+- Requires specific topology (must be refinement-compatible)
+
+### Limitations
+
+- Currently supports only 1D (edge) and 2D (triangle) refinement
+- Coarsening requires exact refinement-compatible topology
+- Boundary handling may need special care
+- Large-scale refinements may be slow (O(n) for n simplices)
+
+### Future Extensions
+
+- Tetrahedron refinement (3D)
+- Boundary-aware refinement
+- Spatial indexing for performance (BVH, Octree)
+- Parallel refinement with multithreading
+- GPU-accelerated refinement
+- Error-based adaptive refinement
+- Time-dependent refinement for dynamic meshes
+
 ## Future Extensions
 
 - Advanced gluing operations (simplex boundary identification)
@@ -973,6 +1279,9 @@ auto components = TopologyOperations::compute_connected_components(complex);
 - Serialization/deserialization of narrative state
 - Visualization of timeline evolution
 - Absurdity-driven topological transformations
+- High-dimensional refinement (3D and beyond)
+- Parallel refinement operations
+- GPU-accelerated mesh processing
 
 ## License
 

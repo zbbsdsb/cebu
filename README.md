@@ -5,7 +5,7 @@ Cebu Space is a non-Hausdorff, narrative-driven topological structure where geom
 
 ## Features
 
-### Current (v0.4.0)
+### Current (v0.5.0)
 - Dynamic addition/removal of simplices (vertices, edges, faces, etc.)
 - Cascade deletion for maintaining complex consistency
 - Query simplices by dimension, connectivity, and containment
@@ -16,10 +16,19 @@ Cebu Space is a non-Hausdorff, narrative-driven topological structure where geom
 - **Non-Hausdorff topology support (gluing operations)** ✨
 - Event system for external integration
 - Serialization/deserialization
+- Binary serialization with narrative support
 - Undo/redo system with command history
+- **Fractal dimension dynamic adjustment (Refinement/Coarsening)** 🆕
+- Adaptive mesh refinement based on labels
+- Multi-resolution analysis support
 - Comprehensive test suite
 
 ### Planned
+- 3D tetrahedron refinement
+- Boundary-aware refinement
+- Spatial indexing (BVH, Octree) for performance
+- Parallel refinement with multithreading
+- GPU-accelerated refinement
 - Diff-based gluing (only glue specific faces)
 - Visual equivalence class viewer
 - 3D rendering and visualization
@@ -49,6 +58,38 @@ SimplexID tri = complex.add_triangle(v0, v1, v2);
 
 // Query properties
 std::cout << "Simplex count: " << complex.simplex_count() << std::endl;
+```
+
+### Adaptive Mesh Refinement
+
+```cpp
+#include "cebu/refinement.h"
+
+using namespace cebu;
+
+SimplicialComplexRefinement<double> complex;
+
+// Create a triangle
+VertexID v0 = complex.add_vertex();
+VertexID v1 = complex.add_vertex();
+VertexID v2 = complex.add_vertex();
+SimplexID tri = complex.add_triangle(v0, v1, v2);
+
+// Set label (e.g., curvature)
+complex.set_label(tri, 0.9);
+
+// Refine adaptively based on label
+RefinementOptions<double> options;
+options.label_strategy = LabelInheritanceStrategy::INHERIT_COPY;
+
+auto result = complex.adaptive_refine(
+    [](const double& label, SimplexID id) {
+        return label > 0.5; // Refine high-value regions
+    },
+    options
+);
+
+std::cout << "Refined " << result.new_simplices_count << " simplices\n";
 ```
 
 ## Build

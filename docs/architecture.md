@@ -583,7 +583,224 @@ Current implementation is **not thread-safe**:
 
 ## Version History
 
-### v0.3.1 (Current) - Advanced Narrative Features
+### v0.5.0 (Current) - Fractal Dimension Dynamic Adjustment
+
+### Refinement System (New)
+
+**Purpose**: Enables dynamic mesh refinement and coarsening for adaptive multi-resolution analysis.
+
+**Design Rationale**:
+- Template-based design for integration with any label type
+- Strategy pattern for flexible label inheritance
+- Hierarchical refinement level tracking
+- Reversible operations (refinement ↔ coarsening)
+- Adaptive refinement based on label predicates
+
+**Key Classes**:
+
+1. **RefinementResult**
+   - Contains information about refinement operations
+   - Maps original simplices to their refined children
+   - Tracks new vertices and their parent edges
+   - Counts new simplices and vertices created
+
+2. **RefinementOptions<LabelType>**
+   - Configurable refinement behavior
+   - Label inheritance strategy selection
+   - Custom function support for label distribution
+   - Maximum refinement level limits
+   - Parent label preservation options
+
+3. **SimplicialComplexRefinement<LabelType>**
+   - Extends SimplicialComplexLabeled with refinement capabilities
+   - Edge refinement: splits edges by inserting midpoints
+   - Triangle refinement: splits triangles into 4 sub-triangles
+   - Coarsening: reverses refinement operations
+   - Adaptive refinement/coarsening based on label predicates
+   - Refinement level management
+
+4. **RefinementUtils**
+   - Static utility class for refinement operations
+   - Ideal refinement level calculation
+   - Fractal dimension estimation
+
+**Refinement Algorithms**:
+
+#### Edge Refinement
+```
+Algorithm refine_edge(edge_id):
+1. Validate edge exists and is 1D
+2. Extract vertices v0, v1
+3. Create midpoint vertex vm
+4. Remove original edge
+5. Create edges v0-vm and vm-v1
+6. Apply label inheritance
+7. Update refinement levels
+8. Return result
+```
+
+#### Triangle Refinement
+```
+Algorithm refine_triangle(triangle_id):
+1. Validate triangle exists and is 2D
+2. Extract vertices v0, v1, v2
+3. Create midpoints vm01, vm12, vm20
+4. Remove original triangle
+5. Create boundary edges (6)
+6. Create interior edges (3)
+7. Create 4 sub-triangles
+8. Apply label inheritance
+9. Update refinement levels
+10. Return result
+```
+
+#### Coarsening
+```
+Algorithm coarsen_edge(midpoint_vertex):
+1. Verify vertex has degree 2
+2. Get adjacent edges e0, e1
+3. Extract endpoints (non-midpoint vertices)
+4. Remove both edges and midpoint
+5. Create new edge connecting endpoints
+
+Algorithm coarsen_triangle(center_vertex):
+1. Verify vertex has degree 3
+2. Get adjacent triangles (should be 4)
+3. Remove all triangles
+4. Remove interior edges
+5. Remove center vertex
+6. Create new triangle from corners
+```
+
+**Label Inheritance Strategies**:
+
+1. **INHERIT_COPY**
+   - All children receive identical parent label
+   - Simple and predictable
+   - Suitable for categorical data
+
+2. **INHERIT_INTERPOLATE**
+   - Linear interpolation for numeric types
+   - Smooth label transitions
+   - Preserves average value
+
+3. **INHERIT_DISTRIBUTE**
+   - Splits label value evenly
+   - Example: parent=1.0, 4 children → each=0.25
+   - Suitable for partitionable quantities
+
+4. **INHERIT_CUSTOM**
+   - User-defined function
+   - Maximum flexibility
+   - Can implement complex logic
+
+**Data Structures**:
+```
+SimplicialComplexRefinement
+├── refinement_levels_ (unordered_map<SimplexID, int>)
+│   └── Tracks refinement level per simplex
+├── Inherits from SimplicialComplexLabeled
+│   ├── complex_ (SimplicialComplex)
+│   └── label_system_ (LabelSystemType)
+```
+
+**Complexity Analysis**:
+
+| Operation | Time Complexity | Space Complexity |
+|-----------|-----------------|-------------------|
+| refine_edge() | O(1) | O(1) |
+| refine_triangle() | O(1) | O(1) |
+| refine_simplex() | O(1) | O(1) |
+| refine_region() | O(n) | O(n) |
+| coarsen_edge() | O(1) | O(1) |
+| coarsen_triangle() | O(1) | O(1) |
+| coarsen_region() | O(n) | O(n) |
+| adaptive_refine() | O(n) | O(n) |
+| get_refinement_level() | O(1) | O(1) |
+| get_simplices_at_level() | O(k) | O(k) |
+
+**Integration with Existing Systems**:
+
+1. **Label System**
+   - Fully compatible with SimplicialComplexLabeled
+   - Supports all label types (double, Absurdity, custom)
+   - Label inheritance strategies work with any label type
+
+2. **Narrative System**
+   - Refinement can be based on narrative labels
+   - Adaptive refinement uses label predicates
+   - Timeline-aware refinement possible
+
+3. **Non-Hausdorff Topology**
+   - Refinement works with glued simplices
+   - Coarsening respects gluing relationships
+   - Equivalence classes maintained
+
+4. **Command System**
+   - Can wrap refinement operations in commands
+   - Supports undo/redo of refinement
+   - Snapshot-friendly
+
+**Limitations**:
+
+1. **Dimension Support**
+   - Currently: 1D (edge) and 2D (triangle) only
+   - Future: 3D (tetrahedron) and higher
+
+2. **Boundary Handling**
+   - Boundary simplices may require special handling
+   - Coarsening may create boundary holes
+   - Current implementation assumes interior operations
+
+3. **Performance**
+   - Large-scale refinements are O(n)
+   - No spatial indexing for acceleration
+   - Serial execution (no parallelization)
+
+4. **Topology Constraints**
+   - Coarsening requires refinement-compatible topology
+   - Cannot coarsen arbitrary vertex configurations
+   - Strict degree requirements (2 for edges, 3 for triangles)
+
+**Future Enhancements**:
+
+1. **High-Dimensional Refinement**
+   - Tetrahedron refinement (3D)
+   - General k-simplex refinement algorithms
+   - Barycentric subdivision
+
+2. **Boundary-Aware Refinement**
+   - Detect and handle boundary simplices
+   - Preserve boundary integrity
+   - Special coarsening rules for boundaries
+
+3. **Performance Optimization**
+   - Spatial indexing (BVH, Octree)
+   - Batch refinement operations
+   - Parallel refinement with thread pool
+   - GPU acceleration for large meshes
+
+4. **Advanced Features**
+   - Error-based adaptive refinement
+   - Time-dependent refinement
+   - Multi-resolution editing
+   - Level-of-detail (LOD) management
+
+**Test Coverage**:
+
+- `test_refinement.cpp`: Refinement system (401 lines)
+  - Edge refinement basic operations
+  - Triangle refinement basic operations
+  - Label inheritance (all strategies)
+  - Edge coarsening
+  - Triangle coarsening
+  - Adaptive refinement
+  - Adaptive coarsening
+  - Refinement level management
+  - Midpoint detection
+  - Edge cases and error handling
+
+### v0.3.1 - Advanced Narrative Features
 - **Advanced Topology Operations**:
   - Simplex boundary gluing (glue_simplices_by_boundary)
   - Batch vertex gluing (batch_glue_vertices)
