@@ -5,20 +5,25 @@ Cebu Space is a non-Hausdorff, narrative-driven topological structure where geom
 
 ## Features
 
-### Current (v0.1.0)
+### Current (v0.4.0)
 - Dynamic addition/removal of simplices (vertices, edges, faces, etc.)
 - Cascade deletion for maintaining complex consistency
 - Query simplices by dimension, connectivity, and containment
 - Adjacency relationship management
-- Comprehensive test suite
-
-### Planned
 - Contextual labels (e.g., absurdity, narrative tension)
 - Query simplices by label
 - Morphism operations to reshape the complex based on rules
-- Non-Hausdorff topology support (gluing operations)
+- **Non-Hausdorff topology support (gluing operations)** ✨
 - Event system for external integration
 - Serialization/deserialization
+- Undo/redo system with command history
+- Comprehensive test suite
+
+### Planned
+- Diff-based gluing (only glue specific faces)
+- Visual equivalence class viewer
+- 3D rendering and visualization
+- Export to 3D formats (OBJ, STL, PLY)
 
 ## Documentation
 
