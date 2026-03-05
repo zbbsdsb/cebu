@@ -37,8 +37,11 @@ enum class Compression {
 struct PersistenceOptions {
     FileFormat format = FileFormat::AUTO;
     Compression compression = Compression::NONE;
+    int compression_level = 6;  // 0-9, only used for ZLIB
     bool validate_after_load = true;
     bool include_metadata = true;
+    bool save_command_history = false;
+    bool save_equivalence_classes = true;
     std::string custom_metadata;
 };
 
