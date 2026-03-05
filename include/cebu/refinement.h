@@ -19,7 +19,7 @@ struct RefinementResult {
     std::unordered_map<SimplexID, std::vector<SimplexID>> original_to_children;
     
     // Map from new vertices to their parent edges
-    std::unordered_map<VertexID, EdgeID> new_vertex_parent_edge;
+    std::unordered_map<VertexID, SimplexID> new_vertex_parent_edge;
     
     // Total number of new simplices created
     size_t new_simplices_count = 0;
@@ -87,7 +87,7 @@ public:
      * @param options Refinement options
      * @return Result containing new vertex and updated edge information
      */
-    RefinementResult refine_edge(EdgeID edge_id, 
+    RefinementResult refine_edge(SimplexID edge_id, 
                                 const RefinementOptions<LabelType>& options = {});
     
     /**
