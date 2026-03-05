@@ -89,6 +89,7 @@ Cebu Space is a non-Hausdorff, narrative-driven topological structure where geom
 - [API Reference](docs/api.md) - Detailed API documentation
 - [Architecture](docs/architecture.md) - Design and implementation details
 - [Advanced Serialization API](docs/api_advanced_serialization.md) - Change tracking, snapshots, streaming I/O, and version control
+- [Spatial Indexing API](docs/api_spatial_index.md) - BVH, Octree, and hybrid spatial index
 
 ## Quick Start
 
