@@ -33,7 +33,7 @@ void test_edge_refinement() {
     
     // Check that new vertices and edges exist
     assert(complex.vertex_count() == 3);
-    assert(complex.edge_count() == 2);
+    assert(complex.get_simplices_of_dimension(1).size() == 2);
     
     // Check labels were inherited
     auto children = result.original_to_children[edge];
@@ -72,7 +72,7 @@ void test_triangle_refinement() {
     
     // Check new structure
     assert(complex.vertex_count() == 6); // 3 original + 3 new
-    assert(complex.triangle_count() == 4);
+    assert(complex.get_simplices_of_dimension(2).size() == 4);
     
     // Check labels
     auto children = result.original_to_children[tri];
@@ -143,7 +143,7 @@ void test_edge_coarsening() {
     
     // Check structure is restored
     assert(complex.vertex_count() == 2);
-    assert(complex.edge_count() == 1);
+    assert(complex.get_simplices_of_dimension(1).size() == 1);
     
     std::cout << "✓ Edge coarsening passed" << std::endl;
 }
@@ -165,7 +165,7 @@ void test_triangle_coarsening() {
     
     // Find the center vertex (connects to all 3 midpoints)
     // The center is one of the new vertices
-    auto all_triangles = complex.get_triangles();
+    auto all_triangles = complex.get_simplices_of_dimension(2);
     
     // The center triangle is the one with all new vertices
     SimplexID center_tri = result.original_to_children[tri][3];
@@ -178,7 +178,7 @@ void test_triangle_coarsening() {
     
     // Check structure is restored
     assert(complex.vertex_count() == 3);
-    assert(complex.triangle_count() == 1);
+    assert(complex.get_simplices_of_dimension(2).size() == 1);
     
     std::cout << "✓ Triangle coarsening passed" << std::endl;
 }

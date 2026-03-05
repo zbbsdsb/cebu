@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <cmath>
 #include <stdexcept>
+#include <optional>
 
 namespace cebu {
 
@@ -17,12 +18,17 @@ RefinementResult SimplicialComplexRefinement<LabelType>::refine_edge(
     RefinementResult result;
     
     // Check if edge exists and is 1-dimensional
-    if (!this->has_simplex(edge_id) || this->dimension(edge_id) != 1) {
+    if (!this->has_simplex(edge_id)) {
+        return result;
+    }
+    
+    const auto& edge_simplex = this->get_simplex(edge_id);
+    if (edge_simplex.dimension() != 1) {
         return result;
     }
     
     // Get the edge's vertices
-    auto vertices = this->get_vertices_of_simplex(edge_id);
+    const auto& vertices = edge_simplex.vertices();
     if (vertices.size() != 2) {
         return result; // Not a valid edge
     }
@@ -38,9 +44,8 @@ RefinementResult SimplicialComplexRefinement<LabelType>::refine_edge(
     result.new_vertex_parent_edge[mid] = edge_id;
     
     // Get original label
-    LabelType original_label;
-    bool has_label = this->has_label(edge_id);
-    if (has_label) {
+    std::optional<LabelType> original_label;
+    if (this->has_label(edge_id)) {
         original_label = this->get_label(edge_id);
     }
     
@@ -55,19 +60,19 @@ RefinementResult SimplicialComplexRefinement<LabelType>::refine_edge(
     result.original_to_children[edge_id] = {edge0, edge1};
     
     // Apply label inheritance
-    if (has_label) {
+    if (original_label.has_value()) {
         if (options.label_strategy == LabelInheritanceStrategy::INHERIT_COPY) {
-            this->set_label(edge0, original_label);
-            this->set_label(edge1, original_label);
+            this->set_label(edge0, original_label.value());
+            this->set_label(edge1, original_label.value());
         } else if (options.label_strategy == LabelInheritanceStrategy::INHERIT_INTERPOLATE) {
-            LabelType label0 = interpolate_label(original_label, original_label, 0.5);
-            LabelType label1 = interpolate_label(original_label, original_label, 0.5);
+            LabelType label0 = interpolate_label(original_label.value(), original_label.value(), 0.5);
+            LabelType label1 = interpolate_label(original_label.value(), original_label.value(), 0.5);
             this->set_label(edge0, label0);
             this->set_label(edge1, label1);
         } else if (options.label_strategy == LabelInheritanceStrategy::INHERIT_CUSTOM && 
                    options.custom_label_func) {
-            this->set_label(edge0, options.custom_label_func(original_label, 0, 2));
-            this->set_label(edge1, options.custom_label_func(original_label, 1, 2));
+            this->set_label(edge0, options.custom_label_func(original_label.value(), 0, 2));
+            this->set_label(edge1, options.custom_label_func(original_label.value(), 1, 2));
         }
     }
     
@@ -89,12 +94,17 @@ RefinementResult SimplicialComplexRefinement<LabelType>::refine_triangle(
     RefinementResult result;
     
     // Check if triangle exists and is 2-dimensional
-    if (!this->has_simplex(triangle_id) || this->dimension(triangle_id) != 2) {
+    if (!this->has_simplex(triangle_id)) {
+        return result;
+    }
+    
+    const auto& tri_simplex = this->get_simplex(triangle_id);
+    if (tri_simplex.dimension() != 2) {
         return result;
     }
     
     // Get the triangle's vertices
-    auto vertices = this->get_vertices_of_simplex(triangle_id);
+    const auto& vertices = tri_simplex.vertices();
     if (vertices.size() != 3) {
         return result; // Not a valid triangle
     }
@@ -111,9 +121,8 @@ RefinementResult SimplicialComplexRefinement<LabelType>::refine_triangle(
     result.new_vertices_count = 3;
     
     // Get original label
-    LabelType original_label;
-    bool has_label = this->has_label(triangle_id);
-    if (has_label) {
+    std::optional<LabelType> original_label;
+    if (this->has_label(triangle_id)) {
         original_label = this->get_label(triangle_id);
     }
     
@@ -154,7 +163,7 @@ RefinementResult SimplicialComplexRefinement<LabelType>::refine_triangle(
     result.original_to_children[triangle_id] = {tri0, tri1, tri2, tri3};
     
     // Apply label inheritance
-    if (has_label) {
+    if (original_label.has_value()) {
         std::vector<SimplexID> children = {tri0, tri1, tri2, tri3};
         apply_label_inheritance(triangle_id, children, options);
     }
@@ -175,7 +184,8 @@ RefinementResult SimplicialComplexRefinement<LabelType>::refine_simplex(
         return {};
     }
     
-    int dim = this->dimension(simplex_id);
+    const auto& simplex = this->get_simplex(simplex_id);
+    int dim = simplex.dimension();
     
     switch (dim) {
         case 1:
@@ -239,8 +249,8 @@ bool SimplicialComplexRefinement<LabelType>::coarsen_edge(
     EdgeID e1 = edges[1];
     
     // Get vertices of both edges
-    auto v0 = this->get_vertices_of_simplex(e0);
-    auto v1 = this->get_vertices_of_simplex(e1);
+    const auto& v0 = this->get_simplex(e0).vertices();
+    const auto& v1 = this->get_simplex(e1).vertices();
     
     // Find the endpoints (not the middle vertex)
     VertexID endpoint0 = static_cast<VertexID>(v0[0] == middle_vertex_id ? v0[1] : v0[0]);
@@ -278,7 +288,7 @@ bool SimplicialComplexRefinement<LabelType>::coarsen_triangle(
     // Get the three corner vertices (connected to center)
     std::vector<VertexID> corners;
     for (SimplexID e : edges) {
-        auto vertices = this->get_vertices_of_simplex(e);
+        const auto& vertices = this->get_simplex(e).vertices();
         VertexID corner = static_cast<VertexID>(
             vertices[0] == center_vertex_id ? vertices[1] : vertices[0]);
         corners.push_back(corner);
@@ -454,7 +464,11 @@ void SimplicialComplexRefinement<LabelType>::apply_label_inheritance(
         return;
     }
     
-    LabelType parent_label = this->get_label(parent_id);
+    std::optional<LabelType> parent_label_opt = this->get_label(parent_id);
+    if (!parent_label_opt.has_value()) {
+        return;
+    }
+    LabelType parent_label = parent_label_opt.value();
     
     switch (options.label_strategy) {
         case LabelInheritanceStrategy::INHERIT_COPY:
