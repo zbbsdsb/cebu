@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(cebu VERSION 0.7.3 LANGUAGES CXX)
+project(cebu VERSION 0.8.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -43,6 +43,7 @@ add_library(cebu_core
     src/snapshot_manager.cpp
     src/streaming_io.cpp
     src/version_control.cpp
+    src/bvh.cpp
 )
 
 # Test executable
@@ -206,6 +207,13 @@ add_executable(test_version_control
 
 target_link_libraries(test_version_control cebu_core)
 
+# BVH test executable
+add_executable(test_bvh
+    tests/test_bvh.cpp
+)
+
+target_link_libraries(test_bvh cebu_core)
+
 # Enable testing
 enable_testing()
 add_test(NAME basic_test COMMAND test_basic)
@@ -231,3 +239,4 @@ add_test(NAME change_tracker_test COMMAND test_change_tracker)
 add_test(NAME snapshot_manager_test COMMAND test_snapshot_manager)
 add_test(NAME streaming_io_test COMMAND test_streaming_io)
 add_test(NAME version_control_test COMMAND test_version_control)
+add_test(NAME bvh_test COMMAND test_bvh)
