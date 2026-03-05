@@ -5,7 +5,7 @@ Cebu Space is a non-Hausdorff, narrative-driven topological structure where geom
 
 ## Features
 
-### Current (v0.7.1)
+### Current (v0.7.2)
 - Dynamic addition/removal of simplices (vertices, edges, faces, etc.)
 - Cascade deletion for maintaining complex consistency
 - Query simplices by dimension, connectivity, and containment
@@ -41,6 +41,24 @@ Cebu Space is a non-Hausdorff, narrative-driven topological structure where geom
 - **Non-Hausdorff serialization** 🆕
 - Equivalence classes preservation
 - Glue/separate operation history
+- **Change tracking and delta serialization** 🆕
+- Track all changes (added, removed, label changes, equivalence changes)
+- Export/Import changes as JSON
+- Save only changes for efficient storage
+- **Snapshot management** 🆕
+- Create and restore snapshots
+- Compare snapshots
+- Compressed snapshot storage
+- **Streaming I/O for large files** 🆕
+- Stream-based loading/saving
+- Progress callbacks
+- Partial loading
+- Chunk-based processing
+- **Version control system** 🆕
+- Git-style version management
+- Branch and tag support
+- Version diff and revert
+- Commit history log
 - **Comprehensive test suite**
 
 ### Planned
@@ -233,6 +251,123 @@ std::cout << "Compression ratio: "
 
 // Auto-detects compression on load
 auto result = Persistence::load("compressed.bin");
+```
+
+### Change Tracking
+
+```cpp
+#include "cebu/change_tracker.h"
+
+using namespace cebu;
+
+ChangeTracker tracker;
+
+// Track changes
+VertexID v0 = complex.add_vertex();
+tracker.track_simplex_added(v0, 0, {v0});
+
+EdgeID e0 = complex.add_edge(v0, v1);
+tracker.track_simplex_added(e0, 1, {v0, v1});
+
+complex.set_label(e0, 0.8);
+tracker.track_label_changed(e0, 0.0, 0.8);
+
+// Get changes
+auto changes = tracker.get_changes();
+auto added = tracker.get_changes_by_type(ChangeType::SIMPLEX_ADDED);
+
+// Save changes
+tracker.save_to_file("delta.json");
+
+// Load and apply
+tracker.load_from_file("delta.json");
+```
+
+### Snapshot Management
+
+```cpp
+#include "cebu/snapshot_manager.h"
+
+using namespace cebu;
+
+SnapshotManager manager("snapshots.ceb");
+
+// Create snapshots
+manager.create_snapshot(complex, "initial");
+manager.create_snapshot_labeled(complex, "checkpoint1");
+
+// ... make changes ...
+
+// Restore snapshot
+manager.restore_snapshot(complex, "initial");
+
+// Compare snapshots
+auto changes = manager.compare_snapshots("initial", "checkpoint1");
+
+// List all snapshots
+auto snapshots = manager.list_snapshots();
+```
+
+### Streaming I/O
+
+```cpp
+#include "cebu/streaming_io.h"
+
+using namespace cebu;
+
+// Load large file with progress
+StreamingLoader loader("large_complex.json");
+loader.set_progress_callback([](size_t current, size_t total) {
+    std::cout << "Progress: " << (current * 100 / total) << "%\n";
+});
+
+auto complex = loader.load();
+
+// Get file metadata
+size_t total_simplices = loader.get_total_simplices();
+size_t file_size = loader.get_file_size();
+bool compressed = loader.is_compressed();
+
+// Write with progress
+StreamingWriter writer("output.json");
+writer.set_progress_callback(progress_callback);
+writer.write(complex);
+```
+
+### Version Control
+
+```cpp
+#include "cebu/version_control.h"
+
+using namespace cebu;
+
+VersionControl vc("versions.ceb");
+
+// Commit versions
+VersionID v1 = vc.commit(complex, "Initial version", "alice");
+
+// ... make changes ...
+
+VersionID v2 = vc.commit(complex, "Add vertices", "bob");
+
+// View history
+auto history = vc.log(10);
+
+// Checkout version
+vc.checkout(complex, v1);
+
+// Create branch
+vc.create_branch("feature", v1);
+vc.checkout_branch("feature");
+
+// Merge branch
+vc.merge_branch(complex, "feature");
+
+// Create tag
+vc.create_tag("v1.0.0", v2, "First release");
+
+// Revert
+vc.revert(complex, v1);
 ```
 
 ## Build
