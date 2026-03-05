@@ -112,8 +112,8 @@ public:
     // Query operations
     bool contains(const std::array<double, 3>& point) const;
     std::vector<SimplexID> query_point(const std::array<double, 3>& point) const;
-    std::vector<SimplexID> query_range(const std::array<double, 3>& min,
-                                       const std::array<double, 3>& max) const;
+    std::vector<SimplexID> query_range(const std::array<double, 3>& range_min,
+                                       const std::array<double, 3>& range_max) const;
     std::vector<SimplexID> query_sphere(const std::array<double, 3>& center, double radius) const;
     std::vector<SimplexID> nearest_neighbors(const std::array<double, 3>& point, size_t k) const;
     std::vector<SimplexID> query_frustum(const std::array<double, 16>& view_proj) const;

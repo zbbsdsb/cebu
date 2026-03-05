@@ -170,8 +170,8 @@ std::vector<SimplexID> SpatialIndex::query_point(const std::array<double, 3>& po
     return results;
 }
 
-std::vector<SimplexID> SpatialIndex::query_range(const std::array<double, 3>& min,
-                                                 const std::array<double, 3>& max) const {
+std::vector<SimplexID> SpatialIndex::query_range(const std::array<double, 3>& range_min,
+                                                 const std::array<double, 3>& range_max) const {
     auto start = std::chrono::high_resolution_clock::now();
 
     std::vector<SimplexID> results;
@@ -180,11 +180,11 @@ std::vector<SimplexID> SpatialIndex::query_range(const std::array<double, 3>& mi
                                    recommended_type_ : current_type_;
 
     if (active_type == SpatialIndexType::BVH && bvh_) {
-        BoundingBox bbox(min, max, 0);
+        BoundingBox bbox(range_min, range_max, 0);
         BVHQueryResult bvh_result = bvh_->query_range(bbox);
         results = bvh_result.simplex_ids;
     } else if (active_type == SpatialIndexType::OCTREE && octree_) {
-        OctreeQueryResult octree_result = octree_->query_range(min, max);
+        OctreeQueryResult octree_result = octree_->query_range(range_min, range_max);
         results = octree_result.simplex_ids;
     }
 
