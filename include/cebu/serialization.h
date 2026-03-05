@@ -16,6 +16,9 @@ namespace cebu {
     class SimplicialComplex;
     template<typename LabelType> class SimplicialComplexLabeled;
     template<typename LabelType> class SimplicialComplexNarrative;
+    template<typename LabelType> class SimplicialComplexRefinement;
+    template<typename LabelType> class SimplicialComplexNonHausdorff;
+    template<typename LabelType> class SimplicialComplexNonHausdorffLabeled;
     class JsonSerializer;
 }
 
@@ -281,13 +284,16 @@ class BinarySerializer {
 public:
     // Binary format sections
     enum class Section : uint32_t {
-        HEADER = 0x48445230,       // "HDR0"
-        SIMPLICES = 0x53494D50,    // "SIMP"
-        LABELS = 0x4C41424C,       // "LABL"
-        TIMELINE = 0x54494D45,      // "TIME"
-        EVENTS = 0x45564554,       // "EVNT"
-        CURRENT_TIME = 0x43555254,  // "CURT"
-        END = 0x454E4430           // "END0"
+        HEADER = 0x48445230,           // "HDR0"
+        SIMPLICES = 0x53494D50,        // "SIMP"
+        LABELS = 0x4C41424C,           // "LABL"
+        EQUIVALENCE_CLASSES = 0x4551554C, // "EQLS"
+        REFINEMENT_LEVELS = 0x52454C56,  // "RELV"
+        TIMELINE = 0x54494D45,          // "TIME"
+        EVENTS = 0x45564554,           // "EVNT"
+        COMMAND_HISTORY = 0x434D4853,  // "CMHS"
+        CURRENT_TIME = 0x43555254,      // "CURT"
+        END = 0x454E4430               // "END0"
     };
 
     /// Serialize basic complex to binary data
