@@ -5,7 +5,7 @@ Cebu Space is a non-Hausdorff, narrative-driven topological structure where geom
 
 ## Features
 
-### Current (v0.7.3)
+### Current (v0.8.0)
 - Dynamic addition/removal of simplices (vertices, edges, faces, etc.)
 - Cascade deletion for maintaining complex consistency
 - Query simplices by dimension, connectivity, and containment
@@ -59,8 +59,16 @@ Cebu Space is a non-Hausdorff, narrative-driven topological structure where geom
 - Branch and tag support
 - Version diff and revert
 - Commit history log
+- **High-performance spatial indexing** 🆕
+- BVH (Bounding Volume Hierarchy) with 4 build strategies
+- Octree with LOD (Level of Detail) support
+- Hybrid spatial index with automatic strategy selection
+- Point, range, sphere, kNN, and frustum queries
+- Intelligent LRU caching system
+- Adaptive optimization engine
+- Hotspot identification and data analysis
 - **Comprehensive test suite** 🆕
-- 56+ test cases covering all new features
+- 100+ test cases covering all features
 - >85% code coverage
 - Google Test framework
 - Full integration tests
@@ -68,9 +76,9 @@ Cebu Space is a non-Hausdorff, narrative-driven topological structure where geom
 ### Planned
 - 3D tetrahedron refinement
 - Boundary-aware refinement
-- Spatial indexing (BVH, Octree) for performance
-- Parallel refinement with multithreading
-- GPU-accelerated refinement
+- **Parallel computing engine** (multithreading, work-stealing)
+- **SIMD vectorization** (AVX-512/AVX2 optimization)
+- **GPU-accelerated operations** (CUDA/OpenCL)
 - Diff-based gluing (only glue specific faces)
 - Visual equivalence class viewer
 - 3D rendering and visualization
@@ -373,6 +381,94 @@ vc.create_tag("v1.0.0", v2, "First release");
 
 // Revert
 vc.revert(complex, v1);
+```
+
+### Spatial Indexing
+
+```cpp
+#include "cebu/spatial_index.h"
+
+using namespace cebu;
+
+// Create spatial index (automatically selects best strategy)
+SpatialIndex index(complex);
+
+// Enable caching for repeated queries
+index.enable_cache(true);
+index.set_cache_size(1000);
+
+// Enable performance profiling
+index.enable_profiling(true);
+
+// Point query
+std::array<double, 3> point = {0.5, 0.3, 0.2};
+auto results = index.query_point(point);
+
+// Range query
+auto results = index.query_range({0.0, 0.0, 0.0}, {1.0, 1.0, 1.0});
+
+// Sphere query
+auto results = index.query_sphere(center, 1.0);
+
+// Nearest neighbors
+auto neighbors = index.nearest_neighbors(point, 10);
+
+// Get performance metrics
+auto metrics = index.get_metrics();
+std::cout << "Avg query time: " << metrics.avg_query_time_ms << " ms\n";
+std::cout << "Cache hit rate: " << (metrics.hit_rate * 100) << "%\n";
+
+// Adaptive optimization
+index.enable_adaptive_optimization(true);
+index.trigger_optimization();
+
+// Hotspot identification
+auto hotspots = index.get_hotspots(10);
+```
+
+### BVH Direct Usage
+
+```cpp
+#include "cebu/bvh.h"
+
+using namespace cebu;
+
+BVH bvh(complex);
+
+// Set build strategy
+bvh.set_build_strategy(BVHBuildStrategy::SAH);  // Surface Area Heuristic
+
+// Queries
+auto results = bvh.query_point(point);
+auto results = bvh.query_range(bbox);
+auto results = bvh.nearest_neighbors(point, 10);
+
+// Statistics
+std::cout << "Nodes: " << bvh.get_node_count() << "\n";
+std::cout << "Depth: " << bvh.get_depth() << "\n";
+std::cout << "Leaves: " << bvh.get_leaf_count() << "\n";
+```
+
+### Octree Direct Usage
+
+```cpp
+#include "cebu/octree.h"
+
+using namespace cebu;
+
+Octree octree(complex);
+
+// LOD queries
+octree.set_lod_level(2);
+auto simplified = octree.get_lod_simplices(2);
+
+// Frustum culling
+std::array<double, 16> view_proj = {/* view-projection matrix */};
+auto visible = octree.query_frustum(view_proj);
+
+// Statistics
+std::cout << "Nodes: " << octree.get_node_count() << "\n";
+std::cout << "Depth: " << octree.get_depth() << "\n";
 ```
 
 ## Build
