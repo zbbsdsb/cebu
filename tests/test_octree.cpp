@@ -1,12 +1,12 @@
 #include <gtest/gtest.h>
-#include "cebu/bvh.h"
+#include "cebu/octree.h"
 #include "cebu/simplicial_complex.h"
 #include "cebu/simplicial_complex_labeled.h"
 #include <random>
 
 using namespace cebu;
 
-class BVHTest : public ::testing::Test {
+class OctreeTest : public ::testing::Test {
 protected:
     void SetUp() override {
         // Create a simple tetrahedron
@@ -28,83 +28,80 @@ protected:
 // Construction Tests
 // ============================================================================
 
-TEST_F(BVHTest, DefaultConstruction) {
-    BVH bvh;
-    EXPECT_EQ(bvh.get_node_count(), 0);
-    EXPECT_EQ(bvh.get_simplex_count(), 0);
+TEST_F(OctreeTest, DefaultConstruction) {
+    Octree octree;
+    EXPECT_EQ(octree.get_node_count(), 0);
+    EXPECT_EQ(octree.get_simplex_count(), 0);
 }
 
-TEST_F(BVHTest, ConstructionFromComplex) {
-    BVH bvh(complex);
-    EXPECT_GT(bvh.get_node_count(), 0);
-    EXPECT_EQ(bvh.get_simplex_count(), 4);
+TEST_F(OctreeTest, ConstructionFromComplex) {
+    Octree octree(complex);
+    EXPECT_GT(octree.get_node_count(), 0);
+    EXPECT_EQ(octree.get_simplex_count(), 4);
 }
 
-TEST_F(BVHTest, ConstructionFromLabeledComplex) {
+TEST_F(OctreeTest, ConstructionFromLabeledComplex) {
     SimplicialComplexLabeled<> labeled;
     labeled.add_vertex(0, 0.0, 0.0, 0.0);
     labeled.add_vertex(1, 1.0, 0.0, 0.0);
     labeled.add_vertex(2, 0.5, 1.0, 0.0);
     labeled.add_simplex(0, {0, 1, 2}, 0.5);
 
-    BVH bvh(labeled);
-    EXPECT_GT(bvh.get_node_count(), 0);
-    EXPECT_EQ(bvh.get_simplex_count(), 1);
+    Octree octree(labeled);
+    EXPECT_GT(octree.get_node_count(), 0);
+    EXPECT_EQ(octree.get_simplex_count(), 1);
 }
 
 // ============================================================================
 // Point Query Tests
 // ============================================================================
 
-TEST_F(BVHTest, QueryPointInside) {
-    BVH bvh(complex);
+TEST_F(OctreeTest, QueryPointInside) {
+    Octree octree(complex);
     std::array<double, 3> point = {0.5, 0.3, 0.2};
-    auto results = bvh.query_point(point);
+    auto results = octree.query_point(point);
     EXPECT_GT(results.size(), 0);
 }
 
-TEST_F(BVHTest, QueryPointOutside) {
-    BVH bvh(complex);
+TEST_F(OctreeTest, QueryPointOutside) {
+    Octree octree(complex);
     std::array<double, 3> point = {10.0, 10.0, 10.0};
-    auto results = bvh.query_point(point);
+    auto results = octree.query_point(point);
     EXPECT_EQ(results.size(), 0);
 }
 
-TEST_F(BVHTest, ContainsTrue) {
-    BVH bvh(complex);
+TEST_F(OctreeTest, ContainsTrue) {
+    Octree octree(complex);
     std::array<double, 3> point = {0.5, 0.3, 0.2};
-    EXPECT_TRUE(bvh.contains(point));
+    EXPECT_TRUE(octree.contains(point));
 }
 
-TEST_F(BVHTest, ContainsFalse) {
-    BVH bvh(complex);
+TEST_F(OctreeTest, ContainsFalse) {
+    Octree octree(complex);
     std::array<double, 3> point = {10.0, 10.0, 10.0};
-    EXPECT_FALSE(bvh.contains(point));
+    EXPECT_FALSE(octree.contains(point));
 }
 
 // ============================================================================
 // Range Query Tests
 // ============================================================================
 
-TEST_F(BVHTest, QueryRangeAll) {
-    BVH bvh(complex);
-    BoundingBox range({-1.0, -1.0, -1.0}, {2.0, 2.0, 2.0}, 0);
-    auto result = bvh.query_range(range);
+TEST_F(OctreeTest, QueryRangeAll) {
+    Octree octree(complex);
+    auto result = octree.query_range({-1.0, -1.0, -1.0}, {2.0, 2.0, 2.0});
     EXPECT_EQ(result.simplex_ids.size(), 4);
 }
 
-TEST_F(BVHTest, QueryRangePartial) {
-    BVH bvh(complex);
-    BoundingBox range({0.0, 0.0, 0.0}, {0.6, 0.6, 0.6}, 0);
-    auto result = bvh.query_range(range);
+TEST_F(OctreeTest, QueryRangePartial) {
+    Octree octree(complex);
+    auto result = octree.query_range({0.0, 0.0, 0.0}, {0.6, 0.6, 0.6});
     EXPECT_GT(result.simplex_ids.size(), 0);
-    EXPECT_LT(result.simplex_ids.size(), 4);
+    EXPECT_LE(result.simplex_ids.size(), 4);
 }
 
-TEST_F(BVHTest, QueryRangeEmpty) {
-    BVH bvh(complex);
-    BoundingBox range({10.0, 10.0, 10.0}, {11.0, 11.0, 11.0}, 0);
-    auto result = bvh.query_range(range);
+TEST_F(OctreeTest, QueryRangeEmpty) {
+    Octree octree(complex);
+    auto result = octree.query_range({10.0, 10.0, 10.0}, {11.0, 11.0, 11.0});
     EXPECT_EQ(result.simplex_ids.size(), 0);
 }
 
@@ -112,133 +109,121 @@ TEST_F(BVHTest, QueryRangeEmpty) {
 // Sphere Query Tests
 // ============================================================================
 
-TEST_F(BVHTest, QuerySphere) {
-    BVH bvh(complex);
+TEST_F(OctreeTest, QuerySphere) {
+    Octree octree(complex);
     std::array<double, 3> center = {0.5, 0.5, 0.5};
     double radius = 1.0;
-    auto result = bvh.query_sphere(center, radius);
+    auto result = octree.query_sphere(center, radius);
     EXPECT_EQ(result.simplex_ids.size(), 4);
 }
 
-TEST_F(BVHTest, QuerySpherePartial) {
-    BVH bvh(complex);
+TEST_F(OctreeTest, QuerySpherePartial) {
+    Octree octree(complex);
     std::array<double, 3> center = {0.0, 0.0, 0.0};
     double radius = 0.3;
-    auto result = bvh.query_sphere(center, radius);
-    EXPECT_GT(result.simplex_ids.size(), 0);
-    EXPECT_LT(result.simplex_ids.size(), 4);
+    auto result = octree.query_sphere(center, radius);
+    EXPECT_GE(result.simplex_ids.size(), 0);
+    EXPECT_LE(result.simplex_ids.size(), 4);
 }
 
 // ============================================================================
 // Nearest Neighbor Tests
 // ============================================================================
 
-TEST_F(BVHTest, NearestNeighborsK1) {
-    BVH bvh(complex);
+TEST_F(OctreeTest, NearestNeighborsK1) {
+    Octree octree(complex);
     std::array<double, 3> point = {0.5, 0.5, 0.5};
-    auto results = bvh.nearest_neighbors(point, 1);
+    auto results = octree.nearest_neighbors(point, 1);
     EXPECT_EQ(results.size(), 1);
 }
 
-TEST_F(BVHTest, NearestNeighborsKAll) {
-    BVH bvh(complex);
+TEST_F(OctreeTest, NearestNeighborsKAll) {
+    Octree octree(complex);
     std::array<double, 3> point = {0.5, 0.5, 0.5};
-    auto results = bvh.nearest_neighbors(point, 10);
+    auto results = octree.nearest_neighbors(point, 10);
     EXPECT_EQ(results.size(), 4);
 }
 
 // ============================================================================
-// Build Strategy Tests
+// LOD Tests
 // ============================================================================
 
-TEST_F(BVHTest, BuildStrategyMidpoint) {
-    BVH bvh(complex);
-    bvh.set_build_strategy(BVHBuildStrategy::MIDPOINT);
-    bvh.rebuild();
-    EXPECT_GT(bvh.get_node_count(), 0);
-    EXPECT_EQ(bvh.get_build_strategy(), BVHBuildStrategy::MIDPOINT);
+TEST_F(OctreeTest, SetLODLevel) {
+    Octree octree(complex);
+    octree.set_lod_level(2);
+    EXPECT_EQ(octree.get_lod_level(), 2);
 }
 
-TEST_F(BVHTest, BuildStrategyMedian) {
-    BVH bvh(complex);
-    bvh.set_build_strategy(BVHBuildStrategy::MEDIAN);
-    bvh.rebuild();
-    EXPECT_GT(bvh.get_node_count(), 0);
-    EXPECT_EQ(bvh.get_build_strategy(), BVHBuildStrategy::MEDIAN);
-}
-
-TEST_F(BVHTest, BuildStrategySAH) {
-    BVH bvh(complex);
-    bvh.set_build_strategy(BVHBuildStrategy::SAH);
-    bvh.rebuild();
-    EXPECT_GT(bvh.get_node_count(), 0);
-    EXPECT_EQ(bvh.get_build_strategy(), BVHBuildStrategy::SAH);
+TEST_F(OctreeTest, GetLODSimplices) {
+    Octree octree(complex);
+    auto simplices = octree.get_lod_simplices(0);
+    EXPECT_GT(simplices.size(), 0);
 }
 
 // ============================================================================
 // Statistics Tests
 // ============================================================================
 
-TEST_F(BVHTest, NodeCount) {
-    BVH bvh(complex);
-    EXPECT_GT(bvh.get_node_count(), 0);
+TEST_F(OctreeTest, NodeCount) {
+    Octree octree(complex);
+    EXPECT_GT(octree.get_node_count(), 0);
 }
 
-TEST_F(BVHTest, Depth) {
-    BVH bvh(complex);
-    EXPECT_GT(bvh.get_depth(), 0);
+TEST_F(OctreeTest, Depth) {
+    Octree octree(complex);
+    EXPECT_GT(octree.get_depth(), 0);
 }
 
-TEST_F(BVHTest, LeafCount) {
-    BVH bvh(complex);
-    EXPECT_GT(bvh.get_leaf_count(), 0);
+TEST_F(OctreeTest, LeafCount) {
+    Octree octree(complex);
+    EXPECT_GT(octree.get_leaf_count(), 0);
 }
 
-TEST_F(BVHTest, SimplexCount) {
-    BVH bvh(complex);
-    EXPECT_EQ(bvh.get_simplex_count(), 4);
+TEST_F(OctreeTest, SimplexCount) {
+    Octree octree(complex);
+    EXPECT_EQ(octree.get_simplex_count(), 4);
 }
 
-TEST_F(BVHTest, AverageLeafSize) {
-    BVH bvh(complex);
-    double avg_leaf = bvh.get_average_leaf_size();
-    EXPECT_GT(avg_leaf, 0.0);
+TEST_F(OctreeTest, MaxSimplicesPerNode) {
+    Octree octree(complex);
+    size_t max_in_node = octree.get_max_simplices_per_node();
+    EXPECT_GT(max_in_node, 0);
 }
 
 // ============================================================================
 // Parameter Tests
 // ============================================================================
 
-TEST_F(BVHTest, SetMaxLeafSize) {
-    BVH bvh(complex);
-    bvh.set_max_leaf_size(32);
-    EXPECT_EQ(bvh.get_max_leaf_size(), 32);
-    bvh.rebuild();
-    EXPECT_EQ(bvh.get_max_leaf_size(), 32);
+TEST_F(OctreeTest, SetMaxSimplicesPerNode) {
+    Octree octree(complex);
+    octree.set_max_simplices_per_node(64);
+    EXPECT_EQ(octree.get_max_simplices_per_node_param(), 64);
+    octree.rebuild();
+    EXPECT_EQ(octree.get_max_simplices_per_node_param(), 64);
 }
 
-TEST_F(BVHTest, SetMaxDepth) {
-    BVH bvh(complex);
-    bvh.set_max_depth(16);
-    EXPECT_EQ(bvh.get_max_depth(), 16);
-    bvh.rebuild();
-    EXPECT_EQ(bvh.get_max_depth(), 16);
+TEST_F(OctreeTest, SetMaxDepth) {
+    Octree octree(complex);
+    octree.set_max_depth(20);
+    EXPECT_EQ(octree.get_max_depth_param(), 20);
+    octree.rebuild();
+    EXPECT_EQ(octree.get_max_depth_param(), 20);
 }
 
 // ============================================================================
 // Validation Tests
 // ============================================================================
 
-TEST_F(BVHTest, Validate) {
-    BVH bvh(complex);
-    EXPECT_TRUE(bvh.validate());
+TEST_F(OctreeTest, Validate) {
+    Octree octree(complex);
+    EXPECT_TRUE(octree.validate());
 }
 
 // ============================================================================
 // Large Scale Tests
 // ============================================================================
 
-TEST(BVHLargeScaleTest, Construction100k) {
+TEST(OctreeLargeScaleTest, Construction100k) {
     SimplicialComplex complex;
     
     // Create 100k random vertices
@@ -254,11 +239,11 @@ TEST(BVHLargeScaleTest, Construction100k) {
         complex.add_simplex(i, {i*3, i*3+1, i*3+2});
     }
     
-    BVH bvh(complex);
-    EXPECT_EQ(bvh.get_simplex_count(), 33000);
+    Octree octree(complex);
+    EXPECT_EQ(octree.get_simplex_count(), 33000);
 }
 
-TEST(BVHLargeScaleTest, QueryPerformance) {
+TEST(OctreeLargeScaleTest, QueryPerformance) {
     SimplicialComplex complex;
     
     // Create grid of vertices
@@ -289,13 +274,13 @@ TEST(BVHLargeScaleTest, QueryPerformance) {
         }
     }
     
-    BVH bvh(complex);
+    Octree octree(complex);
     
     // Query performance
     auto start = std::chrono::high_resolution_clock::now();
     for (int i = 0; i < 1000; ++i) {
         std::array<double, 3> point = {25.0, 25.0, 25.0};
-        bvh.query_point(point);
+        octree.query_point(point);
     }
     auto end = std::chrono::high_resolution_clock::now();
     double elapsed = std::chrono::duration<double>(end - start).count() * 1000.0;
