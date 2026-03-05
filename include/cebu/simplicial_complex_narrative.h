@@ -6,11 +6,15 @@
 #include "cebu/timeline.h"
 #include "cebu/absurdity.h"
 #include "cebu/command_history.h"
-#include "cebu/serialization.h"
 #include <vector>
 #include <algorithm>
 #include <type_traits>
 #include <memory>
+
+// Forward declaration of serializer
+namespace cebu {
+    class JsonSerializer;
+}
 
 namespace cebu {
 

@@ -1,9 +1,7 @@
 #ifndef CEBU_SERIALIZATION_H
 #define CEBU_SERIALIZATION_H
 
-#include "cebu/simplicial_complex.h"
-#include "cebu/simplicial_complex_labeled.h"
-#include "cebu/simplicial_complex_narrative.h"
+#include "cebu/simplex.h"
 #include "cebu/absurdity.h"
 #include <string>
 #include <sstream>
