@@ -2,7 +2,7 @@
 #define CEBU_COMMAND_HISTORY_H
 
 #include "cebu/simplicial_complex_labeled.h"
-#include "cebu/types.h"
+#include "cebu/simplex.h"
 #include <memory>
 #include <vector>
 #include <stdexcept>
@@ -32,8 +32,8 @@ class AddSimplexCommand : public Command {
 public:
     AddSimplexCommand(
         ComplexType& complex,
-        const std::vector<typename ComplexType::VertexID>& vertices,
-        std::function<void(typename ComplexType::SimplexID)> on_execute = nullptr)
+        const std::vector<VertexID>& vertices,
+        std::function<void(SimplexID)> on_execute = nullptr)
         : complex_(complex)
         , vertices_(vertices)
         , on_execute_(std::move(on_execute))
@@ -65,13 +65,13 @@ public:
         return "Add simplex with " + std::to_string(vertices_.size()) + " vertices";
     }
 
-    typename ComplexType::SimplexID simplex_id() const { return simplex_id_; }
+    SimplexID simplex_id() const { return simplex_id_; }
 
 private:
     ComplexType& complex_;
-    std::vector<typename ComplexType::VertexID> vertices_;
-    std::function<void(typename ComplexType::SimplexID)> on_execute_;
-    typename ComplexType::SimplexID simplex_id_;
+    std::vector<VertexID> vertices_;
+    std::function<void(SimplexID)> on_execute_;
+    SimplexID simplex_id_;
     bool executed_;
 };
 
@@ -81,7 +81,7 @@ class RemoveSimplexCommand : public Command {
 public:
     RemoveSimplexCommand(
         ComplexType& complex,
-        typename ComplexType::SimplexID simplex_id,
+        SimplexID simplex_id,
         bool cascade = false)
         : complex_(complex)
         , simplex_id_(simplex_id)
@@ -129,9 +129,9 @@ public:
 
 private:
     ComplexType& complex_;
-    typename ComplexType::SimplexID simplex_id_;
+    SimplexID simplex_id_;
     bool cascade_;
-    std::vector<typename ComplexType::VertexID> vertices_;
+    std::vector<VertexID> vertices_;
     bool executed_;
     bool success_;
     bool can_undo_;
@@ -143,7 +143,7 @@ class SetLabelCommand : public Command {
 public:
     SetLabelCommand(
         ComplexType& complex,
-        typename ComplexType::SimplexID simplex_id,
+        SimplexID simplex_id,
         const LabelType& new_label)
         : complex_(complex)
         , simplex_id_(simplex_id)
@@ -188,7 +188,7 @@ public:
 
 private:
     ComplexType& complex_;
-    typename ComplexType::SimplexID simplex_id_;
+    SimplexID simplex_id_;
     LabelType new_label_;
     LabelType old_label_;
     bool executed_;
@@ -196,13 +196,13 @@ private:
 };
 
 /// Command for applying a story event
-template<typename ComplexType>
+template<typename ComplexType, typename LabelType>
 class ApplyEventCommand : public Command {
 public:
     ApplyEventCommand(
         ComplexType& complex,
-        const std::vector<typename ComplexType::SimplexID>& affected_simplices,
-        std::function<void(const std::vector<typename ComplexType::SimplexID>&)> on_apply)
+        const std::vector<SimplexID>& affected_simplices,
+        std::function<void(const std::vector<SimplexID>&)> on_apply)
         : complex_(complex)
         , affected_simplices_(affected_simplices)
         , on_apply_(std::move(on_apply))
@@ -248,10 +248,9 @@ public:
 
 private:
     ComplexType& complex_;
-    std::vector<typename ComplexType::SimplexID> affected_simplices_;
-    std::function<void(const std::vector<typename ComplexType::SimplexID>&)> on_apply_;
-    std::unordered_map<typename ComplexType::SimplexID,
-                      typename ComplexType::LabelType> old_labels_;
+    std::vector<SimplexID> affected_simplices_;
+    std::function<void(const std::vector<SimplexID>&)> on_apply_;
+    std::unordered_map<SimplexID, LabelType> old_labels_;
     bool executed_;
 };
 
