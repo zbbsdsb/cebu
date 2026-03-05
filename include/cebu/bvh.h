@@ -1,360 +1,234 @@
 #ifndef CEBU_BVH_H
 #define CEBU_BVH_H
 
+#include "simplicial_complex.h"
+#include "simplicial_complex_labeled.h"
 #include <vector>
-#include <array>
 #include <memory>
-#include <algorithm>
-#include <optional>
-#include <functional>
-#include <cmath>
+#include <array>
 #include <limits>
-#include "cebu/simplicial_complex.h"
-#include "cebu/types.h"
+#include <functional>
 
 namespace cebu {
 
 /**
- * @brief Bounding Volume Hierarchy (BVH) for efficient spatial queries
- *
- * BVH organizes simplices in a binary tree structure based on their
- * spatial extent, enabling efficient range queries, nearest neighbor
- * searches, and collision detection.
+ * @brief 3D axis-aligned bounding box
+ */
+struct BoundingBox {
+    std::array<double, 3> min;
+    std::array<double, 3> max;
+    SimplexID simplex_id;
+
+    BoundingBox() : min{{std::numeric_limits<double>::max(),
+                         std::numeric_limits<double>::max(),
+                         std::numeric_limits<double>::max()}},
+                    max{{std::numeric_limits<double>::lowest(),
+                         std::numeric_limits<double>::lowest(),
+                         std::numeric_limits<double>::lowest()}},
+                    simplex_id(0) {}
+
+    BoundingBox(const std::array<double, 3>& min_val,
+                const std::array<double, 3>& max_val,
+                SimplexID id)
+        : min(min_val), max(max_val), simplex_id(id) {}
+
+    /**
+     * @brief Expand bounding box to include point
+     */
+    void expand(const std::array<double, 3>& point) {
+        for (int i = 0; i < 3; ++i) {
+            min[i] = std::min(min[i], point[i]);
+            max[i] = std::max(max[i], point[i]);
+        }
+    }
+
+    /**
+     * @brief Merge with another bounding box
+     */
+    void merge(const BoundingBox& other) {
+        for (int i = 0; i < 3; ++i) {
+            min[i] = std::min(min[i], other.min[i]);
+            max[i] = std::max(max[i], other.max[i]);
+        }
+    }
+
+    /**
+     * @brief Calculate surface area (for SAH)
+     */
+    double surface_area() const {
+        double dx = max[0] - min[0];
+        double dy = max[1] - min[1];
+        double dz = max[2] - min[2];
+        return 2.0 * (dx * dy + dy * dz + dz * dx);
+    }
+
+    /**
+     * @brief Check if point is inside bounding box
+     */
+    bool contains(const std::array<double, 3>& point) const {
+        return point[0] >= min[0] && point[0] <= max[0] &&
+               point[1] >= min[1] && point[1] <= max[1] &&
+               point[2] >= min[2] && point[2] <= max[2];
+    }
+
+    /**
+     * @brief Check if intersects with another bounding box
+     */
+    bool intersects(const BoundingBox& other) const {
+        return !(max[0] < other.min[0] || min[0] > other.max[0] ||
+                 max[1] < other.min[1] || min[1] > other.max[1] ||
+                 max[2] < other.min[2] || min[2] > other.max[2]);
+    }
+
+    /**
+     * @brief Calculate center point
+     */
+    std::array<double, 3> center() const {
+        return {(min[0] + max[0]) / 2.0,
+                (min[1] + max[1]) / 2.0,
+                (min[2] + max[2]) / 2.0};
+    }
+};
+
+/**
+ * @brief BVH node type
+ */
+enum class BVHNodeType {
+    LEAF,       // Leaf node containing simplices
+    INTERNAL    // Internal node with children
+};
+
+/**
+ * @brief BVH tree node
+ */
+struct BVHNode {
+    BoundingBox bbox;
+    BVHNodeType type;
+    std::unique_ptr<BVHNode> left;
+    std::unique_ptr<BVHNode> right;
+    std::vector<SimplexID> simplices;  // For leaf nodes
+
+    BVHNode() : type(BVHNodeType::LEAF) {}
+
+    bool is_leaf() const { return type == BVHNodeType::LEAF; }
+};
+
+/**
+ * @brief BVH build strategy
+ */
+enum class BVHBuildStrategy {
+    MIDPOINT,       // Split at midpoint
+    MEDIAN,         // Split at median (balanced tree)
+    SAH,            // Surface Area Heuristic (optimal)
+    HILBERT         // Hilbert curve ordering
+};
+
+/**
+ * @brief BVH query result
+ */
+struct BVHQueryResult {
+    std::vector<SimplexID> simplex_ids;
+    size_t nodes_visited;
+    double query_time_ms;
+
+    BVHQueryResult() : nodes_visited(0), query_time_ms(0.0) {}
+};
+
+/**
+ * @brief High-performance Bounding Volume Hierarchy
+ * 
+ * Provides O(log n) spatial queries for simplicial complexes.
+ * Supports dynamic rebuilding and adaptive optimization.
  */
 class BVH {
 public:
-    /**
-     * @brief Bounding box represented as [min_x, min_y, min_z, max_x, max_y, max_z]
-     */
-    using BoundingBox = std::array<float, 6>;
+    BVH();
+    explicit BVH(const SimplicialComplex& complex);
+    explicit BVH(const SimplicialComplexLabeled<>& complex);
+    
+    ~BVH();
 
-    /**
-     * @brief BVH node structure
-     */
-    struct BVHNode {
-        BoundingBox bbox;                  // Bounding box
-        std::unique_ptr<BVHNode> left;      // Left child
-        std::unique_ptr<BVHNode> right;     // Right child
-        std::vector<SimplexID> simplices;   // Simplices in this node (leaf only)
-        bool is_leaf;                       // Whether this is a leaf node
-        size_t depth;                       // Depth in the tree
+    // Build BVH from simplicial complex
+    void build(const SimplicialComplex& complex);
+    void build(const SimplicialComplexLabeled<>& complex);
+    
+    // Rebuild BVH (after modifications)
+    void rebuild();
+    void rebuild(BVHBuildStrategy strategy);
 
-        BVHNode() : is_leaf(false), depth(0) {
-            bbox = {std::numeric_limits<float>::max(),
-                    std::numeric_limits<float>::max(),
-                    std::numeric_limits<float>::max(),
-                    std::numeric_limits<float>::lowest(),
-                    std::numeric_limits<float>::lowest(),
-                    std::numeric_limits<float>::lowest()};
-        }
-    };
+    // Point queries
+    bool contains(const std::array<double, 3>& point) const;
+    std::vector<SimplexID> query_point(const std::array<double, 3>& point) const;
+    
+    // Range queries
+    BVHQueryResult query_range(const BoundingBox& range) const;
+    BVHQueryResult query_sphere(const std::array<double, 3>& center, double radius) const;
+    
+    // Nearest neighbor
+    std::vector<SimplexID> nearest_neighbors(const std::array<double, 3>& point,
+                                             size_t k) const;
+    
+    // Ray intersection
+    std::vector<SimplexID> ray_intersect(const std::array<double, 3>& origin,
+                                         const std::array<double, 3>& direction) const;
 
-    /**
-     * @brief Construction strategy
-     */
-    enum class BuildStrategy {
-        MEDIAN_SPLIT,    // Split by median along the longest axis
-        SAH,             // Surface Area Heuristic (SAH) optimization
-        MIDPOINT_SPLIT   // Split at midpoint of longest axis
-    };
+    // Update simplex
+    void update_simplex(SimplexID id, const std::array<double, 3>& new_position);
+    void remove_simplex(SimplexID id);
+    
+    // Statistics and diagnostics
+    size_t get_node_count() const;
+    size_t get_depth() const;
+    size_t get_leaf_count() const;
+    size_t get_simplex_count() const;
+    double get_average_leaf_size() const;
+    BVHQueryResult get_statistics() const;
 
-    /**
-     * @brief Query result
-     */
-    struct QueryResult {
-        std::vector<SimplexID> found;       // Found simplices
-        size_t nodes_visited;               // Number of nodes visited
-        double query_time_ms;               // Query time in milliseconds
+    // Optimization
+    void set_build_strategy(BVHBuildStrategy strategy);
+    BVHBuildStrategy get_build_strategy() const;
+    void set_max_leaf_size(size_t size);
+    size_t get_max_leaf_size() const;
+    void set_max_depth(size_t depth);
+    size_t get_max_depth() const;
 
-        QueryResult() : nodes_visited(0), query_time_ms(0.0) {}
-    };
-
-    /**
-     * @brief Nearest neighbor result
-     */
-    struct NearestResult {
-        std::optional<SimplexID> simplex_id;  // Nearest simplex
-        double distance;                      // Distance to nearest simplex
-        size_t nodes_visited;                 // Number of nodes visited
-
-        NearestResult() : distance(std::numeric_limits<double>::max()),
-                         nodes_visited(0) {}
-    };
+    // Validation
+    bool validate() const;
+    void print_tree() const;
 
 private:
     std::unique_ptr<BVHNode> root_;
     const SimplicialComplex* complex_;
-    BuildStrategy strategy_;
-    size_t max_simplices_per_leaf_;
+    const SimplicialComplexLabeled<>* labeled_complex_;
+    BVHBuildStrategy build_strategy_;
+    size_t max_leaf_size_;
     size_t max_depth_;
-    std::unordered_map<SimplexID, std::vector<float>> simplex_centers_;
+    bool needs_rebuild_;
 
-    /**
-     * @brief Get vertex position from complex
-     */
-    std::optional<std::array<float, 3>> get_vertex_position(VertexID vid) const;
+    // Build methods
+    void build_recursive(BVHNode* node, std::vector<SimplexID>& simplex_ids,
+                        size_t depth);
+    void build_midpoint(BVHNode* node, std::vector<SimplexID>& simplex_ids, size_t depth);
+    void build_median(BVHNode* node, std::vector<SimplexID>& simplex_ids, size_t depth);
+    void build_sah(BVHNode* node, std::vector<SimplexID>& simplex_ids, size_t depth);
+    void build_hilbert(BVHNode* node, std::vector<SimplexID>& simplex_ids, size_t depth);
 
-    /**
-     * @brief Compute bounding box for a simplex
-     */
-    BoundingBox compute_bounding_box(SimplexID sid) const;
+    // Query methods
+    void query_point_recursive(const BVHNode* node, const std::array<double, 3>& point,
+                               std::vector<SimplexID>& results) const;
+    void query_range_recursive(const BVHNode* node, const BoundingBox& range,
+                               BVHQueryResult& results) const;
+    void query_sphere_recursive(const BVHNode* node, const std::array<double, 3>& center,
+                                double radius_sq, BVHQueryResult& results) const;
 
-    /**
-     * @brief Compute bounding box for multiple simplices
-     */
-    BoundingBox compute_bounding_box(const std::vector<SimplexID>& simplices) const;
-
-    /**
-     * @brief Merge two bounding boxes
-     */
-    BoundingBox merge_bounding_boxes(const BoundingBox& a, const BoundingBox& b) const;
-
-    /**
-     * @brief Compute surface area of bounding box
-     */
-    float compute_surface_area(const BoundingBox& bbox) const;
-
-    /**
-     * @brief Check if bounding box intersects point
-     */
-    bool intersects_point(const BoundingBox& bbox, float x, float y, float z = 0.0f) const;
-
-    /**
-     * @brief Check if bounding box intersects range
-     */
-    bool intersects_range(const BoundingBox& bbox,
-                          float min_x, float min_y, float min_z,
-                          float max_x, float max_y, float max_z) const;
-
-    /**
-     * @brief Check if bounding box intersects sphere
-     */
-    bool intersects_sphere(const BoundingBox& bbox,
-                           float center_x, float center_y, float center_z,
-                           float radius) const;
-
-    /**
-     * @brief Compute center of bounding box
-     */
-    std::array<float, 3> compute_center(const BoundingBox& bbox) const;
-
-    /**
-     * @brief Compute longest axis of bounding box
-     */
-    size_t compute_longest_axis(const BoundingBox& bbox) const;
-
-    /**
-     * @brief Split simplices by median along axis
-     */
-    std::pair<std::vector<SimplexID>, std::vector<SimplexID>>
-    split_by_median(const std::vector<SimplexID>& simplices, size_t axis);
-
-    /**
-     * @brief Split simplices by midpoint along axis
-     */
-    std::pair<std::vector<SimplexID>, std::vector<SimplexID>>
-    split_by_midpoint(const std::vector<SimplexID>& simplices, size_t axis,
-                     float midpoint);
-
-    /**
-     * @brief Split simplices using SAH
-     */
-    std::pair<std::vector<SimplexID>, std::vector<SimplexID>>
-    split_by_sah(const std::vector<SimplexID>& simplices);
-
-    /**
-     * @brief Recursively build BVH tree
-     */
-    std::unique_ptr<BVHNode> build_tree(const std::vector<SimplexID>& simplices,
-                                         size_t depth);
-
-    /**
-     * @brief Range query helper
-     */
-    void range_query_helper(const BVHNode* node,
-                            float min_x, float min_y, float min_z,
-                            float max_x, float max_y, float max_z,
-                            std::vector<SimplexID>& results,
-                            size_t& nodes_visited) const;
-
-    /**
-     * @brief Point query helper
-     */
-    void point_query_helper(const BVHNode* node,
-                           float x, float y, float z,
-                           std::vector<SimplexID>& results,
-                           size_t& nodes_visited) const;
-
-    /**
-     * @brief Nearest neighbor query helper
-     */
-    void nearest_neighbor_helper(const BVHNode* node,
-                                float x, float y, float z,
-                                NearestResult& result) const;
-
-    /**
-     * @brief Distance from point to bounding box
-     */
-    float distance_to_bbox(const BoundingBox& bbox,
-                          float x, float y, float z) const;
-
-    /**
-     * @brief Distance from point to simplex
-     */
-    float distance_to_simplex(SimplexID sid,
-                              float x, float y, float z) const;
-
-    /**
-     * @ray intersection helper
-     */
-    void ray_query_helper(const BVHNode* node,
-                         const std::array<float, 3>& origin,
-                         const std::array<float, 3>& direction,
-                         float t_max,
-                         std::vector<SimplexID>& results,
-                         size_t& nodes_visited) const;
-
-    /**
-     * @brief Check if ray intersects bounding box
-     */
-    bool ray_intersects_bbox(const BoundingBox& bbox,
-                            const std::array<float, 3>& origin,
-                            const std::array<float, 3>& direction,
-                            float t_max) const;
-
-public:
-    /**
-     * @brief Construct BVH from simplicial complex
-     *
-     * @param complex Reference to simplicial complex
-     * @param strategy Build strategy (default: MEDIAN_SPLIT)
-     * @param max_simplices_per_leaf Maximum simplices per leaf node (default: 4)
-     * @param max_depth Maximum tree depth (default: 32)
-     */
-    BVH(const SimplicialComplex& complex,
-        BuildStrategy strategy = BuildStrategy::MEDIAN_SPLIT,
-        size_t max_simplices_per_leaf = 4,
-        size_t max_depth = 32);
-
-    /**
-     * @brief Rebuild BVH (useful after complex modifications)
-     */
-    void rebuild();
-
-    /**
-     * @brief Incremental update of BVH
-     *
-     * @param added List of added simplices
-     * @param removed List of removed simplices
-     * @param modified List of modified simplices
-     */
-    void incremental_update(const std::vector<SimplexID>& added,
-                            const std::vector<SimplexID>& removed,
-                            const std::vector<SimplexID>& modified = {});
-
-    /**
-     * @brief Range query
-     *
-     * @param min_x, min_y, min_z Minimum coordinates
-     * @param max_x, max_y, max_z Maximum coordinates
-     * @return Query result with found simplices and timing
-     */
-    QueryResult range_query(float min_x, float min_y, float min_z,
-                            float max_x, float max_y, float max_z);
-
-    /**
-     * @brief Point query (find all simplices containing point)
-     *
-     * @param x, y, z Point coordinates
-     * @return Query result with found simplices and timing
-     */
-    QueryResult point_query(float x, float y, float z);
-
-    /**
-     * @brief Sphere query (find all simplices intersecting sphere)
-     *
-     * @param center_x, center_y, center_z Sphere center
-     * @param radius Sphere radius
-     * @return Query result with found simplices and timing
-     */
-    QueryResult sphere_query(float center_x, float center_y, float center_z,
-                              float radius);
-
-    /**
-     * @brief Nearest neighbor query
-     *
-     * @param x, y, z Query point
-     * @return Nearest neighbor result
-     */
-    NearestResult nearest_neighbor(float x, float y, float z);
-
-    /**
-     * @brief K-nearest neighbors query
-     *
-     * @param x, y, z Query point
-     * @param k Number of neighbors to return
-     * @return Vector of nearest neighbors sorted by distance
-     */
-    std::vector<std::pair<SimplexID, double>>
-    k_nearest_neighbors(float x, float y, float z, size_t k);
-
-    /**
-     * @brief Ray query (find all simplices intersecting ray)
-     *
-     * @param origin Ray origin
-     * @param direction Ray direction
-     * @param t_max Maximum ray length (default: infinity)
-     * @return Query result with found simplices and timing
-     */
-    QueryResult ray_query(const std::array<float, 3>& origin,
-                          const std::array<float, 3>& direction,
-                          float t_max = std::numeric_limits<float>::max());
-
-    /**
-     * @brief Collision detection with another BVH
-     *
-     * @param other Other BVH
-     * @return Vector of colliding simplex pairs
-     */
-    std::vector<std::pair<SimplexID, SimplexID>>
-    find_collisions(const BVH& other) const;
-
-    /**
-     * @brief Get tree statistics
-     *
-     * @return Map containing various statistics
-     */
-    std::unordered_map<std::string, size_t> get_statistics() const;
-
-    /**
-     * @brief Get maximum depth of tree
-     */
-    size_t get_max_depth() const;
-
-    /**
-     * @brief Get total number of nodes
-     */
-    size_t get_node_count() const;
-
-    /**
-     * @brief Get total number of leaf nodes
-     */
-    size_t get_leaf_count() const;
-
-    /**
-     * @brief Check if BVH is valid
-     */
-    bool is_valid() const;
-
-    /**
-     * @brief Optimize BVH by rebalancing
-     */
-    void optimize();
-
-    /**
-     * @brief Clear BVH
-     */
-    void clear();
+    // Utility methods
+    BoundingBox compute_bounding_box(SimplexID id) const;
+    std::array<double, 3> get_simplex_position(SimplexID id) const;
+    size_t count_nodes(const BVHNode* node) const;
+    size_t get_max_depth(const BVHNode* node, size_t current) const;
+    size_t count_leaves(const BVHNode* node) const;
+    bool validate_recursive(const BVHNode* node) const;
+    void print_tree_recursive(const BVHNode* node, int depth) const;
 };
 
 } // namespace cebu
