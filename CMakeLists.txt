@@ -14,6 +14,7 @@ add_library(cebu_core
     src/absurdity.cpp
     src/equivalence_classes.cpp
     src/simplicial_complex_non_hausdorff.cpp
+    src/refinement.cpp
 )
 
 # Test executable
@@ -100,6 +101,13 @@ add_executable(test_non_hausdorff
 
 target_link_libraries(test_non_hausdorff cebu_core)
 
+# Refinement test executable
+add_executable(test_refinement
+    tests/test_refinement.cpp
+)
+
+target_link_libraries(test_refinement cebu_core)
+
 # Enable testing
 enable_testing()
 add_test(NAME basic_test COMMAND test_basic)
@@ -114,3 +122,4 @@ add_test(NAME command_history_test COMMAND test_command_history)
 add_test(NAME serialization_test COMMAND test_serialization)
 add_test(NAME equivalence_classes_test COMMAND test_equivalence_classes)
 add_test(NAME non_hausdorff_test COMMAND test_non_hausdorff)
+add_test(NAME refinement_test COMMAND test_refinement)
