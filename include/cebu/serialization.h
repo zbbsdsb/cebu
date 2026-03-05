@@ -9,6 +9,15 @@
 #include <unordered_map>
 #include <vector>
 #include <cstring>
+#include <cstdint>
+
+// Forward declarations
+namespace cebu {
+    class SimplicialComplex;
+    template<typename LabelType> class SimplicialComplexLabeled;
+    template<typename LabelType> class SimplicialComplexNarrative;
+    class JsonSerializer;
+}
 
 namespace cebu {
 
