@@ -231,16 +231,15 @@ double Compression::estimate_compression_ratio(const std::vector<uint8_t>& data)
     if (data.empty()) {
         return 1.0;
     }
-    
+
     // Calculate entropy as a heuristic for compressibility
-    const size_t buffer_size = 256;
-    std::array<int, buffer_size> freq = {};
-    
+    std::array<int, 256> freq = {};
+
     // Count byte frequencies
     for (uint8_t byte : data) {
         freq[byte]++;
     }
-    
+
     // Calculate entropy
     double entropy = 0.0;
     for (int count : freq) {

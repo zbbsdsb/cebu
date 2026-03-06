@@ -12,6 +12,9 @@
 
 namespace cebu {
 
+/// Type alias for equivalence class manager
+using EquivalenceClasses = EquivalenceClassManager;
+
 /// JSON serialization support for all complex types
 /// Requires nlohmann/json library
 class JsonSerializer {
