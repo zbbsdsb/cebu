@@ -37,19 +37,27 @@ SimplicialComplex JsonSerializer::deserialize(const nlohmann::json& j) {
     if (!validate(j)) {
         throw std::runtime_error("Invalid JSON format for Cebu complex");
     }
-    
+
     SimplicialComplex complex;
-    
+
     // Load simplices
     if (j.contains("simplices") && j["simplices"].is_array()) {
         for (const auto& simplex_json : j["simplices"]) {
-            Simplex simplex = deserialize_simplex(simplex_json);
-            // Re-add simplex to complex
-            // Note: This is a simplified version
-            // In practice, we need to handle IDs carefully
+            // Extract vertices
+            std::vector<VertexID> vertices;
+            if (simplex_json.contains("vertices") && simplex_json["vertices"].is_array()) {
+                for (const auto& v : simplex_json["vertices"]) {
+                    vertices.push_back(v.get<VertexID>());
+                }
+            }
+
+            // Add simplex to complex
+            if (!vertices.empty()) {
+                complex.add_simplex(vertices);
+            }
         }
     }
-    
+
     return complex;
 }
 

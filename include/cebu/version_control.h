@@ -4,6 +4,7 @@
 #include <cebu/simplicial_complex.h>
 #include <cebu/change_tracker.h>
 #include <cebu/snapshot_manager.h>
+#include <nlohmann/json.hpp>
 #include <string>
 #include <map>
 #include <vector>
