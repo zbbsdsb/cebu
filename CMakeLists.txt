@@ -43,6 +43,8 @@ add_library(cebu_core
     src/snapshot_manager.cpp
     src/streaming_io.cpp
     src/version_control.cpp
+    src/vertex_geometry.cpp
+    src/bvh.cpp
 )
 
 # Link nlohmann/json
@@ -218,6 +220,20 @@ add_executable(test_version_control
 
 target_link_libraries(test_version_control cebu_core)
 
+# Vertex geometry test executable
+add_executable(test_vertex_geometry
+    tests/test_vertex_geometry.cpp
+)
+
+target_link_libraries(test_vertex_geometry cebu_core)
+
+# BVH test executable
+add_executable(test_bvh
+    tests/test_bvh.cpp
+)
+
+target_link_libraries(test_bvh cebu_core)
+
 # Enable testing
 enable_testing()
 add_test(NAME basic_test COMMAND test_basic)
@@ -243,3 +259,5 @@ add_test(NAME change_tracker_test COMMAND test_change_tracker)
 add_test(NAME snapshot_manager_test COMMAND test_snapshot_manager)
 add_test(NAME streaming_io_test COMMAND test_streaming_io)
 add_test(NAME version_control_test COMMAND test_version_control)
+add_test(NAME vertex_geometry_test COMMAND test_vertex_geometry)
+add_test(NAME bvh_test COMMAND test_bvh)
