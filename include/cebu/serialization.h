@@ -17,9 +17,8 @@ namespace cebu {
     template<typename LabelType> class SimplicialComplexLabeled;
     template<typename LabelType> class SimplicialComplexNarrative;
     template<typename LabelType> class SimplicialComplexRefinement;
-    template<typename LabelType> class SimplicialComplexNonHausdorff;
+    class SimplicialComplexNonHausdorff;
     template<typename LabelType> class SimplicialComplexNonHausdorffLabeled;
-    class JsonSerializer;
 }
 
 namespace cebu {
