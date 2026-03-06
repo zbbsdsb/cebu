@@ -5,6 +5,8 @@
 #include <unordered_map>
 #include <array>
 #include <optional>
+#include <cmath>
+#include <limits>
 
 namespace cebu {
 
