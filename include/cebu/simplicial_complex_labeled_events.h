@@ -41,14 +41,13 @@ public:
     /**
      * @brief Add an edge and trigger event
      */
-    SimplexID add_edge(VertexID v1, VertexID v2) override {
+    SimplexID add_edge(VertexID v1, VertexID v2) {
         SimplexID eid = SimplicialComplexLabeled<LabelType>::add_edge(v1, v2);
         if (this->events_enabled()) {
             EventData event(EventType::ON_ADD_SIMPLEX, eid, 1, "Edge added");
-            this->event_system_.trigger_event_with_label(event,
-                [this](SimplexID id) -> const LabelType* {
-                    return this->label_system_->get_label(id);
-                });
+            auto label_opt = this->get_label(eid);
+            const LabelType* label_ptr = label_opt.has_value() ? &label_opt.value() : nullptr;
+            this->event_system_.trigger_event(event, label_ptr);
         }
         return eid;
     }
@@ -56,14 +55,13 @@ public:
     /**
      * @brief Add a triangle and trigger event
      */
-    SimplexID add_triangle(VertexID v1, VertexID v2, VertexID v3) override {
+    SimplexID add_triangle(VertexID v1, VertexID v2, VertexID v3) {
         SimplexID tid = SimplicialComplexLabeled<LabelType>::add_triangle(v1, v2, v3);
         if (this->events_enabled()) {
             EventData event(EventType::ON_ADD_SIMPLEX, tid, 2, "Triangle added");
-            this->event_system_.trigger_event_with_label(event,
-                [this](SimplexID id) -> const LabelType* {
-                    return this->label_system_->get_label(id);
-                });
+            auto label_opt = this->get_label(tid);
+            const LabelType* label_ptr = label_opt.has_value() ? &label_opt.value() : nullptr;
+            this->event_system_.trigger_event(event, label_ptr);
         }
         return tid;
     }
@@ -71,15 +69,14 @@ public:
     /**
      * @brief Add a k-simplex and trigger event
      */
-    SimplexID add_simplex(const std::vector<VertexID>& vertices) override {
+    SimplexID add_simplex(const std::vector<VertexID>& vertices) {
         SimplexID sid = SimplicialComplexLabeled<LabelType>::add_simplex(vertices);
         if (this->events_enabled()) {
             size_t dim = vertices.size() - 1;
             EventData event(EventType::ON_ADD_SIMPLEX, sid, dim, "Simplex added");
-            this->event_system_.trigger_event_with_label(event,
-                [this](SimplexID id) -> const LabelType* {
-                    return this->label_system_->get_label(id);
-                });
+            auto label_opt = this->get_label(sid);
+            const LabelType* label_ptr = label_opt.has_value() ? &label_opt.value() : nullptr;
+            this->event_system_.trigger_event(event, label_ptr);
         }
         return sid;
     }
@@ -87,15 +84,16 @@ public:
     /**
      * @brief Remove a simplex and trigger event
      */
-    bool remove_simplex(SimplexID simplex_id, bool cascade = false) override {
+    bool remove_simplex(SimplexID simplex_id, bool cascade = false) {
         // Get label before removal
-        const LabelType* label = this->label_system_->get_label(simplex_id);
+        auto label_opt = this->get_label(simplex_id);
+        const LabelType* label_ptr = label_opt.has_value() ? &label_opt.value() : nullptr;
 
         bool removed = SimplicialComplexLabeled<LabelType>::remove_simplex(simplex_id, cascade);
 
         if (removed && this->events_enabled()) {
             EventData event(EventType::ON_REMOVE_SIMPLEX, simplex_id, 0, "Simplex removed");
-            this->event_system_.trigger_event(event, label);
+            this->event_system_.trigger_event(event, label_ptr);
         }
 
         return removed;
@@ -104,7 +102,7 @@ public:
     /**
      * @brief Set label and trigger event
      */
-    void set_label(SimplexID simplex_id, const LabelType& label) override {
+    void set_label(SimplexID simplex_id, const LabelType& label) {
         bool had_label = this->has_label(simplex_id);
         SimplicialComplexLabeled<LabelType>::set_label(simplex_id, label);
 
@@ -117,7 +115,7 @@ public:
     /**
      * @brief Remove label and trigger event
      */
-    void remove_label(SimplexID simplex_id) override {
+    void remove_label(SimplexID simplex_id) {
         bool had_label = this->has_label(simplex_id);
         SimplicialComplexLabeled<LabelType>::remove_label(simplex_id);
 
