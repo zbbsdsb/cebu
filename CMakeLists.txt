@@ -242,6 +242,25 @@ add_executable(test_octree
 
 target_link_libraries(test_octree cebu_core)
 
+# Compilation test executables
+add_executable(test_vertex_geometry_compilation
+    tests/test_vertex_geometry_compilation.cpp
+)
+
+target_link_libraries(test_vertex_geometry_compilation cebu_core)
+
+add_executable(test_bvh_compilation
+    tests/test_bvh_compilation.cpp
+)
+
+target_link_libraries(test_bvh_compilation cebu_core)
+
+add_executable(test_octree_compilation
+    tests/test_octree_compilation.cpp
+)
+
+target_link_libraries(test_octree_compilation cebu_core)
+
 # Enable testing
 enable_testing()
 add_test(NAME basic_test COMMAND test_basic)
