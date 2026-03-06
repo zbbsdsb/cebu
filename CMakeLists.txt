@@ -47,6 +47,8 @@ add_library(cebu_core
     src/bvh.cpp
     src/octree.cpp
     src/parallel_executor.cpp
+    src/benchmark.cpp
+    src/profiler.cpp
 )
 
 # Link nlohmann/json
@@ -275,6 +277,13 @@ add_executable(phase8c_demo
 )
 
 target_link_libraries(phase8c_demo cebu_core)
+
+# Phase 8d benchmark executable
+add_executable(phase8d_benchmark
+    examples/phase8d_benchmark.cpp
+)
+
+target_link_libraries(phase8d_benchmark cebu_core)
 
 # Enable testing
 enable_testing()
