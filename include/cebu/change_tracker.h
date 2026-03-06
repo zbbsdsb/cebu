@@ -1,11 +1,18 @@
 #pragma once
 
-#include <cebu/common.h>
 #include <cebu/simplicial_complex.h>
+#include <cebu/equivalence_classes.h>
 #include <vector>
 #include <functional>
 #include <chrono>
 #include <string>
+
+// Note: nlohmann::json requires external library
+// If this header is used, the project must link against nlohmann/json
+// Forward declaration to avoid include when not needed
+namespace nlohmann {
+    class json;
+}
 
 namespace cebu {
 
@@ -29,14 +36,14 @@ struct Change {
     size_t dimension;
     std::vector<VertexID> vertices;
     std::chrono::system_clock::time_point timestamp;
-    
+
     // For label changes
     double old_label;
     double new_label;
-    
-    // For equivalence changes
-    EquivalenceClassID old_equivalence;
-    EquivalenceClassID new_equivalence;
+
+    // For equivalence changes (using SimplexID as class representative)
+    SimplexID old_equivalence;
+    SimplexID new_equivalence;
 
     Change(ChangeType t, SimplexID id)
         : type(t), simplex_id(id), dimension(0), timestamp(std::chrono::system_clock::now()),
@@ -100,9 +107,9 @@ public:
      * @param new_equivalence 新等价类
      */
     void track_equivalence_changed(
-        EquivalenceClassID equivalence_id,
-        EquivalenceClassID old_equivalence,
-        EquivalenceClassID new_equivalence);
+        SimplexID equivalence_id,
+        SimplexID old_equivalence,
+        SimplexID new_equivalence);
 
     /**
      * @brief 追历拓扑变化
