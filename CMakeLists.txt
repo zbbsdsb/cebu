@@ -45,6 +45,18 @@ add_library(cebu_core
     src/version_control.cpp
 )
 
+# Link nlohmann/json
+if (nlohmann_json_FOUND)
+    target_link_libraries(cebu_core PRIVATE nlohmann_json::nlohmann_json)
+else()
+    target_link_libraries(cebu_core PRIVATE nlohmann_json::nlohmann_json)
+endif()
+
+# Link ZLIB if found
+if (ZLIB_FOUND)
+    target_link_libraries(cebu_core PRIVATE ZLIB::ZLIB)
+endif()
+
 # Test executable
 add_executable(test_basic
     tests/test_basic.cpp
