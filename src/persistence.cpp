@@ -1,5 +1,6 @@
 #include "cebu/persistence.h"
 #include "cebu/compression.h"
+#include "cebu/json_serialization.h"
 #include <algorithm>
 #include <chrono>
 #include <ctime>
@@ -22,10 +23,13 @@ bool Persistence::save(const SimplicialComplex& complex,
     }
 
     if (format == FileFormat::BINARY) {
-        auto data = BinarySerializer::serialize(complex);
+        // Binary serialization not yet implemented, fall back to JSON
+        auto json = JsonSerializer::serialize(complex);
+        std::string json_str = JsonSerializer::pretty_print(json, 2);
 
+        std::vector<uint8_t> data(json_str.begin(), json_str.end());
         std::vector<uint8_t> final_data = data;
-        if (options.compression == Compression::ZLIB) {
+        if (options.compression == Compression::Algorithm::ZLIB) {
             final_data = Compression::compress(
                 data, Compression::Algorithm::ZLIB, options.compression_level);
         }
@@ -61,7 +65,10 @@ LoadResult<SimplicialComplex> Persistence::load(
                 decompressed_data = Compression::decompress_zlib(data);
             }
 
-            result.complex = BinarySerializer::deserialize(decompressed_data);
+            // Binary format currently stores JSON as text
+            std::string json_str(decompressed_data.begin(), decompressed_data.end());
+            result.complex = JsonSerializer::deserialize(
+                nlohmann::json::parse(json_str));
             result.success = true;
             result.metadata = create_metadata(result.complex, data.size());
 
@@ -74,7 +81,7 @@ LoadResult<SimplicialComplex> Persistence::load(
             }
         } else if (format == FileFormat::JSON) {
             result.complex = JsonSerializer::deserialize(
-                read_json_file(filename));
+                nlohmann::json::parse(read_json_file(filename)));
             result.success = true;
             result.metadata = create_metadata(result.complex, 0);
         }

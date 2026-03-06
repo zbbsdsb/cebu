@@ -8,6 +8,11 @@
 #include <unordered_map>
 #include <vector>
 
+// Include nlohmann/json if available
+#ifndef CEBU_NO_NLOHMANN_JSON
+#include <nlohmann/json.hpp>
+#endif
+
 namespace cebu {
 
 /// JSON serialization format for simplicial complexes
@@ -55,6 +60,7 @@ public:
         return complex;
     }
 
+#ifndef CEBU_NO_NLOHMANN_JSON
     /// Deserialize from nlohmann::json object (for use with nlohmann/json library)
     static SimplicialComplex deserialize(const nlohmann::json& j) {
         SimplicialComplex complex;
@@ -80,6 +86,7 @@ public:
 
         return j;
     }
+#endif // CEBU_NO_NLOHMANN_JSON
 };
 
 } // namespace cebu

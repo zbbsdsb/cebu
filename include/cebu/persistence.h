@@ -7,6 +7,7 @@
 #include "cebu/simplicial_complex_narrative.h"
 #include "cebu/refinement.h"
 #include "cebu/simplicial_complex_non_hausdorff.h"
+#include "cebu/compression.h"
 #include <string>
 #include <vector>
 #include <fstream>
@@ -24,19 +25,11 @@ enum class FileFormat {
 };
 
 /**
- * @brief Compression options
- */
-enum class Compression {
-    NONE,      /// No compression
-    ZLIB       /// ZLIB compression
-};
-
-/**
  * @brief Options for persistence operations
  */
 struct PersistenceOptions {
     FileFormat format = FileFormat::AUTO;
-    Compression compression = Compression::NONE;
+    Compression::Algorithm compression = Compression::Algorithm::NONE;
     int compression_level = 6;  // 0-9, only used for ZLIB
     bool validate_after_load = true;
     bool include_metadata = true;
