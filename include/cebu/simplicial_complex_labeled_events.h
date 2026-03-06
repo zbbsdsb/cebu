@@ -29,7 +29,7 @@ public:
     /**
      * @brief Add a vertex and trigger event
      */
-    VertexID add_vertex() override {
+    VertexID add_vertex() {
         VertexID vid = SimplicialComplexLabeled<LabelType>::add_vertex();
         if (this->events_enabled()) {
             EventData event(EventType::ON_ADD_SIMPLEX, vid, 0, "Vertex added");
