@@ -589,11 +589,6 @@ template nlohmann::json JsonSerializer::serialize_refinement<double>(
 template SimplicialComplexRefinement<double> JsonSerializer::deserialize_refinement<double>(
     const nlohmann::json&);
 
-template nlohmann::json JsonSerializer::serialize_non_hausdorff<double>(
-    const SimplicialComplexNonHausdorff<double>&);
-template SimplicialComplexNonHausdorff<double> JsonSerializer::deserialize_non_hausdorff<double>(
-    const nlohmann::json&);
-
 template nlohmann::json JsonSerializer::serialize_non_hausdorff_labeled<double>(
     const SimplicialComplexNonHausdorffLabeled<double>&);
 template SimplicialComplexNonHausdorffLabeled<double> JsonSerializer::deserialize_non_hausdorff_labeled<double>(
