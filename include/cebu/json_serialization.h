@@ -52,13 +52,11 @@ public:
         const nlohmann::json& j);
     
     /// Serialize non-Hausdorff simplicial complex to JSON
-    template<typename LabelType>
     static nlohmann::json serialize_non_hausdorff(
-        const SimplicialComplexNonHausdorff<LabelType>& complex);
-    
+        const SimplicialComplexNonHausdorff& complex);
+
     /// Deserialize non-Hausdorff simplicial complex from JSON
-    template<typename LabelType>
-    static SimplicialComplexNonHausdorff<LabelType> deserialize_non_hausdorff(
+    static SimplicialComplexNonHausdorff deserialize_non_hausdorff(
         const nlohmann::json& j);
     
     /// Serialize non-Hausdorff labeled simplicial complex to JSON
