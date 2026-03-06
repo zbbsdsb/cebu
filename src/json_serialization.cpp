@@ -151,14 +151,14 @@ SimplicialComplexNarrative<LabelType> JsonSerializer::deserialize_narrative(
     // Load milestones and events
     if (j.contains("timeline") && j["timeline"].contains("milestones")) {
         for (const auto& m_json : j["timeline"]["milestones"]) {
-            auto milestone = deserialize_milestone<LabelType>(m_json);
+            auto milestone = deserialize_milestone(m_json);
             // Add milestone to timeline
         }
     }
-    
+
     if (j.contains("events")) {
         for (const auto& e_json : j["events"]) {
-            auto event = deserialize_event<LabelType>(e_json);
+            auto event = deserialize_event(e_json);
             // Add event to events system
         }
     }
