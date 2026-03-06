@@ -46,14 +46,14 @@ void ChangeTracker::track_label_changed(
 }
 
 void ChangeTracker::track_equivalence_changed(
-    EquivalenceClassID equivalence_id,
-    EquivalenceClassID old_equivalence,
-    EquivalenceClassID new_equivalence) {
-    
+    SimplexID equivalence_id,
+    SimplexID old_equivalence,
+    SimplexID new_equivalence) {
+
     Change change(ChangeType::EQUIVALENCE_CHANGED, equivalence_id);
     change.old_equivalence = old_equivalence;
     change.new_equivalence = new_equivalence;
-    
+
     add_change(change);
 }
 
@@ -230,8 +230,8 @@ void ChangeTracker::from_json(const nlohmann::json& j) {
         }
         
         if (type == ChangeType::EQUIVALENCE_CHANGED) {
-            change.old_equivalence = change_json["old_equivalence"].get<EquivalenceClassID>();
-            change.new_equivalence = change_json["new_equivalence"].get<EquivalenceClassID>();
+            change.old_equivalence = change_json["old_equivalence"].get<SimplexID>();
+            change.new_equivalence = change_json["new_equivalence"].get<SimplexID>();
         }
         
         changes_.push_back(change);
