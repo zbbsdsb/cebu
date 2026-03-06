@@ -60,19 +60,19 @@ SimplicialComplex JsonSerializer::deserialize(const nlohmann::json& j) {
 template<typename LabelType>
 nlohmann::json JsonSerializer::serialize_labeled(
     const SimplicialComplexLabeled<LabelType>& complex) {
-    
+
     nlohmann::json j = serialize(static_cast<const SimplicialComplex&>(complex));
-    
+
     // Add labels
     nlohmann::json labels = nlohmann::json::object();
-    for (const auto& [id, simplex] : complex.all_simplices()) {
+    for (const auto& [id, simplex] : complex.get_simplices()) {
         auto label = complex.get_label(id);
         if (label.has_value()) {
             labels[std::to_string(id)] = serialize_label(*label);
         }
     }
     j["labels"] = labels;
-    
+
     return j;
 }
 
