@@ -1,4 +1,5 @@
 #include "cebu/version_control.h"
+#include "cebu/json_serialization.h"
 #include <sstream>
 #include <iomanip>
 #include <chrono>
