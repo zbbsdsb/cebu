@@ -97,35 +97,31 @@ public:
 private:
     /// Serialize a simplex to JSON
     static nlohmann::json serialize_simplex(const Simplex& simplex);
-    
+
     /// Deserialize a simplex from JSON
     static Simplex deserialize_simplex(const nlohmann::json& j);
-    
+
     /// Serialize label to JSON
     template<typename LabelType>
     static nlohmann::json serialize_label(const LabelType& label);
-    
+
     /// Deserialize label from JSON
     template<typename LabelType>
     static LabelType deserialize_label(const nlohmann::json& j);
-    
+
     /// Serialize a timeline milestone to JSON
-    template<typename LabelType>
     static nlohmann::json serialize_milestone(
-        const Timeline<LabelType>& milestone);
-    
+        const std::pair<double, std::string>& milestone);
+
     /// Deserialize a timeline milestone from JSON
-    template<typename LabelType>
-    static Timeline<LabelType> deserialize_milestone(const nlohmann::json& j);
-    
+    static std::pair<double, std::string> deserialize_milestone(const nlohmann::json& j);
+
     /// Serialize an event to JSON
-    template<typename LabelType>
     static nlohmann::json serialize_event(
-        const Event<LabelType>& event);
-    
+        const StoryEvent& event);
+
     /// Deserialize an event from JSON
-    template<typename LabelType>
-    static Event<LabelType> deserialize_event(const nlohmann::json& j);
+    static StoryEvent deserialize_event(const nlohmann::json& j);
 };
 
 } // namespace cebu
