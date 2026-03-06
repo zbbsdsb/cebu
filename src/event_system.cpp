@@ -1,5 +1,7 @@
 #include "cebu/event_system.h"
+#include "cebu/absurdity.h"
 #include <algorithm>
+#include <string>
 
 namespace cebu {
 
