@@ -34,7 +34,7 @@ bool Persistence::save(const SimplicialComplex& complex,
                 data, Compression::Algorithm::ZLIB, options.compression_level);
         }
 
-        return write_binary_file(filename, final_data);
+        return write_binary_file(filename, final_data, Compression::Algorithm::NONE);
     } else if (format == FileFormat::JSON) {
         auto json = JsonSerializer::serialize(complex);
         std::string json_str = JsonSerializer::pretty_print(json, 2);

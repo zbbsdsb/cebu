@@ -296,11 +296,11 @@ nlohmann::json ChunkedStreamingLoader::load_all_chunks(ProgressCallback progress
         nlohmann::json j;
         in >> j;
         in.close();
-        
+
         if (progress_callback) {
-            progress_callback_(1, 1);
+            progress_callback(1, 1);
         }
-        
+
         return j;
     } catch (const std::exception& e) {
         throw std::runtime_error("Failed to load chunks: " + std::string(e.what()));

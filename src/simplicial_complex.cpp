@@ -293,4 +293,12 @@ size_t SimplicialComplex::vertex_count() const {
     return vertex_to_simplices_.size();
 }
 
+size_t SimplicialComplex::max_dimension() const {
+    size_t max_dim = 0;
+    for (const auto& [id, simplex] : simplices_) {
+        max_dim = std::max(max_dim, simplex.dimension());
+    }
+    return max_dim;
+}
+
 } // namespace cebu

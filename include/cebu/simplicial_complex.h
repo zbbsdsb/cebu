@@ -136,6 +136,11 @@ public:
      */
     size_t vertex_count() const;
 
+    /**
+     * @brief Get the maximum dimension of simplices in the complex
+     */
+    size_t max_dimension() const;
+
 private:
     std::unordered_map<SimplexID, Simplex> simplices_;
     SimplexID next_simplex_id_;

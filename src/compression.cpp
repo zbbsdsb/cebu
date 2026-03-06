@@ -3,6 +3,7 @@
 #include <cstring>
 #include <algorithm>
 #include <cmath>
+#include <array>
 
 // Check if zlib is available
 #ifdef ZLIB_FOUND
