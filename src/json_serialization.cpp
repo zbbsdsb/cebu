@@ -529,48 +529,55 @@ LabelType JsonSerializer::deserialize_label(const nlohmann::json& j) {
     }
 }
 
-template<typename LabelType>
 nlohmann::json JsonSerializer::serialize_milestone(
-    const Timeline<LabelType>& milestone) {
-    
+    const std::pair<double, std::string>& milestone) {
+
     nlohmann::json j;
-    j["time"] = milestone.time();
-    j["description"] = milestone.description();
-    
+    j["time"] = milestone.first;
+    j["description"] = milestone.second;
+
     return j;
 }
 
-template<typename LabelType>
-Timeline<LabelType> JsonSerializer::deserialize_milestone(
+std::pair<double, std::string> JsonSerializer::deserialize_milestone(
     const nlohmann::json& j) {
-    
+
     double time = j["time"];
     std::string description = j.value("description", "");
-    
-    return Timeline<LabelType>(time, description);
+
+    return {time, description};
 }
 
-template<typename LabelType>
 nlohmann::json JsonSerializer::serialize_event(
-    const Event<LabelType>& event) {
-    
+    const StoryEvent& event) {
+
     nlohmann::json j;
-    j["event_type"] = static_cast<int>(event.type);
-    j["simplex_id"] = event.simplex_id;
+    j["id"] = event.id;
+    j["description"] = event.description;
     j["timestamp"] = event.timestamp;
-    
+    j["affected_simplices"] = event.affected_simplices;
+
     return j;
 }
 
-template<typename LabelType>
-Event<LabelType> JsonSerializer::deserialize_event(
+StoryEvent JsonSerializer::deserialize_event(
     const nlohmann::json& j) {
-    
-    EventType type = static_cast<EventType>(j["event_type"]);
-    SimplexID simplex_id = j["simplex_id"];
+
+    EventID id = j.value("id", static_cast<EventID>(0));
+    std::string description = j.value("description", "");
     double timestamp = j.value("timestamp", 0.0);
-    
-    return Event<LabelType>(type, simplex_id, timestamp);
+    std::vector<SimplexID> affected_simplices;
+
+    if (j.contains("affected_simplices") && j["affected_simplices"].is_array()) {
+        for (const auto& v : j["affected_simplices"]) {
+            affected_simplices.push_back(v.get<SimplexID>());
+        }
+    }
+
+    // AbsurdityContext deserialization is complex - placeholder
+    AbsurdityContext impact;
+
+    return StoryEvent(id, description, timestamp, affected_simplices, impact);
 }
 
 // Explicit template instantiations
