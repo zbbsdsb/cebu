@@ -153,10 +153,9 @@ public:
     void notify_refine_begin(SimplexID simplex_id, int level) {
         if (this->events_enabled()) {
             RefinementEvent event(simplex_id, level, 0, 0, true);
-            this->event_system_.trigger_event_with_label(event,
-                [this](SimplexID id) -> const LabelType* {
-                    return this->label_system_->get_label(id);
-                });
+            auto label_opt = this->get_label(simplex_id);
+            const LabelType* label_ptr = label_opt.has_value() ? &label_opt.value() : nullptr;
+            this->event_system_.trigger_event(event, label_ptr);
         }
     }
 
@@ -167,10 +166,9 @@ public:
                            size_t new_simplices, size_t new_vertices) {
         if (this->events_enabled()) {
             RefinementEvent event(simplex_id, level, new_simplices, new_vertices, false);
-            this->event_system_.trigger_event_with_label(event,
-                [this](SimplexID id) -> const LabelType* {
-                    return this->label_system_->get_label(id);
-                });
+            auto label_opt = this->get_label(simplex_id);
+            const LabelType* label_ptr = label_opt.has_value() ? &label_opt.value() : nullptr;
+            this->event_system_.trigger_event(event, label_ptr);
         }
     }
 
@@ -180,10 +178,9 @@ public:
     void notify_coarsen_begin(SimplexID simplex_id, int level) {
         if (this->events_enabled()) {
             CoarseningEvent event(simplex_id, level, 0, 0, true);
-            this->event_system_.trigger_event_with_label(event,
-                [this](SimplexID id) -> const LabelType* {
-                    return this->label_system_->get_label(id);
-                });
+            auto label_opt = this->get_label(simplex_id);
+            const LabelType* label_ptr = label_opt.has_value() ? &label_opt.value() : nullptr;
+            this->event_system_.trigger_event(event, label_ptr);
         }
     }
 
@@ -194,10 +191,9 @@ public:
                             size_t removed_simplices, size_t removed_vertices) {
         if (this->events_enabled()) {
             CoarseningEvent event(simplex_id, level, removed_simplices, removed_vertices, false);
-            this->event_system_.trigger_event_with_label(event,
-                [this](SimplexID id) -> const LabelType* {
-                    return this->label_system_->get_label(id);
-                });
+            auto label_opt = this->get_label(simplex_id);
+            const LabelType* label_ptr = label_opt.has_value() ? &label_opt.value() : nullptr;
+            this->event_system_.trigger_event(event, label_ptr);
         }
     }
 
