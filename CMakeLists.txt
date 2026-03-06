@@ -306,6 +306,13 @@ add_executable(phase9a_demo
 
 target_link_libraries(phase9a_demo cebu_core)
 
+# Phase 9a minimal test executable
+add_executable(phase9a_minimal_test
+    examples/phase9a_minimal_test.cpp
+)
+
+target_link_libraries(phase9a_minimal_test cebu_core)
+
 # Enable testing
 enable_testing()
 add_test(NAME basic_test COMMAND test_basic)
