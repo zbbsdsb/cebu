@@ -4,6 +4,7 @@
 #include <cebu/simplicial_complex.h>
 #include <cebu/json_serialization.h>
 #include <cebu/compression.h>
+#include <cebu/change_tracker.h>
 #include <string>
 #include <map>
 #include <memory>

@@ -5,6 +5,7 @@
 #include "cebu/simplicial_complex_narrative.h"
 #include "cebu/refinement.h"
 #include "cebu/simplicial_complex_non_hausdorff.h"
+#include "cebu/equivalence_classes.h"
 #include <nlohmann/json.hpp>
 #include <string>
 #include <vector>

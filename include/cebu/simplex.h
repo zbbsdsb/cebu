@@ -1,13 +1,11 @@
 #pragma once
 
+#include "cebu/common.h"
 #include <vector>
 #include <cstdint>
 #include <unordered_set>
 
 namespace cebu {
-
-using SimplexID = uint64_t;
-using VertexID = uint32_t;
 
 constexpr VertexID INVALID_VERTEX_ID = static_cast<VertexID>(-1);
 
