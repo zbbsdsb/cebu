@@ -2,17 +2,11 @@
 
 #include <cebu/simplicial_complex.h>
 #include <cebu/equivalence_classes.h>
+#include <nlohmann/json.hpp>
 #include <vector>
 #include <functional>
 #include <chrono>
 #include <string>
-
-// Note: nlohmann::json requires external library
-// If this header is used, the project must link against nlohmann/json
-// Forward declaration to avoid include when not needed
-namespace nlohmann {
-    class json;
-}
 
 namespace cebu {
 
