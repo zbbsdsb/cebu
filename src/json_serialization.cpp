@@ -249,8 +249,10 @@ nlohmann::json JsonSerializer::serialize_non_hausdorff_labeled(
     nlohmann::json labels = nlohmann::json::object();
     for (const auto& [id, simplex] : complex.get_simplices()) {
         if (complex.has_label(id)) {
-            LabelType label = complex.get_label(id);
-            labels[std::to_string(id)] = serialize_label(label);
+            auto label_opt = complex.get_label(id);
+            if (label_opt.has_value()) {
+                labels[std::to_string(id)] = serialize_label(label_opt.value());
+            }
         }
     }
     j["labels"] = labels;
