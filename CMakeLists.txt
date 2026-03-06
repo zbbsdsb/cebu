@@ -45,6 +45,7 @@ add_library(cebu_core
     src/version_control.cpp
     src/vertex_geometry.cpp
     src/bvh.cpp
+    src/octree.cpp
 )
 
 # Link nlohmann/json
@@ -233,6 +234,13 @@ add_executable(test_bvh
 )
 
 target_link_libraries(test_bvh cebu_core)
+
+# Octree test executable
+add_executable(test_octree
+    tests/test_octree.cpp
+)
+
+target_link_libraries(test_octree cebu_core)
 
 # Enable testing
 enable_testing()
