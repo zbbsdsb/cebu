@@ -10,28 +10,25 @@ namespace cebu {
 
 nlohmann::json JsonSerializer::serialize(const SimplicialComplex& complex) {
     nlohmann::json j;
-    
+
     // Header
     j["format"] = "cebu";
     j["version"] = "0.7.1";
     j["format_version"] = 1;
-    
+
     // Statistics
     j["statistics"] = {
         {"simplex_count", complex.simplex_count()},
-        {"vertex_count", complex.vertex_count()},
-        {"edge_count", complex.edge_count()},
-        {"face_count", complex.face_count()},
-        {"max_dimension", complex.max_dimension()}
+        {"vertex_count", complex.vertex_count()}
     };
-    
+
     // Simplices
     nlohmann::json simplices = nlohmann::json::array();
-    for (const auto& [id, simplex] : complex.all_simplices()) {
+    for (const auto& [id, simplex] : complex.get_simplices()) {
         simplices.push_back(serialize_simplex(simplex));
     }
     j["simplices"] = simplices;
-    
+
     return j;
 }
 
