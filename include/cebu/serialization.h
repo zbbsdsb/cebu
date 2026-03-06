@@ -4,12 +4,9 @@
 #include "cebu/simplex.h"
 #include "cebu/absurdity.h"
 #include <string>
-#include <sstream>
 #include <map>
 #include <unordered_map>
 #include <vector>
-#include <cstring>
-#include <cstdint>
 
 // Forward declarations
 namespace cebu {
@@ -27,56 +24,14 @@ namespace cebu {
 class JsonSerializer {
 public:
     /// Serialize a simplicial complex to JSON string
-    static std::string serialize(const SimplicialComplex& complex) {
-        std::ostringstream oss;
-        oss << "{\n";
-        oss << "  \"version\": \"1.0\",\n";
-        oss << "  \"type\": \"basic\",\n";
-        oss << "  \"simplices\": [\n";
-
-        bool first = true;
-        for (const auto& pair : complex.get_simplices()) {
-            if (!first) oss << ",\n";
-            first = false;
-
-            const Simplex& simplex = pair.second;
-            oss << "    {\n";
-            oss << "      \"id\": " << simplex.id() << ",\n";
-            oss << "      \"vertices\": [";
-            bool first_v = true;
-            for (VertexID vid : simplex.vertices()) {
-                if (!first_v) oss << ", ";
-                first_v = false;
-                oss << vid;
-            }
-            oss << "],\n";
-            oss << "      \"dimension\": " << simplex.dimension() << "\n";
-            oss << "    }";
-        }
-
-        oss << "\n  ]\n";
-        oss << "}";
-
-        return oss.str();
-    }
+    static std::string serialize(const SimplicialComplex& complex);
 
     /// Deserialize a simplicial complex from JSON string
-    static SimplicialComplex deserialize_complex(const std::string& json) {
-        SimplicialComplex complex;
-
-        // Parse JSON and build complex
-        // Note: This is a simplified implementation
-        // In production, use a proper JSON library like nlohmann/json
-
-        // For now, just return an empty complex
-        // Full implementation would parse the JSON string
-
-        return complex;
-    }
+    static SimplicialComplex deserialize_complex(const std::string& json);
 
     /// Serialize a labeled simplicial complex with double labels
     static std::string serialize_labeled_double(
-        const SimplicialComplexLabeled<double>& complex) {
+        const SimplicialComplexLabeled<double>& complex);
         std::ostringstream oss;
         oss << "{\n";
         oss << "  \"version\": \"1.0\",\n";
