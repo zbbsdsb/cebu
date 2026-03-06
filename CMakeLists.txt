@@ -245,6 +245,20 @@ add_executable(test_octree
 
 target_link_libraries(test_octree cebu_core)
 
+# Profiler test executable
+add_executable(test_profiler
+    tests/test_profiler.cpp
+)
+
+target_link_libraries(test_profiler cebu_core)
+
+# Phase 9a: Absurdity test executable
+add_executable(test_phase9a_absurdity
+    tests/test_phase9a_absurdity.cpp
+)
+
+target_link_libraries(test_phase9a_absurdity cebu_core)
+
 # Compilation test executables
 add_executable(test_vertex_geometry_compilation
     tests/test_vertex_geometry_compilation.cpp
@@ -284,6 +298,13 @@ add_executable(phase8d_benchmark
 )
 
 target_link_libraries(phase8d_benchmark cebu_core)
+
+# Phase 9a demo executable
+add_executable(phase9a_demo
+    examples/phase9a_demo.cpp
+)
+
+target_link_libraries(phase9a_demo cebu_core)
 
 # Enable testing
 enable_testing()
