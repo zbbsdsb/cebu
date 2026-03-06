@@ -46,6 +46,7 @@ add_library(cebu_core
     src/vertex_geometry.cpp
     src/bvh.cpp
     src/octree.cpp
+    src/parallel_executor.cpp
 )
 
 # Link nlohmann/json
@@ -260,6 +261,20 @@ add_executable(test_octree_compilation
 )
 
 target_link_libraries(test_octree_compilation cebu_core)
+
+# Parallel executor test executable
+add_executable(test_parallel_executor
+    tests/test_parallel_executor.cpp
+)
+
+target_link_libraries(test_parallel_executor cebu_core)
+
+# Phase 8c demo executable
+add_executable(phase8c_demo
+    examples/phase8c_demo.cpp
+)
+
+target_link_libraries(phase8c_demo cebu_core)
 
 # Enable testing
 enable_testing()
