@@ -34,6 +34,7 @@ Welcome to the Cebu documentation! Cebu is a modern C++17 library for manipulati
 | [Advanced Serialization](api_advanced_serialization.md) | Version control, snapshots, streaming I/O, change tracking |
 | [Equivalence Classes](equivalence_classes.md) | Non-Hausdorff topology and simplex gluing |
 | [Topology Operations](topology_operations.md) | Euler characteristic, manifold checking, boundaries, connected components |
+| [Absurdity System](absurdity_system.md) | Fuzzy interval numbers, stochastic evolution, dynamic topology morphs (Phase 9) |
 
 ### Performance & Optimization
 

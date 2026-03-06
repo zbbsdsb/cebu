@@ -313,6 +313,20 @@ add_executable(phase9a_minimal_test
 
 target_link_libraries(phase9a_minimal_test cebu_core)
 
+# Phase 9b morph test executable
+add_executable(test_phase9b_morph
+    tests/test_phase9b_morph.cpp
+)
+
+target_link_libraries(test_phase9b_morph cebu_core)
+
+# Phase 9b demo executable
+add_executable(phase9b_demo
+    examples/phase9b_demo.cpp
+)
+
+target_link_libraries(phase9b_demo cebu_core)
+
 # Enable testing
 enable_testing()
 add_test(NAME basic_test COMMAND test_basic)
