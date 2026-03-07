@@ -10,9 +10,11 @@ find_package(nlohmann_json 3.2.0 QUIET)
 if (NOT nlohmann_json_FOUND)
     # Fetch nlohmann/json if not found
     include(FetchContent)
+    set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
     FetchContent_Declare(
         json
         URL https://github.com/nlohmann/json/releases/download/v3.11.2/json.tar.xz
+        DOWNLOAD_EXTRACT_TIMESTAMP TRUE
     )
     FetchContent_MakeAvailable(json)
 endif()
