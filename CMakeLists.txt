@@ -5,18 +5,14 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Find and include dependencies
+# Use local nlohmann/json
+set(nlohmann_json_DIR "${PROJECT_SOURCE_DIR}/dependencies/json-3.11.2")
 find_package(nlohmann_json 3.2.0 QUIET)
 
 if (NOT nlohmann_json_FOUND)
-    # Fetch nlohmann/json if not found
-    include(FetchContent)
-    set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
-    FetchContent_Declare(
-        json
-        URL https://github.com/nlohmann/json/releases/download/v3.11.2/json.tar.xz
-        DOWNLOAD_EXTRACT_TIMESTAMP TRUE
-    )
-    FetchContent_MakeAvailable(json)
+    # Add local json include directory
+    include_directories(${PROJECT_SOURCE_DIR}/dependencies/json-3.11.2/include)
+    set(nlohmann_json_FOUND TRUE)
 endif()
 
 # Find ZLIB (optional)
@@ -53,12 +49,12 @@ add_library(cebu_core
     src/profiler.cpp
 )
 
-# Link nlohmann/json
-if (nlohmann_json_FOUND)
-    target_link_libraries(cebu_core PRIVATE nlohmann_json::nlohmann_json)
-else()
-    target_link_libraries(cebu_core PRIVATE nlohmann_json::nlohmann_json)
-endif()
+# Link nlohmann/json (header-only, no need to link)
+# if (nlohmann_json_FOUND)
+#     target_link_libraries(cebu_core PRIVATE nlohmann_json::nlohmann_json)
+# else()
+#     target_link_libraries(cebu_core PRIVATE nlohmann_json::nlohmann_json)
+# endif()
 
 # Link ZLIB if found
 if (ZLIB_FOUND)
