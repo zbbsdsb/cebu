@@ -329,6 +329,20 @@ add_executable(phase9b_demo
 
 target_link_libraries(phase9b_demo cebu_core)
 
+# Phase 9c narrative test executable
+add_executable(test_phase9c_narrative
+    tests/test_phase9c_narrative.cpp
+)
+
+target_link_libraries(test_phase9c_narrative cebu_core)
+
+# Phase 9c demo executable
+add_executable(phase9c_demo
+    examples/phase9c_demo.cpp
+)
+
+target_link_libraries(phase9c_demo cebu_core)
+
 # Enable testing
 enable_testing()
 add_test(NAME basic_test COMMAND test_basic)
