@@ -243,12 +243,12 @@ add_executable(test_octree
 
 target_link_libraries(test_octree cebu_core)
 
-# Profiler test executable
-add_executable(test_profiler
-    tests/test_profiler.cpp
-)
-
-target_link_libraries(test_profiler cebu_core)
+# Profiler test executable (disabled - file missing)
+# add_executable(test_profiler
+#     tests/test_profiler.cpp
+# )
+# 
+# target_link_libraries(test_profiler cebu_core)
 
 # Phase 9a: Absurdity test executable
 add_executable(test_phase9a_absurdity

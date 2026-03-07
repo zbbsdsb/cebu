@@ -2,6 +2,7 @@
 #define CEBU_STORY_EVENT_H
 
 #include "cebu/absurdity.h"
+#include "cebu/narrative_context.h"
 #include "cebu/simplicial_complex.h"
 #include <string>
 #include <vector>

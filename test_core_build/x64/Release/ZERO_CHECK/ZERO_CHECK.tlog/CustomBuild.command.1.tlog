@@ -1,0 +1,10 @@
+^D:\GITHUB PROJECTS\CEBU\TEST_CORE_BUILD\CMAKEFILES\134040DFFCB351990B4F4B3D33D0B5F2\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SD:/github projects/cebu" "-BD:/github projects/cebu/test_core_build" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "D:/github projects/cebu/test_core_build/cebu.slnx"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

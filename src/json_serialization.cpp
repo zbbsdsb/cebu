@@ -69,7 +69,26 @@ template<typename LabelType>
 nlohmann::json JsonSerializer::serialize_labeled(
     const SimplicialComplexLabeled<LabelType>& complex) {
 
-    nlohmann::json j = serialize(static_cast<const SimplicialComplex&>(complex));
+    // Create JSON object
+    nlohmann::json j = nlohmann::json::object();
+    
+    // Add vertices
+    nlohmann::json vertices = nlohmann::json::array();
+    for (VertexID vid : complex.get_vertices()) {
+        vertices.push_back(vid);
+    }
+    j["vertices"] = vertices;
+    
+    // Add simplices
+    nlohmann::json simplices = nlohmann::json::array();
+    for (const auto& [id, simplex] : complex.get_simplices()) {
+        nlohmann::json s = nlohmann::json::object();
+        s["id"] = id;
+        s["vertices"] = simplex.vertices();
+        s["dimension"] = simplex.dimension();
+        simplices.push_back(s);
+    }
+    j["simplices"] = simplices;
 
     // Add labels
     nlohmann::json labels = nlohmann::json::object();

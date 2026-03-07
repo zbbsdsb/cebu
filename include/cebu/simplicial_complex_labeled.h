@@ -258,6 +258,6 @@ using SimplicialComplexDouble = SimplicialComplexLabeled<double>;
 /**
  * @brief Labeled complex with absurdity labels
  */
-using SimplicialComplexAbsurdity = SimplicialComplexLabeled<Absurdity, AbsurdityLabelSystem>;
+using SimplicialComplexAbsurdity = SimplicialComplexLabeled<Absurdity, DefaultLabelSystem<Absurdity>>;
 
 } // namespace cebu

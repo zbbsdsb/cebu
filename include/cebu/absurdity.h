@@ -443,4 +443,11 @@ namespace absurdity_utils {
 
 } // namespace absurdity_utils
 
+// =============================================================================
+// Type Aliases
+// =============================================================================
+
+// Absurdity is an alias for FuzzyInterval
+using Absurdity = FuzzyInterval;
+
 } // namespace cebu

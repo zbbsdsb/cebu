@@ -60,8 +60,8 @@ struct BoundingBox {
     Point3D min;
     Point3D max;
 
-    BoundingBox() : min(std::numeric_limits<float>::max()),
-                    max(std::numeric_limits<float>::lowest()) {}
+    BoundingBox() : min(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max()),
+                    max(std::numeric_limits<float>::lowest(), std::numeric_limits<float>::lowest(), std::numeric_limits<float>::lowest()) {}
 
     BoundingBox(const Point3D& min_, const Point3D& max_)
         : min(min_), max(max_) {}
