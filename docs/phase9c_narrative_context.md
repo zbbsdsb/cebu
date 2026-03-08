@@ -1,126 +1,126 @@
-# Phase 9c: Narrative Context - 叙事上下文系统
+# Phase 9c: Narrative Context System
 
-## 概述
+## Overview
 
-Phase 9c 实现了完整的叙事上下文系统，将荒谬度演化与戏剧叙事结构深度集成。通过提供**意外性 (S)**、**逻辑偏离度 (L)**、**情绪强度**、**戏剧张力**等关键参数，驱动 Phase 9a 的荒谬度随机演化方程 (SDE)。
+Phase 9c implements a complete narrative context system, deeply integrating absurdity evolution with dramatic narrative structure. By providing key parameters such as **Surprisal (S)**, **Logic Deviation (L)**, **Emotional Intensity**, and **Dramatic Tension**, it drives the Phase 9a absurdity stochastic evolution equation (SDE).
 
-## 核心概念
+## Core Concepts
 
-### 叙事上下文
+### Narrative Context
 
-叙事上下文描述故事在特定时刻的戏剧状态，包含以下核心维度：
+Narrative context describes the dramatic state of a story at a specific moment, containing the following core dimensions:
 
-- **意外性 (Surprisal, S)**: `[0, 1]` - 情境的意外程度
-- **逻辑偏离度 (Logic Deviation, L)**: `[0, 1]` - 偏离逻辑一致性的程度
-- **情绪强度 (Emotional Intensity, E)**: `[0, 1]` - 当前情绪状态
-- **戏剧张力 (Dramatic Tension, T)**: `[0, 1]` - 叙事张力水平
-- **时间距离 (Time Distance, D)**: `[0, 1]` - 距离高潮的时间 (0 = 高潮, 1 = 开始)
+- **Surprisal (S)**: `[0, 1]` - The degree of unexpectedness in the current situation
+- **Logic Deviation (L)**: `[0, 1]` - The degree of deviation from logical consistency
+- **Emotional Intensity (E)**: `[0, 1]` - Current emotional state
+- **Dramatic Tension (T)**: `[0, 1]` - Narrative tension level
+- **Time Distance (D)**: `[0, 1]` - Distance from the climax (0 = climax, 1 = beginning)
 
-### 与荒谬度演化的集成
+### Integration with Absurdity Evolution
 
 ```cpp
 NarrativeContext ctx(0.8, 0.7, 0.9, 0.9, 0.0);
 
-// 驱动荒谬度 SDE 方程
+// Drive absurdity SDE equation
 params.volatility = ctx.get_volatility();           // σ = σ₀ · (1 + E) · (1 + T)
 params.coupling_strength = ctx.get_driving_force(); // κ·S + η·L
 
-// 演化荒谬度
+// Evolve absurdity
 auto new_absurdity = evolution.step(current, params);
 ```
 
-## API 参考
+## API Reference
 
 ### `NarrativeContext`
 
-#### 构造函数
+#### Constructor
 
 ```cpp
 NarrativeContext(
-    double surprisal = 0.0,              // 意外性 S
-    double logic_deviation = 0.0,        // 逻辑偏离度 L
-    double emotional_intensity = 0.0,     // 情绪强度 E
-    double dramatic_tension = 0.0,       // 戏剧张力 T
-    double time_distance = 1.0           // 时间距离 D
+    double surprisal = 0.0,              // Surprisal S
+    double logic_deviation = 0.0,        // Logic Deviation L
+    double emotional_intensity = 0.0,    // Emotional Intensity E
+    double dramatic_tension = 0.0,      // Dramatic Tension T
+    double time_distance = 1.0          // Time Distance D
 );
 ```
 
-#### 核心方法
+#### Core Methods
 
 ```cpp
-// 获取 SDE 驱动项：κ·S + η·L
+// Get SDE driving term: κ·S + η·L
 double get_driving_force(double kappa = 1.0, double eta = 1.0) const;
 
-// 获取波动率：σ₀ · (1 + E) · (1 + T)
+// Get volatility: σ₀ · (1 + E) · (1 + T)
 double get_volatility(double base_volatility = 0.1) const;
 
-// 与另一个上下文融合
+// Fuse with another context
 NarrativeContext fuse(const NarrativeContext& other, double weight = 0.5) const;
 
-// 转换为字符串
+// Convert to string
 std::string to_string() const;
 ```
 
-#### Getter 方法
+#### Getter Methods
 
 ```cpp
-double surprisal() const;              // 意外性 S
-double logic_deviation() const;        // 逻辑偏离度 L
-double emotional_intensity() const;     // 情绪强度 E
-double dramatic_tension() const;        // 戏剧张力 T
-double time_distance() const;          // 时间距离 D
+double surprisal() const;           // Surprisal S
+double logic_deviation() const;     // Logic Deviation L
+double emotional_intensity() const; // Emotional Intensity E
+double dramatic_tension() const;    // Dramatic Tension T
+double time_distance() const;      // Time Distance D
 ```
 
 ---
 
 ### `DramaticEventType`
 
-戏剧事件类型枚举，共 17 种：
+Dramatic event type enumeration, 17 types total:
 
-#### 经典事件 (9 种)
+#### Classic Events (9 types)
 
-| 事件类型 | 枚举值 | 描述 |
-|---------|-------|------|
-| Exposition | `EXPOSITION` | 铺垫：介绍背景和角色 |
-| Inciting Incident | `INCITING_INCIDENT` | 激励事件：打破平衡 |
-| Rising Action | `RISING_ACTION` | 上升动作：冲突升级 |
-| Plot Point 1 | `PLOT_POINT_1` | 第一个转折点：进入第二幕 |
-| Midpoint | `MIDPOINT` | 中点：方向改变 |
-| Plot Point 2 | `PLOT_POINT_2` | 第二个转折点：进入第三幕 |
-| Climax | `CLIMAX` | 高潮：最终对决 |
-| Falling Action | `FALLING_ACTION` | 下降动作：冲突解决 |
-| Resolution | `RESOLUTION` | 结局：新的平衡 |
+| Event Type | Enum | Description |
+|-----------|------|-------------|
+| Exposition | `EXPOSITION` | Setup: Introduce characters and setting |
+| Inciting Incident | `INCITING_INCIDENT` | Inciting Incident: Disrupts equilibrium |
+| Rising Action | `RISING_ACTION` | Rising Action: Escalating conflict |
+| Plot Point 1 | `PLOT_POINT_1` | Plot Point 1: Enter Act 2 |
+| Midpoint | `MIDPOINT` | Midpoint: Direction changes |
+| Plot Point 2 | `PLOT_POINT_2` | Plot Point 2: Enter Act 3 |
+| Climax | `CLIMAX` | Climax: Final confrontation |
+| Falling Action | `FALLING_ACTION` | Falling Action: Conflict resolution |
+| Resolution | `RESOLUTION` | Resolution: New equilibrium |
 
-#### 特殊事件 (8 种)
+#### Special Events (8 types)
 
-| 事件类型 | 枚举值 | 描述 |
-|---------|-------|------|
-| Twist | `TWIST` | 剧情转折：出人意料的反转 |
-| Revelation | `REVELATION` | 揭秘：重要信息揭示 |
-| Conflict | `CONFLICT` | 冲突：对立面交锋 |
-| Transition | `TRANSITION` | 过渡：场景/时间切换 |
-| Pause | `PAUSE` | 暂停：节奏放慢 |
-| Flashback | `FLASHBACK` | 闪回：过去场景 |
-| Flashforward | `FLASHFORWARD` | 闪前：未来场景 |
-| Montage | `MONTAGE` | 蒙太奇：快速剪辑 |
-| Time Skip | `TIME_SKIP` | 时间跳转 |
-| Custom | `CUSTOM` | 自定义事件 |
+| Event Type | Enum | Description |
+|-----------|------|-------------|
+| Twist | `TWIST` | Plot Twist: Unexpected reversal |
+| Revelation | `REVELATION` | Revelation: Important information revealed |
+| Conflict | `CONFLICT` | Conflict: Opposing forces clash |
+| Transition | `TRANSITION` | Transition: Scene/time switch |
+| Pause | `PAUSE` | Pause: Slow down pacing |
+| Flashback | `FLASHBACK` | Flashback: Past scene |
+| Flashforward | `FLASHFORWARD` | Flashforward: Future scene |
+| Montage | `MONTAGE` | Montage: Quick cuts |
+| Time Skip | `TIME_SKIP` | Time Skip: Jump forward |
+| Custom | `CUSTOM` | Custom event |
 
 ---
 
 ### `StoryBeat`
 
-故事节拍结构，包含事件类型和对应的叙事上下文：
+Story beat structure containing event type and corresponding narrative context:
 
 ```cpp
 struct StoryBeat {
-    DramaticEventType type;    // 事件类型
-    NarrativeContext context;  // 叙事上下文
-    
-    // 构造函数
+    DramaticEventType type;    // Event type
+    NarrativeContext context;  // Narrative context
+
+    // Constructor
     StoryBeat(DramaticEventType type, const NarrativeContext& context);
-    
-    // 转换为字符串
+
+    // Convert to string
     std::string to_string() const;
 };
 ```
@@ -129,27 +129,27 @@ struct StoryBeat {
 
 ### `NarrativePresets`
 
-预设叙事上下文工厂，为所有事件类型提供标准配置。
+Preset narrative context factory, providing standard configurations for all event types.
 
-#### 方法
+#### Methods
 
 ```cpp
-// 获取特定事件类型的预设上下文
+// Get preset context for specific event type
 static NarrativeContext get_preset(DramaticEventType type);
 
-// 可变强度的预设
+// Variable-intensity presets
 static NarrativeContext climax(double intensity = 1.0);
 static NarrativeContext twist(double magnitude = 0.8);
 static NarrativeContext conflict(double intensity = 0.7);
 
-// 闪回和闪前
+// Flashback and flashforward
 static NarrativeContext flashback(double intensity = 0.5, double distance = 0.5);
 static NarrativeContext flashforward(double intensity = 0.5, double distance = 0.5);
 
-// 时间跳转
+// Time skip
 static NarrativeContext time_skip(double distance = 0.3);
 
-// 完全自定义
+// Fully custom
 static NarrativeContext custom(
     double surprisal,
     double logic_deviation,
@@ -159,42 +159,42 @@ static NarrativeContext custom(
 );
 ```
 
-#### 预设参数表
+#### Preset Parameter Table
 
-| 事件类型 | S | L | E | T | D | 描述 |
-|---------|---|---|---|---|---|------|
-| Exposition | 0.1 | 0.0 | 0.2 | 0.1 | 1.0 | 平静介绍 |
-| Inciting Incident | 0.7 | 0.3 | 0.5 | 0.4 | 0.9 | 激励事件 |
-| Rising Action | 0.4 | 0.2 | 0.4 | 0.5 | 0.7 | 上升动作 |
-| Plot Point 1 | 0.6 | 0.5 | 0.6 | 0.7 | 0.6 | 第一转折 |
-| Midpoint | 0.5 | 0.3 | 0.7 | 0.6 | 0.5 | 中点 |
-| Plot Point 2 | 0.7 | 0.6 | 0.8 | 0.8 | 0.4 | 第二转折 |
-| Climax | 1.0 | 0.8 | 1.0 | 1.0 | 0.0 | 高潮 |
-| Falling Action | 0.3 | 0.2 | 0.4 | 0.3 | 0.2 | 下降动作 |
-| Resolution | 0.1 | 0.0 | 0.2 | 0.1 | 0.0 | 结局 |
-| Twist | 0.9 | 0.9 | 0.8 | 0.9 | 0.5 | 剧情转折 |
-| Revelation | 0.8 | 0.4 | 0.7 | 0.6 | 0.5 | 揭秘 |
-| Conflict | 0.6 | 0.3 | 0.7 | 0.8 | 0.5 | 冲突 |
-| Transition | 0.3 | 0.2 | 0.3 | 0.3 | 0.5 | 过渡 |
-| Pause | 0.2 | 0.1 | 0.2 | 0.1 | 0.5 | 暂停 |
-| Flashback | 0.4 | 0.3 | 0.5 | 0.4 | 0.5 | 闪回 |
-| Flashforward | 0.5 | 0.4 | 0.6 | 0.5 | 0.5 | 闪前 |
-| Montage | 0.4 | 0.2 | 0.5 | 0.5 | 0.5 | 蒙太奇 |
-| Time Skip | 0.6 | 0.3 | 0.4 | 0.3 | 0.5 | 时间跳转 |
-| Custom | 可变 | 可变 | 可变 | 可变 | 可变 | 自定义 |
+| Event Type | S | L | E | T | D | Description |
+|-----------|---|---|---|---|---|-------------|
+| Exposition | 0.1 | 0.0 | 0.2 | 0.1 | 1.0 | Calm introduction |
+| Inciting Incident | 0.7 | 0.3 | 0.5 | 0.4 | 0.9 | Inciting incident |
+| Rising Action | 0.4 | 0.2 | 0.4 | 0.5 | 0.7 | Rising action |
+| Plot Point 1 | 0.6 | 0.5 | 0.6 | 0.7 | 0.6 | First turning point |
+| Midpoint | 0.5 | 0.3 | 0.7 | 0.6 | 0.5 | Midpoint |
+| Plot Point 2 | 0.7 | 0.6 | 0.8 | 0.8 | 0.4 | Second turning point |
+| Climax | 1.0 | 0.8 | 1.0 | 1.0 | 0.0 | Climax |
+| Falling Action | 0.3 | 0.2 | 0.4 | 0.3 | 0.2 | Falling action |
+| Resolution | 0.1 | 0.0 | 0.2 | 0.1 | 0.0 | Resolution |
+| Twist | 0.9 | 0.9 | 0.8 | 0.9 | 0.5 | Plot twist |
+| Revelation | 0.8 | 0.4 | 0.7 | 0.6 | 0.5 | Revelation |
+| Conflict | 0.6 | 0.3 | 0.7 | 0.8 | 0.5 | Conflict |
+| Transition | 0.3 | 0.2 | 0.3 | 0.3 | 0.5 | Transition |
+| Pause | 0.2 | 0.1 | 0.2 | 0.1 | 0.5 | Pause |
+| Flashback | 0.4 | 0.3 | 0.5 | 0.4 | 0.5 | Flashback |
+| Flashforward | 0.5 | 0.4 | 0.6 | 0.5 | 0.5 | Flashforward |
+| Montage | 0.4 | 0.2 | 0.5 | 0.5 | 0.5 | Montage |
+| Time Skip | 0.6 | 0.3 | 0.4 | 0.3 | 0.5 | Time skip |
+| Custom | Variable | Variable | Variable | Variable | Variable | Custom |
 
 ---
 
 ### `NarrativeStructure`
 
-叙事结构类型枚举：
+Narrative structure type enumeration:
 
 ```cpp
 enum class NarrativeStructure {
-    THREE_ACT,         // 三幕式结构
-    HEROS_JOURNEY,     // 英雄之旅
-    SAVE_THE_CAT,      // 救猫咪
-    CUSTOM             // 自定义结构
+    THREE_ACT,         // Three-Act Structure
+    HEROS_JOURNEY,     // Hero's Journey
+    SAVE_THE_CAT,      // Save the Cat
+    CUSTOM             // Custom Structure
 };
 ```
 
@@ -202,25 +202,25 @@ enum class NarrativeStructure {
 
 ### `NarrativeTemplate`
 
-叙事模板，提供标准的故事结构节拍序列。
+Narrative template providing standard story structure beat sequences.
 
-#### 方法
+#### Methods
 
 ```cpp
-// 获取特定结构的节拍序列
+// Get beat sequence for specific structure
 static std::vector<StoryBeat> get_template(NarrativeStructure type);
 
-// 三幕式结构 (9 个节拍)
+// Three-Act Structure (9 beats)
 static std::vector<StoryBeat> three_act_structure();
 
-// 英雄之旅 (12 个节拍)
+// Hero's Journey (12 beats)
 static std::vector<StoryBeat> heros_journey();
 
-// 救猫咪 (15 个节拍)
+// Save the Cat (15 beats)
 static std::vector<StoryBeat> save_the_cat();
 ```
 
-#### 三幕式结构节拍
+#### Three-Act Structure Beats
 
 ```cpp
 {
@@ -241,48 +241,48 @@ static std::vector<StoryBeat> save_the_cat();
 
 ### `NarrativeAnalyzer`
 
-动态叙事分析器，基于历史和未来节拍分析当前状态。
+Dynamic narrative analyzer, analyzing current state based on historical and future beats.
 
-#### 构造函数
+#### Constructor
 
 ```cpp
 NarrativeAnalyzer(const std::vector<StoryBeat>& beats);
 ```
 
-#### 方法
+#### Methods
 
 ```cpp
-// 分析当前位置的叙事状态
+// Analyze narrative state at specific position
 NarrativeContext analyze_at(size_t position) const;
 
-// 计算叙事张力
+// Calculate narrative tension
 double calculate_tension() const;
 
-// 检测是否接近高潮
+// Detect if approaching climax
 bool is_approaching_climax(size_t position, double threshold = 3) const;
 
-// 预测下一个事件类型
+// Predict next event type
 DramaticEventType predict_next_type(size_t position) const;
 
-// 计算节奏（事件密度）
+// Calculate rhythm (event density)
 double calculate_rhythm(size_t position, double window = 5) const;
 ```
 
 ---
 
-## 使用示例
+## Usage Examples
 
-### 基础使用
+### Basic Usage
 
 ```cpp
 #include "cebu/narrative_context.h"
 
 using namespace cebu;
 
-// 创建叙事上下文
+// Create narrative context
 NarrativeContext ctx(0.8, 0.7, 0.9, 0.9, 0.0);
 
-// 获取驱动力和波动率
+// Get driving force and volatility
 double driving_force = ctx.get_driving_force();      // κ·S + η·L
 double volatility = ctx.get_volatility();            // σ₀ · (1 + E) · (1 + T)
 
@@ -291,116 +291,116 @@ std::cout << "Volatility: " << volatility << "\n";
 std::cout << "Context: " << ctx.to_string() << "\n";
 ```
 
-### 使用预设
+### Using Presets
 
 ```cpp
-// 使用预设上下文
+// Use preset contexts
 auto climax_ctx = NarrativePresets::climax(1.0);
 auto twist_ctx = NarrativePresets::twist(0.8);
 auto conflict_ctx = NarrativePresets::conflict(0.7);
 
-// 自定义上下文
+// Custom context
 auto custom_ctx = NarrativePresets::custom(
     0.9, 0.8, 0.7, 0.6, 0.3
 );
 ```
 
-### 上下文融合
+### Context Fusion
 
 ```cpp
 NarrativeContext ctx1(0.8, 0.7, 0.9, 0.9, 0.0);
 NarrativeContext ctx2(0.6, 0.5, 0.7, 0.8, 0.2);
 
-// 融合两个上下文（权重 0.5）
+// Fuse two contexts (weight 0.5)
 auto fused = ctx1.fuse(ctx2, 0.5);
 ```
 
-### 创建故事节拍
+### Creating Story Beats
 
 ```cpp
-// 创建故事节拍
-StoryBeat beat(DramaticEventType::CLIMAX, 
+// Create story beat
+StoryBeat beat(DramaticEventType::CLIMAX,
                NarrativePresets::climax(1.0));
 
 std::cout << beat.to_string() << "\n";
-// 输出: Climax: S=1.0, L=0.8, E=1.0, T=1.0, D=0.0
+// Output: Climax: S=1.0, L=0.8, E=1.0, T=1.0, D=0.0
 ```
 
-### 使用叙事模板
+### Using Narrative Templates
 
 ```cpp
-// 获取三幕式结构
+// Get Three-Act Structure
 auto beats = NarrativeTemplate::three_act_structure();
 
-// 遍历节拍
+// Iterate through beats
 for (size_t i = 0; i < beats.size(); ++i) {
     std::cout << "Beat " << i << ": " << beats[i].to_string() << "\n";
 }
 
-// 获取英雄之旅
+// Get Hero's Journey
 auto hero_journey = NarrativeTemplate::heros_journey();
 ```
 
-### 叙事分析
+### Narrative Analysis
 
 ```cpp
-// 创建分析器
+// Create analyzer
 NarrativeAnalyzer analyzer(beats);
 
-// 分析特定位置的状态
+// Analyze state at specific position
 auto ctx = analyzer.analyze_at(5);
 std::cout << "Analysis: " << ctx.to_string() << "\n";
 
-// 检查是否接近高潮
+// Check if approaching climax
 if (analyzer.is_approaching_climax(5)) {
     std::cout << "Approaching climax!\n";
 }
 
-// 预测下一个事件类型
+// Predict next event type
 auto next_type = analyzer.predict_next_type(5);
 std::cout << "Next event: " << static_cast<int>(next_type) << "\n";
 
-// 计算节奏
+// Calculate rhythm
 double rhythm = analyzer.calculate_rhythm(5);
 std::cout << "Rhythm: " << rhythm << "\n";
 ```
 
-### 与荒谬度系统集成
+### Integration with Absurdity System
 
 ```cpp
 #include "cebu/absurdity_evolution.h"
 
-// 创建叙事上下文
+// Create narrative context
 NarrativeContext ctx(0.8, 0.7, 0.9, 0.9, 0.0);
 
-// 配置荒谬度演化参数
+// Configure absurdity evolution parameters
 SDEEvolutionParams params;
 params.volatility = ctx.get_volatility();                    // σ
 params.coupling_strength = ctx.get_driving_force();          // κ·S + η·L
 params.diffusion_strength = 0.1;
 params.time_step = 0.01;
 
-// 创建演化器
+// Create evolver
 SDEEvolution evolution;
 
-// 演化荒谬度
+// Evolve absurdity
 FuzzyInterval current(0.5, 0.1);
 auto evolved = evolution.step(current, params);
 ```
 
-### 与拓扑变形集成
+### Integration with Topology Morph
 
 ```cpp
 #include "cebu/topology_morph.h"
 
-// 创建拓扑变形系统
+// Create topology morph system
 TopologyMorphSystem morph_system;
 
-// 创建故事节拍
-StoryBeat beat(DramaticEventType::CLIMAX, 
+// Create story beat
+StoryBeat beat(DramaticEventType::CLIMAX,
                NarrativePresets::climax(1.0));
 
-// 根据戏剧张力触发变形
+// Trigger morph based on dramatic tension
 if (beat.context.dramatic_tension() > 0.8) {
     morph_system.apply(
         ChaosMorphRules(),
@@ -412,9 +412,9 @@ if (beat.context.dramatic_tension() > 0.8) {
 
 ---
 
-## 完整演示
+## Complete Demo
 
-### 演示 1: 荒谬度与叙事演化
+### Demo 1: Absurdity & Narrative Evolution
 
 ```cpp
 #include "cebu/narrative_context.h"
@@ -423,82 +423,82 @@ if (beat.context.dramatic_tension() > 0.8) {
 using namespace cebu;
 
 int main() {
-    // 创建三幕式结构
+    // Create Three-Act Structure
     auto beats = NarrativeTemplate::three_act_structure();
-    
-    // 初始化荒谬度
+
+    // Initialize absurdity
     FuzzyInterval absurdity(0.5, 0.1);
     SDEEvolution evolution;
-    
-    std::cout << "=== 荒谬度与叙事演化 ===\n\n";
-    
-    // 遍历故事节拍
+
+    std::cout << "=== Absurdity & Narrative Evolution ===\n\n";
+
+    // Iterate through story beats
     for (size_t i = 0; i < beats.size(); ++i) {
         const auto& beat = beats[i];
-        
+
         std::cout << "Beat " << i << ": " << beat.to_string() << "\n";
-        
-        // 配置演化参数
+
+        // Configure evolution parameters
         SDEEvolutionParams params;
         params.volatility = beat.context.get_volatility();
         params.coupling_strength = beat.context.get_driving_force();
         params.diffusion_strength = 0.1;
         params.time_step = 0.01;
-        
-        // 演化荒谬度
+
+        // Evolve absurdity
         absurdity = evolution.step(absurdity, params);
-        
+
         std::cout << "  → Absurdity: " << absurdity.to_string() << "\n";
         std::cout << "  → Volatility: " << params.volatility << "\n";
         std::cout << "  → Driving Force: " << params.coupling_strength << "\n\n";
     }
-    
+
     return 0;
 }
 ```
 
 ---
 
-## 测试
+## Testing
 
-运行测试套件：
+Run test suite:
 
 ```bash
 ./build/test_phase9c_narrative
 ```
 
-测试覆盖：
-- Narrative Context 基础功能
-- 驱动力和波动率计算
-- 上下文融合
-- 叙事预设
-- 叙事结构模板
-- 叙事分析器
+Test coverage:
+- Narrative Context basics
+- Driving force and volatility calculation
+- Context fusion
+- Narrative presets
+- Narrative structure templates
+- Narrative analyzer
 
 ---
 
-## 性能特性
+## Performance Characteristics
 
-| 操作 | 时间复杂度 | 空间复杂度 |
-|------|-----------|-----------|
-| 创建上下文 | O(1) | O(1) |
-| 获取驱动力/波动率 | O(1) | O(1) |
-| 上下文融合 | O(1) | O(1) |
-| 获取模板 | O(n) | O(n) |
-| 叙事分析 | O(n) | O(n) |
-
----
-
-## 相关模块
-
-- **Phase 9a**: 荒谬度系统 (`absurdity.h`)
-- **Phase 9b**: 拓扑变形 (`topology_morph.h`)
-- **叙事系统**: `story_event.h`, `simplicial_complex_narrative.h`, `timeline.h`
+| Operation | Time Complexity | Space Complexity |
+|-----------|-----------------|------------------|
+| Create context | O(1) | O(1) |
+| Get driving force/volatility | O(1) | O(1) |
+| Context fusion | O(1) | O(1) |
+| Get template | O(n) | O(n) |
+| Narrative analysis | O(n) | O(n) |
 
 ---
 
-## 参考资料
+## Related Modules
 
-- [荒谬度需求文档](../prepare/荒谬度.md)
-- [Phase 9a 完成](.codebuddy/phase9a_summary.md)
-- [Phase 9b 完成](.codebuddy/phase9b_summary.md)
+- **Phase 9a**: Absurdity System (`absurdity.h`)
+- **Phase 9b**: Topology Morph (`topology_morph.h`)
+- **Narrative System**: `story_event.h`, `simplicial_complex_narrative.h`, `timeline.h`
+
+---
+
+## References
+
+- [Absurdity Requirements](../prepare/荒谬度.md)
+- [Phase 9a Completion](.codebuddy/phase9a_summary.md)
+- [Phase 9b Completion](.codebuddy/phase9b_summary.md)
