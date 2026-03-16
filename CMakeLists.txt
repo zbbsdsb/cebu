@@ -401,10 +401,11 @@ add_test(NAME absurdity_engine_test COMMAND test_absurdity_engine)
 endif()
 
 # Export for build tree
-export(EXPORT cebuTargets
+export(TARGETS cebu_core
     FILE ${CMAKE_CURRENT_BINARY_DIR}/cebuTargets.cmake
     NAMESPACE cebu::
 )
+
 
 # Install targets and headers
 install(TARGETS cebu_core
