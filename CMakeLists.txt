@@ -1,8 +1,16 @@
 cmake_minimum_required(VERSION 3.14)
 project(cebu VERSION 0.8.0 LANGUAGES CXX)
 
+include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
+
+option(CEBU_BUILD_TESTS "Build Cebu tests" ON)
+option(CEBU_BUILD_EXAMPLES "Build Cebu examples" ON)
+option(CEBU_WITH_ZLIB "Enable ZLIB support" ON)
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 
 # Find and include dependencies
 # Use local nlohmann/json
@@ -18,9 +26,10 @@ endif()
 # Find ZLIB (optional)
 find_package(ZLIB QUIET)
 
-if (ZLIB_FOUND)
+if (CEBU_WITH_ZLIB AND ZLIB_FOUND)
     add_definitions(-DZLIB_FOUND)
 endif()
+
 
 # Include directories
 include_directories(${PROJECT_SOURCE_DIR}/include)
@@ -52,22 +61,27 @@ add_library(cebu_core
     src/absurdity_engine.cpp
 )
 
+target_include_directories(cebu_core
+    PUBLIC
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+)
 
-# Link nlohmann/json (header-only, no need to link)
-# if (nlohmann_json_FOUND)
-#     target_link_libraries(cebu_core PRIVATE nlohmann_json::nlohmann_json)
-# else()
-#     target_link_libraries(cebu_core PRIVATE nlohmann_json::nlohmann_json)
-# endif()
+add_library(cebu::cebu_core ALIAS cebu_core)
 
+if (nlohmann_json_FOUND)
+    target_link_libraries(cebu_core PUBLIC nlohmann_json::nlohmann_json)
+endif()
 
-# Link ZLIB if found
-if (ZLIB_FOUND)
+if (CEBU_WITH_ZLIB AND ZLIB_FOUND)
     target_link_libraries(cebu_core PRIVATE ZLIB::ZLIB)
 endif()
 
+# Tests
+if (CEBU_BUILD_TESTS)
 # Test executable
 add_executable(test_basic
+
     tests/test_basic.cpp
 )
 
@@ -288,6 +302,7 @@ add_executable(test_parallel_executor
 
 target_link_libraries(test_parallel_executor cebu_core)
 
+if (CEBU_BUILD_EXAMPLES)
 # Phase 8c demo executable
 add_executable(phase8c_demo
     examples/phase8c_demo.cpp
@@ -316,19 +331,27 @@ add_executable(phase9a_minimal_test
 
 target_link_libraries(phase9a_minimal_test cebu_core)
 
-# Phase 9b morph test executable
-add_executable(test_phase9b_morph
-    tests/test_phase9b_morph.cpp
-)
-
-target_link_libraries(test_phase9b_morph cebu_core)
-
 # Phase 9b demo executable
 add_executable(phase9b_demo
     examples/phase9b_demo.cpp
 )
 
 target_link_libraries(phase9b_demo cebu_core)
+
+# Phase 9c demo executable
+add_executable(phase9c_demo
+    examples/phase9c_demo.cpp
+)
+
+target_link_libraries(phase9c_demo cebu_core)
+endif()
+
+# Phase 9b morph test executable
+add_executable(test_phase9b_morph
+    tests/test_phase9b_morph.cpp
+)
+
+target_link_libraries(test_phase9b_morph cebu_core)
 
 # Phase 9c narrative test executable
 add_executable(test_phase9c_narrative
@@ -337,19 +360,13 @@ add_executable(test_phase9c_narrative
 
 target_link_libraries(test_phase9c_narrative cebu_core)
 
-# Phase 9c demo executable
-add_executable(phase9c_demo
-    examples/phase9c_demo.cpp
-)
-
-target_link_libraries(phase9c_demo cebu_core)
-
 # Absurdity engine integration test
 add_executable(test_absurdity_engine
     tests/test_absurdity_engine.cpp
 )
 
 target_link_libraries(test_absurdity_engine cebu_core)
+
 
 # Enable testing
 enable_testing()
@@ -381,4 +398,51 @@ add_test(NAME vertex_geometry_test COMMAND test_vertex_geometry)
 add_test(NAME bvh_test COMMAND test_bvh)
 add_test(NAME octree_test COMMAND test_octree)
 add_test(NAME absurdity_engine_test COMMAND test_absurdity_engine)
+endif()
+
+# Export for build tree
+export(EXPORT cebuTargets
+    FILE ${CMAKE_CURRENT_BINARY_DIR}/cebuTargets.cmake
+    NAMESPACE cebu::
+)
+
+# Install targets and headers
+install(TARGETS cebu_core
+    EXPORT cebuTargets
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+
+install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+# Export targets
+install(EXPORT cebuTargets
+    NAMESPACE cebu::
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/cebu
+)
+
+# Package config files
+
+configure_package_config_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/cmake/cebuConfig.cmake.in
+    ${CMAKE_CURRENT_BINARY_DIR}/cebuConfig.cmake
+    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/cebu
+)
+
+write_basic_package_version_file(
+    ${CMAKE_CURRENT_BINARY_DIR}/cebuConfigVersion.cmake
+    VERSION ${PROJECT_VERSION}
+    COMPATIBILITY SameMajorVersion
+)
+
+install(FILES
+    ${CMAKE_CURRENT_BINARY_DIR}/cebuConfig.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/cebuConfigVersion.cmake
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/cebu
+)
+
+
+
 
