@@ -100,7 +100,7 @@ NarrativeContext NarrativePresets::get_preset(DramaticEventType type) {
             return time_skip();
 
         case DramaticEventType::CUSTOM:
-            return custom();
+            return custom(0.5, 0.5, 0.5, 0.5, 0.5);
 
         default:
             return NarrativeContext();

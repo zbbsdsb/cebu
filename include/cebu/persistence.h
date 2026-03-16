@@ -153,7 +153,7 @@ private:
      */
     static bool write_binary_file(const std::string& filename,
                                  const std::vector<uint8_t>& data,
-                                 Compression compression);
+                                 Compression::Algorithm compression = Compression::Algorithm::NONE);
 
     /**
      * @brief Read binary data from file
@@ -207,11 +207,11 @@ bool Persistence::save_labeled(const SimplicialComplexLabeled<LabelType>& comple
 
         // Optionally compress
         std::vector<uint8_t> final_data = data;
-        if (options.compression == Compression::ZLIB) {
+        if (options.compression == Compression::Algorithm::ZLIB) {
             final_data = compress_zlib(data);
         }
 
-        return write_binary_file(filename, final_data, Compression::NONE);
+        return write_binary_file(filename, final_data, Compression::Algorithm::NONE);
     } else if (format == FileFormat::JSON) {
         // Note: JsonSerializer doesn't have a generic serialize_labeled method
         // This would need to be implemented
@@ -235,11 +235,11 @@ bool Persistence::save_narrative(const SimplicialComplexNarrative<LabelType>& co
         auto data = BinarySerializer::serialize_narrative(complex);
 
         std::vector<uint8_t> final_data = data;
-        if (options.compression == Compression::ZLIB) {
+        if (options.compression == Compression::Algorithm::ZLIB) {
             final_data = compress_zlib(data);
         }
 
-        return write_binary_file(filename, final_data, Compression::NONE);
+        return write_binary_file(filename, final_data, Compression::Algorithm::NONE);
     } else if (format == FileFormat::JSON) {
         std::string json = JsonSerializer::serialize_narrative(complex);
         return write_json_file(filename, json);
@@ -261,11 +261,11 @@ bool Persistence::save_refinement(const SimplicialComplexRefinement<LabelType>& 
         auto data = BinarySerializer::serialize_refinement(complex);
 
         std::vector<uint8_t> final_data = data;
-        if (options.compression == Compression::ZLIB) {
+        if (options.compression == Compression::Algorithm::ZLIB) {
             final_data = compress_zlib(data);
         }
 
-        return write_binary_file(filename, final_data, Compression::NONE);
+        return write_binary_file(filename, final_data, Compression::Algorithm::NONE);
     }
 
     return false;

@@ -144,21 +144,21 @@ public:
     explicit StochasticEvolution(NoiseGenerator noise);
 
     // Single step evolution
-    FuzzyInterval step(const FuzzyInterval& current, double dt = 1.0);
+    FuzzyInterval step(const FuzzyInterval& current, double dt = 1.0) const;
 
     // Multi-step evolution
     std::vector<FuzzyInterval> evolve(
         const FuzzyInterval& initial,
         int steps,
         double dt = 1.0
-    );
+    ) const;
 
     // Neighborhood evolution (for simplices connected to each other)
     std::vector<FuzzyInterval> evolve_neighborhood(
         const std::vector<FuzzyInterval>& current,
         const std::vector<std::vector<size_t>>& adjacency,
         double dt = 1.0
-    );
+    ) const;
 
     // Access parameters
     EvolutionParams get_params() const { return params_; }
@@ -323,7 +323,7 @@ public:
     static void sort_with_uncertainty(std::vector<FuzzyInterval>& values);
 
 private:
-    static ComparisonResult determine_relation(const FuzzyInterval& a, const FuzzyInterval& b);
+    static ComparisonResult::Relation determine_relation(const FuzzyInterval& a, const FuzzyInterval& b);
     static double compute_overlap_confidence(const FuzzyInterval& a, const FuzzyInterval& b);
 };
 

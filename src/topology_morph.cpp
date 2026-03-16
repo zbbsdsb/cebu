@@ -84,7 +84,7 @@ bool TopologyMorph::rule_matches(
             
         case TriggerCondition::NEIGHBOR_DIFFERENCE: {
             // Compare with neighbors
-            auto neighbors = context.complex.get_neighbors(simplex_id);
+            auto neighbors = context.complex.get_adjacent_simplices(simplex_id);
             for (auto neighbor_id : neighbors) {
                 auto neighbor_absurdity = 
                     context.absurdity_field.get(neighbor_id);
@@ -268,7 +268,7 @@ void TopologyMorph::update_stats(const MorphResult& result, MorphType type) {
 MorphResult TopologyMorph::split_simplex(
     SimplicialComplex& complex,
     SimplexID simplex_id,
-    const AbsurdityField& field,
+    AbsurdityField& field,
     size_t pieces
 ) {
     MorphResult result;
@@ -384,7 +384,7 @@ MorphResult TopologyMorph::split_simplex(
 MorphResult TopologyMorph::merge_simplices(
     SimplicialComplex& complex,
     SimplexID simplex_id,
-    const AbsurdityField& field
+    AbsurdityField& field
 ) {
     MorphResult result;
     result.success = false;
@@ -395,7 +395,7 @@ MorphResult TopologyMorph::merge_simplices(
     }
     
     // Get neighbors
-    auto neighbors = complex.get_neighbors(simplex_id);
+    auto neighbors = complex.get_adjacent_simplices(simplex_id);
     if (neighbors.empty()) {
         result.message = "No neighbors to merge with";
         return result;
@@ -448,7 +448,7 @@ MorphResult TopologyMorph::merge_simplices(
 MorphResult TopologyMorph::delete_simplex(
     SimplicialComplex& complex,
     SimplexID simplex_id,
-    const AbsurdityField& field
+    AbsurdityField& field
 ) {
     MorphResult result;
     
@@ -459,7 +459,7 @@ MorphResult TopologyMorph::delete_simplex(
     }
     
     // Get faces to cascade delete
-    auto faces = complex.get_faces(simplex_id);
+    auto faces = complex.get_facets(simplex_id);
     
     // Remove simplex and dependents
     complex.remove_simplex(simplex_id, true);
@@ -477,7 +477,7 @@ MorphResult TopologyMorph::delete_simplex(
 MorphResult TopologyMorph::create_simplex(
     SimplicialComplex& complex,
     SimplexID simplex_id,
-    const AbsurdityField& field,
+    AbsurdityField& field,
     size_t dimension
 ) {
     MorphResult result;
@@ -507,7 +507,7 @@ MorphResult TopologyMorph::create_simplex(
 MorphResult TopologyMorph::expand_dimension(
     SimplicialComplex& complex,
     SimplexID simplex_id,
-    const AbsurdityField& field
+    AbsurdityField& field
 ) {
     MorphResult result;
     result.success = false;
@@ -545,7 +545,7 @@ MorphResult TopologyMorph::expand_dimension(
 MorphResult TopologyMorph::contract_dimension(
     SimplicialComplex& complex,
     SimplexID simplex_id,
-    const AbsurdityField& field
+    AbsurdityField& field
 ) {
     MorphResult result;
     result.success = false;
@@ -587,7 +587,7 @@ MorphResult TopologyMorph::contract_dimension(
 MorphResult TopologyMorph::glue_vertices(
     SimplicialComplex& complex,
     SimplexID simplex_id,
-    const AbsurdityField& field
+    AbsurdityField& field
 ) {
     MorphResult result;
     result.success = false;
@@ -621,7 +621,7 @@ MorphResult TopologyMorph::glue_vertices(
 MorphResult TopologyMorph::refine_simplex(
     SimplicialComplex& complex,
     SimplexID simplex_id,
-    const AbsurdityField& field
+    AbsurdityField& field
 ) {
     MorphResult result;
     
@@ -632,7 +632,7 @@ MorphResult TopologyMorph::refine_simplex(
 MorphResult TopologyMorph::coarsen_simplex(
     SimplicialComplex& complex,
     SimplexID simplex_id,
-    const AbsurdityField& field
+    AbsurdityField& field
 ) {
     MorphResult result;
     result.success = false;
@@ -657,7 +657,7 @@ MorphResult TopologyMorph::coarsen_simplex(
 MorphResult TopologyMorph::wrap_boundary(
     SimplicialComplex& complex,
     SimplexID simplex_id,
-    const AbsurdityField& field
+    AbsurdityField& field
 ) {
     MorphResult result;
     result.success = false;
@@ -909,8 +909,9 @@ std::vector<MorphRule> MorphPresets::scientific_rules() {
 // =============================================================================
 
 void MorphQueue::enqueue(const QueuedMorph& morph) {
-    morph.scheduled_time = morph.delay;
-    queue_.push_back(morph);
+    QueuedMorph m = morph;
+    m.scheduled_time = m.delay;
+    queue_.push_back(m);
 }
 
 std::vector<MorphResult> MorphQueue::execute_ready(

@@ -8,8 +8,13 @@ option(CEBU_BUILD_TESTS "Build Cebu tests" ON)
 option(CEBU_BUILD_EXAMPLES "Build Cebu examples" ON)
 option(CEBU_WITH_ZLIB "Enable ZLIB support" ON)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# MSVC UTF-8 source files
+if (MSVC)
+    add_compile_options(/utf-8)
+endif()
 
 
 # Find and include dependencies

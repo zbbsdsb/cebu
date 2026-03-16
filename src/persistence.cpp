@@ -209,7 +209,7 @@ bool Persistence::validate_file(const std::string& filename) {
 
 bool Persistence::write_binary_file(const std::string& filename,
                                    const std::vector<uint8_t>& data,
-                                   Compression compression) {
+                                   Compression::Algorithm compression) {
     std::ofstream out(filename, std::ios::binary);
     if (!out) {
         return false;

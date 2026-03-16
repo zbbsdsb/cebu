@@ -219,7 +219,7 @@ public:
     static MorphResult split_simplex(
         SimplicialComplex& complex,
         SimplexID simplex_id,
-        const AbsurdityField& field,
+        AbsurdityField& field,
         size_t pieces = 2
     );
     
@@ -229,7 +229,7 @@ public:
     static MorphResult merge_simplices(
         SimplicialComplex& complex,
         SimplexID simplex_id,
-        const AbsurdityField& field
+        AbsurdityField& field
     );
     
     /**
@@ -238,7 +238,7 @@ public:
     static MorphResult delete_simplex(
         SimplicialComplex& complex,
         SimplexID simplex_id,
-        const AbsurdityField& field
+        AbsurdityField& field
     );
     
     /**
@@ -247,7 +247,7 @@ public:
     static MorphResult create_simplex(
         SimplicialComplex& complex,
         SimplexID simplex_id,
-        const AbsurdityField& field,
+        AbsurdityField& field,
         size_t dimension = 0
     );
     
@@ -257,7 +257,7 @@ public:
     static MorphResult expand_dimension(
         SimplicialComplex& complex,
         SimplexID simplex_id,
-        const AbsurdityField& field
+        AbsurdityField& field
     );
     
     /**
@@ -266,7 +266,7 @@ public:
     static MorphResult contract_dimension(
         SimplicialComplex& complex,
         SimplexID simplex_id,
-        const AbsurdityField& field
+        AbsurdityField& field
     );
     
     /**
@@ -275,7 +275,7 @@ public:
     static MorphResult glue_vertices(
         SimplicialComplex& complex,
         SimplexID simplex_id,
-        const AbsurdityField& field
+        AbsurdityField& field
     );
     
     /**
@@ -284,7 +284,7 @@ public:
     static MorphResult refine_simplex(
         SimplicialComplex& complex,
         SimplexID simplex_id,
-        const AbsurdityField& field
+        AbsurdityField& field
     );
     
     /**
@@ -293,7 +293,7 @@ public:
     static MorphResult coarsen_simplex(
         SimplicialComplex& complex,
         SimplexID simplex_id,
-        const AbsurdityField& field
+        AbsurdityField& field
     );
     
     /**
@@ -302,7 +302,7 @@ public:
     static MorphResult wrap_boundary(
         SimplicialComplex& complex,
         SimplexID simplex_id,
-        const AbsurdityField& field
+        AbsurdityField& field
     );
     
 private:

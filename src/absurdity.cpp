@@ -214,7 +214,7 @@ StochasticEvolution::StochasticEvolution(NoiseGenerator noise)
 
 double StochasticEvolution::generate_noise() const {
     double n = noise_();
-    if (params_.enable_levy_jumps && std::uniform_real_distribution<double>(0.0, 1.0)(noise_.rng_) < 0.05) {
+    if (params_.enable_levy_jumps && noise_() < 0.05) {
         // 5% chance of large Levy jump
         n *= std::pow(std::abs(n), 1.0 - params_.levy_exponent);
     }
@@ -250,7 +250,7 @@ double StochasticEvolution::compute_diffusion(
     return params_.diffusion_rate * sum / neighbors.size();
 }
 
-FuzzyInterval StochasticEvolution::step(const FuzzyInterval& current, double dt) {
+FuzzyInterval StochasticEvolution::step(const FuzzyInterval& current, double dt) const {
     // Apply decay
     double decay = std::pow(params_.decay_rate, dt);
     FuzzyInterval decayed = current * decay;
@@ -276,7 +276,7 @@ std::vector<FuzzyInterval> StochasticEvolution::evolve(
     const FuzzyInterval& initial,
     int steps,
     double dt
-) {
+) const {
     std::vector<FuzzyInterval> trajectory(steps + 1);
     trajectory[0] = initial;
     
@@ -293,7 +293,7 @@ std::vector<FuzzyInterval> StochasticEvolution::evolve_neighborhood(
     const std::vector<FuzzyInterval>& current,
     const std::vector<std::vector<size_t>>& adjacency,
     double dt
-) {
+) const {
     if (current.size() != adjacency.size()) {
         throw std::runtime_error("Size mismatch between values and adjacency");
     }
