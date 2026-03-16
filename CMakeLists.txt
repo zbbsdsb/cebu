@@ -69,7 +69,7 @@ target_include_directories(cebu_core
 
 add_library(cebu::cebu_core ALIAS cebu_core)
 
-if (nlohmann_json_FOUND)
+if (TARGET nlohmann_json::nlohmann_json)
     target_link_libraries(cebu_core PUBLIC nlohmann_json::nlohmann_json)
 endif()
 
@@ -301,103 +301,72 @@ add_executable(test_parallel_executor
 )
 
 target_link_libraries(test_parallel_executor cebu_core)
+endif() # CEBU_BUILD_TESTS (main test executables block)
 
 if (CEBU_BUILD_EXAMPLES)
-# Phase 8c demo executable
-add_executable(phase8c_demo
-    examples/phase8c_demo.cpp
-)
+    add_executable(phase8c_demo     examples/phase8c_demo.cpp)
+    target_link_libraries(phase8c_demo cebu_core)
 
-target_link_libraries(phase8c_demo cebu_core)
+    add_executable(phase8d_benchmark examples/phase8d_benchmark.cpp)
+    target_link_libraries(phase8d_benchmark cebu_core)
 
-# Phase 8d benchmark executable
-add_executable(phase8d_benchmark
-    examples/phase8d_benchmark.cpp
-)
+    add_executable(phase9a_demo      examples/phase9a_demo.cpp)
+    target_link_libraries(phase9a_demo cebu_core)
 
-target_link_libraries(phase8d_benchmark cebu_core)
+    add_executable(phase9a_minimal_test examples/phase9a_minimal_test.cpp)
+    target_link_libraries(phase9a_minimal_test cebu_core)
 
-# Phase 9a demo executable
-add_executable(phase9a_demo
-    examples/phase9a_demo.cpp
-)
+    add_executable(phase9b_demo      examples/phase9b_demo.cpp)
+    target_link_libraries(phase9b_demo cebu_core)
 
-target_link_libraries(phase9a_demo cebu_core)
-
-# Phase 9a minimal test executable
-add_executable(phase9a_minimal_test
-    examples/phase9a_minimal_test.cpp
-)
-
-target_link_libraries(phase9a_minimal_test cebu_core)
-
-# Phase 9b demo executable
-add_executable(phase9b_demo
-    examples/phase9b_demo.cpp
-)
-
-target_link_libraries(phase9b_demo cebu_core)
-
-# Phase 9c demo executable
-add_executable(phase9c_demo
-    examples/phase9c_demo.cpp
-)
-
-target_link_libraries(phase9c_demo cebu_core)
+    add_executable(phase9c_demo      examples/phase9c_demo.cpp)
+    target_link_libraries(phase9c_demo cebu_core)
 endif()
 
-# Phase 9b morph test executable
-add_executable(test_phase9b_morph
-    tests/test_phase9b_morph.cpp
-)
+# Phase 9b/9c/engine tests (always built with CEBU_BUILD_TESTS)
+if (CEBU_BUILD_TESTS)
+    add_executable(test_phase9b_morph    tests/test_phase9b_morph.cpp)
+    target_link_libraries(test_phase9b_morph cebu_core)
 
-target_link_libraries(test_phase9b_morph cebu_core)
+    add_executable(test_phase9c_narrative tests/test_phase9c_narrative.cpp)
+    target_link_libraries(test_phase9c_narrative cebu_core)
 
-# Phase 9c narrative test executable
-add_executable(test_phase9c_narrative
-    tests/test_phase9c_narrative.cpp
-)
-
-target_link_libraries(test_phase9c_narrative cebu_core)
-
-# Absurdity engine integration test
-add_executable(test_absurdity_engine
-    tests/test_absurdity_engine.cpp
-)
-
-target_link_libraries(test_absurdity_engine cebu_core)
-
+    add_executable(test_absurdity_engine  tests/test_absurdity_engine.cpp)
+    target_link_libraries(test_absurdity_engine cebu_core)
+endif()
 
 # Enable testing
 enable_testing()
-add_test(NAME basic_test COMMAND test_basic)
-
-add_test(NAME dynamic_test COMMAND test_dynamic)
-add_test(NAME labels_test COMMAND test_labels)
-add_test(NAME story_events_test COMMAND test_story_events)
-add_test(NAME timeline_test COMMAND test_timeline)
-add_test(NAME topology_ops_test COMMAND test_topology_ops)
-add_test(NAME narrative_test COMMAND test_narrative)
-add_test(NAME topology_ops_advanced_test COMMAND test_topology_ops_advanced)
-add_test(NAME command_history_test COMMAND test_command_history)
-add_test(NAME serialization_test COMMAND test_serialization)
-add_test(NAME equivalence_classes_test COMMAND test_equivalence_classes)
-add_test(NAME non_hausdorff_test COMMAND test_non_hausdorff)
-add_test(NAME refinement_test COMMAND test_refinement)
-add_test(NAME binary_serialization_test COMMAND test_binary_serialization)
-add_test(NAME event_system_test COMMAND test_event_system)
-add_test(NAME persistence_test COMMAND test_persistence)
-add_test(NAME json_serialization_test COMMAND test_json_serialization)
-add_test(NAME compression_test COMMAND test_compression)
-add_test(NAME non_hausdorff_serialization_test COMMAND test_non_hausdorff_serialization)
-add_test(NAME change_tracker_test COMMAND test_change_tracker)
-add_test(NAME snapshot_manager_test COMMAND test_snapshot_manager)
-add_test(NAME streaming_io_test COMMAND test_streaming_io)
-add_test(NAME version_control_test COMMAND test_version_control)
-add_test(NAME vertex_geometry_test COMMAND test_vertex_geometry)
-add_test(NAME bvh_test COMMAND test_bvh)
-add_test(NAME octree_test COMMAND test_octree)
-add_test(NAME absurdity_engine_test COMMAND test_absurdity_engine)
+if (CEBU_BUILD_TESTS)
+    add_test(NAME basic_test                      COMMAND test_basic)
+    add_test(NAME dynamic_test                    COMMAND test_dynamic)
+    add_test(NAME labels_test                     COMMAND test_labels)
+    add_test(NAME story_events_test               COMMAND test_story_events)
+    add_test(NAME timeline_test                   COMMAND test_timeline)
+    add_test(NAME topology_ops_test               COMMAND test_topology_ops)
+    add_test(NAME narrative_test                  COMMAND test_narrative)
+    add_test(NAME topology_ops_advanced_test      COMMAND test_topology_ops_advanced)
+    add_test(NAME command_history_test            COMMAND test_command_history)
+    add_test(NAME serialization_test              COMMAND test_serialization)
+    add_test(NAME equivalence_classes_test        COMMAND test_equivalence_classes)
+    add_test(NAME non_hausdorff_test              COMMAND test_non_hausdorff)
+    add_test(NAME refinement_test                 COMMAND test_refinement)
+    add_test(NAME binary_serialization_test       COMMAND test_binary_serialization)
+    add_test(NAME event_system_test               COMMAND test_event_system)
+    add_test(NAME persistence_test                COMMAND test_persistence)
+    add_test(NAME json_serialization_test         COMMAND test_json_serialization)
+    add_test(NAME compression_test                COMMAND test_compression)
+    add_test(NAME non_hausdorff_serialization_test COMMAND test_non_hausdorff_serialization)
+    add_test(NAME change_tracker_test             COMMAND test_change_tracker)
+    add_test(NAME snapshot_manager_test           COMMAND test_snapshot_manager)
+    add_test(NAME streaming_io_test               COMMAND test_streaming_io)
+    add_test(NAME version_control_test            COMMAND test_version_control)
+    add_test(NAME vertex_geometry_test            COMMAND test_vertex_geometry)
+    add_test(NAME bvh_test                        COMMAND test_bvh)
+    add_test(NAME octree_test                     COMMAND test_octree)
+    add_test(NAME phase9b_morph_test              COMMAND test_phase9b_morph)
+    add_test(NAME phase9c_narrative_test          COMMAND test_phase9c_narrative)
+    add_test(NAME absurdity_engine_test           COMMAND test_absurdity_engine)
 endif()
 
 # Export for build tree
