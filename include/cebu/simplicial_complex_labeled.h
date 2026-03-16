@@ -81,9 +81,10 @@ public:
 
     // Query operations (forwarded)
 
-    const std::vector<VertexID>& get_vertices() const {
+    std::vector<VertexID> get_vertices() const {
         return complex_->get_vertices();
     }
+
 
     const std::unordered_map<SimplexID, Simplex>& get_simplices() const {
         return complex_->get_simplices();

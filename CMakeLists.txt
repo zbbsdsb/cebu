@@ -47,6 +47,8 @@ add_library(cebu_core
     src/parallel_executor.cpp
     src/benchmark.cpp
     src/profiler.cpp
+    src/topology_morph.cpp
+    src/narrative_context.cpp
 )
 
 # Link nlohmann/json (header-only, no need to link)
@@ -55,6 +57,7 @@ add_library(cebu_core
 # else()
 #     target_link_libraries(cebu_core PRIVATE nlohmann_json::nlohmann_json)
 # endif()
+
 
 # Link ZLIB if found
 if (ZLIB_FOUND)
