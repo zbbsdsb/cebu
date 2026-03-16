@@ -49,7 +49,9 @@ add_library(cebu_core
     src/profiler.cpp
     src/topology_morph.cpp
     src/narrative_context.cpp
+    src/absurdity_engine.cpp
 )
+
 
 # Link nlohmann/json (header-only, no need to link)
 # if (nlohmann_json_FOUND)
@@ -342,9 +344,17 @@ add_executable(phase9c_demo
 
 target_link_libraries(phase9c_demo cebu_core)
 
+# Absurdity engine integration test
+add_executable(test_absurdity_engine
+    tests/test_absurdity_engine.cpp
+)
+
+target_link_libraries(test_absurdity_engine cebu_core)
+
 # Enable testing
 enable_testing()
 add_test(NAME basic_test COMMAND test_basic)
+
 add_test(NAME dynamic_test COMMAND test_dynamic)
 add_test(NAME labels_test COMMAND test_labels)
 add_test(NAME story_events_test COMMAND test_story_events)
@@ -370,3 +380,5 @@ add_test(NAME version_control_test COMMAND test_version_control)
 add_test(NAME vertex_geometry_test COMMAND test_vertex_geometry)
 add_test(NAME bvh_test COMMAND test_bvh)
 add_test(NAME octree_test COMMAND test_octree)
+add_test(NAME absurdity_engine_test COMMAND test_absurdity_engine)
+
