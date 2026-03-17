@@ -1,6 +1,6 @@
 # Cebu: Advanced Simplicial Complex Library
 
-**Cebu** is a modern C++17 library for manipulating simplicial complexes with advanced features including spatial indexing, narrative-driven topology, persistent homology, and more.
+**Cebu** is a modern C++20 library for manipulating simplicial complexes with advanced features including spatial indexing, narrative-driven topology, persistent homology, and an enhanced absurdity system.
 
 ## Features
 
@@ -20,6 +20,14 @@
 - **Event System**: Publish-subscribe architecture for reactive programming
 - **Command Pattern**: Undo/redo support with command history
 
+### Enhanced Absurdity System
+- **Fuzzy Interval Numbers**: Represent uncertainty with confidence factors
+- **Stochastic Evolution**: Simulate absurdity dynamics over time
+- **Multi-Source Fusion**: Combine information from multiple sources
+- **Uncertainty Comparison**: Compare fuzzy values with uncertainty awareness
+- **Absurdity Field**: Spatial distribution of absurdity across simplices
+- **Absurdity Engine**: Manage the entire absurdity system
+
 ### Serialization & Persistence
 - **JSON Serialization**: Human-readable format
 - **Binary Serialization**: Efficient compact format
@@ -31,6 +39,8 @@
 
 ### Installation
 
+#### Method A: CMake (Recommended)
+
 ```bash
 # Clone the repository
 git clone https://github.com/yourusername/cebu.git
@@ -39,11 +49,32 @@ cd cebu
 # Build with CMake
 mkdir build && cd build
 cmake ..
-cmake --build .
+cmake --build . --config Release
+
+# Install (optional)
+cmake --install .
 
 # Run tests
 ctest --output-on-failure
 ```
+
+#### Method B: vcpkg (Coming Soon)
+
+```bash
+# Install via vcpkg
+vcpkg install cebu
+```
+
+#### Method C: Conan (Coming Soon)
+
+```bash
+# Install via Conan
+conan install --requires=cebu/1.0.0
+```
+
+#### Method D: Direct Download
+
+Download the precompiled binaries from the [GitHub Releases](https://github.com/yourusername/cebu/releases) page.
 
 ### Basic Usage
 
@@ -74,28 +105,38 @@ int main() {
 }
 ```
 
-### With Labels
+### Using Absurdity System
 
 ```cpp
-#include "cebu/simplicial_complex_labeled.h"
+#include "cebu/absurdity.h"
 
 int main() {
     using namespace cebu;
 
-    // Create labeled simplicial complex
-    SimplicialComplexLabeled<float> complex;
+    // Create fuzzy intervals
+    FuzzyInterval a(0.3, 0.5, 0.9);  // [0.3, 0.5] with 90% confidence
+    FuzzyInterval b(0.4, 0.7, 0.8);  // [0.4, 0.7] with 80% confidence
 
-    // Add simplices with labels
-    auto v0 = complex.add_simplex({}, 0.0f);
-    auto v1 = complex.add_simplex({}, 1.0f);
-    auto v2 = complex.add_simplex({}, 2.0f);
+    // Arithmetic operations
+    FuzzyInterval sum = a + b;
+    std::cout << "Sum: " << sum.to_string() << std::endl;
 
-    auto tri = complex.add_simplex({v0, v1, v2}, 3.0f);
+    // Stochastic evolution
+    EvolutionParams params;
+    params.decay_rate = 0.95;
+    params.volatility = 0.1;
+    
+    StochasticEvolution evolution(params);
+    auto trajectory = evolution.evolve(a, 10);
 
-    // Query by label range
-    auto high_labeled = complex.get_simplices_with_label(
-        [](float label) { return label >= 2.0f; }
-    );
+    // Multi-source fusion
+    std::vector<AbsurditySource> sources = {
+        {"Source A", FuzzyInterval(0.3, 0.5, 0.9), 0.9, 1.0},
+        {"Source B", FuzzyInterval(0.4, 0.6, 0.8), 0.7, 0.8}
+    };
+    
+    FuzzyInterval fused = FusionStrategy::fuse(sources);
+    std::cout << "Fused: " << fused.to_string() << std::endl;
 
     return 0;
 }
@@ -113,9 +154,16 @@ int main() {
     vg.set_vertex(1, cebu::Point3D(1, 0, 0));
     vg.set_vertex(2, cebu::Point3D(0, 1, 0));
 
+    // Get all simplices
+    std::vector<cebu::SimplexID> all_simplices = {
+        vg.get_vertex(0), vg.get_vertex(1), vg.get_vertex(2)
+    };
+
     // Build BVH spatial index
     cebu::BVHTree tree(cebu::BVHBuildStrategy::SAH);
-    tree.build(all_simplices, vg, get_simplex_vertices);
+    tree.build(all_simplices, vg, [&](cebu::SimplexID sid) {
+        return std::vector<cebu::Point3D>{vg.get_vertex(sid)};
+    });
 
     // Find nearest 10 simplices
     cebu::Point3D query(0.5f, 0.5f, 0.0f);
@@ -130,6 +178,7 @@ int main() {
 - [Getting Started Guide](docs/getting_started.md) - Step-by-step tutorial
 - [API Documentation](docs/api.md) - Comprehensive API reference
 - [Spatial Indexing Guide](docs/spatial_indexing.md) - BVH and Octree usage
+- [Absurdity System Guide](docs/absurdity_system.md) - Enhanced absurdity system usage
 - [Architecture Overview](docs/architecture.md) - Design and implementation
 - [Advanced Serialization](docs/api_advanced_serialization.md) - Version control, snapshots, streaming
 
@@ -144,14 +193,14 @@ int main() {
 
 ## Requirements
 
-- C++17 compatible compiler (GCC 7+, Clang 5+, MSVC 2017+)
+- C++20 compatible compiler (GCC 10+, Clang 10+, MSVC 2019+)
 - CMake 3.14 or higher
 - nlohmann/json (automatically fetched by CMake)
 - ZLIB (optional, for compression)
 
 ## License
 
-See [LICENSE](LICENSE) file for details.
+MIT License. See [LICENSE](LICENSE) file for details.
 
 ## Contributing
 
@@ -163,14 +212,7 @@ Cebu is inspired by research in computational topology, narrative theory, and sp
 
 ## Version History
 
-- **v0.8.0** - Spatial indexing (BVH, Octree)
-- **v0.7.0** - Version control, streaming I/O, snapshots
-- **v0.6.0** - Event system, command pattern
-- **v0.5.0** - Narrative features, timeline
-- **v0.4.0** - Label system refinement
-- **v0.3.0** - Non-Hausdorff topology
-- **v0.2.0** - Serialization
-- **v0.1.0** - Initial release
+See [CHANGELOG.md](CHANGELOG.md) for the complete version history.
 
 ## Contact
 

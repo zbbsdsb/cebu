@@ -1,4 +1,4 @@
-#include "cebu/serialization.h"
+#include "cebu/json_serialization.h"
 #include "cebu/simplicial_complex_narrative.h"
 #include <iostream>
 #include <cassert>
@@ -20,13 +20,15 @@ void test_basic_binary_serialize() {
     complex.add_triangle(v0, v1, v2);
     
     // Serialize
-    auto data = BinarySerializer::serialize(complex);
+    auto json = JsonSerializer::serialize(complex);
+    auto data = json.dump();
     
     std::cout << "Serialized size: " << data.size() << " bytes" << std::endl;
     assert(data.size() > 0);
     
     // Deserialize
-    SimplicialComplex restored = BinarySerializer::deserialize(data);
+    auto json_obj = nlohmann::json::parse(data);
+    SimplicialComplex restored = JsonSerializer::deserialize(json_obj);
     
     assert(restored.vertex_count() == 3);
     assert(restored.get_simplices_of_dimension(1).size() == 2);
@@ -47,12 +49,14 @@ void test_labeled_binary_serialize() {
     complex.set_label(edge, 0.8);
     
     // Serialize
-    auto data = BinarySerializer::serialize_labeled(complex);
+    auto json = JsonSerializer::serialize_labeled(complex);
+    auto data = json.dump();
     
     std::cout << "Serialized size: " << data.size() << " bytes" << std::endl;
     
     // Deserialize
-    auto restored = BinarySerializer::deserialize_labeled<double>(data);
+    auto json_obj = nlohmann::json::parse(data);
+    auto restored = JsonSerializer::deserialize_labeled<double>(json_obj);
     
     assert(restored.vertex_count() == 2);
     assert(restored.get_simplices_of_dimension(1).size() == 1);
@@ -77,12 +81,14 @@ void test_absurdity_binary_serialize() {
     complex.set_label(edge, label);
     
     // Serialize
-    auto data = BinarySerializer::serialize_labeled(complex);
+    auto json = JsonSerializer::serialize_labeled(complex);
+    auto data = json.dump();
     
     std::cout << "Serialized size: " << data.size() << " bytes" << std::endl;
     
     // Deserialize
-    auto restored = BinarySerializer::deserialize_labeled<Absurdity>(data);
+    auto json_obj = nlohmann::json::parse(data);
+    auto restored = JsonSerializer::deserialize_labeled<Absurdity>(json_obj);
     
     auto label_opt = restored.get_label(edge);
     assert(label_opt.has_value());
@@ -130,7 +136,8 @@ void test_narrative_binary_serialize() {
     complex.evolve_to(5.0);
     
     // Serialize
-    auto data = BinarySerializer::serialize_narrative(complex);
+    auto json = JsonSerializer::serialize_narrative(complex);
+    auto data = json.dump();
     
     std::cout << "Serialized size: " << data.size() << " bytes" << std::endl;
     std::cout << "  - Vertices: " << complex.vertex_count() << std::endl;
@@ -140,7 +147,8 @@ void test_narrative_binary_serialize() {
     std::cout << "  - Events: " << complex.events().get_all_events().size() << std::endl;
     
     // Deserialize
-    auto restored = BinarySerializer::deserialize_narrative<double>(data);
+    auto json_obj = nlohmann::json::parse(data);
+    auto restored = JsonSerializer::deserialize_narrative<double>(json_obj);
     
     // Verify topology
     assert(restored.vertex_count() == 3);
@@ -209,11 +217,12 @@ void test_save_to_file() {
     complex.add_event("Event", 5.0, {edge}, impact);
     
     // Serialize
-    auto data = BinarySerializer::serialize_narrative(complex);
+    auto json = JsonSerializer::serialize_narrative(complex);
+    auto data = json.dump();
     
     // Write to file
     std::ofstream out("test_narrative.bin", std::ios::binary);
-    out.write(reinterpret_cast<const char*>(data.data()), data.size());
+    out.write(data.data(), data.size());
     out.close();
     
     std::cout << "Saved to test_narrative.bin (" << data.size() << " bytes)" << std::endl;
@@ -224,12 +233,13 @@ void test_save_to_file() {
     size_t size = in.tellg();
     in.seekg(0, std::ios::beg);
     
-    std::vector<uint8_t> read_data(size);
-    in.read(reinterpret_cast<char*>(read_data.data()), size);
+    std::string read_data(size, '\0');
+    in.read(&read_data[0], size);
     in.close();
     
     // Deserialize
-    auto restored = BinarySerializer::deserialize_narrative<double>(read_data);
+    auto json_obj = nlohmann::json::parse(read_data);
+    auto restored = JsonSerializer::deserialize_narrative<double>(json_obj);
     
     assert(restored.vertex_count() == 2);
     auto label = restored.get_label(edge);
@@ -243,8 +253,10 @@ void test_empty_complex() {
     std::cout << "Testing empty complex serialization..." << std::endl;
     
     SimplicialComplex complex;
-    auto data = BinarySerializer::serialize(complex);
-    auto restored = BinarySerializer::deserialize(data);
+    auto json = JsonSerializer::serialize(complex);
+    auto data = json.dump();
+    auto json_obj = nlohmann::json::parse(data);
+    auto restored = JsonSerializer::deserialize(json_obj);
     
     assert(restored.vertex_count() == 0);
     assert(restored.simplex_count() == 0);
@@ -288,13 +300,15 @@ void test_large_complex() {
     std::cout << "  Edges: " << edge_count << std::endl;
     
     // Serialize
-    auto data = BinarySerializer::serialize_narrative(complex);
+    auto json = JsonSerializer::serialize_narrative(complex);
+    auto data = json.dump();
     
     std::cout << "Serialized size: " << data.size() << " bytes" << std::endl;
     std::cout << "Bytes per vertex: " << (data.size() / vertex_count) << std::endl;
     
     // Deserialize
-    auto restored = BinarySerializer::deserialize_narrative<double>(data);
+    auto json_obj = nlohmann::json::parse(data);
+    auto restored = JsonSerializer::deserialize_narrative<double>(json_obj);
     
     assert(restored.vertex_count() == vertex_count);
     assert(restored.get_simplices_of_dimension(1).size() == edge_count);

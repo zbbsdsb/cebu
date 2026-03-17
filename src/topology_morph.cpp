@@ -45,7 +45,7 @@ bool TopologyMorph::remove_rule(const std::string& name) {
 bool TopologyMorph::rule_matches(
     const MorphRule& rule,
     const FuzzyInterval& absurdity,
-    const MorphContext& context,
+    MorphContext& context,
     SimplexID simplex_id
 ) const {
     // Check max applications
@@ -112,7 +112,7 @@ bool TopologyMorph::rule_matches(
 
 const MorphRule* TopologyMorph::find_matching_rule(
     SimplexID simplex_id,
-    const MorphContext& context
+    MorphContext& context
 ) const {
     auto absurdity = context.absurdity_field.get(simplex_id);
     
@@ -436,7 +436,11 @@ MorphResult TopologyMorph::merge_simplices(
     // Fuse absurdities
     auto a1 = field.get(simplex_id);
     auto a2 = field.get(neighbor_id);
-    auto fused = FusionStrategy::fuse({a1, a2}, {0.5, 0.5});
+    std::vector<AbsurditySource> sources = {
+        {"simplex", a1, 1.0, 0.5},
+        {"neighbor", a2, 1.0, 0.5}
+    };
+    auto fused = FusionStrategy::fuse(sources);
     field.set(merged, fused);
     
     result.success = true;

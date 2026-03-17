@@ -1,0 +1,16 @@
+{
+  "name": "cebu",
+  "version": "0.8.0",
+  "description": "Advanced Simplicial Complex Library with spatial indexing, narrative-driven topology, and absurdity system",
+  "homepage": "https://github.com/ceaserzhao/cebu",
+  "license": "MIT",
+  "dependencies": [],
+  "features": {
+    "zlib": {
+      "description": "Enable ZLIB compression support",
+      "dependencies": [
+        "zlib"
+      ]
+    }
+  }
+}
