@@ -473,7 +473,9 @@ std::string VersionControl::generate_timestamp() const {
     auto now = std::chrono::system_clock::now();
     auto time_t = std::chrono::system_clock::to_time_t(now);
     std::stringstream ss;
-    ss << std::put_time(std::localtime(&time_t), "%Y-%m-%d %H:%M:%S");
+    struct tm time_info;
+    localtime_s(&time_info, &time_t);
+    ss << std::put_time(&time_info, "%Y-%m-%d %H:%M:%S");
     return ss.str();
 }
 

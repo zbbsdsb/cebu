@@ -18,6 +18,11 @@ RefinementResult SimplicialComplexRefinement<LabelType>::refine_edge(
     
     RefinementResult result;
     
+    // Check max level
+    if (options.current_level >= options.max_level) {
+        return result;
+    }
+    
     // Check if edge exists and is 1-dimensional
     if (!this->has_simplex(edge_id)) {
         return result;
@@ -93,6 +98,11 @@ RefinementResult SimplicialComplexRefinement<LabelType>::refine_triangle(
     const RefinementOptions<LabelType>& options) {
     
     RefinementResult result;
+    
+    // Check max level
+    if (options.current_level >= options.max_level) {
+        return result;
+    }
     
     // Check if triangle exists and is 2-dimensional
     if (!this->has_simplex(triangle_id)) {
@@ -338,6 +348,32 @@ size_t SimplicialComplexRefinement<LabelType>::coarsen_region(
     
     // Collect vertices to coarsen (to avoid modification during iteration)
     std::vector<VertexID> vertices_to_coarsen;
+    
+    // First collect all edges that match the predicate
+    std::vector<SimplexID> edges_to_coarsen;
+    for (const auto& [id, _] : this->get_simplices()) {
+        if (this->get_simplex(id).dimension() == 1 && predicate(id)) {
+            edges_to_coarsen.push_back(id);
+        }
+    }
+    
+    // For each edge, find its midpoint vertex
+    for (SimplexID edge_id : edges_to_coarsen) {
+        const auto& edge = this->get_simplex(edge_id);
+        const auto& vertices = edge.vertices();
+        if (vertices.size() == 2) {
+            // Find the midpoint vertex (degree 2)
+            for (size_t i = 0; i < vertices.size(); ++i) {
+                VertexID vid = static_cast<VertexID>(vertices[i]);
+                if (is_refinement_midpoint(vid)) {
+                    vertices_to_coarsen.push_back(vid);
+                    break;
+                }
+            }
+        }
+    }
+    
+    // Also check vertices directly
     for (const auto& [id, _] : this->get_simplices()) {
         if (this->get_simplex(id).dimension() == 0 && predicate(id)) {
             vertices_to_coarsen.push_back(static_cast<VertexID>(id));
@@ -416,22 +452,32 @@ RefinementResult SimplicialComplexRefinement<LabelType>::adaptive_refine(
     
     RefinementResult result;
 
+    // First collect all simplices that need refinement
+    std::vector<SimplexID> simplices_to_refine;
     for (const auto& [id, _] : this->get_simplices()) {
         if (this->has_label(id)) {
             std::optional<LabelType> label_opt = this->get_label(id);
             if (label_opt.has_value() && predicate(*label_opt, id)) {
-                auto sub_result = refine_simplex(id, options);
-                
-                // Merge results
-                result.original_to_children.insert(
-                    sub_result.original_to_children.begin(),
-                    sub_result.original_to_children.end());
-                result.new_vertex_parent_edge.insert(
-                    sub_result.new_vertex_parent_edge.begin(),
-                    sub_result.new_vertex_parent_edge.end());
-                result.new_simplices_count += sub_result.new_simplices_count;
-                result.new_vertices_count += sub_result.new_vertices_count;
+                simplices_to_refine.push_back(id);
             }
+        }
+    }
+
+    // Then refine them
+    for (SimplexID id : simplices_to_refine) {
+        // Check if the simplex still exists (it might have been removed by a previous refinement)
+        if (this->has_simplex(id)) {
+            auto sub_result = refine_simplex(id, options);
+            
+            // Merge results
+            result.original_to_children.insert(
+                sub_result.original_to_children.begin(),
+                sub_result.original_to_children.end());
+            result.new_vertex_parent_edge.insert(
+                sub_result.new_vertex_parent_edge.begin(),
+                sub_result.new_vertex_parent_edge.end());
+            result.new_simplices_count += sub_result.new_simplices_count;
+            result.new_vertices_count += sub_result.new_vertices_count;
         }
     }
 

@@ -60,6 +60,14 @@ void EquivalenceClassManager::remove_simplex(SimplexID simplex_id) {
 
     SimplexID rep = find_internal(simplex_id);
 
+    // Update all simplices that have this simplex as parent
+    for (auto& [sid, parent] : parent_) {
+        if (parent == simplex_id) {
+            // Set their parent to the representative
+            parent = rep;
+        }
+    }
+
     // Remove from parent map
     parent_.erase(simplex_id);
 
@@ -132,7 +140,7 @@ bool EquivalenceClassManager::separate(SimplexID simplex_id) {
 
     // If it's already alone, nothing to do
     if (rep == simplex_id) {
-        return sizes_[simplex_id] == 1;
+        return sizes_[simplex_id] != 1;
     }
 
     // Count other members

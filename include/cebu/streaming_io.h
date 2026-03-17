@@ -300,7 +300,7 @@ bool StreamingWriter::write_labeled(const SimplicialComplexLabeled<LabelType>& c
         out.close();
         
         return true;
-    } catch (const std::exception& e) {
+    } catch (const std::exception&) {
         return false;
     }
 }

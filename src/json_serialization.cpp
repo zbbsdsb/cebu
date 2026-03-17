@@ -181,6 +181,7 @@ nlohmann::json JsonSerializer::serialize_narrative(
     auto bounds = complex.timeline().get_bounds();
     timeline_json["min_time"] = bounds.first;
     timeline_json["max_time"] = bounds.second;
+    timeline_json["current_time"] = complex.current_time();
     
     nlohmann::json milestones_json = nlohmann::json::array();
     for (const auto& milestone : complex.timeline().get_milestones()) {
@@ -196,9 +197,6 @@ nlohmann::json JsonSerializer::serialize_narrative(
     }
     j["events"] = events_json;
 
-    // Serialize current time
-    j["current_time"] = complex.current_time();
-
     return j;
 }
 
@@ -209,11 +207,13 @@ SimplicialComplexNarrative<LabelType> JsonSerializer::deserialize_narrative(
     // Extract timeline bounds
     double min_time = 0.0;
     double max_time = 100.0;
+    double current_time = 0.0;
     
     if (j.contains("timeline")) {
         const auto& timeline = j["timeline"];
         min_time = timeline.value("min_time", 0.0);
         max_time = timeline.value("max_time", 100.0);
+        current_time = timeline.value("current_time", 0.0);
     }
     
     // Deserialize as labeled complex
@@ -221,6 +221,9 @@ SimplicialComplexNarrative<LabelType> JsonSerializer::deserialize_narrative(
     
     // Create narrative complex with timeline bounds
     SimplicialComplexNarrative<LabelType> complex(min_time, max_time);
+    
+    // Set current time
+    complex.set_current_time(current_time);
     
     // Copy simplices and labels from labeled complex
     for (const auto& [id, simplex] : labeled.get_simplices()) {

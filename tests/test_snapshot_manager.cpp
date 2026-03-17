@@ -146,7 +146,7 @@ void test_restore_snapshot() {
 
     // Modify complex
     VertexID v3 = test.complex.add_vertex();
-    SimplexID e3 = test.complex.add_edge(test.complex.vertex_count() - 2, v3);
+    SimplexID e3 = test.complex.add_edge(static_cast<VertexID>(test.complex.vertex_count() - 2), v3);
 
     size_t vertex_count_after = test.complex.vertex_count();
 
@@ -194,7 +194,7 @@ void test_compare_snapshots() {
 
     // Modify complex
     VertexID v3 = test.complex.add_vertex();
-    test.complex.add_edge(test.complex.vertex_count() - 2, v3);
+    test.complex.add_edge(static_cast<VertexID>(test.complex.vertex_count() - 2), v3);
 
     // Create second snapshot
     test.manager->create_snapshot(test.complex, "snap2");

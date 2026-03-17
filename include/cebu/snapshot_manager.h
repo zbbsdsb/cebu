@@ -338,7 +338,7 @@ bool SnapshotManager::restore_snapshot(
         target = JsonSerializer::deserialize_labeled<LabelType>(data);
         
         return true;
-    } catch (const std::exception& e) {
+    } catch (const std::exception&) {
         return false;
     }
 }
@@ -366,7 +366,7 @@ bool SnapshotManager::restore_snapshot(
         target = JsonSerializer::deserialize_narrative<LabelType>(data);
         
         return true;
-    } catch (const std::exception& e) {
+    } catch (const std::exception&) {
         return false;
     }
 }

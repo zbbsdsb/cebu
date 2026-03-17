@@ -294,7 +294,7 @@ void test_json_validation() {
     ChangeTracker valid_tracker;
     try {
         valid_tracker.from_json(j);
-    } catch (const std::exception& e) {
+    } catch (const std::exception&) {
         assert(false && "Valid JSON should not throw");
     }
 

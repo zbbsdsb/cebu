@@ -587,7 +587,7 @@ NarrativeContext NarrativeAnalyzer::analyze(
             avg_tension += ctx.dramatic_tension;
         }
 
-        double n = past_beats.size();
+        double n = static_cast<double>(past_beats.size());
         result.surprisal = avg_surprisal / n;
         result.logical_deviation = avg_logic / n;
         result.emotional_intensity = avg_emotion / n;
@@ -673,7 +673,7 @@ double NarrativeAnalyzer::calculate_pacing(
 
     // Count events per unit time
     double time_span = window;
-    double count = recent.size();
+    double count = static_cast<double>(recent.size());
     return std::clamp(count / time_span, 0.0, 10.0);
 }
 

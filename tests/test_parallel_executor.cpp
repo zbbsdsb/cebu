@@ -108,7 +108,7 @@ void test_parallel_for_iterator() {
     std::vector<int> expected(1000);
     
     for (size_t i = 0; i < data.size(); ++i) {
-        expected[i] = i * 2;
+        expected[i] = static_cast<int>(i * 2);
     }
     
     executor.parallel_for(data.begin(), data.end(), [](int& x) {
@@ -118,7 +118,7 @@ void test_parallel_for_iterator() {
     // 验证所有元素都被访问
     size_t idx = 0;
     executor.parallel_for(data.begin(), data.end(), [&data, &idx](int& x) {
-        data[idx] = idx * 2;
+        data[static_cast<size_t>(idx)] = static_cast<int>(idx * 2);
         idx++;
     });
     
@@ -404,7 +404,7 @@ void test_performance_comparison() {
     assert(sum_serial == sum_parallel);
     
     // 并行应该更快（至少快 1.5x）
-    double speedup = static_cast<double>(time_serial) / std::max<double>(time_parallel, 1);
+    double speedup = static_cast<double>(time_serial) / std::max<double>(static_cast<double>(time_parallel), 1.0);
     std::cout << "[Performance] Serial: " << time_serial 
               << "ms, Parallel: " << time_parallel 
               << "ms, Speedup: " << speedup << "x" << std::endl;

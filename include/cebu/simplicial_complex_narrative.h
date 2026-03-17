@@ -113,6 +113,11 @@ public:
 
     /// Get current simulation time
     double current_time() const { return current_time_; }
+    
+    /// Set current simulation time
+    void set_current_time(double time) {
+        current_time_ = time;
+    }
 
     /// Reset simulation to beginning of timeline
     void reset() {
