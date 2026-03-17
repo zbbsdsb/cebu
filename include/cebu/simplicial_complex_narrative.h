@@ -179,10 +179,15 @@ protected:
     /// Override this to provide custom evolution logic
     virtual LabelType evolve_label(const LabelType& label,
                                  const AbsurdityContext& context) {
-        // Default implementation uses update method if available
-        // This works for Absurdity type
+        // Default implementation for Absurdity type
         if constexpr (std::is_same_v<LabelType, Absurdity>) {
-            return label.update(context);
+            // Create a new absurdity value based on context
+            // Using driving force to adjust the absurdity
+            double driving_force = context.get_driving_force();
+            double new_midpoint = std::clamp(label.midpoint() + driving_force * 0.1, 0.0, 1.0);
+            double new_width = std::clamp(label.width() + context.get_volatility() * 0.05, 0.0, 1.0);
+            double new_confidence = std::clamp(label.confidence - 0.01, 0.0, 1.0);
+            return Absurdity(new_midpoint - new_width/2, new_midpoint + new_width/2, new_confidence);
         }
         // For other label types, return unchanged
         return label;

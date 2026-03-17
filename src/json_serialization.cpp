@@ -139,13 +139,28 @@ nlohmann::json JsonSerializer::serialize_narrative(
 
     nlohmann::json j = serialize_labeled(static_cast<const SimplicialComplexLabeled<LabelType>&>(complex));
 
-    // Add timeline - placeholder implementation
-    // Timeline methods need to be verified against actual API
-    j["timeline"] = nlohmann::json::object();
+    // Serialize timeline
+    nlohmann::json timeline_json;
+    auto bounds = complex.timeline().get_bounds();
+    timeline_json["min_time"] = bounds.first;
+    timeline_json["max_time"] = bounds.second;
+    
+    nlohmann::json milestones_json = nlohmann::json::array();
+    for (const auto& milestone : complex.timeline().get_milestones()) {
+        milestones_json.push_back(serialize_milestone(milestone));
+    }
+    timeline_json["milestones"] = milestones_json;
+    j["timeline"] = timeline_json;
 
-    // Add events - placeholder implementation
-    // Event system methods need to be verified against actual API
-    j["events"] = nlohmann::json::array();
+    // Serialize events
+    nlohmann::json events_json = nlohmann::json::array();
+    for (const auto& [id, event] : complex.events().get_all_events()) {
+        events_json.push_back(serialize_event(event));
+    }
+    j["events"] = events_json;
+
+    // Serialize current time
+    j["current_time"] = complex.current_time();
 
     return j;
 }
@@ -154,40 +169,58 @@ template<typename LabelType>
 SimplicialComplexNarrative<LabelType> JsonSerializer::deserialize_narrative(
     const nlohmann::json& j) {
     
-    // Deserialize as labeled complex
-    SimplicialComplexLabeled<LabelType> labeled = deserialize_labeled<LabelType>(j);
-    
     // Extract timeline bounds
     double min_time = 0.0;
     double max_time = 100.0;
-    double current_time = 0.0;
     
     if (j.contains("timeline")) {
         const auto& timeline = j["timeline"];
         min_time = timeline.value("min_time", 0.0);
         max_time = timeline.value("max_time", 100.0);
-        current_time = timeline.value("current_time", 0.0);
     }
     
-    // Create narrative complex
+    // Deserialize as labeled complex
+    SimplicialComplexLabeled<LabelType> labeled = deserialize_labeled<LabelType>(j);
+    
+    // Create narrative complex with timeline bounds
     SimplicialComplexNarrative<LabelType> complex(min_time, max_time);
     
-    // Copy from labeled complex
-    // Note: Simplified implementation
+    // Copy simplices and labels from labeled complex
+    for (const auto& [id, simplex] : labeled.get_simplices()) {
+        complex.add_simplex(simplex.vertices());
+        if (labeled.has_label(id)) {
+            auto label = labeled.get_label(id);
+            if (label.has_value()) {
+                complex.set_label(id, *label);
+            }
+        }
+    }
     
-    // Load milestones and events
+    // Load milestones
     if (j.contains("timeline") && j["timeline"].contains("milestones")) {
         for (const auto& m_json : j["timeline"]["milestones"]) {
             auto milestone = deserialize_milestone(m_json);
-            // Add milestone to timeline
+            complex.timeline().add_milestone(milestone.first, milestone.second);
         }
     }
 
+    // Load events
     if (j.contains("events")) {
         for (const auto& e_json : j["events"]) {
             auto event = deserialize_event(e_json);
-            // Add event to events system
+            complex.events().add_event(
+                event.description,
+                event.timestamp,
+                event.affected_simplices,
+                event.impact
+            );
         }
+    }
+    
+    // Load current time
+    if (j.contains("current_time")) {
+        // Note: current_time_ is private, so we can't restore it directly
+        // The user will need to call evolve_to() to set the appropriate time
     }
     
     return complex;
@@ -203,10 +236,12 @@ nlohmann::json JsonSerializer::serialize_refinement(
     
     nlohmann::json j = serialize_labeled(static_cast<const SimplicialComplexLabeled<LabelType>&>(complex));
     
-    // Add refinement levels
+    // Serialize refinement levels
     nlohmann::json refinement_levels = nlohmann::json::object();
-    // Note: Need access to refinement_levels_ member
-    // For now, this is a placeholder
+    for (const auto& [id, simplex] : complex.get_simplices()) {
+        int level = complex.get_refinement_level(id);
+        refinement_levels[std::to_string(id)] = level;
+    }
     j["refinement_levels"] = refinement_levels;
     
     return j;
@@ -219,8 +254,16 @@ SimplicialComplexRefinement<LabelType> JsonSerializer::deserialize_refinement(
     SimplicialComplexLabeled<LabelType> labeled = deserialize_labeled<LabelType>(j);
     SimplicialComplexRefinement<LabelType> complex;
     
-    // Copy from labeled complex
-    // Note: Simplified implementation
+    // Copy simplices and labels from labeled complex
+    for (const auto& [id, simplex] : labeled.get_simplices()) {
+        complex.add_simplex(simplex.vertices());
+        if (labeled.has_label(id)) {
+            auto label = labeled.get_label(id);
+            if (label.has_value()) {
+                complex.set_label(id, *label);
+            }
+        }
+    }
     
     // Load refinement levels
     if (j.contains("refinement_levels")) {
@@ -243,8 +286,11 @@ nlohmann::json JsonSerializer::serialize_non_hausdorff(
 
     nlohmann::json j = serialize(static_cast<const SimplicialComplex&>(complex));
 
-    // Add equivalence classes - placeholder implementation
-    j["equivalence_classes"] = nlohmann::json::object();
+    // Serialize equivalence classes
+    nlohmann::json eq_classes_json = serialize_equivalence_classes(
+        complex.equivalence_manager()
+    );
+    j["equivalence_classes"] = eq_classes_json;
 
     return j;
 }
@@ -255,8 +301,29 @@ SimplicialComplexNonHausdorff JsonSerializer::deserialize_non_hausdorff(
     SimplicialComplex basic = deserialize(j);
     SimplicialComplexNonHausdorff complex;
 
-    // Copy from basic complex - placeholder implementation
-    // Need proper method to copy simplices from basic to non-Hausdorff complex
+    // Copy simplices from basic complex
+    for (const auto& [id, simplex] : basic.get_simplices()) {
+        complex.add_simplex(simplex.vertices());
+    }
+    
+    // Load equivalence classes
+    if (j.contains("equivalence_classes")) {
+        auto eq_classes = deserialize_equivalence_classes(j["equivalence_classes"]);
+        // Copy equivalence classes to the complex
+        // Note: We need to access the equivalence manager directly
+        auto& equiv_manager = complex.equivalence_manager();
+        
+        // Get all classes from the deserialized equivalence manager
+        auto all_classes = eq_classes.get_all_classes();
+        for (const auto& [representative, members] : all_classes) {
+            // Glue all members to the representative
+            for (const auto& member : members) {
+                if (member != representative) {
+                    equiv_manager.glue(representative, member);
+                }
+            }
+        }
+    }
 
     return complex;
 }
@@ -289,13 +356,28 @@ template<typename LabelType>
 SimplicialComplexNonHausdorffLabeled<LabelType>
 JsonSerializer::deserialize_non_hausdorff_labeled(const nlohmann::json& j) {
 
-    SimplicialComplexNonHausdorff basic =
+    SimplicialComplexNonHausdorff basic = 
         deserialize_non_hausdorff(j);
 
     SimplicialComplexNonHausdorffLabeled<LabelType> complex;
 
-    // Copy from basic complex - placeholder implementation
-    // Need proper method to copy simplices
+    // Copy simplices from basic complex
+    for (const auto& [id, simplex] : basic.get_simplices()) {
+        complex.add_simplex(simplex.vertices());
+    }
+    
+    // Copy equivalence classes
+    auto& basic_equiv_manager = basic.equivalence_manager();
+    auto& complex_equiv_manager = complex.equivalence_manager();
+    
+    auto all_classes = basic_equiv_manager.get_all_classes();
+    for (const auto& [representative, members] : all_classes) {
+        for (const auto& member : members) {
+            if (member != representative) {
+                complex_equiv_manager.glue(representative, member);
+            }
+        }
+    }
 
     // Load labels
     if (j.contains("labels") && j["labels"].is_object()) {
@@ -319,20 +401,20 @@ nlohmann::json JsonSerializer::serialize_equivalence_classes(
     nlohmann::json j = nlohmann::json::array();
     
     // Get all equivalence classes
-    // Note: This is a simplified implementation
-    // In practice, we need to iterate through all classes
+    auto all_classes = eq_classes.get_all_classes();
     
-    // Example structure:
-    // [
-    //   {
-    //     "representative": 0,
-    //     "members": [0, 5, 10, 15]
-    //   },
-    //   {
-    //     "representative": 1,
-    //     "members": [1, 6, 11]
-    //   }
-    // ]
+    for (const auto& [representative, members] : all_classes) {
+        nlohmann::json class_json;
+        class_json["representative"] = representative;
+        
+        nlohmann::json members_json = nlohmann::json::array();
+        for (const auto& member : members) {
+            members_json.push_back(member);
+        }
+        class_json["members"] = members_json;
+        
+        j.push_back(class_json);
+    }
     
     return j;
 }
@@ -366,15 +448,24 @@ nlohmann::json JsonSerializer::serialize_command_history(
     
     nlohmann::json j;
     
-    // Serialize undo stack
-    nlohmann::json undo_stack = nlohmann::json::array();
-    // Note: Need to access undo stack
-    j["undo_stack"] = undo_stack;
+    // Serialize history metadata
+    j["size"] = history.size();
+    j["current_index"] = history.size() - (history.can_undo() ? 1 : 0); // Approximation
+    j["max_size"] = history.max_size();
     
-    // Serialize redo stack
-    nlohmann::json redo_stack = nlohmann::json::array();
-    // Note: Need to access redo stack
-    j["redo_stack"] = redo_stack;
+    // Serialize command descriptions (limited functionality)
+    nlohmann::json command_descriptions = nlohmann::json::array();
+    for (size_t i = 0; i < history.size(); ++i) {
+        try {
+            command_descriptions.push_back(history.get_command_description(i));
+        } catch (const std::exception&) {
+            command_descriptions.push_back("unknown command");
+        }
+    }
+    j["command_descriptions"] = command_descriptions;
+    
+    // Note: Full command serialization requires access to undo/redo stacks
+    // and serialization of concrete Command types. This is a simplified implementation.
     
     return j;
 }
@@ -530,7 +621,7 @@ nlohmann::json JsonSerializer::serialize_label(const LabelType& label) {
     } else if constexpr (std::is_same_v<LabelType, std::string>) {
         return label;
     } else if constexpr (std::is_same_v<LabelType, Absurdity>) {
-        return label.value();
+        return label.midpoint();
     } else {
         // For custom types, try to convert to string
         std::stringstream ss;
@@ -626,6 +717,27 @@ template SimplicialComplexRefinement<double> JsonSerializer::deserialize_refinem
 template nlohmann::json JsonSerializer::serialize_non_hausdorff_labeled<double>(
     const SimplicialComplexNonHausdorffLabeled<double>&);
 template SimplicialComplexNonHausdorffLabeled<double> JsonSerializer::deserialize_non_hausdorff_labeled<double>(
+    const nlohmann::json&);
+
+// Explicit template instantiations for Absurdity (FuzzyInterval)
+template nlohmann::json JsonSerializer::serialize_labeled<Absurdity>(
+    const SimplicialComplexLabeled<Absurdity>&);
+template SimplicialComplexLabeled<Absurdity> JsonSerializer::deserialize_labeled<Absurdity>(
+    const nlohmann::json&);
+
+template nlohmann::json JsonSerializer::serialize_narrative<Absurdity>(
+    const SimplicialComplexNarrative<Absurdity>&);
+template SimplicialComplexNarrative<Absurdity> JsonSerializer::deserialize_narrative<Absurdity>(
+    const nlohmann::json&);
+
+template nlohmann::json JsonSerializer::serialize_refinement<Absurdity>(
+    const SimplicialComplexRefinement<Absurdity>&);
+template SimplicialComplexRefinement<Absurdity> JsonSerializer::deserialize_refinement<Absurdity>(
+    const nlohmann::json&);
+
+template nlohmann::json JsonSerializer::serialize_non_hausdorff_labeled<Absurdity>(
+    const SimplicialComplexNonHausdorffLabeled<Absurdity>&);
+template SimplicialComplexNonHausdorffLabeled<Absurdity> JsonSerializer::deserialize_non_hausdorff_labeled<Absurdity>(
     const nlohmann::json&);
 
 } // namespace cebu

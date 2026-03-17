@@ -126,9 +126,8 @@ void test_narrative_binary_serialize() {
     AbsurdityContext impact1;
     impact1.surprisal = 0.8;
     impact1.logical_deviation = 0.6;
-    impact1.user_laughter = 0.5;
-    impact1.narrative_tension = 0.7;
-    impact1.dt = 0.1;
+    impact1.emotional_intensity = 0.5;
+    impact1.dramatic_tension = 0.7;
     
     complex.add_event("Twist", 2.5, {edge0, edge1}, impact1);
     
@@ -171,17 +170,21 @@ void test_narrative_binary_serialize() {
     // Verify timeline milestones
     auto milestones = restored.timeline().get_milestones();
     assert(milestones.size() == 3);
-    auto it = milestones.find(2.5);
-    assert(it != milestones.end());
-    assert(it->second == "First event");
     
-    it = milestones.find(5.0);
-    assert(it != milestones.end());
-    assert(it->second == "Climax");
+    // Check if milestones exist (simplified check)
+    bool found_first = false;
+    bool found_climax = false;
+    bool found_resolution = false;
     
-    it = milestones.find(7.5);
-    assert(it != milestones.end());
-    assert(it->second == "Resolution");
+    for (const auto& milestone : milestones) {
+        if (milestone.first == 2.5 && milestone.second == "First event") found_first = true;
+        if (milestone.first == 5.0 && milestone.second == "Climax") found_climax = true;
+        if (milestone.first == 7.5 && milestone.second == "Resolution") found_resolution = true;
+    }
+    
+    assert(found_first);
+    assert(found_climax);
+    assert(found_resolution);
     
     // Verify events
     auto events = restored.events().get_all_events();
@@ -193,9 +196,8 @@ void test_narrative_binary_serialize() {
     assert(event.affected_simplices.size() == 2);
     assert(std::abs(event.impact.surprisal - 0.8) < 0.0001);
     assert(std::abs(event.impact.logical_deviation - 0.6) < 0.0001);
-    assert(std::abs(event.impact.user_laughter - 0.5) < 0.0001);
-    assert(std::abs(event.impact.narrative_tension - 0.7) < 0.0001);
-    assert(std::abs(event.impact.dt - 0.1) < 0.0001);
+    assert(std::abs(event.impact.emotional_intensity - 0.5) < 0.0001);
+    assert(std::abs(event.impact.dramatic_tension - 0.7) < 0.0001);
     
     std::cout << "✓ Narrative binary serialization passed" << std::endl;
 }

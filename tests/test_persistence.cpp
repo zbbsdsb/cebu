@@ -98,7 +98,7 @@ void test_narrative_save_load() {
 
     AbsurdityContext impact;
     impact.surprisal = 0.8;
-    impact.narrative_tension = 0.9;
+    impact.dramatic_tension = 0.9;
 
     complex.add_event("Twist", 5.0, {edge}, impact);
 
@@ -115,9 +115,16 @@ void test_narrative_save_load() {
 
     auto milestones = result.complex.timeline().get_milestones();
     assert(milestones.size() == 1);
-    auto it = milestones.find(5.0);
-    assert(it != milestones.end());
-    assert(it->second == "Midpoint");
+    
+    // Check if milestone exists
+    bool found_midpoint = false;
+    for (const auto& milestone : milestones) {
+        if (milestone.first == 5.0 && milestone.second == "Midpoint") {
+            found_midpoint = true;
+            break;
+        }
+    }
+    assert(found_midpoint);
 
     auto events = result.complex.events().get_all_events();
     assert(events.size() == 1);

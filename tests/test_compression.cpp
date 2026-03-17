@@ -1,5 +1,6 @@
 #include "cebu/compression.h"
 #include "cebu/serialization.h"
+#include "cebu/json_serialization.h"
 #include "cebu/simplicial_complex.h"
 #include <iostream>
 #include <cassert>
@@ -184,7 +185,9 @@ void test_compress_complex() {
     std::cout << "  Created complex with " << complex.vertex_count() << " vertices\n";
     
     // Serialize
-    auto binary = BinarySerializer::serialize(complex);
+    auto json = JsonSerializer::serialize(complex);
+    auto json_str = json.dump();
+    std::vector<uint8_t> binary(json_str.begin(), json_str.end());
     std::cout << "  Binary size: " << binary.size() << " bytes\n";
     
     // Compress

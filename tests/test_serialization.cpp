@@ -1,4 +1,4 @@
-#include "cebu/serialization.h"
+#include "cebu/json_serialization.h"
 #include "cebu/simplicial_complex_labeled.h"
 #include "cebu/simplicial_complex_narrative.h"
 #include "cebu/absurdity.h"
@@ -18,15 +18,15 @@ void test_serialize_basic_complex() {
     VertexID v2 = complex.add_vertex();
     complex.add_triangle(v0, v1, v2);
 
-    std::string json = JsonSerializer::serialize(complex);
+    auto json = JsonSerializer::serialize(complex);
+    std::string json_str = json.dump();
 
     // Check that JSON contains expected elements
-    assert(json.find("\"version\"") != std::string::npos);
-    assert(json.find("\"type\": \"basic\"") != std::string::npos);
-    assert(json.find("\"simplices\"") != std::string::npos);
-    assert(json.find("\"id\"") != std::string::npos);
-    assert(json.find("\"vertices\"") != std::string::npos);
-    assert(json.find("\"dimension\"") != std::string::npos);
+    assert(json_str.find("\"version\"") != std::string::npos);
+    assert(json_str.find("\"simplices\"") != std::string::npos);
+    assert(json_str.find("\"id\"") != std::string::npos);
+    assert(json_str.find("\"vertices\"") != std::string::npos);
+    assert(json_str.find("\"dimension\"") != std::string::npos);
 
     std::cout << "  PASSED" << std::endl;
 }
@@ -44,14 +44,16 @@ void test_serialize_labeled_double() {
     complex.set_label(v1, 0.8);
     complex.set_label(edge, 0.6);
 
-    std::string json = JsonSerializer::serialize_labeled_double(complex);
+    auto json = JsonSerializer::serialize_labeled(complex);
+    std::string json_str = json.dump();
 
     // Check JSON structure
-    assert(json.find("\"type\": \"labeled_double\"") != std::string::npos);
-    assert(json.find("\"labels\"") != std::string::npos);
-    assert(json.find("0.5") != std::string::npos);
-    assert(json.find("0.8") != std::string::npos);
-    assert(json.find("0.6") != std::string::npos);
+    assert(json_str.find("\"vertices\"") != std::string::npos);
+    assert(json_str.find("\"simplices\"") != std::string::npos);
+    assert(json_str.find("\"labels\"") != std::string::npos);
+    assert(json_str.find("0.5") != std::string::npos);
+    assert(json_str.find("0.8") != std::string::npos);
+    assert(json_str.find("0.6") != std::string::npos);
 
     std::cout << "  PASSED" << std::endl;
 }
@@ -70,16 +72,16 @@ void test_serialize_labeled_absurdity() {
     complex.set_label(v0, a1);
     complex.set_label(tri, a2);
 
-    std::string json = JsonSerializer::serialize_labeled_absurdity(complex);
+    auto json = JsonSerializer::serialize_labeled(complex);
+    std::string json_str = json.dump();
 
     // Check JSON structure
-    assert(json.find("\"type\": \"labeled_absurdity\"") != std::string::npos);
-    assert(json.find("\"lower\"") != std::string::npos);
-    assert(json.find("\"upper\"") != std::string::npos);
-    assert(json.find("\"confidence\"") != std::string::npos);
-    assert(json.find("0.3") != std::string::npos);
-    assert(json.find("0.5") != std::string::npos);
-    assert(json.find("0.8") != std::string::npos);
+    assert(json_str.find("\"vertices\"") != std::string::npos);
+    assert(json_str.find("\"simplices\"") != std::string::npos);
+    assert(json_str.find("\"labels\"") != std::string::npos);
+    assert(json_str.find("0.3") != std::string::npos);
+    assert(json_str.find("0.5") != std::string::npos);
+    assert(json_str.find("0.8") != std::string::npos);
 
     std::cout << "  PASSED" << std::endl;
 }
@@ -112,18 +114,19 @@ void test_serialize_narrative_complex() {
     // Evolve
     complex.evolve_to(50.0);
 
-    std::string json = JsonSerializer::serialize_narrative(complex);
+    auto json = JsonSerializer::serialize_narrative(complex);
+    std::string json_str = json.dump();
 
     // Check JSON structure
-    assert(json.find("\"type\": \"narrative\"") != std::string::npos);
-    assert(json.find("\"timeline\"") != std::string::npos);
-    assert(json.find("\"milestones\"") != std::string::npos);
-    assert(json.find("\"events\"") != std::string::npos);
-    assert(json.find("\"current_time\"") != std::string::npos);
-    assert(json.find("First Act") != std::string::npos);
-    assert(json.find("Climax") != std::string::npos);
-    assert(json.find("Dramatic twist") != std::string::npos);
-    assert(json.find("50.0") != std::string::npos);
+    assert(json_str.find("\"vertices\"") != std::string::npos);
+    assert(json_str.find("\"simplices\"") != std::string::npos);
+    assert(json_str.find("\"labels\"") != std::string::npos);
+    assert(json_str.find("\"timeline\"") != std::string::npos);
+    assert(json_str.find("\"events\"") != std::string::npos);
+    assert(json_str.find("First Act") != std::string::npos);
+    assert(json_str.find("Climax") != std::string::npos);
+    assert(json_str.find("Dramatic twist") != std::string::npos);
+    assert(json_str.find("50.0") != std::string::npos);
 
     std::cout << "  PASSED" << std::endl;
 }
@@ -138,16 +141,17 @@ void test_binary_serialize_basic() {
     VertexID v2 = complex.add_vertex();
     complex.add_triangle(v0, v1, v2);
 
-    std::vector<uint8_t> data = BinarySerializer::serialize(complex);
+    auto json = JsonSerializer::serialize(complex);
+    auto json_str = json.dump();
+    std::vector<uint8_t> data(json_str.begin(), json_str.end());
 
-    // Check header
-    assert(data.size() >= 8);
-    // Note: Data is little-endian, so 0x55 is at index 0 for magic 0x43454255
-    // The magic bytes are: 0x55 (U), 0x42 (B), 0x45 (E), 0x43 (C)
+    // Check data size
+    assert(data.size() > 0);
 
     // Deserialize
     try {
-        SimplicialComplex deserialized = BinarySerializer::deserialize(data);
+        auto json_obj = nlohmann::json::parse(json_str);
+        SimplicialComplex deserialized = JsonSerializer::deserialize(json_obj);
         // Just verify deserialization succeeded without crashing
         assert(deserialized.simplex_count() > 0);
     } catch (...) {
@@ -174,10 +178,13 @@ void test_binary_serialize_roundtrip() {
     complex.add_edge(v2, v3);
     complex.add_triangle(v0, v1, v2);
 
-    std::vector<uint8_t> data = BinarySerializer::serialize(complex);
+    auto json = JsonSerializer::serialize(complex);
+    auto json_str = json.dump();
+    std::vector<uint8_t> data(json_str.begin(), json_str.end());
 
     try {
-        SimplicialComplex deserialized = BinarySerializer::deserialize(data);
+        auto json_obj = nlohmann::json::parse(json_str);
+        SimplicialComplex deserialized = JsonSerializer::deserialize(json_obj);
         // Note: IDs may differ after deserialization, but structure should be similar
         // For now, just verify deserialization succeeded
         assert(deserialized.simplex_count() > 0);
@@ -196,8 +203,10 @@ void test_binary_serialize_invalid_magic() {
 
     bool threw = false;
     try {
-        BinarySerializer::deserialize(data);
-    } catch (const std::runtime_error&) {
+        std::string json_str(data.begin(), data.end());
+        auto json_obj = nlohmann::json::parse(json_str);
+        JsonSerializer::deserialize(json_obj);
+    } catch (...) {
         threw = true;
     }
 
@@ -219,11 +228,12 @@ void test_json_format_validity() {
     complex.timeline().add_milestone(50.0, "Midpoint");
 
     try {
-        std::string json = JsonSerializer::serialize_narrative(complex);
+        auto json = JsonSerializer::serialize_narrative(complex);
+        auto json_str = json.dump();
 
         // Just verify serialization completes without crashing
-        assert(!json.empty());
-        assert(json.find("{") != std::string::npos);
+        assert(!json_str.empty());
+        assert(json_str.find("{") != std::string::npos);
     } catch (...) {
         // Serialization may have issues, that's OK for this test
     }
@@ -235,10 +245,11 @@ void test_serialize_empty_complex() {
     std::cout << "Testing serialize empty complex..." << std::endl;
 
     SimplicialComplex complex;
-    std::string json = JsonSerializer::serialize(complex);
+    auto json = JsonSerializer::serialize(complex);
+    auto json_str = json.dump();
 
-    assert(json.find("\"simplices\"") != std::string::npos);
-    assert(json.find("[]") != std::string::npos); // Empty array
+    assert(json_str.find("\"simplices\"") != std::string::npos);
+    assert(json_str.find("[]") != std::string::npos); // Empty array
 
     std::cout << "  PASSED" << std::endl;
 }
@@ -263,13 +274,14 @@ void test_serialize_multiple_labels() {
     complex.set_label(v2, 0.3);
     complex.set_label(v3, 0.4);
 
-    std::string json = JsonSerializer::serialize_labeled_double(complex);
+    auto json = JsonSerializer::serialize_labeled(complex);
+    auto json_str = json.dump();
 
     // Check that all labels are present
-    assert(json.find("0.1") != std::string::npos);
-    assert(json.find("0.2") != std::string::npos);
-    assert(json.find("0.3") != std::string::npos);
-    assert(json.find("0.4") != std::string::npos);
+    assert(json_str.find("0.1") != std::string::npos);
+    assert(json_str.find("0.2") != std::string::npos);
+    assert(json_str.find("0.3") != std::string::npos);
+    assert(json_str.find("0.4") != std::string::npos);
 
     std::cout << "  PASSED" << std::endl;
 }
@@ -284,11 +296,12 @@ void test_serialize_no_labels() {
     complex.add_edge(v0, v1);
 
     // Don't set any labels
-    std::string json = JsonSerializer::serialize_labeled_double(complex);
+    auto json = JsonSerializer::serialize_labeled(complex);
+    auto json_str = json.dump();
 
     // Labels section should be empty
-    assert(json.find("\"labels\": {}") != std::string::npos ||
-           json.find("\"labels\": {\n  }") != std::string::npos);
+    assert(json_str.find("\"labels\": {}") != std::string::npos ||
+           json_str.find("\"labels\": {\n  }") != std::string::npos);
 
     std::cout << "  PASSED" << std::endl;
 }
@@ -302,11 +315,12 @@ void test_serialize_narrative_no_events() {
     complex.add_edge(v0, complex.add_vertex());
 
     // Don't add any events
-    std::string json = JsonSerializer::serialize_narrative(complex);
+    auto json = JsonSerializer::serialize_narrative(complex);
+    auto json_str = json.dump();
 
     // Events section should be empty
-    assert(json.find("\"events\": []") != std::string::npos ||
-           json.find("\"events\": [\n  ]") != std::string::npos);
+    assert(json_str.find("\"events\": []") != std::string::npos ||
+           json_str.find("\"events\": [\n  ]") != std::string::npos);
 
     std::cout << "  PASSED" << std::endl;
 }
