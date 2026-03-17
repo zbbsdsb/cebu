@@ -76,7 +76,7 @@ bool VersionControl::checkout(SimplicialComplex& target, VersionID version_id) {
         head_ = version_id;
         
         return true;
-    } catch (const std::exception& e) {
+    } catch (const std::exception&) {
         return false;
     }
 }
@@ -131,7 +131,7 @@ std::string VersionControl::create_branch(const std::string& name, VersionID bas
     return name;
 }
 
-bool VersionControl::checkout_branch(std::string& branch_name) {
+bool VersionControl::checkout_branch(const std::string& branch_name) {
     auto it = branches_.find(branch_name);
     if (it == branches_.end()) {
         return false;
@@ -172,7 +172,7 @@ bool VersionControl::merge_branch(
         head_ = branch_head;
         
         return true;
-    } catch (const std::exception& e) {
+    } catch (const std::exception&) {
         return false;
     }
 }
@@ -281,7 +281,7 @@ bool VersionControl::revert(
         }
         
         return true;
-    } catch (const std::exception& e) {
+    } catch (const std::exception&) {
         return false;
     }
 }
@@ -375,7 +375,7 @@ bool VersionControl::save_to_file(const std::string& filename) const {
         out.close();
         
         return true;
-    } catch (const std::exception& e) {
+    } catch (const std::exception&) {
         return false;
     }
 }
@@ -452,7 +452,7 @@ bool VersionControl::load_from_file(const std::string& filename) {
         }
         
         return true;
-    } catch (const std::exception& e) {
+    } catch (const std::exception&) {
         return false;
     }
 }
@@ -503,7 +503,7 @@ std::vector<Change> VersionControl::compute_diff(
         
         // Note: Detailed comparison would require more sophisticated logic
         
-    } catch (const std::exception& e) {
+    } catch (const std::exception&) {
         // Return empty list on error
     }
     

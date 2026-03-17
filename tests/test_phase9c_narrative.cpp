@@ -214,7 +214,7 @@ void test_save_the_cat_structure() {
 void test_custom_structure() {
     std::cout << "Test 10: Custom Structure... ";
 
-    CustomNarrativeStructure structure;
+    CustomNarrativeStructure structure({});
     structure.add_beat(StoryBeat(
         DramaticEventType::EXPOSITION,
         0.0,

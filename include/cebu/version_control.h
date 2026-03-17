@@ -139,7 +139,7 @@ public:
      * @param branch_name 分支名称
      * @return 是否成功
      */
-    bool checkout_branch(std::string& branch_name);
+    bool checkout_branch(const std::string& branch_name);
 
     /**
      * @brief 合并分支

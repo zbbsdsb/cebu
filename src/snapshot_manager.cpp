@@ -97,7 +97,7 @@ bool SnapshotManager::restore_snapshot(
         target = JsonSerializer::deserialize(data);
         
         return true;
-    } catch (const std::exception& e) {
+    } catch (const std::exception&) {
         return false;
     }
 }
@@ -162,7 +162,7 @@ std::vector<Change> SnapshotManager::compare_snapshots(
         // Note: Detailed comparison would require more sophisticated logic
         // This is a simplified implementation
         
-    } catch (const std::exception& e) {
+    } catch (const std::exception&) {
         // Return empty list on error
     }
     
@@ -218,7 +218,7 @@ bool SnapshotManager::save_to_file(const std::string& filename) const {
         out.close();
         
         return true;
-    } catch (const std::exception& e) {
+    } catch (const std::exception&) {
         return false;
     }
 }
@@ -269,7 +269,7 @@ bool SnapshotManager::load_from_file(const std::string& filename) {
         }
         
         return true;
-    } catch (const std::exception& e) {
+    } catch (const std::exception&) {
         return false;
     }
 }
@@ -331,7 +331,7 @@ bool SnapshotManager::compress_snapshot(Snapshot& snapshot, int level) const {
         snapshot.is_compressed = true;
         
         return true;
-    } catch (const std::exception& e) {
+    } catch (const std::exception&) {
         return false;
     }
 }
@@ -353,7 +353,7 @@ bool SnapshotManager::decompress_snapshot(Snapshot& snapshot) const {
         snapshot.is_compressed = false;
         
         return true;
-    } catch (const std::exception& e) {
+    } catch (const std::exception&) {
         return false;
     }
 }

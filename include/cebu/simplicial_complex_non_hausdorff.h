@@ -117,6 +117,15 @@ public:
     }
 
     /**
+     * @brief Get the size of the equivalence class containing a simplex
+     * @param simplex_id ID of a simplex in the class
+     * @return Number of members in the class
+     */
+    size_t class_size(SimplexID simplex_id) const {
+        return equiv_manager_.class_size(simplex_id);
+    }
+
+    /**
      * @brief Get the equivalence class manager (for advanced usage)
      */
     const EquivalenceClassManager& equivalence_manager() const {

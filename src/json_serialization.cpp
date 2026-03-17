@@ -40,6 +40,26 @@ SimplicialComplex JsonSerializer::deserialize(const nlohmann::json& j) {
 
     SimplicialComplex complex;
 
+    // First, collect all unique vertices from all simplices
+    std::unordered_set<VertexID> all_vertices;
+    if (j.contains("simplices") && j["simplices"].is_array()) {
+        for (const auto& simplex_json : j["simplices"]) {
+            if (simplex_json.contains("vertices") && simplex_json["vertices"].is_array()) {
+                for (const auto& v : simplex_json["vertices"]) {
+                    all_vertices.insert(v.get<VertexID>());
+                }
+            }
+        }
+    }
+
+    // Add all vertices first
+    for (VertexID v : all_vertices) {
+        // We need to add vertices, but add_vertex() generates new IDs
+        // Instead, we'll create a dummy simplex for each vertex
+        // This ensures the vertex exists in the complex
+        complex.add_simplex({v});
+    }
+
     // Load simplices
     if (j.contains("simplices") && j["simplices"].is_array()) {
         for (const auto& simplex_json : j["simplices"]) {
@@ -52,7 +72,7 @@ SimplicialComplex JsonSerializer::deserialize(const nlohmann::json& j) {
             }
 
             // Add simplex to complex
-            if (!vertices.empty()) {
+            if (!vertices.empty() && vertices.size() > 1) {
                 complex.add_simplex(vertices);
             }
         }
@@ -107,15 +127,32 @@ template<typename LabelType>
 SimplicialComplexLabeled<LabelType> JsonSerializer::deserialize_labeled(
     const nlohmann::json& j) {
     
-    // First deserialize as basic complex
-    SimplicialComplex basic = deserialize(j);
-    
     // Create labeled complex
     SimplicialComplexLabeled<LabelType> complex;
     
-    // Copy simplices and labels
-    // Note: This is a simplified implementation
-    // In practice, we need to properly reconstruct the complex
+    // Load vertices first
+    if (j.contains("vertices") && j["vertices"].is_array()) {
+        for (const auto& v : j["vertices"]) {
+            // Vertex IDs are already correct, but we need to add them to the complex
+            // Since add_vertex() generates new IDs, we need a different approach
+            // For now, we'll create vertices in order
+        }
+    }
+    
+    // Load simplices
+    if (j.contains("simplices") && j["simplices"].is_array()) {
+        for (const auto& simplex_json : j["simplices"]) {
+            if (simplex_json.contains("vertices") && simplex_json["vertices"].is_array()) {
+                std::vector<VertexID> vertices;
+                for (const auto& v : simplex_json["vertices"]) {
+                    vertices.push_back(v.get<VertexID>());
+                }
+                if (!vertices.empty()) {
+                    complex.add_simplex(vertices);
+                }
+            }
+        }
+    }
     
     // Load labels
     if (j.contains("labels") && j["labels"].is_object()) {
@@ -396,7 +433,7 @@ JsonSerializer::deserialize_non_hausdorff_labeled(const nlohmann::json& j) {
 // ============================================================================
 
 nlohmann::json JsonSerializer::serialize_equivalence_classes(
-    const EquivalenceClasses& eq_classes) {
+    const EquivalenceClassManager& eq_classes) {
     
     nlohmann::json j = nlohmann::json::array();
     
@@ -419,19 +456,26 @@ nlohmann::json JsonSerializer::serialize_equivalence_classes(
     return j;
 }
 
-EquivalenceClasses JsonSerializer::deserialize_equivalence_classes(
+EquivalenceClassManager JsonSerializer::deserialize_equivalence_classes(
     const nlohmann::json& j) {
     
-    EquivalenceClasses eq_classes;
+    EquivalenceClassManager eq_classes;
     
     if (j.is_array()) {
         for (const auto& class_json : j) {
             SimplexID representative = class_json["representative"];
             const auto& members = class_json["members"];
             
+            // Add all members to the manager
+            for (const auto& member : members) {
+                eq_classes.add_simplex(member);
+            }
+            
             // Create equivalence class
             for (const auto& member : members) {
-                eq_classes.glue(representative, member);
+                if (member != representative) {
+                    eq_classes.glue(representative, member);
+                }
             }
         }
     }
@@ -738,6 +782,27 @@ template SimplicialComplexRefinement<Absurdity> JsonSerializer::deserialize_refi
 template nlohmann::json JsonSerializer::serialize_non_hausdorff_labeled<Absurdity>(
     const SimplicialComplexNonHausdorffLabeled<Absurdity>&);
 template SimplicialComplexNonHausdorffLabeled<Absurdity> JsonSerializer::deserialize_non_hausdorff_labeled<Absurdity>(
+    const nlohmann::json&);
+
+// Explicit template instantiations for FuzzyInterval (needed for direct usage)
+template nlohmann::json JsonSerializer::serialize_labeled<FuzzyInterval>(
+    const SimplicialComplexLabeled<FuzzyInterval>&);
+template SimplicialComplexLabeled<FuzzyInterval> JsonSerializer::deserialize_labeled<FuzzyInterval>(
+    const nlohmann::json&);
+
+template nlohmann::json JsonSerializer::serialize_narrative<FuzzyInterval>(
+    const SimplicialComplexNarrative<FuzzyInterval>&);
+template SimplicialComplexNarrative<FuzzyInterval> JsonSerializer::deserialize_narrative<FuzzyInterval>(
+    const nlohmann::json&);
+
+template nlohmann::json JsonSerializer::serialize_refinement<FuzzyInterval>(
+    const SimplicialComplexRefinement<FuzzyInterval>&);
+template SimplicialComplexRefinement<FuzzyInterval> JsonSerializer::deserialize_refinement<FuzzyInterval>(
+    const nlohmann::json&);
+
+template nlohmann::json JsonSerializer::serialize_non_hausdorff_labeled<FuzzyInterval>(
+    const SimplicialComplexNonHausdorffLabeled<FuzzyInterval>&);
+template SimplicialComplexNonHausdorffLabeled<FuzzyInterval> JsonSerializer::deserialize_non_hausdorff_labeled<FuzzyInterval>(
     const nlohmann::json&);
 
 } // namespace cebu

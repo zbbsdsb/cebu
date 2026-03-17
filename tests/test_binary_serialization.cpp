@@ -92,9 +92,9 @@ void test_absurdity_binary_serialize() {
     
     auto label_opt = restored.get_label(edge);
     assert(label_opt.has_value());
-    assert(std::abs(label_opt->lower() - 0.3) < 0.0001);
-    assert(std::abs(label_opt->upper() - 0.7) < 0.0001);
-    assert(std::abs(label_opt->confidence() - 0.9) < 0.0001);
+    assert(std::abs(label_opt->lower - 0.3) < 0.0001);
+    assert(std::abs(label_opt->upper - 0.7) < 0.0001);
+    assert(std::abs(label_opt->confidence - 0.9) < 0.0001);
     
     std::cout << "✓ Absurdity binary serialization passed" << std::endl;
 }

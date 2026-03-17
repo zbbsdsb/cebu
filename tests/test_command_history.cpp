@@ -286,9 +286,9 @@ void test_set_label_with_absurdity() {
     cmd1.execute();
     auto label = complex.get_label(tri);
     assert(label);
-    assert(label->lower() == 0.3);
-    assert(label->upper() == 0.5);
-    assert(label->confidence() == 0.8);
+    assert(label->lower == 0.3);
+    assert(label->upper == 0.5);
+    assert(label->confidence == 0.8);
 
     // Undo
     cmd1.undo();

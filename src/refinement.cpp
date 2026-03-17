@@ -1,4 +1,5 @@
 #include "cebu/refinement.h"
+#include "cebu/absurdity.h"
 #include <algorithm>
 #include <cmath>
 #include <stdexcept>
@@ -49,9 +50,6 @@ RefinementResult SimplicialComplexRefinement<LabelType>::refine_edge(
         original_label = this->get_label(edge_id);
     }
     
-    // Remove original edge
-    this->remove_simplex(edge_id, false);
-    
     // Create two new edges: v0-mid and mid-v1
     SimplexID edge0 = this->add_edge(v0, mid);
     SimplexID edge1 = this->add_edge(mid, v1);
@@ -59,7 +57,7 @@ RefinementResult SimplicialComplexRefinement<LabelType>::refine_edge(
     result.new_simplices_count = 2;
     result.original_to_children[edge_id] = {edge0, edge1};
     
-    // Apply label inheritance
+    // Apply label inheritance before removing the original edge
     if (original_label.has_value()) {
         if (options.label_strategy == LabelInheritanceStrategy::INHERIT_COPY) {
             this->set_label(edge0, original_label.value());
@@ -75,6 +73,9 @@ RefinementResult SimplicialComplexRefinement<LabelType>::refine_edge(
             this->set_label(edge1, options.custom_label_func(original_label.value(), 1, 2));
         }
     }
+    
+    // Remove original edge
+    this->remove_simplex(edge_id, false);
     
     // Update refinement levels
     update_children_levels({edge0, edge1}, options);
@@ -126,9 +127,6 @@ RefinementResult SimplicialComplexRefinement<LabelType>::refine_triangle(
         original_label = this->get_label(triangle_id);
     }
     
-    // Remove original triangle
-    this->remove_simplex(triangle_id, false);
-    
     // Create new edges: connecting midpoints to each other and vertices
     // We create a total of 12 edges (9 boundary + 3 interior)
     // Actually for this refinement we need specific edges:
@@ -162,11 +160,14 @@ RefinementResult SimplicialComplexRefinement<LabelType>::refine_triangle(
     result.new_simplices_count = 4;
     result.original_to_children[triangle_id] = {tri0, tri1, tri2, tri3};
     
-    // Apply label inheritance
+    // Apply label inheritance before removing the original triangle
     if (original_label.has_value()) {
         std::vector<SimplexID> children = {tri0, tri1, tri2, tri3};
         apply_label_inheritance(triangle_id, children, options);
     }
+    
+    // Remove original triangle
+    this->remove_simplex(triangle_id, false);
     
     // Update refinement levels
     update_children_levels({tri0, tri1, tri2, tri3}, options);
@@ -272,47 +273,60 @@ bool SimplicialComplexRefinement<LabelType>::coarsen_triangle(
     VertexID center_vertex_id,
     const RefinementOptions<LabelType>& options) {
     
-    // Check if vertex exists and has degree 3 (connected to 3 other vertices)
-    auto containing_edges = this->get_simplices_containing_vertex(center_vertex_id);
-    std::vector<SimplexID> edges;
-    for (SimplexID sid : containing_edges) {
-        if (this->get_simplex(sid).dimension() == 1) {
-            edges.push_back(sid);
+    // Get all simplices containing the center vertex
+    auto containing_simplices = this->get_simplices_containing_vertex(center_vertex_id);
+    
+    // Collect all triangles and edges connected to the center
+    std::vector<SimplexID> triangles_to_remove;
+    std::vector<SimplexID> edges_to_remove;
+    std::unordered_set<VertexID> all_vertices;
+    
+    for (SimplexID sid : containing_simplices) {
+        const auto& simplex = this->get_simplex(sid);
+        if (simplex.dimension() == 2) {
+            triangles_to_remove.push_back(sid);
+        } else if (simplex.dimension() == 1) {
+            edges_to_remove.push_back(sid);
+            // Add both vertices of the edge
+            for (size_t i = 0; i < simplex.vertices().size(); ++i) {
+                all_vertices.insert(static_cast<VertexID>(simplex.vertices()[i]));
+            }
         }
     }
     
-    if (edges.size() != 3) {
+    // If we didn't find any triangles, return false
+    if (triangles_to_remove.empty()) {
         return false;
     }
     
-    // Get the three corner vertices (connected to center)
-    std::vector<VertexID> corners;
-    for (SimplexID e : edges) {
-        const auto& vertices = this->get_simplex(e).vertices();
-        VertexID corner = static_cast<VertexID>(
-            vertices[0] == center_vertex_id ? vertices[1] : vertices[0]);
-        corners.push_back(corner);
+    // Remove all triangles connected to the center
+    for (SimplexID tri_id : triangles_to_remove) {
+        this->remove_simplex(tri_id, false);
     }
     
-    // Remove old triangles (should be 4 of them)
-    auto containing_faces = this->get_simplices_containing_vertex(center_vertex_id);
-    for (SimplexID face_id : containing_faces) {
-        const auto& face = this->get_simplex(face_id);
-        if (face.vertices().size() - 1 == 2) {  // Triangle has 3 vertices
-            this->remove_simplex(face_id, false);
+    // Remove all edges connected to the center
+    for (SimplexID edge_id : edges_to_remove) {
+        this->remove_simplex(edge_id, false);
+    }
+    
+    // Remove the center vertex
+    this->remove_vertex(center_vertex_id, false);
+    
+    // Get all remaining vertices
+    std::vector<VertexID> remaining_vertices;
+    for (const auto& [id, _] : this->get_simplices()) {
+        if (this->get_simplex(id).dimension() == 0) {
+            remaining_vertices.push_back(static_cast<VertexID>(id));
         }
     }
     
-    // Remove edges and center vertex
-    for (SimplexID e : edges) {
-        this->remove_simplex(e, false);
+    // If we have exactly 3 vertices left, create a new triangle
+    if (remaining_vertices.size() == 3) {
+        this->add_triangle(remaining_vertices[0], remaining_vertices[1], remaining_vertices[2]);
+        return true;
     }
-    this->remove_vertex(center_vertex_id, false);
     
-    // Create new triangle connecting the three corners
-    this->add_triangle(corners[0], corners[1], corners[2]);
-    
-    return true;
+    return false;
 }
 
 template<typename LabelType>
@@ -487,9 +501,16 @@ void SimplicialComplexRefinement<LabelType>::apply_label_inheritance(
             
         case LabelInheritanceStrategy::INHERIT_DISTRIBUTE:
             // Split label value evenly (for numeric types)
-            for (SimplexID child_id : child_ids) {
-                LabelType distributed_label = parent_label / static_cast<LabelType>(child_ids.size());
-                this->set_label(child_id, distributed_label);
+            if constexpr (std::is_arithmetic_v<LabelType>) {
+                for (SimplexID child_id : child_ids) {
+                    LabelType distributed_label = parent_label / static_cast<LabelType>(child_ids.size());
+                    this->set_label(child_id, distributed_label);
+                }
+            } else {
+                // For non-arithmetic types like FuzzyInterval, use copy strategy
+                for (SimplexID child_id : child_ids) {
+                    this->set_label(child_id, parent_label);
+                }
             }
             break;
             
@@ -518,6 +539,17 @@ LabelType SimplicialComplexRefinement<LabelType>::interpolate_label(
     // Default implementation assumes LabelType supports arithmetic
     // For custom types, this should be specialized
     return static_cast<LabelType>((1.0 - t) * label1 + t * label2);
+}
+
+// Specialization for FuzzyInterval
+template<>
+FuzzyInterval SimplicialComplexRefinement<FuzzyInterval>::interpolate_label(
+    const FuzzyInterval& label1,
+    const FuzzyInterval& label2,
+    double t) const {
+    
+    // Use the existing interpolation function from absurdity_utils
+    return absurdity_utils::interpolate(label1, label2, t);
 }
 
 template<typename LabelType>
@@ -557,5 +589,6 @@ double RefinementUtils::estimate_fractal_dimension(
 template class SimplicialComplexRefinement<double>;
 template class SimplicialComplexRefinement<float>;
 template class SimplicialComplexRefinement<int>;
+template class SimplicialComplexRefinement<FuzzyInterval>;
 
 } // namespace cebu

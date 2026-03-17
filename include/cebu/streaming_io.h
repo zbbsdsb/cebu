@@ -282,8 +282,15 @@ bool StreamingWriter::write_labeled(const SimplicialComplexLabeled<LabelType>& c
         // Serialize to JSON
         nlohmann::json j = JsonSerializer::serialize_labeled(complex);
         
-        // Write header
-        write_header(out, complex);
+        // Write header directly
+        out << "{" << std::endl;
+        out << "  \"header\": {" << std::endl;
+        out << "    \"format\": \"cebu-streaming-v1\"," << std::endl;
+        out << "    \"compression\": \"none\"," << std::endl;
+        out << "    \"has_labels\": true" << std::endl;
+        out << "  }," << std::endl;
+        out << "  \"statistics\": " << j["statistics"].dump() << "," << std::endl;
+        out << "  \"simplices\": [" << std::endl;
         
         // Write simplices
         size_t current = 0;

@@ -123,7 +123,7 @@ void test_edge_coarsening() {
     // Create and refine an edge
     VertexID v0 = complex.add_vertex();
     VertexID v1 = complex.add_vertex();
-    EdgeID edge = complex.add_edge(v0, v1);
+    SimplexID edge = complex.add_edge(v0, v1);
     
     RefinementOptions<double> options;
     options.current_level = 0;
@@ -131,7 +131,7 @@ void test_edge_coarsening() {
     
     // Now coarsen it back
     // Find the midpoint vertex
-    auto vertices = complex.get_vertices_of_simplex(result.original_to_children[edge][0]);
+    auto vertices = complex.get_simplex(result.original_to_children[edge][0]).vertices();
     VertexID mid = static_cast<VertexID>(vertices[1]);
     
     // Check it's a refinement midpoint
@@ -164,23 +164,40 @@ void test_triangle_coarsening() {
     RefinementResult result = complex.refine_triangle(tri, options);
     
     // Find the center vertex (connects to all 3 midpoints)
-    // The center is one of the new vertices
-    auto all_triangles = complex.get_simplices_of_dimension(2);
+    // The center is the vertex that is connected to 4 edges (degree 4)
+    std::vector<VertexID> new_vertices;
+    for (const auto& [id, _] : complex.get_simplices()) {
+        if (complex.get_simplex(id).dimension() == 0) {
+            auto containing_edges = complex.get_simplices_containing_vertex(static_cast<VertexID>(id));
+            size_t edge_count = 0;
+            for (SimplexID sid : containing_edges) {
+                if (complex.get_simplex(sid).dimension() == 1) {
+                    edge_count++;
+                }
+            }
+            if (edge_count == 4) {
+                VertexID center = static_cast<VertexID>(id);
+                std::cout << "Found center vertex: " << center << " with degree: " << edge_count << std::endl;
+                
+                // Coarsen
+                bool success = complex.coarsen_triangle(center, options);
+                std::cout << "Coarsen result: " << (success ? "true" : "false") << std::endl;
+                std::cout << "After coarsening - vertices: " << complex.vertex_count() << ", triangles: " << complex.get_simplices_of_dimension(2).size() << std::endl;
+                
+                assert(success);
+                
+                // Check structure is restored
+                assert(complex.vertex_count() == 3);
+                assert(complex.get_simplices_of_dimension(2).size() == 1);
+                
+                std::cout << "✓ Triangle coarsening passed" << std::endl;
+                return;
+            }
+        }
+    }
     
-    // The center triangle is the one with all new vertices
-    SimplexID center_tri = result.original_to_children[tri][3];
-    auto center_verts = complex.get_vertices_of_simplex(center_tri);
-    VertexID center = static_cast<VertexID>(center_verts[0]);
-    
-    // Coarsen
-    bool success = complex.coarsen_triangle(center, options);
-    assert(success);
-    
-    // Check structure is restored
-    assert(complex.vertex_count() == 3);
-    assert(complex.get_simplices_of_dimension(2).size() == 1);
-    
-    std::cout << "✓ Triangle coarsening passed" << std::endl;
+    // If no center vertex found, assertion fails
+    assert(false);
 }
 
 void test_max_level_limit() {
@@ -235,7 +252,7 @@ void test_label_inheritance_strategies() {
     auto result1 = complex.refine_triangle(tri, options1);
     auto children1 = result1.original_to_children[tri];
     for (SimplexID child : children1) {
-        assert(std::abs(complex.get_label(child) - 1.0) < 0.001);
+        assert(std::abs(complex.get_label(child).value() - 1.0) < 0.001);
     }
     
     std::cout << "✓ Label inheritance strategies passed" << std::endl;
@@ -262,8 +279,8 @@ void test_custom_label_function() {
     auto result = complex.refine_edge(edge, options);
     auto children = result.original_to_children[edge];
     
-    assert(std::abs(complex.get_label(children[0]) - 10.0) < 0.001);
-    assert(std::abs(complex.get_label(children[1]) - 5.0) < 0.001);
+    assert(std::abs(complex.get_label(children[0]).value() - 10.0) < 0.001);
+    assert(std::abs(complex.get_label(children[1]).value() - 5.0) < 0.001);
     
     std::cout << "✓ Custom label function passed" << std::endl;
 }
@@ -356,8 +373,11 @@ void test_region_coarsening() {
     
     // Now coarsen based on label predicate
     size_t coarsened = complex.coarsen_region(
-        [](const double& label, SimplexID id) {
+        [&complex](SimplexID id) {
             // Coarsen if label is 1.0
+            auto label_opt = complex.get_label(id);
+            if (!label_opt) return false;
+            double label = *label_opt;
             return std::abs(label - 1.0) < 0.01;
         },
         options

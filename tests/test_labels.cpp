@@ -200,7 +200,7 @@ void test_absurdity_labels() {
     auto label_v0 = complex.get_label(v0);
     assert(label_v0.has_value());
     assert(label_v0->midpoint() == 0.7);
-    assert(label_v0->confidence() == 0.9);
+    assert(label_v0->confidence == 0.9);
 
     // Find high absurdity
     auto high = complex.label_system().find_by_label([](const Absurdity& a) {

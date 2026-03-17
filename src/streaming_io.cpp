@@ -109,7 +109,7 @@ void StreamingLoader::analyze_file() {
                 max_dimension_ = j["statistics"]["max_dimension"].get<size_t>();
             }
         }
-    } catch (const std::exception& e) {
+    } catch (const std::exception&) {
         // Keep default values
     }
 }
@@ -163,7 +163,7 @@ bool StreamingWriter::write(const SimplicialComplex& complex) {
         out.close();
         
         return true;
-    } catch (const std::exception& e) {
+    } catch (const std::exception&) {
         return false;
     }
 }
@@ -201,7 +201,7 @@ bool StreamingWriter::write_partial(
         out.close();
         
         return true;
-    } catch (const std::exception& e) {
+    } catch (const std::exception&) {
         return false;
     }
 }
@@ -326,7 +326,7 @@ void ChunkedStreamingLoader::analyze_chunks() {
             
             chunks_.push_back(info);
         }
-    } catch (const std::exception& e) {
+    } catch (const std::exception&) {
         // Keep empty chunks
     }
 }

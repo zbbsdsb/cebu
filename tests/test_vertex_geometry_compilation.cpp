@@ -18,11 +18,11 @@ int main() {
     
     // Test VertexGeometry
     cebu::VertexGeometry vg;
-    vg.set_vertex(0, cebu::Point3D(0.0f, 0.0f, 0.0f));
-    vg.set_vertex(1, cebu::Point3D(1.0f, 0.0f, 0.0f));
-    vg.set_vertex(2, cebu::Point3D(0.0f, 1.0f, 0.0f));
+    vg.set_position(0, cebu::Point3D(0.0f, 0.0f, 0.0f));
+    vg.set_position(1, cebu::Point3D(1.0f, 0.0f, 0.0f));
+    vg.set_position(2, cebu::Point3D(0.0f, 1.0f, 0.0f));
     
-    auto bbox_for_triangle = vg.compute_bounding_box({0, 1, 2});
+    auto bbox_for_triangle = vg.compute_bounding_box();
     std::cout << "Triangle bounding box computed!" << std::endl;
     
     std::cout << "All basic compilation tests passed!" << std::endl;

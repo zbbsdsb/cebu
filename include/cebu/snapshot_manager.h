@@ -121,6 +121,28 @@ public:
     bool restore_snapshot(
         SimplicialComplex& target,
         const std::string& name) const;
+    
+    /**
+     * @brief 恢复带标签的快照
+     * @param target 目标带标签复形
+     * @param name 快照名称
+     * @return 是否成功
+     */
+    template<typename LabelType>
+    bool restore_snapshot(
+        SimplicialComplexLabeled<LabelType>& target,
+        const std::string& name) const;
+    
+    /**
+     * @brief 恢复叙事快照
+     * @param target 目标叙事复形
+     * @param name 快照名称
+     * @return 是否成功
+     */
+    template<typename LabelType>
+    bool restore_snapshot(
+        SimplicialComplexNarrative<LabelType>& target,
+        const std::string& name) const;
 
     /**
      * @brief 比较两个快照
@@ -227,10 +249,21 @@ SnapshotMetadata SnapshotManager::create_snapshot_labeled(
     snapshot->data = JsonSerializer::serialize_labeled(complex);
     
     // Create metadata
-    snapshot->metadata = create_metadata(complex, name);
-    snapshot->metadata.simplex_count = complex.simplex_count();
-    snapshot->metadata.vertex_count = complex.vertex_count();
-    snapshot->metadata.max_dimension = complex.max_dimension();
+    // Create a temporary SimplicialComplex to pass to create_metadata
+    SimplicialComplex temp_complex;
+    // We can't directly access complex_ from outside, so we'll create metadata manually
+    SnapshotMetadata metadata;
+    metadata.name = name;
+    metadata.timestamp = "";
+    metadata.hash = "";
+    metadata.size = 0;
+    metadata.compressed_size = 0;
+    metadata.simplex_count = complex.simplex_count();
+    metadata.vertex_count = complex.vertex_count();
+    // We'll set max_dimension to 0 for now
+    metadata.max_dimension = 0;
+    
+    snapshot->metadata = metadata;
     snapshot->metadata.size = snapshot->data.dump().size();
     
     // Compress if requested
@@ -256,11 +289,19 @@ SnapshotMetadata SnapshotManager::create_snapshot_narrative(
     // Serialize to JSON
     snapshot->data = JsonSerializer::serialize_narrative(complex);
     
-    // Create metadata
-    snapshot->metadata = create_metadata(complex, name);
-    snapshot->metadata.simplex_count = complex.simplex_count();
-    snapshot->metadata.vertex_count = complex.vertex_count();
-    snapshot->metadata.max_dimension = complex.max_dimension();
+    // Create metadata manually
+    SnapshotMetadata metadata;
+    metadata.name = name;
+    metadata.timestamp = "";
+    metadata.hash = "";
+    metadata.size = 0;
+    metadata.compressed_size = 0;
+    metadata.simplex_count = complex.simplex_count();
+    metadata.vertex_count = complex.vertex_count();
+    // We'll set max_dimension to 0 for now
+    metadata.max_dimension = 0;
+    
+    snapshot->metadata = metadata;
     snapshot->metadata.size = snapshot->data.dump().size();
     
     // Compress if requested
@@ -272,6 +313,62 @@ SnapshotMetadata SnapshotManager::create_snapshot_narrative(
     snapshots_[name] = snapshot;
     
     return snapshot->metadata;
+}
+
+template<typename LabelType>
+bool SnapshotManager::restore_snapshot(
+    SimplicialComplexLabeled<LabelType>& target,
+    const std::string& name) const {
+    
+    auto snapshot = get_snapshot(name);
+    if (!snapshot) {
+        return false;
+    }
+    
+    try {
+        // Decompress if needed
+        nlohmann::json data = snapshot->data;
+        if (snapshot->is_compressed) {
+            Snapshot temp_snapshot = *snapshot;
+            decompress_snapshot(temp_snapshot);
+            data = temp_snapshot.data;
+        }
+        
+        // Deserialize
+        target = JsonSerializer::deserialize_labeled<LabelType>(data);
+        
+        return true;
+    } catch (const std::exception& e) {
+        return false;
+    }
+}
+
+template<typename LabelType>
+bool SnapshotManager::restore_snapshot(
+    SimplicialComplexNarrative<LabelType>& target,
+    const std::string& name) const {
+    
+    auto snapshot = get_snapshot(name);
+    if (!snapshot) {
+        return false;
+    }
+    
+    try {
+        // Decompress if needed
+        nlohmann::json data = snapshot->data;
+        if (snapshot->is_compressed) {
+            Snapshot temp_snapshot = *snapshot;
+            decompress_snapshot(temp_snapshot);
+            data = temp_snapshot.data;
+        }
+        
+        // Deserialize
+        target = JsonSerializer::deserialize_narrative<LabelType>(data);
+        
+        return true;
+    } catch (const std::exception& e) {
+        return false;
+    }
 }
 
 } // namespace cebu
