@@ -1,6 +1,8 @@
 # Build directories
 build/
 cmake-build-*/
+out/
+build*/
 
 # Compiled Object files
 *.o
@@ -12,9 +14,9 @@ cmake-build-*/
 *.gch
 *.pch
 
-
 # Compiled Dynamic libraries
 *.so
+*.so.*
 *.dylib
 *.dll
 
@@ -29,7 +31,7 @@ cmake-build-*/
 *.out
 *.app
 *.i386
-
+*.x86_64
 
 # CMake
 CMakeCache.txt
@@ -38,6 +40,8 @@ cmake_install.cmake
 Makefile
 *.cmake
 !CMakeLists.txt
+!cmake/
+!vcpkg/
 
 # IDE
 .vscode/
@@ -46,16 +50,115 @@ Makefile
 *.swo
 *~
 .DS_Store
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.vs/
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
 
 # Test outputs
 tests/build/
 **/build/
+test_cmake_package/build/
+test_conan_package/build/
 
 # Documentation builds
 docs/_build/
 docs/.doctrees/
 prepare/
 .codebuddy/
+*.pyc
+__pycache__/
 
-#other
+# vcpkg
+vcpkg/buildtrees/
+vcpkg/downloads/
+vcpkg/packages/
+vcpkg/installed/
+vcpkg/.vcpkg-root
+
+# Conan
+conan.lock
+conanbuildinfo.txt
+conanbuildinfo.cmake
+conanbuildinfo.pri
+conaninfo.txt
+conan*.log
+.conan/
+
+# Package distribution
+*.tar.gz
+*.zip
+*.deb
+*.rpm
+*.msi
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+*.swp
+*.swo
+*~
+
+# C++ specific
+*.ii
+*.i
+*.s
+*.asm
+*.d
+*.gcov
+*.gcda
+*.gcno
+*.gcov.json
+
+# Code coverage
+coverage/
+lcov/
+*.gcov
+*.gcda
+*.gcno
+
+# Profiling
+*.gprof
+*.callgrind
+*.out.prof
+
+# Valgrind
+*.vgcore
+*.cachegrind
+*.helgrind
+*.massif
+*.memcheck
+
+# Performance
+*.perf
+*.perf.data
+*.perf.data.old
+
+# Debug
+*.pdb
+*.ilk
+*.pgc
+*.pgd
+*.rsp
+*.pgm
+*.pgm.out
+*.pgm.out.json
+*.pgc.out
+*.pgc.out.json
+
+# Package release
+test_cmake_package/
+test_conan_package/
+PACKAGE_RELEASE.md~
+
+# Other
 .trae/
+*.bak
+*.backup
+*.old
+*.orig

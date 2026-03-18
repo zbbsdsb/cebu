@@ -1,12 +1,13 @@
 # Cebu Documentation
 
-Welcome to the Cebu documentation! Cebu is a modern C++17 library for manipulating simplicial complexes with advanced features including spatial indexing, narrative-driven topology, persistent homology, and more.
+Welcome to the Cebu documentation! Cebu is a modern C++20 library for manipulating simplicial complexes with advanced features including spatial indexing, narrative-driven topology, persistent homology, and more.
 
 ## Quick Links
 
 - [Getting Started](getting_started.md) - New to Cebu? Start here!
-- [API Documentation](api.md) - Comprehensive API reference
-- [FAQ](faq.md) - Common questions and troubleshooting
+- [Installation](installation.md) - Build and install Cebu
+- [API Documentation](api/api_core.md) - Comprehensive API reference
+- [FAQ](utilities/faq.md) - Common questions and troubleshooting
 
 ---
 
@@ -17,38 +18,48 @@ Welcome to the Cebu documentation! Cebu is a modern C++17 library for manipulati
 | Document | Description |
 |-----------|-------------|
 | [Getting Started](getting_started.md) | Step-by-step tutorial from installation to first complex |
-| [Installation](#installation) | Build and install Cebu on various platforms |
+| [Installation](installation.md) | Build and install Cebu on various platforms |
+| [Basic Tutorial](tutorials/tutorial_basic.md) | Detailed tutorial for basic usage |
+| [Spatial Indexing Tutorial](tutorials/tutorial_spatial.md) | Tutorial for spatial indexing features |
+| [Narrative Features Tutorial](tutorials/tutorial_narrative.md) | Tutorial for narrative-driven topology |
 
-### Core API
+### Core Concepts
 
 | Document | Description |
 |-----------|-------------|
-| [API Reference](api.md) | Complete API documentation for all core features |
-| [Architecture](architecture.md) | Design patterns, internal structure, and philosophy |
+| [Simplicial Complex Basics](core/simplicial_complex.md) | Fundamentals of simplicial complexes |
+| [Topology Operations](core/topology.md) | Topological invariants and operations |
+| [Label System](core/labels.md) | Attaching custom data to simplices |
+| [Basic Serialization](core/serialization.md) | Saving and loading complexes |
 
 ### Advanced Features
 
 | Document | Description |
 |-----------|-------------|
-| [Spatial Indexing](spatial_indexing.md) | BVH and Octree for accelerated spatial queries (5-2000x speedup) |
-| [Advanced Serialization](api_advanced_serialization.md) | Version control, snapshots, streaming I/O, change tracking |
-| [Equivalence Classes](equivalence_classes.md) | Non-Hausdorff topology and simplex gluing |
-| [Topology Operations](topology_operations.md) | Euler characteristic, manifold checking, boundaries, connected components |
-| [Absurdity System](absurdity_system.md) | Fuzzy interval numbers, stochastic evolution, dynamic topology morphs (Phase 9a/9b) |
-| [Narrative Context](phase9c_narrative_context.md) | Story beats, dramatic templates, narrative-driven absurdity (Phase 9c) |
-| [Phase 9 Overview](phase9_absurdity_overview.md) | Complete guide to the absurdity system (Phase 9a/9b/9c) |
+| [Spatial Indexing](advanced/spatial_indexing.md) | BVH and Octree for accelerated spatial queries |
+| [Non-Hausdorff Topology](advanced/non_hausdorff.md) | Simplex gluing and equivalence classes |
+| [Absurdity System](advanced/absurdity_system.md) | Fuzzy interval numbers and stochastic evolution |
+| [Narrative Context](advanced/narrative_context.md) | Story beats and narrative-driven topology |
+| [Phase 9 Overview](advanced/phase9_absurdity_overview.md) | Complete guide to the absurdity system |
 
-### Performance & Optimization
+### API Reference
 
 | Document | Description |
 |-----------|-------------|
-| [Performance Guide](performance.md) | Benchmarks, optimization strategies, profiling tips |
+| [Core API](api/api_core.md) | Core library API |
+| [Spatial Indexing API](api/api_spatial.md) | Spatial indexing API |
+| [Serialization API](api/api_serialization.md) | Serialization API |
+| [Narrative API](api/api_narrative.md) | Narrative features API |
+| [Absurdity API](api/api_absurdity.md) | Absurdity system API |
 
-### Reference
+### Utilities and Resources
 
 | Document | Description |
 |-----------|-------------|
-| [FAQ](faq.md) | Common questions, error solutions, troubleshooting |
+| [Performance Guide](utilities/performance.md) | Benchmarks and optimization strategies |
+| [Best Practices](utilities/best_practices.md) | Recommended usage patterns |
+| [FAQ](utilities/faq.md) | Common questions and troubleshooting |
+| [Troubleshooting](utilities/troubleshooting.md) | Debugging common issues |
 
 ---
 
@@ -119,7 +130,7 @@ Welcome to the Cebu documentation! Cebu is a modern C++17 library for manipulati
 
 ### 3D Mesh Processing
 
-Start here: [Getting Started](getting_started.md)
+Start here: [Basic Tutorial](tutorials/tutorial_basic.md)
 
 Key features:
 - Simplicial complex management
@@ -129,7 +140,7 @@ Key features:
 
 ### Scientific Visualization
 
-Start here: [Topology Operations](topology_operations.md)
+Start here: [Topology Operations](core/topology.md)
 
 Key features:
 - Topological invariants (Euler characteristic)
@@ -139,7 +150,7 @@ Key features:
 
 ### Narrative Simulation
 
-Start here: [API - Narrative Features](api.md#narrative-features)
+Start here: [Narrative Features Tutorial](tutorials/tutorial_narrative.md)
 
 Key features:
 - Timeline management
@@ -149,7 +160,7 @@ Key features:
 
 ### Game Level Topology
 
-Start here: [Spatial Indexing](spatial_indexing.md)
+Start here: [Spatial Indexing Tutorial](tutorials/tutorial_spatial.md)
 
 Key features:
 - BVH for fast collision detection
@@ -159,7 +170,7 @@ Key features:
 
 ### Computational Topology
 
-Start here: [Equivalence Classes](equivalence_classes.md)
+Start here: [Non-Hausdorff Topology](advanced/non_hausdorff.md)
 
 Key features:
 - Non-Hausdorff topology
@@ -173,22 +184,24 @@ Key features:
 
 ### Beginner (New to Cebu)
 
-1. [Getting Started Guide](getting_started.md) - Learn basics
-2. [API Documentation](api.md) - Explore core API
-3. Build your first complex
+1. [Installation](installation.md) - Install Cebu
+2. [Basic Tutorial](tutorials/tutorial_basic.md) - Learn basics
+3. [Simplicial Complex Basics](core/simplicial_complex.md) - Understand fundamentals
+4. Build your first complex
 
 ### Intermediate (Familiar with basics)
 
-1. [Spatial Indexing](spatial_indexing.md) - Accelerate queries
-2. [Topology Operations](topology_operations.md) - Analyze topology
-3. [Advanced Serialization](api_advanced_serialization.md) - Save/load efficiently
+1. [Spatial Indexing Tutorial](tutorials/tutorial_spatial.md) - Accelerate queries
+2. [Topology Operations](core/topology.md) - Analyze topology
+3. [Label System](core/labels.md) - Add custom data
+4. [Basic Serialization](core/serialization.md) - Save/load efficiently
 
 ### Advanced (Power user)
 
-1. [Equivalence Classes](equivalence_classes.md) - Non-Hausdorff topology
-2. [Performance Guide](performance.md) - Optimize for speed
-3. [Architecture](architecture.md) - Understand internals
-4. Custom extensions and integrations
+1. [Non-Hausdorff Topology](advanced/non_hausdorff.md) - Explore advanced topology
+2. [Absurdity System](advanced/absurdity_system.md) - Use narrative features
+3. [Performance Guide](utilities/performance.md) - Optimize for speed
+4. [API Reference](api/api_core.md) - Dive into the API
 
 ---
 
@@ -218,7 +231,7 @@ Key features:
 | Binary | 20ms | 30ms | 5 MB |
 | Binary + ZLIB | 100ms | 50ms | 2 MB |
 
-See [Performance Guide](performance.md) for detailed benchmarks.
+See [Performance Guide](utilities/performance.md) for detailed benchmarks.
 
 ---
 
@@ -232,12 +245,12 @@ See [Performance Guide](performance.md) for detailed benchmarks.
 cebu::SimplicialComplex complex;
 
 // Add vertices
-auto v0 = complex.add_simplex({});
-auto v1 = complex.add_simplex({});
-auto v2 = complex.add_simplex({});
+auto v0 = complex.add_vertex();
+auto v1 = complex.add_vertex();
+auto v2 = complex.add_vertex();
 
 // Add triangle
-auto tri = complex.add_simplex({v0, v1, v2});
+auto tri = complex.add_triangle(v0, v1, v2);
 ```
 
 ### With Labels
@@ -248,8 +261,10 @@ auto tri = complex.add_simplex({v0, v1, v2});
 cebu::SimplicialComplexLabeled<float> complex;
 
 // Add with label
-auto v0 = complex.add_simplex({}, 10.0f);
-auto tri = complex.add_simplex({v0, v1, v2}, 20.0f);
+auto v0 = complex.add_vertex(10.0f);
+auto v1 = complex.add_vertex(20.0f);
+auto v2 = complex.add_vertex(30.0f);
+auto tri = complex.add_triangle(v0, v1, v2, 20.0f);
 
 // Query by label
 auto high = complex.get_high_labeled_simplices(15.0f);
@@ -261,42 +276,28 @@ auto high = complex.get_high_labeled_simplices(15.0f);
 #include "cebu/bvh.h"
 #include "cebu/vertex_geometry.h"
 
+cebu::SimplicialComplex sc;
 cebu::VertexGeometry vg;
-// ... set vertex positions ...
 
-cebu::BVHTree tree(cebu::BVHBuildStrategy::SAH);
-tree.build(all_simplices, vg, get_vertices);
+// Add vertices with positions
+auto v0 = sc.add_vertex();
+auto v1 = sc.add_vertex();
+auto v2 = sc.add_vertex();
+
+vg.set_position(v0, {0.0, 0.0, 0.0});
+vg.set_position(v1, {1.0, 0.0, 0.0});
+vg.set_position(v2, {0.0, 1.0, 0.0});
+
+// Add triangle
+sc.add_triangle(v0, v1, v2);
+
+// Build BVH
+cebu::BVH bvh(sc, vg);
 
 // Fast queries
-auto nearest = tree.nearest_neighbor_query(point, 10);
+cebu::Point query_point = {0.5, 0.5, 0.0};
+auto nearest = bvh.nearest_neighbor(query_point);
 ```
-
----
-
-## Installation
-
-### Requirements
-
-- C++17 compatible compiler (GCC 7+, Clang 5+, MSVC 2017+)
-- CMake 3.14 or higher
-- nlohmann/json (automatically fetched)
-- ZLIB (optional, for compression)
-
-### Quick Start
-
-```bash
-# Clone and build
-git clone https://github.com/yourusername/cebu.git
-cd cebu
-mkdir build && cd build
-cmake ..
-cmake --build .
-
-# Run tests
-ctest --output-on-failure
-```
-
-See [Getting Started Guide](getting_started.md) for detailed installation instructions.
 
 ---
 
@@ -320,8 +321,8 @@ See [LICENSE](../LICENSE) file for details.
 
 ### Documentation
 - [Getting Started](getting_started.md)
-- [API Reference](api.md)
-- [FAQ](faq.md)
+- [API Reference](api/api_core.md)
+- [FAQ](utilities/faq.md)
 
 ### Community
 - GitHub Issues: Report bugs and request features
@@ -348,6 +349,6 @@ See [LICENSE](../LICENSE) file for details.
 
 **Cebu**: Where topology meets narrative.
 
-**Documentation Version**: 1.0
-**Last Updated**: 2025-03-06
+**Documentation Version**: 2.0
+**Last Updated**: 2026-03-18
 **Cebu Version**: 0.8.0
