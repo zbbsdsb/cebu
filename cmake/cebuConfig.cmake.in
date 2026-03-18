@@ -3,7 +3,36 @@
 include(CMakeFindDependencyMacro)
 
 # Find dependencies
-find_dependency(nlohmann_json 3.2.0)
+# First try to find nlohmann_json using CMake
+find_package(nlohmann_json 3.2.0 QUIET)
+
+# If not found, check if we have a local copy
+if (NOT nlohmann_json_FOUND)
+    # Check if we have a local json directory
+    # Try different possible paths for local json
+    set(json_paths
+        "${CMAKE_CURRENT_LIST_DIR}/../dependencies/json-3.11.2/include"
+        "${CMAKE_CURRENT_LIST_DIR}/../../dependencies/json-3.11.2/include"
+        "${CMAKE_CURRENT_LIST_DIR}/../../../dependencies/json-3.11.2/include"
+        "${CMAKE_CURRENT_LIST_DIR}/../../../../dependencies/json-3.11.2/include"
+    )
+    
+    foreach(json_path IN LISTS json_paths)
+        get_filename_component(abs_json_path "${json_path}" ABSOLUTE)
+        if (EXISTS "${abs_json_path}")
+            # Add local json include directory
+            include_directories("${abs_json_path}")
+            set(nlohmann_json_FOUND TRUE)
+            message(STATUS "Found local nlohmann_json at: ${abs_json_path}")
+            break()
+        endif()
+    endforeach()
+    
+    # If no local copy found, try to find it again but required
+    if (NOT nlohmann_json_FOUND)
+        find_dependency(nlohmann_json 3.2.0)
+    endif()
+endif()
 
 # Find ZLIB (optional)
 find_package(ZLIB QUIET)

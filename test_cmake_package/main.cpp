@@ -2,8 +2,8 @@
 
 int main() {
     cebu::SimplicialComplex sc;
-    sc.add_vertex(0);
-    sc.add_vertex(1);
-    sc.add_edge(0, 1);
+    auto v1 = sc.add_vertex();
+    auto v2 = sc.add_vertex();
+    sc.add_edge(v1, v2);
     return 0;
 }

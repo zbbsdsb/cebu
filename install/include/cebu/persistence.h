@@ -2,6 +2,7 @@
 #define CEBU_PERSISTENCE_H
 
 #include "cebu/serialization.h"
+#include "cebu/json_serialization.h"
 #include "cebu/simplicial_complex.h"
 #include "cebu/simplicial_complex_labeled.h"
 #include "cebu/simplicial_complex_narrative.h"

@@ -12,6 +12,10 @@
 
 namespace cebu {
 
+// Forward declarations
+class CommandHistory;
+struct StoryEvent;
+
 /// Type alias for equivalence class manager
 using EquivalenceClasses = EquivalenceClassManager;
 
