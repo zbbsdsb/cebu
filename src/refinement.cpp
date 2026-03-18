@@ -196,7 +196,7 @@ RefinementResult SimplicialComplexRefinement<LabelType>::refine_simplex(
     }
     
     const auto& simplex = this->get_simplex(simplex_id);
-    int dim = simplex.dimension();
+    size_t dim = simplex.dimension();
     
     switch (dim) {
         case 1:
@@ -453,6 +453,9 @@ RefinementResult SimplicialComplexRefinement<LabelType>::adaptive_refine(
     RefinementResult result;
 
     // First collect all simplices that need refinement
+    // IMPORTANT: We collect first, then refine to avoid iterator invalidation
+    // If we refined during iteration, modifying the container would invalidate
+    // iterators and potentially cause infinite loops or crashes
     std::vector<SimplexID> simplices_to_refine;
     for (const auto& [id, _] : this->get_simplices()) {
         if (this->has_label(id)) {
@@ -466,6 +469,7 @@ RefinementResult SimplicialComplexRefinement<LabelType>::adaptive_refine(
     // Then refine them
     for (SimplexID id : simplices_to_refine) {
         // Check if the simplex still exists (it might have been removed by a previous refinement)
+        // This can happen if a simplex is refined as part of another simplex's refinement
         if (this->has_simplex(id)) {
             auto sub_result = refine_simplex(id, options);
             
@@ -533,27 +537,30 @@ void SimplicialComplexRefinement<LabelType>::apply_label_inheritance(
     
     switch (options.label_strategy) {
         case LabelInheritanceStrategy::INHERIT_COPY:
+            // Simple copy: all children get the same label as parent
             for (SimplexID child_id : child_ids) {
                 this->set_label(child_id, parent_label);
             }
             break;
             
         case LabelInheritanceStrategy::INHERIT_INTERPOLATE:
-            // Distribute label evenly
+            // Interpolate: children get interpolated labels based on position
+            // Currently uses copy as default - should be specialized for geometric types
             for (SimplexID child_id : child_ids) {
                 this->set_label(child_id, parent_label);
             }
             break;
             
         case LabelInheritanceStrategy::INHERIT_DISTRIBUTE:
-            // Split label value evenly (for numeric types)
+            // Distribute: split numeric label value evenly among children
+            // For example, if parent has value 10 and 2 children, each gets 5
             if constexpr (std::is_arithmetic_v<LabelType>) {
                 for (SimplexID child_id : child_ids) {
                     LabelType distributed_label = parent_label / static_cast<LabelType>(child_ids.size());
                     this->set_label(child_id, distributed_label);
                 }
             } else {
-                // For non-arithmetic types like FuzzyInterval, use copy strategy
+                // For non-arithmetic types like FuzzyInterval, fall back to copy strategy
                 for (SimplexID child_id : child_ids) {
                     this->set_label(child_id, parent_label);
                 }
@@ -561,6 +568,8 @@ void SimplicialComplexRefinement<LabelType>::apply_label_inheritance(
             break;
             
         case LabelInheritanceStrategy::INHERIT_CUSTOM:
+            // Custom: use user-provided function to compute child labels
+            // The function receives parent label, child index, and total children
             if (options.custom_label_func) {
                 for (size_t i = 0; i < child_ids.size(); ++i) {
                     LabelType child_label = options.custom_label_func(parent_label, i, child_ids.size());
@@ -570,7 +579,8 @@ void SimplicialComplexRefinement<LabelType>::apply_label_inheritance(
             break;
     }
     
-    // Optionally preserve parent labels
+    // Optionally preserve parent labels even after refinement
+    // This is useful for keeping track of original values
     if (options.preserve_parent_labels) {
         this->set_label(parent_id, parent_label);
     }

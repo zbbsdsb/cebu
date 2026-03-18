@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "command_history": {
+      "type": "object"
+    },
+    "equivalence_classes": {
+      "type": "array"
+    },
+    "format": {
+      "const": "cebu",
+      "type": "string"
+    },
+    "format_version": {
+      "type": "integer"
+    },
+    "labels": {
+      "type": "object"
+    },
+    "simplices": {
+      "items": {
+        "properties": {
+          "dimension": {
+            "type": "integer"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "vertices": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "statistics": {
+      "properties": {
+        "edge_count": {
+          "type": "integer"
+        },
+        "face_count": {
+          "type": "integer"
+        },
+        "max_dimension": {
+          "type": "integer"
+        },
+        "simplex_count": {
+          "type": "integer"
+        },
+        "vertex_count": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "version": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "format",
+    "version",
+    "simplices"
+  ],
+  "type": "object"
+}

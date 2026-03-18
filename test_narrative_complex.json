@@ -1,0 +1,41 @@
+{
+  "events": [],
+  "labels": {
+    "0": 0.5,
+    "1": 0.8
+  },
+  "simplices": [
+    {
+      "dimension": 0,
+      "id": 0,
+      "vertices": [
+        0
+      ]
+    },
+    {
+      "dimension": 0,
+      "id": 1,
+      "vertices": [
+        1
+      ]
+    },
+    {
+      "dimension": 1,
+      "id": 2,
+      "vertices": [
+        0,
+        1
+      ]
+    }
+  ],
+  "timeline": {
+    "current_time": 0.0,
+    "max_time": 100.0,
+    "milestones": [],
+    "min_time": 0.0
+  },
+  "vertices": [
+    0,
+    1
+  ]
+}

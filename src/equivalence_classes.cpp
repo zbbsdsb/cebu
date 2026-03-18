@@ -118,6 +118,8 @@ SimplexID EquivalenceClassManager::glue(SimplexID simplex_a, SimplexID simplex_b
     }
 
     // Union by size: attach smaller tree under larger tree
+    // This keeps the tree balanced, ensuring O(α(n)) time complexity
+    // where α is the inverse Ackermann function (effectively constant)
     if (sizes_[rep_a] < sizes_[rep_b]) {
         std::swap(rep_a, rep_b);
     }
@@ -249,6 +251,8 @@ SimplexID EquivalenceClassManager::find_internal(SimplexID simplex_id) const {
     SimplexID& parent = const_cast<SimplexID&>(it->second);
 
     // Path compression: make every node point directly to root
+    // This flattens the structure, ensuring almost constant time complexity
+    // for future find operations on these nodes
     if (parent != simplex_id) {
         parent = find_internal(parent);
     }

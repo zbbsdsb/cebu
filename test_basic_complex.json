@@ -1,0 +1,65 @@
+{
+  "format": "cebu",
+  "format_version": 1,
+  "simplices": [
+    {
+      "dimension": 0,
+      "id": 0,
+      "vertices": [
+        0
+      ]
+    },
+    {
+      "dimension": 0,
+      "id": 1,
+      "vertices": [
+        1
+      ]
+    },
+    {
+      "dimension": 0,
+      "id": 2,
+      "vertices": [
+        2
+      ]
+    },
+    {
+      "dimension": 1,
+      "id": 3,
+      "vertices": [
+        0,
+        1
+      ]
+    },
+    {
+      "dimension": 1,
+      "id": 4,
+      "vertices": [
+        1,
+        2
+      ]
+    },
+    {
+      "dimension": 1,
+      "id": 5,
+      "vertices": [
+        0,
+        2
+      ]
+    },
+    {
+      "dimension": 2,
+      "id": 6,
+      "vertices": [
+        0,
+        1,
+        2
+      ]
+    }
+  ],
+  "statistics": {
+    "simplex_count": 7,
+    "vertex_count": 3
+  },
+  "version": "0.7.1"
+}

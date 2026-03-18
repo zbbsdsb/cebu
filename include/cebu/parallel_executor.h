@@ -275,7 +275,7 @@ void ParallelExecutor::parallel_for(Iterator begin, Iterator end,
     if (total_size <= 0) return;
     
     const auto actual_chunk_size = (chunk_size == 0) ? 
-        calculate_chunk_size(total_size) : chunk_size;
+        calculate_chunk_size(static_cast<size_t>(total_size)) : chunk_size;
     
     std::vector<std::future<void>> futures;
     
@@ -333,7 +333,7 @@ T ParallelExecutor::parallel_reduce(Iterator begin, Iterator end,
     const auto total_size = std::distance(begin, end);
     if (total_size <= 0) return init;
     
-    const auto chunk_size = calculate_chunk_size(total_size);
+    const auto chunk_size = calculate_chunk_size(static_cast<size_t>(total_size));
     
     std::vector<std::future<T>> futures;
     
@@ -369,7 +369,7 @@ void ParallelExecutor::parallel_map(Iterator begin, Iterator end,
     const auto total_size = std::distance(begin, end);
     if (total_size <= 0) return;
     
-    const auto chunk_size = calculate_chunk_size(total_size);
+    const auto chunk_size = calculate_chunk_size(static_cast<size_t>(total_size));
     
     std::vector<std::future<void>> futures;
     
