@@ -2,7 +2,6 @@
 
 #include "cebu/common.h"
 #include <vector>
-#include <cstdint>
 #include <unordered_set>
 
 namespace cebu {
