@@ -78,6 +78,36 @@ Download the precompiled binaries from the [GitHub Releases](https://github.com/
 
 ### Basic Usage
 
+#### Using CMake find_package()
+
+Once Cebu is installed, you can use it in your CMake project with `find_package()`:
+
+```cmake
+# CMakeLists.txt
+cmake_minimum_required(VERSION 3.14)
+project(my_project)
+
+find_package(cebu CONFIG REQUIRED)
+
+add_executable(my_app main.cpp)
+target_link_libraries(my_app cebu::cebu_core)
+```
+
+```cpp
+// main.cpp
+#include <cebu/simplicial_complex.h>
+
+int main() {
+    cebu::SimplicialComplex sc;
+    auto v1 = sc.add_vertex();
+    auto v2 = sc.add_vertex();
+    sc.add_edge(v1, v2);
+    return 0;
+}
+```
+
+#### Direct Usage
+
 ```cpp
 #include "cebu/simplicial_complex.h"
 

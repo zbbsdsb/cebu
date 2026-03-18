@@ -1,0 +1,6 @@
+[requires]
+cebu/0.8.0
+
+[generators]
+CMakeDeps
+CMakeToolchain

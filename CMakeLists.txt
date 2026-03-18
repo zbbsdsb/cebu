@@ -4,8 +4,8 @@ project(cebu VERSION 0.8.0 LANGUAGES CXX)
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
-option(CEBU_BUILD_TESTS "Build Cebu tests" ON)
-option(CEBU_BUILD_EXAMPLES "Build Cebu examples" ON)
+option(CEBU_BUILD_TESTS "Build Cebu tests" OFF)
+option(CEBU_BUILD_EXAMPLES "Build Cebu examples" OFF)
 option(CEBU_WITH_ZLIB "Enable ZLIB support" ON)
 
 set(CMAKE_CXX_STANDARD 20)

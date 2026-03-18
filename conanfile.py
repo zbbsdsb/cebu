@@ -1,26 +1,31 @@
 from conan import ConanFile
-from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain
-from conan.tools.layout import cmake_layout
+from conan.tools.cmake import CMake, cmake_layout
 
 class CebuConan(ConanFile):
     name = "cebu"
     version = "0.8.0"
-    description = "Advanced Simplicial Complex Library with spatial indexing, narrative-driven topology, and absurdity system"
-    homepage = "https://github.com/ceaserzhao/cebu"
+    description = "Advanced Simplicial Complex Library"
+    homepage = "https://github.com/yourusername/cebu"
     license = "MIT"
-    topics = ("simplicial-complex", "topology", "spatial-indexing", "narrative", "absurdity")
+    topics = ("simplicial-complex", "topology", "spatial-indexing", "narrative-topology")
     settings = "os", "compiler", "build_type", "arch"
     options = {
         "shared": [True, False],
         "fPIC": [True, False],
-        "with_zlib": [True, False]
+        "with_zlib": [True, False],
     }
     default_options = {
         "shared": False,
         "fPIC": True,
-        "with_zlib": False
+        "with_zlib": True,
     }
-    generators = "CMakeDeps", "VirtualBuildEnv"
+    generators = "CMakeDeps", "CMakeToolchain"
+    exports_sources = ["CMakeLists.txt", "include/*", "src/*", "cmake/*", "LICENSE"]
+
+    def requirements(self):
+        self.requires("nlohmann_json/3.11.2")
+        if self.options.with_zlib:
+            self.requires("zlib/1.2.13")
 
     def config_options(self):
         if self.settings.os == "Windows":
@@ -29,19 +34,9 @@ class CebuConan(ConanFile):
     def layout(self):
         cmake_layout(self)
 
-    def requirements(self):
-        if self.options.with_zlib:
-            self.requires("zlib/1.2.13")
-
-    def toolchain(self):
-        tc = CMakeToolchain(self)
-        tc.variables["CEBU_BUILD_TESTS"] = False
-        tc.variables["CEBU_BUILD_EXAMPLES"] = False
-        tc.variables["CEBU_WITH_ZLIB"] = self.options.with_zlib
-        tc.generate()
-
     def build(self):
         cmake = CMake(self)
+        # 使用toolchain文件来传递选项
         cmake.configure()
         cmake.build()
 
@@ -50,11 +45,7 @@ class CebuConan(ConanFile):
         cmake.install()
 
     def package_info(self):
-        self.cpp_info.set_property("cmake_file_name", "cebu")
-        self.cpp_info.set_property("cmake_target_name", "cebu::cebu_core")
         self.cpp_info.libs = ["cebu_core"]
+        self.cpp_info.includedirs = ["include"]
         if self.options.with_zlib:
-            self.cpp_info.requires = ["zlib::zlib"]
-
-    def export_sources(self):
-        self.copy("*", src="", dst=".")
+            self.cpp_info.defines = ["ZLIB_FOUND"]

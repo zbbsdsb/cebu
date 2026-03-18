@@ -1,0 +1,10 @@
+^E:\CEASERZHAO\CEBU\TEST_CMAKE_PACKAGE\CMAKEFILES\0963BEA241C92FBCA8F41A361F0394C7\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\bin\cmake.exe" -SE:/ceaserzhao/cebu/test_cmake_package -BE:/ceaserzhao/cebu/test_cmake_package --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file E:/ceaserzhao/cebu/test_cmake_package/test_cebu_package.slnx
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
