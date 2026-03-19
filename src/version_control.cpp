@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 #include "cebu/version_control.h"
 #include "cebu/json_serialization.h"
 #include <sstream>

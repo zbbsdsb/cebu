@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 // Minimal test to verify Phase 9a APIs actually work
 #include "cebu/absurdity.h"
 #include <iostream>
@@ -24,9 +26,9 @@ int main() {
         std::cout << "   a * b = " << product.to_string() << "\n";
         std::cout << "   a < b: " << (is_less ? "true" : "false") << "\n";
         std::cout << "   overlap: " << overlap << "\n";
-        std::cout << "   âœ“ PASS\n\n";
+        std::cout << "   âœ?PASS\n\n";
     } catch (...) {
-        std::cout << "   âœ— FAIL\n\n";
+        std::cout << "   âœ?FAIL\n\n";
         return 1;
     }
     
@@ -46,9 +48,9 @@ int main() {
         std::cout << "   initial: " << initial.to_string() << "\n";
         std::cout << "   after 1 step: " << next.to_string() << "\n";
         std::cout << "   trajectory size: " << trajectory.size() << "\n";
-        std::cout << "   âœ“ PASS\n\n";
+        std::cout << "   âœ?PASS\n\n";
     } catch (...) {
-        std::cout << "   âœ— FAIL\n\n";
+        std::cout << "   âœ?FAIL\n\n";
         return 1;
     }
     
@@ -65,9 +67,9 @@ int main() {
         
         std::cout << "   fused: " << fused.to_string() << "\n";
         std::cout << "   conflict: " << conflict << "\n";
-        std::cout << "   âœ“ PASS\n\n";
+        std::cout << "   âœ?PASS\n\n";
     } catch (...) {
-        std::cout << "   âœ— FAIL\n\n";
+        std::cout << "   âœ?FAIL\n\n";
         return 1;
     }
     
@@ -84,9 +86,9 @@ int main() {
         std::cout << "   comparison: " << result.explanation << "\n";
         std::cout << "   definitely less: " << (def_less ? "true" : "false") << "\n";
         std::cout << "   P(x < y): " << prob << "\n";
-        std::cout << "   âœ“ PASS\n\n";
+        std::cout << "   âœ?PASS\n\n";
     } catch (...) {
-        std::cout << "   âœ— FAIL\n\n";
+        std::cout << "   âœ?FAIL\n\n";
         return 1;
     }
     
@@ -106,9 +108,9 @@ int main() {
         std::cout << "   value at 2: " << val.to_string() << "\n";
         std::cout << "   high count: " << high.size() << "\n";
         std::cout << "   mean: " << mean.to_string() << "\n";
-        std::cout << "   âœ“ PASS\n\n";
+        std::cout << "   âœ?PASS\n\n";
     } catch (...) {
-        std::cout << "   âœ— FAIL\n\n";
+        std::cout << "   âœ?FAIL\n\n";
         return 1;
     }
     
@@ -123,9 +125,9 @@ int main() {
         
         std::cout << "   " << str << "\n";
         std::cout << "   is more absurd: " << (is_more ? "true" : "false") << "\n";
-        std::cout << "   âœ“ PASS\n\n";
+        std::cout << "   âœ?PASS\n\n";
     } catch (...) {
-        std::cout << "   âœ— FAIL\n\n";
+        std::cout << "   âœ?FAIL\n\n";
         return 1;
     }
     
@@ -143,9 +145,9 @@ int main() {
         std::cout << "   interpolated: " << interp.to_string() << "\n";
         std::cout << "   clamped: " << clamped.to_string() << "\n";
         std::cout << "   distance: " << dist << "\n";
-        std::cout << "   âœ“ PASS\n\n";
+        std::cout << "   âœ?PASS\n\n";
     } catch (...) {
-        std::cout << "   âœ— FAIL\n\n";
+        std::cout << "   âœ?FAIL\n\n";
         return 1;
     }
     

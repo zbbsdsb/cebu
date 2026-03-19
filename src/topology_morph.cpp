@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 #include "cebu/topology_morph.h"
 #include "cebu/topology_operations.h"
 #include <algorithm>

@@ -1,6 +1,25 @@
+<div align="center">
+
+![Cebu Logo](https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=minimalist%20modern%20logo%20for%20%22Cebu%22%20-%20advanced%20C%2B%2B%20simplicial%20complex%20library%2C%20geometric%20shapes%2C%20triangles%2C%20deep%20blue%20and%20cyan%20colors%2C%20professional%2C%20white%20background&image_size=square)
+
 # Cebu: Advanced Simplicial Complex Library
 
+[![GitHub release](https://img.shields.io/github/release/ceaserzhao/cebu.svg?style=flat-square)](https://github.com/ceaserzhao/cebu/releases)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/ceaserzhao/cebu/blob/main/LICENSE)
+[![C++20](https://img.shields.io/badge/C%2B%2B-20-blue.svg?style=flat-square)](https://en.cppreference.com/w/cpp/20)
+[![CMake](https://img.shields.io/badge/CMake-3.14%2B-blue.svg?style=flat-square)](https://cmake.org/)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/ceaserzhao/cebu/ci.yml?branch=main&style=flat-square)](https://github.com/ceaserzhao/cebu/actions)
+[![GitHub issues](https://img.shields.io/github/issues/ceaserzhao/cebu.svg?style=flat-square)](https://github.com/ceaserzhao/cebu/issues)
+[![GitHub stars](https://img.shields.io/github/stars/ceaserzhao/cebu.svg?style=flat-square)](https://github.com/ceaserzhao/cebu/stargazers)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg?style=flat-square)](CODE_OF_CONDUCT.md)
+
+</div>
+
 **Cebu** is a modern C++20 library for manipulating simplicial complexes with advanced features including spatial indexing, narrative-driven topology, persistent homology, and an enhanced absurdity system.
+
+---
+
+## ✨ Features
 
 ## Features
 
@@ -76,7 +95,7 @@ conan install --requires=cebu/1.0.0
 
 Download the precompiled binaries from the [GitHub Releases](https://github.com/yourusername/cebu/releases) page.
 
-### Basic Usage
+### 💻 Basic Usage
 
 #### Using CMake find_package()
 
@@ -232,9 +251,39 @@ int main() {
 
 MIT License. See [LICENSE](LICENSE) file for details.
 
+### Third-Party Licenses
+
+This project includes the following third-party software:
+- **nlohmann/json** - MIT License
+- **ZLIB** - ZLIB License (optional)
+
+See [NOTICE](NOTICE) file for full details.
+
+## Legal Disclaimer
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+## Trademark Notice
+
+The Cebu name and logo are trademarks of CeaserZhao (Oasis Company). The MIT License does not grant permission to use the trade names, trademarks, service marks, or product names of the Licensor, except as required for reasonable and customary use in describing the origin of the Work.
+
+## Security
+
+For security issues, please see our [Security Policy](SECURITY.md).
+
+## Code of Conduct
+
+This project adheres to a [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
+
 ## Contributing
 
-Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines. Please note that all contributions require a Developer Certificate of Origin (DCO) sign-off. See [DCO](DCO) for more details.
 
 ## Acknowledgments
 

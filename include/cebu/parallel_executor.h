@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 #pragma once
 
 #include <vector>
@@ -21,17 +23,14 @@ namespace cebu {
 enum class ParallelStrategy {
     Static,     ///< 静态分区，均匀分配
     Dynamic,    ///< 动态分区，工作窃取
-    Guided      ///< 引导式分区，递减块大小
-};
+    Guided      ///< 引导式分区，递减块大�?};
 
 /**
- * @brief 任务状态
- */
+ * @brief 任务状�? */
 enum class TaskStatus {
     Pending,    ///< 等待执行
     Running,    ///< 正在执行
-    Completed,  ///< 已完成
-    Failed      ///< 执行失败
+    Completed,  ///< 已完�?    Failed      ///< 执行失败
 };
 
 /**
@@ -93,23 +92,20 @@ private:
 };
 
 /**
- * @brief 并行执行器
- * 
+ * @brief 并行执行�? * 
  * 提供高效的并行任务执行能力，包括线程池、任务调度和并行算法
  */
 class ParallelExecutor {
 public:
     /**
      * @brief 构造并行执行器
-     * @param num_threads 工作线程数，0表示使用硬件并发数
-     * @param strategy 并行策略
+     * @param num_threads 工作线程数，0表示使用硬件并发�?     * @param strategy 并行策略
      */
     explicit ParallelExecutor(size_t num_threads = 0, 
                              ParallelStrategy strategy = ParallelStrategy::Dynamic);
     
     /**
-     * @brief 析构函数，等待所有任务完成
-     */
+     * @brief 析构函数，等待所有任务完�?     */
     ~ParallelExecutor();
     
     // 禁止拷贝
@@ -117,12 +113,11 @@ public:
     ParallelExecutor& operator=(const ParallelExecutor&) = delete;
     
     /**
-     * @brief 提交任务到队列
-     * @tparam F 函数类型
+     * @brief 提交任务到队�?     * @tparam F 函数类型
      * @tparam Args 参数类型
      * @param f 函数
      * @param args 参数
-     * @return 任务的 Future 对象
+     * @return 任务�?Future 对象
      */
     template<typename F, typename... Args>
     auto enqueue(F&& f, Args&&... args) 
@@ -130,13 +125,9 @@ public:
     
     /**
      * @brief 并行 for 循环
-     * @tparam Iterator 迭代器类型
-     * @tparam Function 函数类型
-     * @param begin 起始迭代器
-     * @param end 结束迭代器
-     * @param func 函数
-     * @param chunk_size 分块大小（0表示自动）
-     */
+     * @tparam Iterator 迭代器类�?     * @tparam Function 函数类型
+     * @param begin 起始迭代�?     * @param end 结束迭代�?     * @param func 函数
+     * @param chunk_size 分块大小�?表示自动�?     */
     template<typename Iterator, typename Function>
     void parallel_for(Iterator begin, Iterator end, 
                      Function&& func, 
@@ -157,14 +148,10 @@ public:
     
     /**
      * @brief 并行归约
-     * @tparam Iterator 迭代器类型
-     * @tparam Function 归约函数类型
+     * @tparam Iterator 迭代器类�?     * @tparam Function 归约函数类型
      * @tparam T 结果类型
-     * @param begin 起始迭代器
-     * @param end 结束迭代器
-     * @param func 归约函数
-     * @param init 初始值
-     * @return 归约结果
+     * @param begin 起始迭代�?     * @param end 结束迭代�?     * @param func 归约函数
+     * @param init 初始�?     * @return 归约结果
      */
     template<typename Iterator, typename Function, typename T>
     T parallel_reduce(Iterator begin, Iterator end,
@@ -173,13 +160,8 @@ public:
     
     /**
      * @brief 并行映射
-     * @tparam Iterator 输入迭代器类型
-     * @tparam OutputIterator 输出迭代器类型
-     * @tparam Function 映射函数类型
-     * @param begin 起始迭代器
-     * @param end 结束迭代器
-     * @param out 输出迭代器
-     * @param func 映射函数
+     * @tparam Iterator 输入迭代器类�?     * @tparam OutputIterator 输出迭代器类�?     * @tparam Function 映射函数类型
+     * @param begin 起始迭代�?     * @param end 结束迭代�?     * @param out 输出迭代�?     * @param func 映射函数
      */
     template<typename Iterator, typename OutputIterator, typename Function>
     void parallel_map(Iterator begin, Iterator end,
@@ -187,20 +169,17 @@ public:
                      Function&& func);
     
     /**
-     * @brief 等待所有任务完成
-     */
+     * @brief 等待所有任务完�?     */
     void wait_for_all();
     
     /**
-     * @brief 获取活动任务数
-     */
+     * @brief 获取活动任务�?     */
     size_t active_tasks() const {
         return active_tasks_.load(std::memory_order_relaxed);
     }
     
     /**
-     * @brief 获取线程数
-     */
+     * @brief 获取线程�?     */
     size_t thread_count() const {
         return workers_.size();
     }
@@ -213,14 +192,12 @@ public:
     }
     
     /**
-     * @brief 关闭线程池
-     */
+     * @brief 关闭线程�?     */
     void shutdown();
 
 private:
     /**
-     * @brief 工作线程主函数
-     */
+     * @brief 工作线程主函�?     */
     void worker_thread();
     
     /**
@@ -401,8 +378,7 @@ void ParallelExecutor::parallel_map(Iterator begin, Iterator end,
 }
 
 /**
- * @brief 全局并行执行器实例
- * 
+ * @brief 全局并行执行器实�? * 
  * 提供便捷的全局访问接口
  */
 class GlobalParallelExecutor {

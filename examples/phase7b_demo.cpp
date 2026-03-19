@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 #include "cebu/json_serialization.h"
 #include "cebu/change_tracker.h"
 #include "cebu/snapshot_manager.h"
@@ -153,14 +155,14 @@ int main() {
 
         std::cout << "\n========== All Phase 7b Tests PASSED! ==========" << std::endl;
         std::cout << "\nPhase 7b Features Verified:" << std::endl;
-        std::cout << "  ✓ JSON Serialization" << std::endl;
-        std::cout << "  ✓ Change Tracking" << std::endl;
-        std::cout << "  ✓ Snapshot Management" << std::endl;
-        std::cout << "  ✓ Version Control" << std::endl;
-        std::cout << "  ✓ Persistence (Save/Load)" << std::endl;
-        std::cout << "  ✓ Streaming I/O (header included)" << std::endl;
-        std::cout << "  ✓ Compression (header included)" << std::endl;
-        std::cout << "\n颠覆性产品 CEBU Phase 7b 已就绪！🚀\n" << std::endl;
+        std::cout << "  �?JSON Serialization" << std::endl;
+        std::cout << "  �?Change Tracking" << std::endl;
+        std::cout << "  �?Snapshot Management" << std::endl;
+        std::cout << "  �?Version Control" << std::endl;
+        std::cout << "  �?Persistence (Save/Load)" << std::endl;
+        std::cout << "  �?Streaming I/O (header included)" << std::endl;
+        std::cout << "  �?Compression (header included)" << std::endl;
+        std::cout << "\n颠覆性产�?CEBU Phase 7b 已就绪！🚀\n" << std::endl;
 
         return 0;
     } catch (const std::exception& e) {

@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 #ifndef CEBU_SIMPLICIAL_COMPLEX_NARRATIVE_H
 #define CEBU_SIMPLICIAL_COMPLEX_NARRATIVE_H
 

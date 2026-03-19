@@ -1,0 +1,29 @@
+name: Benchmark
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * 0'  # Weekly on Sunday
+  workflow_dispatch:
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build benchmarks
+      run: |
+        mkdir build && cd build
+        cmake .. -DCMAKE_BUILD_TYPE=Release -DCEBU_BUILD_BENCHMARKS=ON
+        cmake --build . --config Release
+    - name: Run benchmarks
+      run: |
+        cd build
+        ./cebu_benchmark
+    - name: Compare performance
+      run: |
+        # Add performance comparison logic here
+        echo "Comparing performance..."

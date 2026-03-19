@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 #ifndef CEBU_TOPOLOGY_OPERATIONS_H
 #define CEBU_TOPOLOGY_OPERATIONS_H
 

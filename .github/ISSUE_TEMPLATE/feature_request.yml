@@ -1,0 +1,91 @@
+name: ✨ Feature Request
+description: Suggest a new feature or enhancement
+title: "[Feature] "
+labels: ["enhancement", "triage"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to suggest a new feature! Please fill out the following information.
+
+  - type: checkboxes
+    id: prerequisites
+    attributes:
+      label: Prerequisites
+      description: Please check the following before submitting a feature request.
+      options:
+        - label: I have searched the existing issues to make sure this feature has not been requested yet
+          required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Is your feature request related to a problem?
+      description: A clear and concise description of what the problem is.
+      placeholder: "I'm always frustrated when..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Describe the solution you'd like
+      description: A clear and concise description of what you want to happen.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Describe alternatives you've considered
+      description: A clear and concise description of any alternative solutions or features you've considered.
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: How important is this feature to you?
+      options:
+        - Low - nice to have
+        - Medium - would make my life easier
+        - High - can't use Cebu without this
+        - Critical - blocking my work
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Feature Area
+      description: Which area of Cebu does this feature relate to?
+      multiple: true
+      options:
+        - Core Topology
+        - Spatial Indexing (BVH/Octree)
+        - Label System
+        - Narrative Topology
+        - Non-Hausdorff Topology
+        - Adaptive Refinement
+        - Version Control
+        - Event System
+        - Absurdity System
+        - Serialization
+        - Documentation
+        - Build System
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: example
+    attributes:
+      label: Example Usage (optional)
+      description: If possible, provide an example of how this feature would be used.
+      render: cpp
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Is there anything else we should know? Add any other context or screenshots about the feature request here.

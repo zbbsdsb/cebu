@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 #include "cebu/persistence.h"
 #include "cebu/refinement.h"
 #include "cebu/simplicial_complex_narrative.h"
@@ -44,7 +46,7 @@ void test_basic_save_load() {
     assert(result.complex.get_simplices_of_dimension(1).size() == 2);
     assert(result.complex.get_simplices_of_dimension(2).size() == 1);
 
-    std::cout << "âœ“ Basic save/load passed" << std::endl;
+    std::cout << "âœ?Basic save/load passed" << std::endl;
 }
 
 void test_labeled_save_load() {
@@ -81,7 +83,7 @@ void test_labeled_save_load() {
     assert(label_edge.has_value());
     assert(std::abs(*label_edge - 0.9) < 0.0001);
 
-    std::cout << "âœ“ Labeled save/load passed" << std::endl;
+    std::cout << "âœ?Labeled save/load passed" << std::endl;
 }
 
 void test_narrative_save_load() {
@@ -132,7 +134,7 @@ void test_narrative_save_load() {
     assert(event.description == "Twist");
     assert(std::abs(event.impact.surprisal - 0.8) < 0.0001);
 
-    std::cout << "âœ“ Narrative save/load passed" << std::endl;
+    std::cout << "âœ?Narrative save/load passed" << std::endl;
 }
 
 void test_refinement_save_load() {
@@ -164,7 +166,7 @@ void test_refinement_save_load() {
     auto level = result.complex.get_refinement_level(tri);
     assert(level == 2);
 
-    std::cout << "âœ“ Refinement save/load passed" << std::endl;
+    std::cout << "âœ?Refinement save/load passed" << std::endl;
 }
 
 void test_format_detection() {
@@ -177,7 +179,7 @@ void test_format_detection() {
     assert(Persistence::detect_format("test.JSON") == FileFormat::JSON);
     assert(Persistence::detect_format("test") == FileFormat::BINARY); // Default
 
-    std::cout << "âœ“ Format detection passed" << std::endl;
+    std::cout << "âœ?Format detection passed" << std::endl;
 }
 
 void test_get_metadata() {
@@ -203,7 +205,7 @@ void test_get_metadata() {
 
     std::filesystem::remove("test_metadata.bin");
 
-    std::cout << "âœ“ Get metadata passed" << std::endl;
+    std::cout << "âœ?Get metadata passed" << std::endl;
 }
 
 void test_validate_file() {
@@ -232,7 +234,7 @@ void test_validate_file() {
     std::filesystem::remove("test_validate.bin");
     std::filesystem::remove("invalid.bin");
 
-    std::cout << "âœ“ Validate file passed" << std::endl;
+    std::cout << "âœ?Validate file passed" << std::endl;
 }
 
 void test_large_complex() {
@@ -284,7 +286,7 @@ void test_large_complex() {
 
     std::filesystem::remove("test_large.bin");
 
-    std::cout << "âœ“ Large complex save/load passed" << std::endl;
+    std::cout << "âœ?Large complex save/load passed" << std::endl;
 }
 
 void test_error_handling() {
@@ -301,7 +303,7 @@ void test_error_handling() {
     auto result_labeled = Persistence::load_labeled<double>("nonexistent.bin");
     assert(!result_labeled.success);
 
-    std::cout << "âœ“ Error handling passed" << std::endl;
+    std::cout << "âœ?Error handling passed" << std::endl;
 }
 
 int main() {
@@ -324,7 +326,7 @@ int main() {
 
         std::cout << std::endl;
         std::cout << "=====================================" << std::endl;
-        std::cout << "All persistence tests passed! âœ…" << std::endl;
+        std::cout << "All persistence tests passed! âœ? << std::endl;
         std::cout << "=====================================" << std::endl;
 
         return 0;

@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 #ifndef CEBU_REFINEMENT_H
 #define CEBU_REFINEMENT_H
 

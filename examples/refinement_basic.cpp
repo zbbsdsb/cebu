@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 // Basic Refinement Example for Cebu Library
 // This example demonstrates basic edge and triangle refinement operations
 

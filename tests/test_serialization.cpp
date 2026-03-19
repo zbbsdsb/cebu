@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 #include "cebu/json_serialization.h"
 #include "cebu/simplicial_complex_labeled.h"
 #include "cebu/simplicial_complex_narrative.h"

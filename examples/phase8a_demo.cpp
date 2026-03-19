@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 /**
  * Phase 8a Demo: BVH (Bounding Volume Hierarchy) Demo
  *

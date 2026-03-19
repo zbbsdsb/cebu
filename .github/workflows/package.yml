@@ -1,0 +1,72 @@
+name: Package
+
+on:
+  release:
+    types: [ created ]
+  workflow_dispatch:
+
+jobs:
+  package:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up CMake
+      uses: actions/setup-cmake@v4
+      with:
+        cmake-version: '3.14'
+
+    - name: Configure CMake
+      run: |
+        cmake -B build -DCMAKE_BUILD_TYPE=Release
+
+    - name: Build
+      run: |
+        cmake --build build --config Release
+
+    - name: Install
+      run: |
+        cmake --install build --prefix ./install
+
+    - name: Create package
+      run: |
+        if [ "${{ matrix.os }}" = "windows-latest" ]; then
+          7z a cebu-${{ github.ref_name }}-windows-x64.zip ./install/*
+        elif [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
+          tar -czf cebu-${{ github.ref_name }}-ubuntu-x64.tar.gz ./install/*
+        elif [ "${{ matrix.os }}" = "macos-latest" ]; then
+          tar -czf cebu-${{ github.ref_name }}-macos-x64.tar.gz ./install/*
+        fi
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: cebu-${{ matrix.os }}-x64
+        path: |
+          cebu-*.zip
+          cebu-*.tar.gz
+
+  release:
+    needs: package
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/download-artifact@v4
+      with:
+        path: ./artifacts
+
+    - name: List artifacts
+      run: ls -la ./artifacts
+
+    - name: Upload release assets
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          ./artifacts/**/cebu-*.zip
+          ./artifacts/**/cebu-*.tar.gz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

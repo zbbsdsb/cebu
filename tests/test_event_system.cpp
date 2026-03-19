@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 #include "cebu/event_system.h"
 #include "cebu/simplicial_complex_labeled_events.h"
 #include <cassert>
@@ -64,7 +66,7 @@ void test_event_system_basic() {
     events.trigger_event(event);
     assert(callback_count == 1);
 
-    std::cout << "  âœ“ Basic event system operations work\n\n";
+    std::cout << "  âœ?Basic event system operations work\n\n";
 }
 
 void test_event_system_multiple_callbacks() {
@@ -94,7 +96,7 @@ void test_event_system_multiple_callbacks() {
     assert(events.callback_count(EventType::ON_REMOVE_SIMPLEX) == 3);
     assert(events.has_callbacks(EventType::ON_REMOVE_SIMPLEX));
 
-    std::cout << "  âœ“ Multiple callbacks work correctly\n\n";
+    std::cout << "  âœ?Multiple callbacks work correctly\n\n";
 }
 
 void test_event_system_batching() {
@@ -125,7 +127,7 @@ void test_event_system_batching() {
     // Now all events should be executed
     assert(count == 5);
 
-    std::cout << "  âœ“ Event batching works correctly\n\n";
+    std::cout << "  âœ?Event batching works correctly\n\n";
 }
 
 void test_event_system_enable_disable() {
@@ -152,7 +154,7 @@ void test_event_system_enable_disable() {
 
     assert(count == 1);
 
-    std::cout << "  âœ“ Enable/disable works correctly\n\n";
+    std::cout << "  âœ?Enable/disable works correctly\n\n";
 }
 
 void test_labeled_complex_events() {
@@ -202,7 +204,7 @@ void test_labeled_complex_events() {
     complex.remove_label(tri);
     assert(label_change_count == 4); // +1 for label removal
 
-    std::cout << "  âœ“ Labeled complex events work correctly\n\n";
+    std::cout << "  âœ?Labeled complex events work correctly\n\n";
 }
 
 void test_generic_callbacks() {
@@ -231,7 +233,7 @@ void test_generic_callbacks() {
     assert(generic_count == 1);
     assert(typed_count == 1);
 
-    std::cout << "  âœ“ Generic callbacks work correctly\n\n";
+    std::cout << "  âœ?Generic callbacks work correctly\n\n";
 }
 
 void test_clear_callbacks() {
@@ -261,7 +263,7 @@ void test_clear_callbacks() {
     assert(events.callback_count(EventType::ON_ADD_SIMPLEX) == 0);
     assert(events.callback_count(EventType::ON_REMOVE_SIMPLEX) == 0);
 
-    std::cout << "  âœ“ Clear callbacks works correctly\n\n";
+    std::cout << "  âœ?Clear callbacks works correctly\n\n";
 }
 
 void test_topology_change_events() {
@@ -282,7 +284,7 @@ void test_topology_change_events() {
 
     assert(topology_change_count == 2);
 
-    std::cout << "  âœ“ Topology change events work correctly\n\n";
+    std::cout << "  âœ?Topology change events work correctly\n\n";
 }
 
 void test_refinement_events() {
@@ -309,7 +311,7 @@ void test_refinement_events() {
     assert(refine_begin_count == 1);
     assert(refine_end_count == 1);
 
-    std::cout << "  âœ“ Refinement events work correctly\n\n";
+    std::cout << "  âœ?Refinement events work correctly\n\n";
 }
 
 void test_coarsening_events() {
@@ -336,7 +338,7 @@ void test_coarsening_events() {
     assert(coarsen_begin_count == 1);
     assert(coarsen_end_count == 1);
 
-    std::cout << "  âœ“ Coarsening events work correctly\n\n";
+    std::cout << "  âœ?Coarsening events work correctly\n\n";
 }
 
 void test_glue_separate_events() {
@@ -364,7 +366,7 @@ void test_glue_separate_events() {
     complex.notify_separate(10, 20, "Separated vertices");
     assert(separate_count == 1);
 
-    std::cout << "  âœ“ Glue/separate events work correctly\n\n";
+    std::cout << "  âœ?Glue/separate events work correctly\n\n";
 }
 
 void test_morph_events() {
@@ -391,7 +393,7 @@ void test_morph_events() {
     assert(morph_begin_count == 1);
     assert(morph_end_count == 1);
 
-    std::cout << "  âœ“ Morph events work correctly\n\n";
+    std::cout << "  âœ?Morph events work correctly\n\n";
 }
 
 void test_event_data_structures() {
@@ -450,7 +452,7 @@ void test_event_data_structures() {
     assert(std::string(event_type_to_string(EventType::ON_REMOVE_SIMPLEX)) == "ON_REMOVE_SIMPLEX");
     assert(std::string(event_type_to_string(EventType::ON_LABEL_CHANGE)) == "ON_LABEL_CHANGE");
 
-    std::cout << "  âœ“ Event data structures work correctly\n\n";
+    std::cout << "  âœ?Event data structures work correctly\n\n";
 }
 
 void test_event_system_string_labels() {
@@ -473,7 +475,7 @@ void test_event_system_string_labels() {
 
     assert(captured_label == "test_label");
 
-    std::cout << "  âœ“ Event system works with string labels\n\n";
+    std::cout << "  âœ?Event system works with string labels\n\n";
 }
 
 int main() {

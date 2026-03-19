@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 #include "cebu/refinement.h"
 #include "cebu/serialization.h"
 #include <iostream>
@@ -41,7 +43,7 @@ void test_edge_refinement() {
     assert(complex.has_label(children[0]));
     assert(complex.has_label(children[1]));
     
-    std::cout << "âœ“ Edge refinement passed" << std::endl;
+    std::cout << "âœ?Edge refinement passed" << std::endl;
 }
 
 void test_triangle_refinement() {
@@ -81,7 +83,7 @@ void test_triangle_refinement() {
         assert(complex.has_label(child));
     }
     
-    std::cout << "âœ“ Triangle refinement passed" << std::endl;
+    std::cout << "âœ?Triangle refinement passed" << std::endl;
 }
 
 void test_refinement_levels() {
@@ -112,7 +114,7 @@ void test_refinement_levels() {
     auto level1_simplices = complex.get_simplices_at_level(1);
     assert(level1_simplices.size() == 4);
     
-    std::cout << "âœ“ Refinement levels passed" << std::endl;
+    std::cout << "âœ?Refinement levels passed" << std::endl;
 }
 
 void test_edge_coarsening() {
@@ -145,7 +147,7 @@ void test_edge_coarsening() {
     assert(complex.vertex_count() == 2);
     assert(complex.get_simplices_of_dimension(1).size() == 1);
     
-    std::cout << "âœ“ Edge coarsening passed" << std::endl;
+    std::cout << "âœ?Edge coarsening passed" << std::endl;
 }
 
 void test_triangle_coarsening() {
@@ -154,7 +156,7 @@ void test_triangle_coarsening() {
     // TODO: Fix coarsen_triangle method
     std::cout << "âš ï¸  Triangle coarsening test skipped - method needs fix" << std::endl;
     
-    std::cout << "âœ“ Triangle coarsening passed" << std::endl;
+    std::cout << "âœ?Triangle coarsening passed" << std::endl;
 }
 
 void test_max_level_limit() {
@@ -187,7 +189,7 @@ void test_max_level_limit() {
     auto result3 = complex.refine_triangle(grandchild, options);
     assert(result3.new_simplices_count == 0);
     
-    std::cout << "âœ“ Max level limit passed" << std::endl;
+    std::cout << "âœ?Max level limit passed" << std::endl;
 }
 
 void test_label_inheritance_strategies() {
@@ -212,7 +214,7 @@ void test_label_inheritance_strategies() {
         assert(std::abs(complex.get_label(child).value() - 1.0) < 0.001);
     }
     
-    std::cout << "âœ“ Label inheritance strategies passed" << std::endl;
+    std::cout << "âœ?Label inheritance strategies passed" << std::endl;
 }
 
 void test_custom_label_function() {
@@ -239,7 +241,7 @@ void test_custom_label_function() {
     assert(std::abs(complex.get_label(children[0]).value() - 10.0) < 0.001);
     assert(std::abs(complex.get_label(children[1]).value() - 5.0) < 0.001);
     
-    std::cout << "âœ“ Custom label function passed" << std::endl;
+    std::cout << "âœ?Custom label function passed" << std::endl;
 }
 
 void test_adaptive_refinement() {
@@ -275,7 +277,7 @@ void test_adaptive_refinement() {
     // Should have refined 2 edges
     assert(result.original_to_children.size() == 2);
     
-    std::cout << "âœ“ Adaptive refinement passed" << std::endl;
+    std::cout << "âœ?Adaptive refinement passed" << std::endl;
 }
 
 void test_refinement_result_tracking() {
@@ -304,7 +306,7 @@ void test_refinement_result_tracking() {
     assert(result.original_to_children.size() == 2);
     assert(result.new_vertex_parent_edge.size() == 1);
     
-    std::cout << "âœ“ Refinement result tracking passed" << std::endl;
+    std::cout << "âœ?Refinement result tracking passed" << std::endl;
 }
 
 void test_region_coarsening() {
@@ -343,7 +345,7 @@ void test_region_coarsening() {
     // One of the refined edges should be coarsened
     assert(coarsened >= 1);
     
-    std::cout << "âœ“ Region coarsening passed" << std::endl;
+    std::cout << "âœ?Region coarsening passed" << std::endl;
 }
 
 int main() {
@@ -364,7 +366,7 @@ int main() {
         
         std::cout << std::endl;
         std::cout << "=====================================" << std::endl;
-        std::cout << "All refinement tests passed! âœ…" << std::endl;
+        std::cout << "All refinement tests passed! âœ? << std::endl;
         std::cout << "=====================================" << std::endl;
         
         return 0;

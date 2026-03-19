@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 #include "cebu/equivalence_classes.h"
 #include <cassert>
 #include <iostream>
@@ -30,7 +32,7 @@ void test_equivalence_class_basic() {
     removed = ec.remove_member(999);
     assert(!removed);
 
-    std::cout << "âœ“ EquivalenceClass basic operations passed" << std::endl;
+    std::cout << "âœ?EquivalenceClass basic operations passed" << std::endl;
 }
 
 void test_equivalence_class_representative_change() {
@@ -55,7 +57,7 @@ void test_equivalence_class_representative_change() {
     }
     assert(caught);
 
-    std::cout << "âœ“ EquivalenceClass representative change passed" << std::endl;
+    std::cout << "âœ?EquivalenceClass representative change passed" << std::endl;
 }
 
 void test_manager_add_simplex() {
@@ -72,7 +74,7 @@ void test_manager_add_simplex() {
     manager.add_simplex(102);
     assert(manager.class_count() == 3);
 
-    std::cout << "âœ“ add_simplex passed" << std::endl;
+    std::cout << "âœ?add_simplex passed" << std::endl;
 }
 
 void test_manager_find() {
@@ -86,7 +88,7 @@ void test_manager_find() {
     // Test non-existent simplex returns itself
     assert(manager.find_representative(999) == 999);
 
-    std::cout << "âœ“ find passed" << std::endl;
+    std::cout << "âœ?find passed" << std::endl;
 }
 
 void test_manager_glue_basic() {
@@ -110,7 +112,7 @@ void test_manager_glue_basic() {
     // Both should have same representative
     assert(manager.find_representative(100) == manager.find_representative(101));
 
-    std::cout << "âœ“ glue (basic) passed" << std::endl;
+    std::cout << "âœ?glue (basic) passed" << std::endl;
 }
 
 void test_manager_glue_three_way() {
@@ -135,7 +137,7 @@ void test_manager_glue_three_way() {
     assert(cls[0] == 101 || cls[1] == 101 || cls[2] == 101);
     assert(cls[0] == 102 || cls[1] == 102 || cls[2] == 102);
 
-    std::cout << "âœ“ glue (three-way) passed" << std::endl;
+    std::cout << "âœ?glue (three-way) passed" << std::endl;
 }
 
 void test_manager_separate() {
@@ -167,7 +169,7 @@ void test_manager_separate() {
     separated = manager.separate(101);
     assert(!separated);
 
-    std::cout << "âœ“ separate passed" << std::endl;
+    std::cout << "âœ?separate passed" << std::endl;
 }
 
 void test_manager_remove_simplex() {
@@ -192,7 +194,7 @@ void test_manager_remove_simplex() {
     assert(manager.are_glued(100, 102));
     assert(manager.class_size(100) == 2);
 
-    std::cout << "âœ“ remove_simplex passed" << std::endl;
+    std::cout << "âœ?remove_simplex passed" << std::endl;
 }
 
 void test_manager_get_all_classes() {
@@ -225,7 +227,7 @@ void test_manager_get_all_classes() {
     }
     assert(found_first && found_second);
 
-    std::cout << "âœ“ get_all_classes passed" << std::endl;
+    std::cout << "âœ?get_all_classes passed" << std::endl;
 }
 
 void test_manager_path_compression() {
@@ -254,7 +256,7 @@ void test_manager_path_compression() {
         assert(manager.find_representative(i % 10) == rep);
     }
 
-    std::cout << "âœ“ path compression passed" << std::endl;
+    std::cout << "âœ?path compression passed" << std::endl;
 }
 
 void test_manager_clear() {
@@ -273,7 +275,7 @@ void test_manager_clear() {
     assert(manager.class_count() == 0);
     assert(manager.class_size(100) == 1); // Non-existent simplex returns 1
 
-    std::cout << "âœ“ clear passed" << std::endl;
+    std::cout << "âœ?clear passed" << std::endl;
 }
 
 void test_edge_cases() {
@@ -296,7 +298,7 @@ void test_edge_cases() {
     // Remove non-existent simplex (should not crash)
     manager.remove_simplex(999);
 
-    std::cout << "âœ“ edge cases passed" << std::endl;
+    std::cout << "âœ?edge cases passed" << std::endl;
 }
 
 int main() {

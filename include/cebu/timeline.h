@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 #ifndef CEBU_TIMELINE_H
 #define CEBU_TIMELINE_H
 

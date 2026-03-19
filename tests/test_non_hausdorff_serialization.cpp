@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 #include "cebu/simplicial_complex_non_hausdorff.h"
 #include "cebu/json_serialization.h"
 #include "cebu/persistence.h"
@@ -31,7 +33,7 @@ void test_equivalence_classes_json() {
     // Note: JsonSerializer::serialize_equivalence_classes not implemented yet
     std::cout << "  Equivalence classes serialization: implementation pending\n";
     
-    std::cout << "  âœ“ Equivalence classes JSON serialization test passed\n\n";
+    std::cout << "  âœ?Equivalence classes JSON serialization test passed\n\n";
 }
 
 void test_non_hausdorff_json() {
@@ -59,7 +61,7 @@ void test_non_hausdorff_json() {
     // Note: JsonSerializer::serialize_non_hausdorff not implemented yet
     std::cout << "  Non-Hausdorff JSON serialization: implementation pending\n";
     
-    std::cout << "  âœ“ Non-Hausdorff complex JSON serialization test passed\n\n";
+    std::cout << "  âœ?Non-Hausdorff complex JSON serialization test passed\n\n";
 }
 
 void test_non_hausdorff_labeled_json() {
@@ -90,7 +92,7 @@ void test_non_hausdorff_labeled_json() {
     // Note: JsonSerializer::serialize_non_hausdorff_labeled not implemented yet
     std::cout << "  Non-Hausdorff labeled JSON serialization: implementation pending\n";
     
-    std::cout << "  âœ“ Non-Hausdorff labeled complex JSON serialization test passed\n\n";
+    std::cout << "  âœ?Non-Hausdorff labeled complex JSON serialization test passed\n\n";
 }
 
 void test_non_hausdorff_binary_serialization() {
@@ -126,7 +128,7 @@ void test_non_hausdorff_binary_serialization() {
     // Note: This requires adding equivalence classes serialization to BinarySerializer
     // For now, we'll just test the structure
     
-    std::cout << "  âœ“ Non-Hausdorff binary serialization test passed\n\n";
+    std::cout << "  âœ?Non-Hausdorff binary serialization test passed\n\n";
 }
 
 void test_glue_history() {
@@ -150,7 +152,7 @@ void test_glue_history() {
     // The glue history should be preserved in serialization
     // This would require extending the serialization format
     
-    std::cout << "  âœ“ Glue history test passed\n\n";
+    std::cout << "  âœ?Glue history test passed\n\n";
 }
 
 void test_separate_operation() {
@@ -172,7 +174,7 @@ void test_separate_operation() {
     assert(!complex.are_glued(v0, v1));
     std::cout << "  Separated v0 ~ v1\n";
     
-    std::cout << "  âœ“ Separate operation test passed\n\n";
+    std::cout << "  âœ?Separate operation test passed\n\n";
 }
 
 void test_complex_non_hausdorff_scenario() {
@@ -217,7 +219,7 @@ void test_complex_non_hausdorff_scenario() {
     // Note: JsonSerializer::serialize_non_hausdorff_labeled not implemented yet
     std::cout << "  Complex non-Hausdorff JSON serialization: implementation pending\n";
     
-    std::cout << "  âœ“ Complex non-Hausdorff scenario test passed\n\n";
+    std::cout << "  âœ?Complex non-Hausdorff scenario test passed\n\n";
 }
 
 void test_equivalence_query_after_serialization() {
@@ -253,7 +255,7 @@ void test_equivalence_query_after_serialization() {
     std::cout << "  Equivalence queries after serialization: " 
               << "implementation pending\n";
     
-    std::cout << "  âœ“ Equivalence query test passed\n\n";
+    std::cout << "  âœ?Equivalence query test passed\n\n";
 }
 
 int main() {

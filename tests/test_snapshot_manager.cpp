@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 #include <cebu/snapshot_manager.h>
 #include <fstream>
 #include <cassert>
@@ -55,7 +57,7 @@ void test_create_snapshot() {
     assert(test.manager->get_snapshot_count() == 2);
     assert(test.manager->has_snapshot("version1"));
     
-    std::cout << "âœ“ Create snapshot test passed" << std::endl;
+    std::cout << "âœ?Create snapshot test passed" << std::endl;
 }
 
 // 2. Create labeled snapshot test
@@ -85,7 +87,7 @@ void test_create_labeled_snapshot() {
     assert(restored.vertex_count() == labeled.vertex_count());
     assert(restored.simplex_count() == labeled.simplex_count());
     
-    std::cout << "âœ“ Create labeled snapshot test passed" << std::endl;
+    std::cout << "âœ?Create labeled snapshot test passed" << std::endl;
 }
 
 // 3. List snapshots test
@@ -114,7 +116,7 @@ void test_list_snapshots() {
         assert(found && "Snapshot not found");
     }
     
-    std::cout << "âœ“ List snapshots test passed" << std::endl;
+    std::cout << "âœ?List snapshots test passed" << std::endl;
 }
 
 // 4. Get snapshot test
@@ -134,7 +136,7 @@ void test_get_snapshot() {
 
     assert(null_snapshot == nullptr);
     
-    std::cout << "âœ“ Get snapshot test passed" << std::endl;
+    std::cout << "âœ?Get snapshot test passed" << std::endl;
 }
 
 // 5. Restore snapshot test
@@ -157,7 +159,7 @@ void test_restore_snapshot() {
 
     assert(vertex_count_before < vertex_count_after);
     
-    std::cout << "âœ“ Restore snapshot test passed" << std::endl;
+    std::cout << "âœ?Restore snapshot test passed" << std::endl;
 }
 
 // 6. Delete snapshot test
@@ -181,7 +183,7 @@ void test_delete_snapshot() {
     bool deleted_again = test.manager->delete_snapshot("non_existent");
     assert(!deleted_again);
     
-    std::cout << "âœ“ Delete snapshot test passed" << std::endl;
+    std::cout << "âœ?Delete snapshot test passed" << std::endl;
 }
 
 // 7. Compare snapshots test
@@ -205,7 +207,7 @@ void test_compare_snapshots() {
     // Should have some changes (simplified test)
     assert(changes.size() >= 0);
     
-    std::cout << "âœ“ Compare snapshots test passed" << std::endl;
+    std::cout << "âœ?Compare snapshots test passed" << std::endl;
 }
 
 // 8. Persistence test
@@ -231,7 +233,7 @@ void test_persistence() {
     assert(new_manager.has_snapshot("persistent1"));
     assert(new_manager.has_snapshot("persistent2"));
     
-    std::cout << "âœ“ Persistence test passed" << std::endl;
+    std::cout << "âœ?Persistence test passed" << std::endl;
 }
 
 // 9. Compression test
@@ -264,7 +266,7 @@ void test_compression() {
     assert(restored_uncompressed.vertex_count() == restored_compressed.vertex_count());
     assert(restored_uncompressed.simplex_count() == restored_compressed.simplex_count());
     
-    std::cout << "âœ“ Compression test passed" << std::endl;
+    std::cout << "âœ?Compression test passed" << std::endl;
 }
 
 // 10. Snapshot metadata test
@@ -287,7 +289,7 @@ void test_snapshot_metadata() {
     assert(metadata.vertex_count == test.complex.vertex_count());
     assert(metadata.max_dimension == test.complex.max_dimension());
     
-    std::cout << "âœ“ Snapshot metadata test passed" << std::endl;
+    std::cout << "âœ?Snapshot metadata test passed" << std::endl;
 }
 
 // 11. Clear snapshots test
@@ -309,7 +311,7 @@ void test_clear_snapshots() {
     assert(!test.manager->has_snapshot("snap2"));
     assert(!test.manager->has_snapshot("snap3"));
     
-    std::cout << "âœ“ Clear snapshots test passed" << std::endl;
+    std::cout << "âœ?Clear snapshots test passed" << std::endl;
 }
 
 // 12. Duplicate snapshot name test
@@ -327,7 +329,7 @@ void test_duplicate_snapshot_name() {
     }
     assert(threw);
     
-    std::cout << "âœ“ Duplicate snapshot name test passed" << std::endl;
+    std::cout << "âœ?Duplicate snapshot name test passed" << std::endl;
 }
 
 // 13. Get total size test
@@ -348,7 +350,7 @@ void test_get_total_size() {
         assert(total_compressed <= total_uncompressed);
     }
     
-    std::cout << "âœ“ Get total size test passed" << std::endl;
+    std::cout << "âœ?Get total size test passed" << std::endl;
 }
 
 // 14. Multiple snapshots test
@@ -368,7 +370,7 @@ void test_multiple_snapshots() {
     auto snapshots = test.manager->list_snapshots();
     assert(snapshots.size() == NUM_SNAPSHOTS);
     
-    std::cout << "âœ“ Multiple snapshots test passed" << std::endl;
+    std::cout << "âœ?Multiple snapshots test passed" << std::endl;
 }
 
 int main() {

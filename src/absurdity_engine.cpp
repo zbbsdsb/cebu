@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 #include "cebu/absurdity_engine.h"
 #include <unordered_map>
 #include <unordered_set>

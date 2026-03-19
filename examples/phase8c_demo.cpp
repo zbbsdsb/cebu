@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 /**
  * @file phase8c_demo.cpp
  * @brief Phase 8c - 并行执行演示程序
@@ -147,8 +149,7 @@ void example3_parallel_reduce() {
     
     std::cout << "Speedup: " << (time_serial / time_parallel) << "x" << std::endl;
     
-    // 并行最大值
-    auto max_val = executor.parallel_reduce(
+    // 并行最大�?    auto max_val = executor.parallel_reduce(
         data.begin(), data.end(),
         [](int acc, int x) { return std::max(acc, x); },
         std::numeric_limits<int>::min()
@@ -180,19 +181,17 @@ void example4_parallel_map() {
         );
     });
     
-    // 验证一些结果
-    std::cout << "First element: " << output[0] 
+    // 验证一些结�?    std::cout << "First element: " << output[0] 
               << " (expected: " << (0 * 0) << ")" << std::endl;
     std::cout << "Last element: " << output.back() 
               << " (expected: " << ((input.size() - 1) * (input.size() - 1)) << ")" << std::endl;
 }
 
 // ========================================
-// 示例 5: 并行单纯形复形操作
-// ========================================
+// 示例 5: 并行单纯形复形操�?// ========================================
 
 void example5_parallel_simplicial_complex() {
-    print_separator("Example 5: 并行单纯形复形操作");
+    print_separator("Example 5: 并行单纯形复形操�?);
     
     ParallelExecutor executor(4);
     SimplicialComplex complex;
@@ -207,8 +206,7 @@ void example5_parallel_simplicial_complex() {
             }));
         }
         
-        // 等待所有任务完成
-        for (auto& f : futures) {
+        // 等待所有任务完�?        for (auto& f : futures) {
             f.wait();
         }
     });
@@ -247,8 +245,7 @@ void example6_performance_benchmark() {
                 [](long long acc, int x) { return acc + x; },
                 0LL
             );
-            (void)sum;  // 避免未使用警告
-        });
+            (void)sum;  // 避免未使用警�?        });
         
         if (num_threads == 1) {
             base_time = time;
@@ -263,14 +260,12 @@ void example6_performance_benchmark() {
 }
 
 // ========================================
-// 示例 7: 全局并行执行器
-// ========================================
+// 示例 7: 全局并行执行�?// ========================================
 
 void example7_global_executor() {
-    print_separator("Example 7: 全局并行执行器");
+    print_separator("Example 7: 全局并行执行�?);
     
-    // 初始化全局执行器
-    GlobalParallelExecutor::initialize(4);
+    // 初始化全局执行�?    GlobalParallelExecutor::initialize(4);
     
     std::vector<int> data(100000);
     for (size_t i = 0; i < data.size(); ++i) {
@@ -295,17 +290,16 @@ void example7_global_executor() {
 }
 
 // ========================================
-// 主函数
-// ========================================
+// 主函�?// ========================================
 
 int main() {
     std::cout << "\n";
-    std::cout << "╔═══════════════════════════════════════════════════════════╗" << std::endl;
-    std::cout << "║                                                           ║" << std::endl;
-    std::cout << "║       Cebu Topology Library - Parallel Execution Demo    ║" << std::endl;
-    std::cout << "║                    Phase 8c Implementation                ║" << std::endl;
-    std::cout << "║                                                           ║" << std::cout;
-    std::cout << "╚═══════════════════════════════════════════════════════════╝" << std::endl;
+    std::cout << "╔═══════════════════════════════════════════════════════════�? << std::endl;
+    std::cout << "�?                                                          �? << std::endl;
+    std::cout << "�?      Cebu Topology Library - Parallel Execution Demo    �? << std::endl;
+    std::cout << "�?                   Phase 8c Implementation                �? << std::endl;
+    std::cout << "�?                                                          �? << std::cout;
+    std::cout << "╚═══════════════════════════════════════════════════════════�? << std::endl;
     
     try {
         example1_basic_parallel_operations();
@@ -317,17 +311,17 @@ int main() {
         example7_global_executor();
         
         print_separator("演示完成");
-        std::cout << "\n✅ 所有示例执行成功！" << std::endl;
-        std::cout << "\n📊 并行执行器已成功实现：" << std::endl;
-        std::cout << "   • 并行任务调度" << std::endl;
-        std::cout << "   • 并行 for 循环" << std::endl;
-        std::cout << "   • 并行归约" << std::endl;
-        std::cout << "   • 并行映射" << std::endl;
-        std::cout << "   • 全局便捷接口" << std::endl;
-        std::cout << "   • 性能优化" << std::endl;
+        std::cout << "\n�?所有示例执行成功！" << std::endl;
+        std::cout << "\n📊 并行执行器已成功实现�? << std::endl;
+        std::cout << "   �?并行任务调度" << std::endl;
+        std::cout << "   �?并行 for 循环" << std::endl;
+        std::cout << "   �?并行归约" << std::endl;
+        std::cout << "   �?并行映射" << std::endl;
+        std::cout << "   �?全局便捷接口" << std::endl;
+        std::cout << "   �?性能优化" << std::endl;
         
     } catch (const std::exception& e) {
-        std::cerr << "\n❌ 错误: " << e.what() << std::endl;
+        std::cerr << "\n�?错误: " << e.what() << std::endl;
         return 1;
     }
     

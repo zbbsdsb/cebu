@@ -1,0 +1,33 @@
+# Cebu Code Owners
+# This file defines who is responsible for reviewing and approving changes to different parts of the codebase.
+
+# Legal and administrative files
+/LICENSE @CeaserZhao
+/LICENSES/ @CeaserZhao
+/NOTICE @CeaserZhao
+/SECURITY.md @CeaserZhao
+/CODE_OF_CONDUCT.md @CeaserZhao
+/TRADEMARK.md @CeaserZhao
+/DCO @CeaserZhao
+
+# Documentation
+*.md @CeaserZhao
+/docs/ @CeaserZhao
+
+# Core code
+*.h @CeaserZhao
+*.cpp @CeaserZhao
+/include/ @CeaserZhao
+/src/ @CeaserZhao
+
+# Build system
+CMakeLists.txt @CeaserZhao
+/cmake/ @CeaserZhao
+conanfile.py @CeaserZhao
+
+# CI/CD and workflows
+/.github/workflows/ @CeaserZhao
+
+# Tests
+/tests/ @CeaserZhao
+/examples/ @CeaserZhao

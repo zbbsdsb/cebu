@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 #include "cebu/simplicial_complex.h"
 #include "cebu/simplicial_complex_labeled.h"
 #include "cebu/simplicial_complex_narrative.h"
@@ -53,7 +55,7 @@ void test_basic_complex_json() {
     in.close();
     
     assert(JsonSerializer::validate(j_loaded));
-    std::cout << "  âœ“ Basic complex JSON serialization passed\n\n";
+    std::cout << "  âœ?Basic complex JSON serialization passed\n\n";
 }
 
 void test_labeled_complex_json() {
@@ -91,7 +93,7 @@ void test_labeled_complex_json() {
     out.close();
     std::cout << "  Saved to test_labeled_complex.json\n";
     
-    std::cout << "  âœ“ Labeled complex JSON serialization passed\n\n";
+    std::cout << "  âœ?Labeled complex JSON serialization passed\n\n";
 }
 
 void test_narrative_complex_json() {
@@ -129,7 +131,7 @@ void test_narrative_complex_json() {
     out.close();
     std::cout << "  Saved to test_narrative_complex.json\n";
     
-    std::cout << "  âœ“ Narrative complex JSON serialization passed\n\n";
+    std::cout << "  âœ?Narrative complex JSON serialization passed\n\n";
 }
 
 void test_json_schema() {
@@ -150,7 +152,7 @@ void test_json_schema() {
     out.close();
     std::cout << "  Saved schema to cebu_schema.json\n";
     
-    std::cout << "  âœ“ JSON schema test passed\n\n";
+    std::cout << "  âœ?JSON schema test passed\n\n";
 }
 
 void test_large_complex_json() {
@@ -201,7 +203,7 @@ void test_large_complex_json() {
     
     std::cout << "  JSON size: " << pretty.size() << " bytes\n";
     std::cout << "  Saved to test_large_complex.json\n";
-    std::cout << "  âœ“ Large complex JSON serialization passed\n\n";
+    std::cout << "  âœ?Large complex JSON serialization passed\n\n";
 }
 
 int main() {

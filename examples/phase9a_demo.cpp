@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 #include "cebu/absurdity.h"
 #include <iostream>
 #include <iomanip>
@@ -202,7 +204,7 @@ void demo_uncertainty_comparison() {
     
     auto print_comparison = [&](const FuzzyInterval& a, const FuzzyInterval& b) {
         auto result = UncertaintyComparison::compare(a, b);
-        std::cout << "  " << a.to_string() << "\n    vs " << b.to_string() << "\n    → "
+        std::cout << "  " << a.to_string() << "\n    vs " << b.to_string() << "\n    �?"
                   << result.explanation << " (confidence=" << result.confidence << ")" << std::endl;
         std::cout << "    P(a < b) = " << UncertaintyComparison::probability_less(a, b) << std::endl;
     };
@@ -422,7 +424,7 @@ void demo_complete_workflow() {
 int main() {
     std::cout << "\n";
     std::cout << "╔════════════════════════════════════════════════════════╗\n";
-    std::cout << "║   Phase 9a: Enhanced Absurdity System - Demo          ║\n";
+    std::cout << "�?  Phase 9a: Enhanced Absurdity System - Demo          ║\n";
     std::cout << "╚════════════════════════════════════════════════════════╝\n";
     
     demo_fuzzy_intervals();
@@ -435,7 +437,7 @@ int main() {
     
     std::cout << "\n";
     std::cout << "╔════════════════════════════════════════════════════════╗\n";
-    std::cout << "║   Demo Complete!                                        ║\n";
+    std::cout << "�?  Demo Complete!                                        ║\n";
     std::cout << "╚════════════════════════════════════════════════════════╝\n";
     std::cout << std::endl;
     

@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 #include "cebu/topology_morph.h"
 #include "cebu/absurdity.h"
 #include "cebu/simplicial_complex.h"
@@ -13,11 +15,11 @@ void print_test_header(const std::string& test_name) {
 }
 
 void print_success() {
-    std::cout << "âœ“ PASSED" << std::endl;
+    std::cout << "âœ?PASSED" << std::endl;
 }
 
 void print_failure(const std::string& message) {
-    std::cout << "âœ— FAILED: " << message << std::endl;
+    std::cout << "âœ?FAILED: " << message << std::endl;
 }
 
 // =============================================================================

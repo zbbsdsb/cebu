@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 // Minimal compilation test for Octree
 #include "cebu/octree.h"
 #include <iostream>

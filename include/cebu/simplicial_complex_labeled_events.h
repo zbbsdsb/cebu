@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 #pragma once
 
 #include "cebu/simplicial_complex_labeled.h"

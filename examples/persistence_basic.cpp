@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 #include "cebu/persistence.h"
 #include "cebu/refinement.h"
 #include "cebu/simplicial_complex_narrative.h"

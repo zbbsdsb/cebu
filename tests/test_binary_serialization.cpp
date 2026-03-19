@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 #include "cebu/json_serialization.h"
 #include "cebu/simplicial_complex_narrative.h"
 #include <iostream>
@@ -34,7 +36,7 @@ void test_basic_binary_serialize() {
     assert(restored.get_simplices_of_dimension(1).size() == 2);
     assert(restored.get_simplices_of_dimension(2).size() == 1);
     
-    std::cout << "âœ“ Basic binary serialization passed" << std::endl;
+    std::cout << "âœ?Basic binary serialization passed" << std::endl;
 }
 
 void test_labeled_binary_serialize() {
@@ -65,7 +67,7 @@ void test_labeled_binary_serialize() {
     assert(label_opt.has_value());
     assert(std::abs(*label_opt - 0.8) < 0.0001);
     
-    std::cout << "âœ“ Labeled binary serialization passed" << std::endl;
+    std::cout << "âœ?Labeled binary serialization passed" << std::endl;
 }
 
 void test_absurdity_binary_serialize() {
@@ -96,7 +98,7 @@ void test_absurdity_binary_serialize() {
     assert(std::abs(label_opt->upper - 0.7) < 0.0001);
     assert(std::abs(label_opt->confidence - 0.9) < 0.0001);
     
-    std::cout << "âœ“ Absurdity binary serialization passed" << std::endl;
+    std::cout << "âœ?Absurdity binary serialization passed" << std::endl;
 }
 
 void test_narrative_binary_serialize() {
@@ -199,7 +201,7 @@ void test_narrative_binary_serialize() {
     assert(std::abs(event.impact.emotional_intensity - 0.5) < 0.0001);
     assert(std::abs(event.impact.dramatic_tension - 0.7) < 0.0001);
     
-    std::cout << "âœ“ Narrative binary serialization passed" << std::endl;
+    std::cout << "âœ?Narrative binary serialization passed" << std::endl;
 }
 
 void test_save_to_file() {
@@ -248,7 +250,7 @@ void test_save_to_file() {
     assert(label.has_value());
     assert(std::abs(*label - 0.75) < 0.0001);
     
-    std::cout << "âœ“ Save to file passed" << std::endl;
+    std::cout << "âœ?Save to file passed" << std::endl;
 }
 
 void test_empty_complex() {
@@ -263,7 +265,7 @@ void test_empty_complex() {
     assert(restored.vertex_count() == 0);
     assert(restored.simplex_count() == 0);
     
-    std::cout << "âœ“ Empty complex serialization passed" << std::endl;
+    std::cout << "âœ?Empty complex serialization passed" << std::endl;
 }
 
 void test_large_complex() {
@@ -315,7 +317,7 @@ void test_large_complex() {
     assert(restored.vertex_count() == vertex_count);
     assert(restored.get_simplices_of_dimension(1).size() == edge_count);
     
-    std::cout << "âœ“ Large complex serialization passed" << std::endl;
+    std::cout << "âœ?Large complex serialization passed" << std::endl;
 }
 
 int main() {
@@ -332,7 +334,7 @@ int main() {
         
         std::cout << std::endl;
         std::cout << "=====================================" << std::endl;
-        std::cout << "All binary serialization tests passed! âœ…" << std::endl;
+        std::cout << "All binary serialization tests passed! âœ? << std::endl;
         std::cout << "=====================================" << std::endl;
         
         return 0;

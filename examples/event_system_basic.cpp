@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 // Basic Event System Example for Cebu Library
 // This example demonstrates event subscription and handling in simplicial complexes
 

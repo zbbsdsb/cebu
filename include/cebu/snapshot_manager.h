@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 #pragma once
 
 #include <cebu/common.h>
@@ -14,8 +16,7 @@
 namespace cebu {
 
 /**
- * @brief 快照元数据
- */
+ * @brief 快照元数�? */
 struct SnapshotMetadata {
     std::string name;
     std::string timestamp;
@@ -45,15 +46,13 @@ struct Snapshot {
 };
 
 /**
- * @brief 快照管理器
- * 
+ * @brief 快照管理�? * 
  * 管理复形的快照，支持创建、恢复、比较等操作
  */
 class SnapshotManager {
 public:
     /**
-     * @brief 构造函数
-     * @param filename 快照文件名（可选）
+     * @brief 构造函�?     * @param filename 快照文件名（可选）
      */
     explicit SnapshotManager(const std::string& filename = "snapshots.ceb");
 
@@ -67,8 +66,7 @@ public:
      * @param complex 复形
      * @param name 快照名称
      * @param compress 是否压缩
-     * @return 快照元数据
-     */
+     * @return 快照元数�?     */
     SnapshotMetadata create_snapshot(
         const SimplicialComplex& complex,
         const std::string& name,
@@ -93,9 +91,7 @@ public:
         bool compress = true);
 
     /**
-     * @brief 列出所有快照
-     * @return 快照元数据列表
-     */
+     * @brief 列出所有快�?     * @return 快照元数据列�?     */
     std::vector<SnapshotMetadata> list_snapshots() const;
 
     /**
@@ -124,8 +120,7 @@ public:
     
     /**
      * @brief 恢复带标签的快照
-     * @param target 目标带标签复形
-     * @param name 快照名称
+     * @param target 目标带标签复�?     * @param name 快照名称
      * @return 是否成功
      */
     template<typename LabelType>
@@ -148,23 +143,20 @@ public:
      * @brief 比较两个快照
      * @param name1 快照 1 名称
      * @param name2 快照 2 名称
-     * @return 变化列表（Change 对象）
-     */
+     * @return 变化列表（Change 对象�?     */
     std::vector<Change> compare_snapshots(
         const std::string& name1,
         const std::string& name2) const;
 
     /**
      * @brief 保存快照管理器到文件
-     * @param filename 文件名
-     * @return 是否成功
+     * @param filename 文件�?     * @return 是否成功
      */
     bool save_to_file(const std::string& filename = "") const;
 
     /**
      * @brief 从文件加载快照管理器
-     * @param filename 文件名
-     * @return 是否成功
+     * @param filename 文件�?     * @return 是否成功
      */
     bool load_from_file(const std::string& filename = "");
 
@@ -175,27 +167,23 @@ public:
     size_t get_snapshot_count() const;
 
     /**
-     * @brief 检查快照是否存在
-     * @param name 快照名称
+     * @brief 检查快照是否存�?     * @param name 快照名称
      * @return 是否存在
      */
     bool has_snapshot(const std::string& name) const;
 
     /**
      * @brief 获取快照总大小（压缩后）
-     * @return 总大小（字节）
-     */
+     * @return 总大小（字节�?     */
     size_t get_total_size() const;
 
     /**
      * @brief 获取快照总大小（未压缩）
-     * @return 总大小（字节）
-     */
+     * @return 总大小（字节�?     */
     size_t get_total_uncompressed_size() const;
 
     /**
-     * @brief 清空所有快照
-     */
+     * @brief 清空所有快�?     */
     void clear();
 
 private:
@@ -203,8 +191,7 @@ private:
     std::string filename_;
     
     /**
-     * @brief 计算复形的哈希值
-     * @param complex 复形
+     * @brief 计算复形的哈希�?     * @param complex 复形
      * @return 哈希值字符串
      */
     std::string compute_hash(const SimplicialComplex& complex) const;
@@ -218,18 +205,15 @@ private:
     bool compress_snapshot(Snapshot& snapshot, int level = 6) const;
     
     /**
-     * @brief 解压缩快照数据
-     * @param snapshot 快照
+     * @brief 解压缩快照数�?     * @param snapshot 快照
      * @return 是否成功
      */
     bool decompress_snapshot(Snapshot& snapshot) const;
     
     /**
-     * @brief 创建元数据
-     * @param complex 复形
+     * @brief 创建元数�?     * @param complex 复形
      * @param name 快照名称
-     * @return 元数据
-     */
+     * @return 元数�?     */
     SnapshotMetadata create_metadata(
         const SimplicialComplex& complex,
         const std::string& name) const;

@@ -1,0 +1,13 @@
+# Auto Assign Configuration
+
+# Assign based on CODEOWNERS
+assign_by_codeowners: true
+
+# Add reviewers
+add_reviewers: true
+
+# Number of reviewers to add
+number_of_reviewers: 1
+
+# Assign yourself if you are the author
+assign_me: false

@@ -15,6 +15,31 @@ We welcome contributions to the Cebu library! Here are some guidelines to help y
    git checkout -b feature/your-feature-name
    ```
 
+## Developer Certificate of Origin (DCO)
+
+All contributions must include a Developer Certificate of Origin (DCO) sign-off. This certifies that you have the right to submit the contribution under the project's license.
+
+To sign your commits, you can:
+
+1. **Sign individual commits**:
+   ```bash
+   git commit -s -m "Your commit message"
+   ```
+
+2. **Configure Git to auto-sign all commits**:
+   ```bash
+   git config --local commit.gpgsign false
+   git config --local user.name "Your Name"
+   git config --local user.email "your.email@example.com"
+   ```
+
+Your commit message must include:
+```
+Signed-off-by: Your Name <your.email@example.com>
+```
+
+For more information, see the [DCO](DCO) file.
+
 ## Coding Standards
 
 - **Style**: Follow the [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html).

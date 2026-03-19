@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 #include "cebu/parallel_executor.h"
 #include <stdexcept>
 #include <iostream>
@@ -15,8 +17,7 @@ ParallelExecutor::ParallelExecutor(size_t num_threads, ParallelStrategy strategy
     const size_t actual_threads = (num_threads == 0) ? 
         std::thread::hardware_concurrency() : num_threads;
     
-    // 确保至少有一个线程
-    const size_t worker_count = std::max<size_t>(actual_threads, 1);
+    // 确保至少有一个线�?    const size_t worker_count = std::max<size_t>(actual_threads, 1);
     
     workers_.reserve(worker_count);
     
@@ -41,8 +42,7 @@ void ParallelExecutor::shutdown() {
     
     condition_.notify_all();
     
-    // 等待所有工作线程完成
-    for (auto& worker : workers_) {
+    // 等待所有工作线程完�?    for (auto& worker : workers_) {
         if (worker.joinable()) {
             worker.join();
         }
@@ -65,13 +65,11 @@ void ParallelExecutor::worker_thread() {
         {
             std::unique_lock<std::mutex> lock(queue_mutex_);
             
-            // 等待任务或停止信号
-            condition_.wait(lock, [this]() {
+            // 等待任务或停止信�?            condition_.wait(lock, [this]() {
                 return stop_ || !tasks_.empty();
             });
             
-            // 如果收到停止信号且队列为空，退出线程
-            if (stop_ && tasks_.empty()) {
+            // 如果收到停止信号且队列为空，退出线�?            if (stop_ && tasks_.empty()) {
                 return;
             }
             

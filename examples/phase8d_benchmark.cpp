@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 /**
  * @file phase8d_benchmark.cpp
  * @brief Phase 8d - Performance benchmarking demonstration
@@ -306,12 +308,12 @@ void demonstrate_profiling() {
 
 int main() {
     std::cout << "\n";
-    std::cout << "╔═══════════════════════════════════════════════════════════╗" << std::endl;
-    std::cout << "║                                                           ║" << std::endl;
-    std::cout << "║       Cebu Topology Library - Performance Benchmarking     ║" << std::endl;
-    std::cout << "║                    Phase 8d Implementation                ║" << std::endl;
-    std::cout << "║                                                           ║" << std::cout;
-    std::cout << "╚═══════════════════════════════════════════════════════════╝" << std::endl;
+    std::cout << "╔═══════════════════════════════════════════════════════════�? << std::endl;
+    std::cout << "�?                                                          �? << std::endl;
+    std::cout << "�?      Cebu Topology Library - Performance Benchmarking     �? << std::endl;
+    std::cout << "�?                   Phase 8d Implementation                �? << std::endl;
+    std::cout << "�?                                                          �? << std::cout;
+    std::cout << "╚═══════════════════════════════════════════════════════════�? << std::endl;
 
     try {
         // Demonstrate profiling first
@@ -349,15 +351,15 @@ int main() {
         std::cout << "\n========================================" << std::endl;
         std::cout << "  Benchmarking Complete!" << std::endl;
         std::cout << "========================================" << std::endl;
-        std::cout << "\n✅ All benchmarks executed successfully!" << std::endl;
+        std::cout << "\n�?All benchmarks executed successfully!" << std::endl;
         std::cout << "\n📊 Key Features Demonstrated:" << std::endl;
-        std::cout << "   • Benchmark framework" << std::endl;
-        std::cout << "   • Performance profiling" << std::endl;
-        std::cout << "   • Statistical analysis" << std::endl;
-        std::cout << "   • Comparison reporting" << std::endl;
+        std::cout << "   �?Benchmark framework" << std::endl;
+        std::cout << "   �?Performance profiling" << std::endl;
+        std::cout << "   �?Statistical analysis" << std::endl;
+        std::cout << "   �?Comparison reporting" << std::endl;
 
     } catch (const std::exception& e) {
-        std::cerr << "\n❌ Error: " << e.what() << std::endl;
+        std::cerr << "\n�?Error: " << e.what() << std::endl;
         return 1;
     }
 

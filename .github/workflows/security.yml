@@ -1,0 +1,43 @@
+name: Security
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * 0'  # Weekly on Sunday
+  workflow_dispatch:
+
+jobs:
+  dependency-scan:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Run dependency scan
+      uses: dependency-check/Dependency-Check_Action@main
+      with:
+        project: 'Cebu'
+        path: '.'
+        format: 'HTML'
+
+  code-scan:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Run code scanning
+      uses: github/codeql-action/init@v3
+      with:
+        languages: cpp
+    - name: Build code
+      run: |
+        mkdir build && cd build && cmake .. && cmake --build .
+    - name: Perform code scanning
+      uses: github/codeql-action/analyze@v3
+
+  secret-scan:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Run secret scanning
+      uses: gitleaks/gitleaks-action@v2

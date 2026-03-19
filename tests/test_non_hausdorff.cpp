@@ -1,3 +1,5 @@
+// Copyright (c) 2026 CeaserZhao (Oasis Company)
+// SPDX-License-Identifier: MIT
 #include "cebu/simplicial_complex_non_hausdorff.h"
 #include <cassert>
 #include <iostream>
@@ -17,7 +19,7 @@ void test_basic_construction() {
     assert(complex.vertex_count() == 3);
     assert(complex.equivalence_class_count() == 0);
 
-    std::cout << "âœ“ Basic construction passed" << std::endl;
+    std::cout << "âœ?Basic construction passed" << std::endl;
 }
 
 void test_glue_vertices() {
@@ -41,7 +43,7 @@ void test_glue_vertices() {
     // Both should have same representative
     assert(complex.get_representative(v1) == complex.get_representative(v2));
 
-    std::cout << "âœ“ glue_vertices passed" << std::endl;
+    std::cout << "âœ?glue_vertices passed" << std::endl;
 }
 
 void test_glue_simplices() {
@@ -69,7 +71,7 @@ void test_glue_simplices() {
     auto members = complex.get_equivalence_class(tri1);
     assert(members.size() == 2);
 
-    std::cout << "âœ“ glue passed" << std::endl;
+    std::cout << "âœ?glue passed" << std::endl;
 }
 
 void test_get_equivalence_class() {
@@ -100,7 +102,7 @@ void test_get_equivalence_class() {
     auto members0 = complex.get_equivalence_class(v0);
     assert(members0.size() == 1);
 
-    std::cout << "âœ“ get_equivalence_class passed" << std::endl;
+    std::cout << "âœ?get_equivalence_class passed" << std::endl;
 }
 
 void test_separate() {
@@ -129,7 +131,7 @@ void test_separate() {
     separated = complex.separate(v2);
     assert(!separated);
 
-    std::cout << "âœ“ separate passed" << std::endl;
+    std::cout << "âœ?separate passed" << std::endl;
 }
 
 void test_adjacent_with_gluing() {
@@ -158,7 +160,7 @@ void test_adjacent_with_gluing() {
     auto adjacent = complex.get_adjacent_with_gluing(v2);
     assert(adjacent.size() >= 2); // Should include edges connected to v2 or v4
 
-    std::cout << "âœ“ get_adjacent_with_gluing passed" << std::endl;
+    std::cout << "âœ?get_adjacent_with_gluing passed" << std::endl;
 }
 
 void test_simplices_containing_vertex_with_gluing() {
@@ -185,7 +187,7 @@ void test_simplices_containing_vertex_with_gluing() {
     auto containing = complex.get_simplices_containing_vertex_with_gluing(v1);
     assert(containing.size() >= 3); // e0, e1, e2, e3 all touch v1 or v3
 
-    std::cout << "âœ“ get_simplices_containing_vertex_with_gluing passed" << std::endl;
+    std::cout << "âœ?get_simplices_containing_vertex_with_gluing passed" << std::endl;
 }
 
 void test_labeled_complex_with_gluing() {
@@ -217,7 +219,7 @@ void test_labeled_complex_with_gluing() {
     assert(labels[v0] == 0.5);
     assert(labels[v1] == 0.8);
 
-    std::cout << "âœ“ SimplicialComplexNonHausdorffLabeled passed" << std::endl;
+    std::cout << "âœ?SimplicialComplexNonHausdorffLabeled passed" << std::endl;
 }
 
 void test_removing_glued_simplices() {
@@ -244,7 +246,7 @@ void test_removing_glued_simplices() {
     assert(complex.are_glued(v1, v3));
     assert(complex.class_size(v1) == 2);
 
-    std::cout << "âœ“ Removal of glued simplices passed" << std::endl;
+    std::cout << "âœ?Removal of glued simplices passed" << std::endl;
 }
 
 void test_multiple_independent_classes() {
@@ -273,7 +275,7 @@ void test_multiple_independent_classes() {
     assert(!complex.are_glued(v0, v3));
     assert(!complex.are_glued(v1, v4));
 
-    std::cout << "âœ“ Multiple independent classes passed" << std::endl;
+    std::cout << "âœ?Multiple independent classes passed" << std::endl;
 }
 
 void test_transitive_gluing() {
@@ -304,7 +306,7 @@ void test_transitive_gluing() {
     assert(complex.get_representative(v3) == rep);
     assert(complex.get_representative(v4) == rep);
 
-    std::cout << "âœ“ Transitive gluing passed" << std::endl;
+    std::cout << "âœ?Transitive gluing passed" << std::endl;
 }
 
 int main() {
