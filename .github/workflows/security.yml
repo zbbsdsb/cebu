@@ -13,7 +13,7 @@ jobs:
   dependency-scan:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - name: Run dependency scan
       uses: dependency-check/Dependency-Check_Action@main
       with:
@@ -24,7 +24,7 @@ jobs:
   code-scan:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - name: Run code scanning
       uses: github/codeql-action/init@v3
       with:
@@ -38,6 +38,6 @@ jobs:
   secret-scan:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - name: Run secret scanning
       uses: gitleaks/gitleaks-action@v2
