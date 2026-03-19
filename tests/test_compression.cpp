@@ -26,7 +26,7 @@ void test_no_compression() {
     
     assert(decompressed == data);
     
-    std::cout << "  âœ?No compression test passed\n\n";
+    std::cout << "  ï¿½?No compression test passed\n\n";
 }
 
 void test_zlib_compression() {
@@ -34,7 +34,7 @@ void test_zlib_compression() {
     
     // Check if ZLIB is available
     if (!Compression::has_zlib_support()) {
-        std::cout << "  âš?ZLIB not available, skipping...\n\n";
+        std::cout << "  ï¿½?ZLIB not available, skipping...\n\n";
         return;
     }
     
@@ -57,14 +57,14 @@ void test_zlib_compression() {
                   << " bytes (ratio: " << (ratio * 100.0) << "%)\n";
     }
     
-    std::cout << "  âœ?ZLIB compression test passed\n\n";
+    std::cout << "  ï¿½?ZLIB compression test passed\n\n";
 }
 
 void test_compress_with_info() {
     std::cout << "Testing compress with info...\n";
     
     if (!Compression::has_zlib_support()) {
-        std::cout << "  âš?ZLIB not available, skipping...\n\n";
+        std::cout << "  ï¿½?ZLIB not available, skipping...\n\n";
         return;
     }
     
@@ -85,7 +85,7 @@ void test_compress_with_info() {
     std::cout << "  Compressed size: " << info.compressed_size << " bytes\n";
     std::cout << "  Compression ratio: " << (info.compression_ratio * 100.0) << "%\n";
     
-    std::cout << "  âœ?Compress with info test passed\n\n";
+    std::cout << "  ï¿½?Compress with info test passed\n\n";
 }
 
 void test_is_zlib_compressed() {
@@ -103,7 +103,7 @@ void test_is_zlib_compressed() {
     std::vector<uint8_t> empty_data;
     assert(!Compression::is_zlib_compressed(empty_data));
     
-    std::cout << "  âœ?ZLIB detection test passed\n\n";
+    std::cout << "  ï¿½?ZLIB detection test passed\n\n";
 }
 
 void test_estimate_compression_ratio() {
@@ -124,7 +124,7 @@ void test_estimate_compression_ratio() {
     std::cout << "  Random data ratio: " << ratio2 << "\n";
     assert(ratio2 > ratio1);  // Should be less compressible
     
-    std::cout << "  âœ?Compression ratio estimation test passed\n\n";
+    std::cout << "  ï¿½?Compression ratio estimation test passed\n\n";
 }
 
 void test_recommended_level() {
@@ -148,7 +148,7 @@ void test_recommended_level() {
     assert(level3 <= level4);
     assert(level4 <= level5);
     
-    std::cout << "  âœ?Recommended level test passed\n\n";
+    std::cout << "  ï¿½?Recommended level test passed\n\n";
 }
 
 void test_zlib_version() {
@@ -163,14 +163,14 @@ void test_zlib_version() {
         assert(version == "zlib not available");
     }
     
-    std::cout << "  âœ?ZLIB version test passed\n\n";
+    std::cout << "  ï¿½?ZLIB version test passed\n\n";
 }
 
 void test_compress_complex() {
     std::cout << "Testing compression of simplicial complex...\n";
     
     if (!Compression::has_zlib_support()) {
-        std::cout << "  âš?ZLIB not available, skipping...\n\n";
+        std::cout << "  ï¿½?ZLIB not available, skipping...\n\n";
         return;
     }
     
@@ -203,14 +203,14 @@ void test_compress_complex() {
     auto decompressed = Compression::decompress_zlib(compressed);
     assert(decompressed == binary);
     
-    std::cout << "  âœ?Complex compression test passed\n\n";
+    std::cout << "  ï¿½?Complex compression test passed\n\n";
 }
 
 void test_compression_performance() {
     std::cout << "Testing compression performance...\n";
     
     if (!Compression::has_zlib_support()) {
-        std::cout << "  âš?ZLIB not available, skipping...\n\n";
+        std::cout << "  ï¿½?ZLIB not available, skipping...\n\n";
         return;
     }
     
@@ -242,7 +242,7 @@ void test_compression_performance() {
     
     assert(decompressed == data);
     
-    std::cout << "  âœ?Compression performance test passed\n\n";
+    std::cout << "  ï¿½?Compression performance test passed\n\n";
 }
 
 int main() {

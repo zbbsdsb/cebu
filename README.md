@@ -1,6 +1,6 @@
 <div align="center">
 
-![Cebu Logo](https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=minimalist%20modern%20logo%20for%20%22Cebu%22%20-%20advanced%20C%2B%2B%20simplicial%20complex%20library%2C%20geometric%20shapes%2C%20triangles%2C%20deep%20blue%20and%20cyan%20colors%2C%20professional%2C%20white%20background&image_size=square)
+![Cebu Logo](assets/cebu_logo.png)
 
 # Cebu: Advanced Simplicial Complex Library
 

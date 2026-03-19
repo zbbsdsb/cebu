@@ -53,7 +53,7 @@ void test_commit_version() {
     assert(test.vc->get_version_count() == 2);
     assert(test.vc->get_head() == v2);
     
-    std::cout << "âœ?Commit version test passed" << std::endl;
+    std::cout << "ï¿½?Commit version test passed" << std::endl;
 }
 
 // 2. Checkout version test
@@ -72,7 +72,7 @@ void test_checkout_version() {
     assert(checked_out);
     assert(test.vc->get_head() == v1);
     
-    std::cout << "âœ?Checkout version test passed" << std::endl;
+    std::cout << "ï¿½?Checkout version test passed" << std::endl;
 }
 
 // 3. Log history test
@@ -97,7 +97,7 @@ void test_log_history() {
     auto limited_history = test.vc->log(2);
     assert(limited_history.size() == 2);
     
-    std::cout << "âœ?Log history test passed" << std::endl;
+    std::cout << "ï¿½?Log history test passed" << std::endl;
 }
 
 // 4. Version diff test
@@ -117,7 +117,7 @@ void test_version_diff() {
 
     assert(changes.size() >= 0);
     
-    std::cout << "âœ?Version diff test passed" << std::endl;
+    std::cout << "ï¿½?Version diff test passed" << std::endl;
 }
 
 // 5. Create branch test
@@ -143,7 +143,7 @@ void test_create_branch() {
     }
     assert(threw);
     
-    std::cout << "âœ?Create branch test passed" << std::endl;
+    std::cout << "ï¿½?Create branch test passed" << std::endl;
 }
 
 // 6. Checkout branch test
@@ -163,7 +163,7 @@ void test_checkout_branch() {
     bool failed = test.vc->checkout_branch("non_existent");
     assert(!failed);
     
-    std::cout << "âœ?Checkout branch test passed" << std::endl;
+    std::cout << "ï¿½?Checkout branch test passed" << std::endl;
 }
 
 // 7. Merge branch test
@@ -186,7 +186,7 @@ void test_merge_branch() {
 
     assert(merged);
     
-    std::cout << "âœ?Merge branch test passed" << std::endl;
+    std::cout << "ï¿½?Merge branch test passed" << std::endl;
 }
 
 // 8. Delete branch test
@@ -211,7 +211,7 @@ void test_delete_branch() {
     // Cannot delete non-existent branch
     assert(!test.vc->delete_branch("non_existent"));
     
-    std::cout << "âœ?Delete branch test passed" << std::endl;
+    std::cout << "ï¿½?Delete branch test passed" << std::endl;
 }
 
 // 9. Create tag test
@@ -238,7 +238,7 @@ void test_create_tag() {
     }
     assert(threw);
     
-    std::cout << "âœ?Create tag test passed" << std::endl;
+    std::cout << "ï¿½?Create tag test passed" << std::endl;
 }
 
 // 10. Delete tag test
@@ -259,7 +259,7 @@ void test_delete_tag() {
     // Delete non-existent tag
     assert(!test.vc->delete_tag("non_existent"));
     
-    std::cout << "âœ?Delete tag test passed" << std::endl;
+    std::cout << "ï¿½?Delete tag test passed" << std::endl;
 }
 
 // 11. Revert version test
@@ -284,7 +284,7 @@ void test_revert_version() {
     size_t vertices_after = test.complex.vertex_count();
     assert(vertices_after < vertices_before);
     
-    std::cout << "âœ?Revert version test passed" << std::endl;
+    std::cout << "ï¿½?Revert version test passed" << std::endl;
 }
 
 // 12. Revert with commit test
@@ -304,7 +304,7 @@ void test_revert_with_commit() {
     assert(test.vc->get_version_count() == 3);
     assert(test.vc->get_head() > v2);
     
-    std::cout << "âœ?Revert with commit test passed" << std::endl;
+    std::cout << "ï¿½?Revert with commit test passed" << std::endl;
 }
 
 // 13. Get version test
@@ -328,7 +328,7 @@ void test_get_version() {
     }
     assert(threw);
     
-    std::cout << "âœ?Get version test passed" << std::endl;
+    std::cout << "ï¿½?Get version test passed" << std::endl;
 }
 
 // 14. Persistence test
@@ -354,7 +354,7 @@ void test_persistence() {
     assert(new_vc.get_branch_count() == 2);
     assert(new_vc.get_tag_count() == 1);
     
-    std::cout << "âœ?Persistence test passed" << std::endl;
+    std::cout << "ï¿½?Persistence test passed" << std::endl;
 }
 
 // 15. Head and branch queries test
@@ -372,7 +372,7 @@ void test_head_and_branch_queries() {
 
     assert(test.vc->get_current_branch() == "feature");
     
-    std::cout << "âœ?Head and branch queries test passed" << std::endl;
+    std::cout << "ï¿½?Head and branch queries test passed" << std::endl;
 }
 
 // 16. Version metadata test
@@ -390,7 +390,7 @@ void test_version_metadata() {
     assert(history[0].branch == "main");
     assert(history[0].simplex_count > 0);
     
-    std::cout << "âœ?Version metadata test passed" << std::endl;
+    std::cout << "ï¿½?Version metadata test passed" << std::endl;
 }
 
 // 17. Multiple versions test
@@ -410,7 +410,7 @@ void test_multiple_versions() {
     auto history = test.vc->log();
     assert(history.size() == NUM_VERSIONS);
     
-    std::cout << "âœ?Multiple versions test passed" << std::endl;
+    std::cout << "ï¿½?Multiple versions test passed" << std::endl;
 }
 
 // 18. Empty version control test
@@ -432,7 +432,7 @@ void test_empty_version_control() {
     auto tags = test.vc->list_tags();
     assert(tags.empty());
     
-    std::cout << "âœ?Empty version control test passed" << std::endl;
+    std::cout << "ï¿½?Empty version control test passed" << std::endl;
 }
 
 // 19. Labeled commit test
@@ -454,7 +454,7 @@ void test_labeled_commit() {
     assert(version_id == 1);
     assert(test.vc->get_version_count() == 1);
     
-    std::cout << "âœ?Labeled commit test passed" << std::endl;
+    std::cout << "ï¿½?Labeled commit test passed" << std::endl;
 }
 
 // 20. Tag with description test
@@ -470,7 +470,7 @@ void test_tag_with_description() {
     auto tags = test.vc->list_tags();
     assert(tags[0].description == desc);
     
-    std::cout << "âœ?Tag with description test passed" << std::endl;
+    std::cout << "ï¿½?Tag with description test passed" << std::endl;
 }
 
 int main() {

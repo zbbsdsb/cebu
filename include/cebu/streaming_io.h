@@ -19,13 +19,13 @@ namespace cebu {
 using ProgressCallback = std::function<void(size_t current, size_t total)>;
 
 /**
- * @brief 流式加载�? * 
+ * @brief 流式加载�? * 
  * 支持大型文件的流式加载，减少内存使用
  */
 class StreamingLoader {
 public:
     /**
-     * @brief 构造函�?     * @param filename 文件�?     */
+     * @brief 构造函�?     * @param filename 文件�?     */
     explicit StreamingLoader(const std::string& filename);
 
     /**
@@ -52,21 +52,21 @@ public:
     SimplicialComplexLabeled<LabelType> load_labeled();
 
     /**
-     * @brief 部分加载（只加载指定的单纯形�?     * @param simplex_ids 单纯�?ID 列表
-     * @return 复形对象（只包含指定的单纯形�?     */
+     * @brief 部分加载（只加载指定的单纯形�?     * @param simplex_ids 单纯�?ID 列表
+     * @return 复形对象（只包含指定的单纯形�?     */
     SimplicialComplex load_partial(const std::vector<SimplexID>& simplex_ids);
 
     /**
-     * @brief 获取总单纯形数量（不加载完整数据�?     * @return 单纯形数�?     */
+     * @brief 获取总单纯形数量（不加载完整数据�?     * @return 单纯形数�?     */
     size_t get_total_simplices() const;
 
     /**
-     * @brief 获取总顶点数�?     * @return 顶点数量
+     * @brief 获取总顶点数�?     * @return 顶点数量
      */
     size_t get_total_vertices() const;
 
     /**
-     * @brief 获取最大维�?     * @return 最大维�?     */
+     * @brief 获取最大维�?     * @return 最大维�?     */
     size_t get_max_dimension() const;
 
     /**
@@ -91,23 +91,23 @@ private:
     bool is_compressed_;
     
     /**
-     * @brief 分析文件元数�?     */
+     * @brief 分析文件元数�?     */
     void analyze_file();
     
     /**
-     * @brief 读取文件�?     * @return JSON 对象
+     * @brief 读取文件�?     * @return JSON 对象
      */
     nlohmann::json read_header();
 };
 
 /**
- * @brief 流式写入�? * 
+ * @brief 流式写入�? * 
  * 支持大型文件的流式写入，减少内存使用
  */
 class StreamingWriter {
 public:
     /**
-     * @brief 构造函�?     * @param filename 文件�?     */
+     * @brief 构造函�?     * @param filename 文件�?     */
     explicit StreamingWriter(const std::string& filename);
 
     /**
@@ -135,8 +135,8 @@ public:
     bool write_labeled(const SimplicialComplexLabeled<LabelType>& complex);
 
     /**
-     * @brief 部分写入（只写入指定的单纯形�?     * @param complex 复形对象
-     * @param simplex_ids 单纯�?ID 列表
+     * @brief 部分写入（只写入指定的单纯形�?     * @param complex 复形对象
+     * @param simplex_ids 单纯�?ID 列表
      * @return 是否成功
      */
     bool write_partial(
@@ -157,13 +157,13 @@ private:
     int compression_level_;
     
     /**
-     * @brief 写入文件�?     * @param out 输出�?     * @param complex 复形对象
+     * @brief 写入文件�?     * @param out 输出�?     * @param complex 复形对象
      */
     void write_header(std::ofstream& out, const SimplicialComplex& complex);
     
     /**
-     * @brief 写入单纯形数�?     * @param out 输出�?     * @param simplices 单纯形列�?     * @param current 当前进度
-     * @param total 总数�?     */
+     * @brief 写入单纯形数�?     * @param out 输出�?     * @param simplices 单纯形列�?     * @param current 当前进度
+     * @param total 总数�?     */
     void write_simplices(
         std::ofstream& out,
         const nlohmann::json& simplices,
@@ -182,12 +182,12 @@ struct ChunkInfo {
 };
 
 /**
- * @brief 分块流式加载�? * 
- * 支持分块加载和并行处�? */
+ * @brief 分块流式加载�? * 
+ * 支持分块加载和并行处�? */
 class ChunkedStreamingLoader {
 public:
     /**
-     * @brief 构造函�?     * @param filename 文件�?     * @param chunk_size 块大小（字节�?     */
+     * @brief 构造函�?     * @param filename 文件�?     * @param chunk_size 块大小（字节�?     */
     ChunkedStreamingLoader(const std::string& filename, size_t chunk_size = 1024 * 1024);
 
     /**
@@ -196,7 +196,7 @@ public:
     ~ChunkedStreamingLoader() = default;
 
     /**
-     * @brief 获取所有分块信�?     * @return 分块信息列表
+     * @brief 获取所有分块信�?     * @return 分块信息列表
      */
     std::vector<ChunkInfo> get_chunks() const;
 
@@ -208,7 +208,7 @@ public:
     nlohmann::json load_chunk(size_t chunk_index);
 
     /**
-     * @brief 加载所有分�?     * @param progress_callback 进度回调
+     * @brief 加载所有分�?     * @param progress_callback 进度回调
      * @return 完整 JSON 对象
      */
     nlohmann::json load_all_chunks(ProgressCallback progress_callback = nullptr);
@@ -219,7 +219,7 @@ private:
     std::vector<ChunkInfo> chunks_;
     
     /**
-     * @brief 分析文件并生成分块信�?     */
+     * @brief 分析文件并生成分块信�?     */
     void analyze_chunks();
 };
 

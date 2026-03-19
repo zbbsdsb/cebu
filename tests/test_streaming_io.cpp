@@ -55,7 +55,7 @@ void test_stream_load() {
     assert(loaded_complex.vertex_count() == test.complex.vertex_count());
     assert(loaded_complex.simplex_count() == test.complex.simplex_count());
     
-    std::cout << "âœ?Stream load test passed" << std::endl;
+    std::cout << "ï¿½?Stream load test passed" << std::endl;
 }
 
 // 2. Stream write test
@@ -80,7 +80,7 @@ void test_stream_write() {
 
     assert(loaded.vertex_count() == test.complex.vertex_count());
     
-    std::cout << "âœ?Stream write test passed" << std::endl;
+    std::cout << "ï¿½?Stream write test passed" << std::endl;
 }
 
 // 3. Progress callback test
@@ -104,7 +104,7 @@ void test_progress_callback() {
     assert(callback_called);
     assert(callback_count > 0);
     
-    std::cout << "âœ?Progress callback test passed" << std::endl;
+    std::cout << "ï¿½?Progress callback test passed" << std::endl;
 }
 
 // 4. File metadata test
@@ -124,7 +124,7 @@ void test_file_metadata() {
     assert(max_dim >= 0);
     assert(file_size > 0);
     
-    std::cout << "âœ?File metadata test passed" << std::endl;
+    std::cout << "ï¿½?File metadata test passed" << std::endl;
 }
 
 // 5. Compressed file test
@@ -149,7 +149,7 @@ void test_compressed_file() {
 
     std::remove("test_compressed.bin");
     
-    std::cout << "âœ?Compressed file test passed" << std::endl;
+    std::cout << "ï¿½?Compressed file test passed" << std::endl;
 }
 
 // 6. Non-existent file test
@@ -164,7 +164,7 @@ void test_non_existent_file() {
     }
     assert(threw);
     
-    std::cout << "âœ?Non-existent file test passed" << std::endl;
+    std::cout << "ï¿½?Non-existent file test passed" << std::endl;
 }
 
 // 7. Stream labeled test
@@ -195,7 +195,7 @@ void test_stream_labeled() {
 
     std::remove("test_labeled.json");
     
-    std::cout << "âœ?Stream labeled test passed" << std::endl;
+    std::cout << "ï¿½?Stream labeled test passed" << std::endl;
 }
 
 // 8. Compression settings test
@@ -222,7 +222,7 @@ void test_compression_settings() {
         }
     }
     
-    std::cout << "âœ?Compression settings test passed" << std::endl;
+    std::cout << "ï¿½?Compression settings test passed" << std::endl;
 }
 
 // 9. Chunk loading test
@@ -242,7 +242,7 @@ void test_chunk_loading() {
         assert(chunk_data.contains("format"));
     }
     
-    std::cout << "âœ?Chunk loading test passed" << std::endl;
+    std::cout << "ï¿½?Chunk loading test passed" << std::endl;
 }
 
 // 10. Empty file test
@@ -264,7 +264,7 @@ void test_empty_file() {
 
     std::remove("empty.json");
     
-    std::cout << "âœ?Empty file test passed" << std::endl;
+    std::cout << "ï¿½?Empty file test passed" << std::endl;
 }
 
 // 11. Large file metadata test
@@ -282,7 +282,7 @@ void test_large_file_metadata() {
     assert(vertices <= simplices);
     assert(file_size > 0);
     
-    std::cout << "âœ?Large file metadata test passed" << std::endl;
+    std::cout << "ï¿½?Large file metadata test passed" << std::endl;
 }
 
 // 12. Multiple writes test
@@ -298,7 +298,7 @@ void test_multiple_writes() {
     bool written2 = writer.write(test.complex);
     assert(written2);
     
-    std::cout << "âœ?Multiple writes test passed" << std::endl;
+    std::cout << "ï¿½?Multiple writes test passed" << std::endl;
 }
 
 int main() {

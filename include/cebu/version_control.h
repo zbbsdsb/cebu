@@ -21,7 +21,7 @@ namespace cebu {
 using VersionID = size_t;
 
 /**
- * @brief 版本元数�? */
+ * @brief 版本元数�? */
 struct VersionMetadata {
     VersionID id;
     std::string timestamp;
@@ -73,7 +73,7 @@ struct TagInfo {
 class VersionControl {
 public:
     /**
-     * @brief 构造函�?     * @param filename 版本控制文件�?     */
+     * @brief 构造函�?     * @param filename 版本控制文件�?     */
     explicit VersionControl(const std::string& filename = "versions.ceb");
 
     /**
@@ -85,7 +85,7 @@ public:
      * @brief 提交版本
      * @param complex 复形对象
      * @param message 提交信息
-     * @param author 作�?     * @return 版本 ID
+     * @param author 作�?     * @return 版本 ID
      */
     VersionID commit(
         const SimplicialComplex& complex,
@@ -111,7 +111,7 @@ public:
 
     /**
      * @brief 查看版本历史
-     * @param limit 限制数量�? 表示全部�?     * @return 版本元数据列�?     */
+     * @param limit 限制数量�? 表示全部�?     * @return 版本元数据列�?     */
     std::vector<VersionMetadata> log(size_t limit = 0) const;
 
     /**
@@ -125,7 +125,7 @@ public:
     /**
      * @brief 创建分支
      * @param name 分支名称
-     * @param base_id 基础版本 ID�? 表示当前 HEAD�?     * @return 分支名称
+     * @param base_id 基础版本 ID�? 表示当前 HEAD�?     * @return 分支名称
      */
     std::string create_branch(const std::string& name, VersionID base_id = 0);
 
@@ -152,12 +152,12 @@ public:
     bool delete_branch(const std::string& name);
 
     /**
-     * @brief 列出所有分�?     * @return 分支信息列表
+     * @brief 列出所有分�?     * @return 分支信息列表
      */
     std::vector<BranchInfo> list_branches() const;
 
     /**
-     * @brief 打标�?     * @param name 标签名称
+     * @brief 打标�?     * @param name 标签名称
      * @param version_id 版本 ID
      * @param description 描述
      * @return 标签名称
@@ -175,7 +175,7 @@ public:
     bool delete_tag(const std::string& name);
 
     /**
-     * @brief 列出所有标�?     * @return 标签信息列表
+     * @brief 列出所有标�?     * @return 标签信息列表
      */
     std::vector<TagInfo> list_tags() const;
 
@@ -183,7 +183,7 @@ public:
      * @brief 回退版本
      * @param target 目标复形
      * @param version_id 目标版本 ID
-     * @param create_commit 是否创建新提�?     * @return 是否成功
+     * @param create_commit 是否创建新提�?     * @return 是否成功
      */
     bool revert(
         SimplicialComplex& target,
@@ -210,12 +210,12 @@ public:
     SimplicialComplex get_version(VersionID version_id) const;
 
     /**
-     * @brief 保存版本控制数据到文�?     * @param filename 文件�?     * @return 是否成功
+     * @brief 保存版本控制数据到文�?     * @param filename 文件�?     * @return 是否成功
      */
     bool save_to_file(const std::string& filename = "") const;
 
     /**
-     * @brief 从文件加载版本控制数�?     * @param filename 文件�?     * @return 是否成功
+     * @brief 从文件加载版本控制数�?     * @param filename 文件�?     * @return 是否成功
      */
     bool load_from_file(const std::string& filename = "");
 
@@ -248,7 +248,7 @@ private:
     std::string filename_;
     
     /**
-     * @brief 生成时间�?     * @return 时间戳字符串
+     * @brief 生成时间�?     * @return 时间戳字符串
      */
     std::string generate_timestamp() const;
     

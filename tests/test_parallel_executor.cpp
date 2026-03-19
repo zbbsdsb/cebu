@@ -20,13 +20,13 @@ void test_construction() {
     ParallelExecutor executor(4);
     assert(executor.thread_count() == 4);
     assert(executor.active_tasks() == 0);
-    std::cout << "�?Construction test passed" << std::endl;
+    std::cout << "�?Construction test passed" << std::endl;
 }
 
 void test_auto_thread_count() {
     std::cout << "Testing auto thread count..." << std::endl;
-    ParallelExecutor executor;  // 使用默认线程�?    assert(executor.thread_count() >= 1);
-    std::cout << "�?Auto thread count test passed" << std::endl;
+    ParallelExecutor executor;  // 使用默认线程�?    assert(executor.thread_count() >= 1);
+    std::cout << "�?Auto thread count test passed" << std::endl;
 }
 
 // ========================================
@@ -46,7 +46,7 @@ void test_enqueue_task() {
     executor.wait_for_all();
     
     assert(counter.load() == 1);
-    std::cout << "�?Enqueue task test passed" << std::endl;
+    std::cout << "�?Enqueue task test passed" << std::endl;
 }
 
 void test_enqueue_multiple_tasks() {
@@ -68,7 +68,7 @@ void test_enqueue_multiple_tasks() {
     
     executor.wait_for_all();
     assert(counter.load() == 100);
-    std::cout << "�?Enqueue multiple tasks test passed" << std::endl;
+    std::cout << "�?Enqueue multiple tasks test passed" << std::endl;
 }
 
 void test_enqueue_task_with_return() {
@@ -81,7 +81,7 @@ void test_enqueue_task_with_return() {
     
     int result = future.get();
     assert(result == 42);
-    std::cout << "�?Enqueue task with return test passed" << std::endl;
+    std::cout << "�?Enqueue task with return test passed" << std::endl;
 }
 
 void test_enqueue_task_with_args() {
@@ -94,7 +94,7 @@ void test_enqueue_task_with_args() {
     
     int result = future.get();
     assert(result == 42);
-    std::cout << "�?Enqueue task with args test passed" << std::endl;
+    std::cout << "�?Enqueue task with args test passed" << std::endl;
 }
 
 // ========================================
@@ -116,7 +116,7 @@ void test_parallel_for_iterator() {
         // 这个测试只是演示，实际修改需要更复杂的逻辑
     });
     
-    // 验证所有元素都被访�?    size_t idx = 0;
+    // 验证所有元素都被访�?    size_t idx = 0;
     executor.parallel_for(data.begin(), data.end(), [&data, &idx](int& x) {
         data[static_cast<size_t>(idx)] = static_cast<int>(idx * 2);
         idx++;
@@ -124,7 +124,7 @@ void test_parallel_for_iterator() {
     
     executor.wait_for_all();
     assert(data == expected);
-    std::cout << "�?Parallel for iterator test passed" << std::endl;
+    std::cout << "�?Parallel for iterator test passed" << std::endl;
 }
 
 void test_parallel_for_index_range() {
@@ -144,7 +144,7 @@ void test_parallel_for_index_range() {
     
     executor.wait_for_all();
     assert(data == expected);
-    std::cout << "�?Parallel for index range test passed" << std::endl;
+    std::cout << "�?Parallel for index range test passed" << std::endl;
 }
 
 void test_parallel_for_empty_range() {
@@ -153,7 +153,7 @@ void test_parallel_for_empty_range() {
     
     std::vector<int> data;
     
-    // 不应该崩�?    executor.parallel_for(data.begin(), data.end(), [](int& x) {
+    // 不应该崩�?    executor.parallel_for(data.begin(), data.end(), [](int& x) {
         x = 42;
     });
     
@@ -162,7 +162,7 @@ void test_parallel_for_empty_range() {
     });
     
     executor.wait_for_all();
-    std::cout << "�?Parallel for empty range test passed" << std::endl;
+    std::cout << "�?Parallel for empty range test passed" << std::endl;
 }
 
 void test_parallel_for_single_element() {
@@ -177,7 +177,7 @@ void test_parallel_for_single_element() {
     
     executor.wait_for_all();
     assert(data[0] == 42);
-    std::cout << "�?Parallel for single element test passed" << std::endl;
+    std::cout << "�?Parallel for single element test passed" << std::endl;
 }
 
 // ========================================
@@ -201,7 +201,7 @@ void test_parallel_reduce_sum() {
     
     int expected = std::accumulate(data.begin(), data.end(), 0);
     assert(result == expected);
-    std::cout << "�?Parallel reduce sum test passed" << std::endl;
+    std::cout << "�?Parallel reduce sum test passed" << std::endl;
 }
 
 void test_parallel_reduce_max() {
@@ -225,7 +225,7 @@ void test_parallel_reduce_max() {
     
     int expected = *std::max_element(data.begin(), data.end());
     assert(result == expected);
-    std::cout << "�?Parallel reduce max test passed" << std::endl;
+    std::cout << "�?Parallel reduce max test passed" << std::endl;
 }
 
 void test_parallel_reduce_empty() {
@@ -241,7 +241,7 @@ void test_parallel_reduce_empty() {
     );
     
     assert(result == 42);
-    std::cout << "�?Parallel reduce empty test passed" << std::endl;
+    std::cout << "�?Parallel reduce empty test passed" << std::endl;
 }
 
 // ========================================
@@ -269,7 +269,7 @@ void test_parallel_map() {
     
     executor.wait_for_all();
     assert(output == expected);
-    std::cout << "�?Parallel map test passed" << std::endl;
+    std::cout << "�?Parallel map test passed" << std::endl;
 }
 
 void test_parallel_map_transform() {
@@ -288,7 +288,7 @@ void test_parallel_map_transform() {
     
     executor.wait_for_all();
     assert(output == expected);
-    std::cout << "�?Parallel map transform test passed" << std::endl;
+    std::cout << "�?Parallel map transform test passed" << std::endl;
 }
 
 void test_parallel_map_empty() {
@@ -298,14 +298,14 @@ void test_parallel_map_empty() {
     std::vector<int> input;
     std::vector<int> output;
     
-    // 不应该崩�?    executor.parallel_map(
+    // 不应该崩�?    executor.parallel_map(
         input.begin(), input.end(),
         output.begin(),
         [](int x) { return x * 2; }
     );
     
     executor.wait_for_all();
-    std::cout << "�?Parallel map empty test passed" << std::endl;
+    std::cout << "�?Parallel map empty test passed" << std::endl;
 }
 
 // ========================================
@@ -332,7 +332,7 @@ void test_thread_safety_counter() {
     
     executor.wait_for_all();
     assert(counter.load() == num_iterations);
-    std::cout << "�?Thread safety counter test passed" << std::endl;
+    std::cout << "�?Thread safety counter test passed" << std::endl;
 }
 
 void test_thread_safety_vector() {
@@ -359,7 +359,7 @@ void test_thread_safety_vector() {
     for (size_t i = 0; i < data.size(); ++i) {
         assert(data[i] == static_cast<int>(i * 2));
     }
-    std::cout << "�?Thread safety vector test passed" << std::endl;
+    std::cout << "�?Thread safety vector test passed" << std::endl;
 }
 
 // ========================================
@@ -398,18 +398,18 @@ void test_performance_comparison() {
     auto time_parallel = std::chrono::duration_cast<std::chrono::milliseconds>(
         end_parallel - start_parallel).count();
     
-    // 验证结果正确�?    assert(sum_serial == sum_parallel);
+    // 验证结果正确�?    assert(sum_serial == sum_parallel);
     
-    // 并行应该更快（至少快 1.5x�?    double speedup = static_cast<double>(time_serial) / std::max<double>(static_cast<double>(time_parallel), 1.0);
+    // 并行应该更快（至少快 1.5x�?    double speedup = static_cast<double>(time_serial) / std::max<double>(static_cast<double>(time_parallel), 1.0);
     std::cout << "[Performance] Serial: " << time_serial 
               << "ms, Parallel: " << time_parallel 
               << "ms, Speedup: " << speedup << "x" << std::endl;
     
-    // 性能目标�?线程至少 1.5x 加�?    // 注意：在某些环境下可能无法达到，但我们仍然测试功能正确�?    std::cout << "�?Performance comparison test passed" << std::endl;
+    // 性能目标�?线程至少 1.5x 加�?    // 注意：在某些环境下可能无法达到，但我们仍然测试功能正确�?    std::cout << "�?Performance comparison test passed" << std::endl;
 }
 
 // ========================================
-// 全局执行器测�?// ========================================
+// 全局执行器测�?// ========================================
 
 void test_global_instance() {
     std::cout << "Testing global instance..." << std::endl;
@@ -431,7 +431,7 @@ void test_global_instance() {
     assert(data == expected);
     
     GlobalParallelExecutor::shutdown();
-    std::cout << "�?Global instance test passed" << std::endl;
+    std::cout << "�?Global instance test passed" << std::endl;
 }
 
 void test_global_parallel_for() {
@@ -455,11 +455,11 @@ void test_global_parallel_for() {
     assert(result == expected);
     
     GlobalParallelExecutor::shutdown();
-    std::cout << "�?Global parallel for test passed" << std::endl;
+    std::cout << "�?Global parallel for test passed" << std::endl;
 }
 
 // ========================================
-// 主函�?// ========================================
+// 主函�?// ========================================
 
 int main() {
     std::cout << "=== Parallel Executor Tests ===" << std::endl << std::endl;
