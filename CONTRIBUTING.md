@@ -71,4 +71,20 @@ cd cebu
 mkdir build && cd build
 
 # Configure project
-cm
+cmake .. -DCEBU_BUILD_TESTS=ON -DCEBU_BUILD_EXAMPLES=ON
+
+# Build
+cmake --build . --config Release
+
+# Run tests
+ctest --output-on-failure
+
+# Install (optional)
+cmake --install .
+```
+
+### IDE Configuration
+
+#### Visual Studio Code
+Recommended extensions:
+- C
