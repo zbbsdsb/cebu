@@ -178,4 +178,8 @@ void risky_operation() {
 }
 
 // Use optional for operations that may fail
-std::optional<SimplexID> find_simplex(const Criteria& criteria)
+std::optional<SimplexID> find_simplex(const Criteria& criteria) {
+    if (found) {
+        return simplex_id;
+    }
+    return std::nullo
