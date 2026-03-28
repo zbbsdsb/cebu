@@ -494,4 +494,10 @@ Any other relevant information
 - `enhancement` - New feature or request
 - `documentation` - Improvements or additions to documentation
 - `good first issue` - Good for newcomers
-- `help wanted` -
+- `help wanted` - Extra attention is needed
+
+## Getting Help
+
+- **GitHub Issues** - For bug reports and feature requests
+- **GitHub Discussions** - For questions and general discussion
+- **Email** - Contact
