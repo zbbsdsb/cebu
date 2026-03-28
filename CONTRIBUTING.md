@@ -87,4 +87,13 @@ cmake --install .
 
 #### Visual Studio Code
 Recommended extensions:
-- C
+- C/C++ Extension Pack
+- CMake Tools
+- Clang-Format
+
+#### Visual Studio
+- Ensure C++ development workload is installed
+- Use "Open Folder" feature to open project root
+
+#### CLion
+- Open project root directory
