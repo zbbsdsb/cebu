@@ -316,4 +316,6 @@ TEST_F(SimplicialComplexTest, RemoveNonExistentSimplexThrows) {
 
 ### Type Categories
 
--
+- `feat`: New feature
+- `fix`: Bug fix
+- `docs`: Documentation update
