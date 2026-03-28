@@ -328,6 +328,15 @@ if (CEBU_BUILD_EXAMPLES)
     target_link_libraries(phase9c_demo cebu_core)
 endif()
 
+# Benchmark target
+add_executable(cebu_benchmark
+    examples/phase8d_benchmark.cpp
+)
+target_link_libraries(cebu_benchmark cebu_core)
+set_target_properties(cebu_benchmark PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/benchmark"
+)
+
 # Phase 9b/9c/engine tests (always built with CEBU_BUILD_TESTS)
 if (CEBU_BUILD_TESTS)
     add_executable(test_phase9b_morph    tests/test_phase9b_morph.cpp)

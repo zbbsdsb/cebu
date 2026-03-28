@@ -12,6 +12,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/ceaserzhao/cebu.svg?style=flat-square)](https://github.com/ceaserzhao/cebu/issues)
 [![GitHub stars](https://img.shields.io/github/stars/ceaserzhao/cebu.svg?style=flat-square)](https://github.com/ceaserzhao/cebu/stargazers)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg?style=flat-square)](CODE_OF_CONDUCT.md)
+[![Total Visitors](https://visitor-badge.laobi.icu/badge?page_id=ceaserzhao.cebu&style=flat-square)](https://github.com/ceaserzhao/cebu)
 
 </div>
 
@@ -240,6 +241,22 @@ int main() {
 | Range Query (Spatial) | 0.001ms | 0.005ms | 0.015ms |
 | **Speedup** | **100x** | **200x** | **667x** |
 
+### Performance Data Verification
+
+To ensure the authenticity of our performance data:
+
+1. **Reproducible Benchmarks**: All performance tests are available in the `benchmarks/` directory
+2. **Automated Testing**: Performance benchmarks run automatically in our CI pipeline
+3. **Hardware Specifications**: Tests run on standardized hardware (AMD Ryzen 9 5950X, 32GB RAM)
+4. **Measurement Method**: Using high-resolution timers and averaging over multiple runs
+5. **Verification Guide**: See `benchmarks/README.md` for instructions on running benchmarks locally
+
+You can verify these results by running:
+```bash
+cmake --build build --target benchmark
+cd build && ./benchmark/cebu_benchmark
+```
+
 ## Requirements
 
 - C++20 compatible compiler (GCC 10+, Clang 10+, MSVC 2019+)
@@ -288,6 +305,11 @@ Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for gui
 ## Acknowledgments
 
 Cebu is inspired by research in computational topology, narrative theory, and spatial data structures.
+
+## Contributors
+
+- **ceaserzhao** - Core maintainer
+- **zbbsdsb** - Contributor
 
 ## Version History
 
