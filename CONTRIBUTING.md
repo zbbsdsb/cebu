@@ -229,4 +229,9 @@ private:
 
 1. **Unit Tests** - Test individual functions or classes
 2. **Integration Tests** - Test module interactions
-3. **Performance Tests**
+3. **Performance Tests** - Test performance benchmarks
+
+### Test Naming
+
+```cpp
+// Test file naming: test_<module
