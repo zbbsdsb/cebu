@@ -293,4 +293,8 @@ TEST_F(SimplicialComplexTest, AddVertexIncreasesCount) {
     
     auto v = complex_.add_vertex();
     
-    EXPECT_EQ(complex_.vertex_count(), 1
+    EXPECT_EQ(complex_.vertex_count(), 1);
+    EXPECT_TRUE(complex_.has_simplex(v));
+}
+
+TEST_F(SimplicialComplex
