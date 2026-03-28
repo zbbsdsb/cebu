@@ -169,4 +169,13 @@ bool remove_simplex(SimplexID id);
 #### Error Handling
 
 ```cpp
-// Use exceptions
+// Use exceptions for error conditions
+void risky_operation() {
+    if (!is_valid()) {
+        throw std::runtime_error("Invalid state for operation");
+    }
+    // Continue operation
+}
+
+// Use optional for operations that may fail
+std::optional<SimplexID> find_simplex(const Criteria& criteria)
