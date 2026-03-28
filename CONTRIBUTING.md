@@ -446,3 +446,15 @@ Brief description of changes
 
 ```bash
 # Build documentation locally
+cd docs
+mkdocs serve  # For MkDocs
+# or
+make html     # For Sphinx
+```
+
+## Reporting Issues
+
+### Before Reporting
+
+1. **Search Existing Issues** - Check if the issue has already been reported
+2. **Gather Information** - Collect relevant details
