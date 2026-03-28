@@ -322,4 +322,12 @@ TEST_F(SimplicialComplexTest, RemoveNonExistentSimplexThrows) {
 - `style`: Code formatting (no functionality change)
 - `refactor`: Code refactoring
 - `test`: Test-related
-- `ch
+- `chore`: Build/tool-related
+- `perf`: Performance optimization
+
+### Example
+
+```
+feat(core): add spatial indexing with BVH tree
+
+Implement BVH (Bounding Volume Hierarchy) tree for
