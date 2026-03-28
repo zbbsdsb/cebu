@@ -235,4 +235,31 @@ private:
 
 ```cpp
 // Test file naming: test_<module>.cpp
-// Example: test_simplic
+// Example: test_simplicial_complex.cpp
+
+// Test function naming: test_<function>_<scenario>
+TEST(SimplicialComplexTest, test_add_simplex_valid) {
+    // Test code
+}
+
+TEST(SimplicialComplexTest, test_add_simplex_invalid) {
+    // Test code
+}
+```
+
+### Test Coverage
+
+- New code should have at least 80% test coverage
+- Critical paths must have test coverage
+- Edge cases and exception scenarios must be tested
+
+### Running Tests
+
+```bash
+# Run all tests
+ctest --output-on-failure
+
+# Run specific tests
+ctest -R test_simplicial_complex
+
+#
