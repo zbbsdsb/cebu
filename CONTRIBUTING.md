@@ -335,3 +335,12 @@ This provides 100-667x speedup for range queries compared to linear search.
 
 - Add BVHTree class with SAH build strategy
 - Implement nearest neighbor queries
+- Add range query support
+- Include comprehensive tests
+
+Closes #123
+```
+
+## Developer Certificate of Origin (DCO)
+
+All contributions must
