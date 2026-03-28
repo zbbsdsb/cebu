@@ -369,4 +369,11 @@ For more information, see the [DCO](DCO) file.
 
 1. **Update Documentation** - Ensure all changes are documented
 2. **Add Tests** - New features must include tests
-3. **Run Tests Locally**
+3. **Run Tests Locally** - Verify all tests pass
+4. **Check Code Style** - Run clang-format if needed
+5. **Update CHANGELOG** - Add entry to CHANGELOG.md if applicable
+
+### PR Requirements
+
+- Clear title and description
+- Reference related
