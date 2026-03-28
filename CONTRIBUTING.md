@@ -490,3 +490,8 @@ Any other relevant information
 
 ### Issue Labels
 
+- `bug` - Something isn't working
+- `enhancement` - New feature or request
+- `documentation` - Improvements or additions to documentation
+- `good first issue` - Good for newcomers
+- `help wanted` -
