@@ -112,4 +112,25 @@ Follow the [Google C++ Style Guide](https://google.github.io/styleguide/cppguide
 class SimplicialComplex { };
 
 // Function names: snake_case
-void add_simple
+void add_simplex();
+
+// Variable names: snake_case
+int simplex_count = 0;
+
+// Constants: kPascalCase
+const int kMaxSimplices = 1000;
+
+// Member variables: snake_case_with_trailing_underscore
+int vertex_count_;
+
+// Enums: PascalCase
+enum class BuildStrategy {
+    Sah,
+    Median,
+    Linear
+};
+```
+
+#### Formatting
+
+- Use
