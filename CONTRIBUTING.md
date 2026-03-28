@@ -430,4 +430,19 @@ Brief description of changes
 
 ### Types of Documentation
 
-- **API Documentation** -
+- **API Documentation** - Document public APIs
+- **User Guide** - Help users get started
+- **Examples** - Code examples and tutorials
+- **Architecture** - System design documents
+
+### Documentation Standards
+
+- Use clear and concise language
+- Include code examples where appropriate
+- Keep documentation up-to-date with code changes
+- Use proper Markdown formatting
+
+### Building Documentation
+
+```bash
+# Build documentation locally
