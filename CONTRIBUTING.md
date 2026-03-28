@@ -404,4 +404,12 @@ Brief description of changes
 - [ ] Code follows style guidelines
 - [ ] Documentation updated
 - [ ] CHANGELOG.md updated
--
+- [ ] DCO signed
+```
+
+## Code Review
+
+### Review Process
+
+1. **Automated Checks** - CI runs tests and style checks
+2. **Peer Review** - At least
