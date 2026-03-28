@@ -1,11 +1,11 @@
 site_name: Cebu Documentation
 site_description: Advanced Simplicial Complex Library
 site_author: CeaserZhao (Oasis Company)
-site_url: https://ceaserzhao.github.io/cebu/
+site_url: https://zbbsdsb.github.io/cebu/
 
 # Repository
-repo_url: https://github.com/ceaserzhao/cebu
-repo_name: ceaserzhao/cebu
+repo_url: https://github.com/zbbsdsb/cebu
+repo_name: zbbsdsb/cebu
 
 # Theme
 theme:
@@ -100,7 +100,7 @@ extra:
     provider: mike
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/ceaserzhao/cebu
+      link: https://github.com/zbbsdsb/cebu
       name: GitHub
     - icon: fontawesome/brands/twitter
       link: https://twitter.com/ceaserzhao
