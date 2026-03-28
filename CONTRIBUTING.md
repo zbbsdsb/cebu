@@ -376,4 +376,12 @@ For more information, see the [DCO](DCO) file.
 ### PR Requirements
 
 - Clear title and description
-- Reference related
+- Reference related issues
+- Include screenshots or test results if applicable
+- All CI checks must pass
+- At least one approval from a maintainer
+- No merge conflicts
+
+### PR Template
+
+When creating a
