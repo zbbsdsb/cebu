@@ -277,4 +277,16 @@ cmake --build . --target coverage
 
 class SimplicialComplexTest : public ::testing::Test {
 protected:
-    void SetUp
+    void SetUp() override {
+        // Setup before test
+    }
+    
+    void TearDown() override {
+        // Cleanup after test
+    }
+    
+    cebu::SimplicialComplex complex_;
+};
+
+TEST_F(SimplicialComplexTest, AddVertexIncreasesCount) {
+    EXPECT_EQ(com
