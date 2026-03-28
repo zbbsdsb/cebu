@@ -289,4 +289,8 @@ protected:
 };
 
 TEST_F(SimplicialComplexTest, AddVertexIncreasesCount) {
-    EXPECT_EQ(com
+    EXPECT_EQ(complex_.vertex_count(), 0);
+    
+    auto v = complex_.add_vertex();
+    
+    EXPECT_EQ(complex_.vertex_count(), 1
