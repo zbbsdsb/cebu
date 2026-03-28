@@ -351,4 +351,6 @@ To sign your commits:
 # Sign individual commits
 git commit -s -m "Your commit message"
 
-# Or configure Git to
+# Or configure Git to auto-sign all commits
+git config --local user.name "Your Name"
+git config --local user
