@@ -182,4 +182,33 @@ std::optional<SimplexID> find_simplex(const Criteria& criteria) {
     if (found) {
         return simplex_id;
     }
-    return std::nullo
+    return std::nullopt;
+}
+```
+
+#### Smart Pointers
+
+```cpp
+// Prefer smart pointers
+auto ptr = std::make_unique<Simplex>();
+auto shared = std::make_shared<Complex>();
+
+// Avoid raw pointers unless necessary
+Simplex* raw_ptr = nullptr;  // Only for non-ownership scenarios
+```
+
+### Header File Standards
+
+```cpp
+#ifndef CEBU_SIMPLICIAL_COMPLEX_H_
+#define CEBU_SIMPLICIAL_COMPLEX_H_
+
+#include <vector>
+#include <memory>
+
+#include "cebu/types.h"
+#include "cebu/simplex.h"
+
+namespace cebu {
+
+class
