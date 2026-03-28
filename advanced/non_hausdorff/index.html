@@ -1,0 +1,2692 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Advanced Simplicial Complex Library">
+      
+      
+        <meta name="author" content="CeaserZhao (Oasis Company)">
+      
+      
+        <link rel="canonical" href="https://ceaserzhao.github.io/cebu/advanced/non_hausdorff/">
+      
+      
+        <link rel="prev" href="../spatial_indexing/">
+      
+      
+        <link rel="next" href="../absurdity_system/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.0">
+    
+    
+      
+        <title>Non-Hausdorff Topology - Cebu Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.45e1311d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/timeago.css">
+    
+      <link rel="stylesheet" href="../../css/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#equivalence-classes-and-non-hausdorff-topology" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Cebu Documentation" class="md-header__button md-logo" aria-label="Cebu Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Cebu Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Non-Hausdorff Topology
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ceaserzhao/cebu" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ceaserzhao/cebu
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../installation/" class="md-tabs__link">
+          
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tutorials/tutorial_basic/" class="md-tabs__link">
+          
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../core/simplicial_complex/" class="md-tabs__link">
+          
+  
+  Core Concepts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../spatial_indexing/" class="md-tabs__link">
+          
+  
+  Advanced Features
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../api/api_core/" class="md-tabs__link">
+          
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../utilities/performance/" class="md-tabs__link">
+          
+  
+  Utilities
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../PROJECT_STRUCTURE.md" class="md-tabs__link">
+          
+  
+  Project
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Cebu Documentation" class="md-nav__button md-logo" aria-label="Cebu Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Cebu Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ceaserzhao/cebu" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ceaserzhao/cebu
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quick Start
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Tutorials
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/tutorial_basic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Basic Usage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/tutorial_spatial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spatial Indexing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/tutorial_narrative/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Narrative Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Core Concepts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Core Concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/simplicial_complex/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Simplicial Complex
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/topology/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Topology
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/labels/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Labels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/serialization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serialization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Advanced Features
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Advanced Features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spatial_indexing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spatial Indexing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Non-Hausdorff Topology
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Non-Hausdorff Topology
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Concepts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-non-hausdorff-topology" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is Non-Hausdorff Topology?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-is-simplex-gluing" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is Simplex Gluing?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Applications
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#equivalence-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Equivalence Classes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Equivalence Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#equivalenceclassmanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      EquivalenceClassManager
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#non-hausdorff-simplicial-complex" class="md-nav__link">
+    <span class="md-ellipsis">
+      Non-Hausdorff Simplicial Complex
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Non-Hausdorff Simplicial Complex">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-cylinder-gluing-square-edges" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating a Cylinder (Gluing Square Edges)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-mobius-strip" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating a Möbius Strip
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gluing-with-labeled-complexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gluing with Labeled Complexes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Use Cases
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Use Cases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-topological-identification" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Topological Identification
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-symmetric-meshes" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Symmetric Meshes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-mesh-merging" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Mesh Merging
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-torus-construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Torus Construction
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Reference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#equivalenceclassmanager_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      EquivalenceClassManager
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#simplicialcomplexnonhausdorff" class="md-nav__link">
+    <span class="md-ellipsis">
+      SimplicialComplexNonHausdorff
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#labeled-non-hausdorff-complex" class="md-nav__link">
+    <span class="md-ellipsis">
+      Labeled Non-Hausdorff Complex
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-glue-before-adding-relationships" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Glue Before Adding Relationships
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-use-representatives-for-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Use Representatives for Queries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-handle-label-conflicts" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Handle Label Conflicts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-consider-topology-vs-geometry" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Consider Topology vs Geometry
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Considerations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#union-find-complexity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Union-Find Complexity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-overhead" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Overhead
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Limitations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Limitations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-no-automatic-geometric-gluing" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. No Automatic Geometric Gluing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-cascade-deletion" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Cascade Deletion
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-label-independence" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Label Independence
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#issue-simplex-not-found-in-equivalence-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue: "Simplex not found in equivalence manager"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-glued-simplices-dont-appear-together-in-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue: Glued simplices don't appear together in queries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-performance-degrades-with-many-gluing-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue: Performance degrades with many gluing operations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../absurdity_system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Absurdity System
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../narrative_context/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Narrative Context
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    API Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_core/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Core API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_spatial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spatial API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_serialization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serialization API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_narrative/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Narrative API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_absurdity/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Absurdity API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Utilities
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Utilities
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../utilities/performance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performance Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../utilities/best_practices/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Best Practices
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../utilities/faq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../utilities/troubleshooting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Project
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Project
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PROJECT_STRUCTURE.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CONTRIBUTING.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CHANGELOG.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Changelog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LICENSE" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Concepts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-non-hausdorff-topology" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is Non-Hausdorff Topology?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-is-simplex-gluing" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is Simplex Gluing?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Applications
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#equivalence-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Equivalence Classes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Equivalence Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#equivalenceclassmanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      EquivalenceClassManager
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#non-hausdorff-simplicial-complex" class="md-nav__link">
+    <span class="md-ellipsis">
+      Non-Hausdorff Simplicial Complex
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Non-Hausdorff Simplicial Complex">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-cylinder-gluing-square-edges" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating a Cylinder (Gluing Square Edges)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-mobius-strip" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating a Möbius Strip
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gluing-with-labeled-complexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gluing with Labeled Complexes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Use Cases
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Use Cases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-topological-identification" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Topological Identification
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-symmetric-meshes" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Symmetric Meshes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-mesh-merging" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Mesh Merging
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-torus-construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Torus Construction
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Reference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#equivalenceclassmanager_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      EquivalenceClassManager
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#simplicialcomplexnonhausdorff" class="md-nav__link">
+    <span class="md-ellipsis">
+      SimplicialComplexNonHausdorff
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#labeled-non-hausdorff-complex" class="md-nav__link">
+    <span class="md-ellipsis">
+      Labeled Non-Hausdorff Complex
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-glue-before-adding-relationships" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Glue Before Adding Relationships
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-use-representatives-for-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Use Representatives for Queries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-handle-label-conflicts" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Handle Label Conflicts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-consider-topology-vs-geometry" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Consider Topology vs Geometry
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Considerations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#union-find-complexity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Union-Find Complexity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-overhead" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Overhead
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Limitations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Limitations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-no-automatic-geometric-gluing" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. No Automatic Geometric Gluing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-cascade-deletion" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Cascade Deletion
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-label-independence" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Label Independence
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#issue-simplex-not-found-in-equivalence-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue: "Simplex not found in equivalence manager"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-glued-simplices-dont-appear-together-in-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue: Glued simplices don't appear together in queries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-performance-degrades-with-many-gluing-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue: Performance degrades with many gluing operations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="equivalence-classes-and-non-hausdorff-topology">Equivalence Classes and Non-Hausdorff Topology<a class="headerlink" href="#equivalence-classes-and-non-hausdorff-topology" title="Permanent link">&para;</a></h1>
+<p>This guide explains how to use Cebu's equivalence class system to create non-Hausdorff topological spaces by gluing simplices together.</p>
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a href="#concepts">Concepts</a></li>
+<li><a href="#equivalence-classes">Equivalence Classes</a></li>
+<li><a href="#non-hausdorff-simplicial-complex">Non-Hausdorff Simplicial Complex</a></li>
+<li><a href="#common-use-cases">Common Use Cases</a></li>
+<li><a href="#api-reference">API Reference</a></li>
+</ol>
+<hr />
+<h2 id="concepts">Concepts<a class="headerlink" href="#concepts" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-non-hausdorff-topology">What is Non-Hausdorff Topology?<a class="headerlink" href="#what-is-non-hausdorff-topology" title="Permanent link">&para;</a></h3>
+<p>In standard (Hausdorff) topologies, any two distinct points have disjoint neighborhoods. In <strong>non-Hausdorff topology</strong>, this property doesn't hold - points can be "glued" together while maintaining separate identities.</p>
+<h3 id="what-is-simplex-gluing">What is Simplex Gluing?<a class="headerlink" href="#what-is-simplex-gluing" title="Permanent link">&para;</a></h3>
+<p><strong>Gluing</strong> identifies two or more simplices as topologically equivalent:
+- They share the same topological position
+- They can have different labels or attributes
+- They appear as one entity in topology queries</p>
+<h3 id="applications">Applications<a class="headerlink" href="#applications" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Identifying Boundaries</strong>: Glue edges of a square to create a cylinder or Möbius strip</li>
+<li><strong>Symmetry Operations</strong>: Identify equivalent vertices in symmetric structures</li>
+<li><strong>Topological Identifications</strong>: Create quotient spaces</li>
+<li><strong>Mesh Merging</strong>: Combine meshes along common boundaries</li>
+</ul>
+<hr />
+<h2 id="equivalence-classes">Equivalence Classes<a class="headerlink" href="#equivalence-classes" title="Permanent link">&para;</a></h2>
+<h3 id="equivalenceclassmanager">EquivalenceClassManager<a class="headerlink" href="#equivalenceclassmanager" title="Permanent link">&para;</a></h3>
+<p>Manages glued simplices using the Union-Find (Disjoint Set Union) data structure with path compression.</p>
+<h4 id="creating-an-equivalence-class-manager">Creating an Equivalence Class Manager<a class="headerlink" href="#creating-an-equivalence-class-manager" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;cebu/equivalence_classes.h&quot;</span>
+
+<span class="n">cebu</span><span class="o">::</span><span class="n">EquivalenceClassManager</span><span class="w"> </span><span class="n">manager</span><span class="p">;</span>
+</code></pre></div>
+<h4 id="adding-simplices">Adding Simplices<a class="headerlink" href="#adding-simplices" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// Add simplices to the manager</span>
+<span class="n">manager</span><span class="p">.</span><span class="n">add_simplex</span><span class="p">(</span><span class="n">vertex_id_0</span><span class="p">);</span>
+<span class="n">manager</span><span class="p">.</span><span class="n">add_simplex</span><span class="p">(</span><span class="n">vertex_id_1</span><span class="p">);</span>
+<span class="n">manager</span><span class="p">.</span><span class="n">add_simplex</span><span class="p">(</span><span class="n">vertex_id_2</span><span class="p">);</span>
+</code></pre></div>
+<h4 id="gluing-simplices">Gluing Simplices<a class="headerlink" href="#gluing-simplices" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// Glue vertex_id_1 and vertex_id_2 together</span>
+<span class="n">manager</span><span class="p">.</span><span class="n">glue</span><span class="p">(</span><span class="n">vertex_id_1</span><span class="p">,</span><span class="w"> </span><span class="n">vertex_id_2</span><span class="p">);</span>
+
+<span class="c1">// Now they are in the same equivalence class</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">class1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">manager</span><span class="p">.</span><span class="n">find_class</span><span class="p">(</span><span class="n">vertex_id_1</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">class2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">manager</span><span class="p">.</span><span class="n">find_class</span><span class="p">(</span><span class="n">vertex_id_2</span><span class="p">);</span>
+<span class="c1">// class1 == class2 (true)</span>
+</code></pre></div>
+<h4 id="querying-equivalence">Querying Equivalence<a class="headerlink" href="#querying-equivalence" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// Check if two simplices are glued together</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">are_glued</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">manager</span><span class="p">.</span><span class="n">are_equivalent</span><span class="p">(</span><span class="n">vertex_id_1</span><span class="p">,</span><span class="w"> </span><span class="n">vertex_id_2</span><span class="p">);</span>
+
+<span class="c1">// Get all members of an equivalence class</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">members</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">manager</span><span class="p">.</span><span class="n">get_class_members</span><span class="p">(</span><span class="n">vertex_id_1</span><span class="p">);</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">members</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Member: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Get the representative simplex</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">representative</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">manager</span><span class="p">.</span><span class="n">find_representative</span><span class="p">(</span><span class="n">vertex_id_1</span><span class="p">);</span>
+</code></pre></div>
+<h4 id="ungluing">Ungluing<a class="headerlink" href="#ungluing" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// Separate a simplex from its equivalence class</span>
+<span class="n">manager</span><span class="p">.</span><span class="n">unglue</span><span class="p">(</span><span class="n">vertex_id_1</span><span class="p">);</span>
+
+<span class="c1">// Now vertex_id_1 is in its own class</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">still_glued</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">manager</span><span class="p">.</span><span class="n">are_equivalent</span><span class="p">(</span><span class="n">vertex_id_1</span><span class="p">,</span><span class="w"> </span><span class="n">vertex_id_2</span><span class="p">);</span>
+<span class="c1">// still_glued == false</span>
+</code></pre></div>
+<hr />
+<h2 id="non-hausdorff-simplicial-complex">Non-Hausdorff Simplicial Complex<a class="headerlink" href="#non-hausdorff-simplicial-complex" title="Permanent link">&para;</a></h2>
+<p>The <code>SimplicialComplexNonHausdorff</code> extends the standard simplicial complex with gluing capabilities.</p>
+<h3 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;cebu/simplicial_complex_non_hausdorff.h&quot;</span>
+
+<span class="c1">// Create a non-Hausdorff complex</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">SimplicialComplexNonHausdorff</span><span class="w"> </span><span class="n">complex</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="creating-a-cylinder-gluing-square-edges">Creating a Cylinder (Gluing Square Edges)<a class="headerlink" href="#creating-a-cylinder-gluing-square-edges" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;cebu/simplicial_complex_non_hausdorff.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">cebu</span><span class="o">::</span><span class="n">SimplicialComplexNonHausdorff</span><span class="w"> </span><span class="n">complex</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Create a square as two triangles</span>
+<span class="w">    </span><span class="c1">//   v1 ---- v2</span>
+<span class="w">    </span><span class="c1">//   | \  / |</span>
+<span class="w">    </span><span class="c1">//   |  v4  |</span>
+<span class="w">    </span><span class="c1">//   | /  \ |</span>
+<span class="w">    </span><span class="c1">//   v0 ---- v3</span>
+
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">v0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">complex</span><span class="p">.</span><span class="n">add_simplex</span><span class="p">({});</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">v1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">complex</span><span class="p">.</span><span class="n">add_simplex</span><span class="p">({});</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">v2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">complex</span><span class="p">.</span><span class="n">add_simplex</span><span class="p">({});</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">v3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">complex</span><span class="p">.</span><span class="n">add_simplex</span><span class="p">({});</span>
+
+<span class="w">    </span><span class="c1">// Add triangles</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">tri1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">complex</span><span class="p">.</span><span class="n">add_simplex</span><span class="p">({</span><span class="n">v0</span><span class="p">,</span><span class="w"> </span><span class="n">v1</span><span class="p">,</span><span class="w"> </span><span class="n">v2</span><span class="p">});</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">tri2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">complex</span><span class="p">.</span><span class="n">add_simplex</span><span class="p">({</span><span class="n">v0</span><span class="p">,</span><span class="w"> </span><span class="n">v2</span><span class="p">,</span><span class="w"> </span><span class="n">v3</span><span class="p">});</span>
+
+<span class="w">    </span><span class="c1">// Glue v1 to v3 (create cylinder by identifying left and right edges)</span>
+<span class="w">    </span><span class="n">complex</span><span class="p">.</span><span class="n">glue_simplices</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span><span class="w"> </span><span class="n">v3</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Check equivalence</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">glued</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">complex</span><span class="p">.</span><span class="n">are_glued</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span><span class="w"> </span><span class="n">v3</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;v1 and v3 are glued: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">glued</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Get all glued vertices</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">glued_group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">complex</span><span class="p">.</span><span class="n">get_glued_simplices</span><span class="p">(</span><span class="n">v1</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Glued group size: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">glued_group</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="creating-a-mobius-strip">Creating a Möbius Strip<a class="headerlink" href="#creating-a-mobius-strip" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Create a Möbius strip by gluing edges with a twist</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">SimplicialComplexNonHausdorff</span><span class="w"> </span><span class="n">complex</span><span class="p">;</span>
+
+<span class="c1">// Create a strip of triangles (simplified)</span>
+<span class="c1">// ... add vertices and triangles ...</span>
+
+<span class="c1">// Glue with twist: (v0, v1) glued to (vn, vn-1)</span>
+<span class="n">complex</span><span class="p">.</span><span class="n">glue_simplices</span><span class="p">(</span><span class="n">v0</span><span class="p">,</span><span class="w"> </span><span class="n">vn</span><span class="p">);</span>
+<span class="n">complex</span><span class="p">.</span><span class="n">glue_simplices</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span><span class="w"> </span><span class="n">vn_minus_1</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="gluing-with-labeled-complexes">Gluing with Labeled Complexes<a class="headerlink" href="#gluing-with-labeled-complexes" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;cebu/simplicial_complex_non_hausdorff.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;cebu/label.h&quot;</span>
+
+<span class="k">using</span><span class="w"> </span><span class="n">ComplexNH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">SimplicialComplexNonHausdorffLabeled</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="n">ComplexNH</span><span class="w"> </span><span class="n">complex</span><span class="p">;</span>
+
+<span class="c1">// Add vertices with different labels</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">v0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">complex</span><span class="p">.</span><span class="n">add_simplex</span><span class="p">({},</span><span class="w"> </span><span class="mf">10.0f</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">v1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">complex</span><span class="p">.</span><span class="n">add_simplex</span><span class="p">({},</span><span class="w"> </span><span class="mf">20.0f</span><span class="p">);</span>
+
+<span class="c1">// Glue them (they remain topologically equivalent but keep different labels)</span>
+<span class="n">complex</span><span class="p">.</span><span class="n">glue_simplices</span><span class="p">(</span><span class="n">v0</span><span class="p">,</span><span class="w"> </span><span class="n">v1</span><span class="p">);</span>
+
+<span class="c1">// Query both labels</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">label0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">complex</span><span class="p">.</span><span class="n">get_label</span><span class="p">(</span><span class="n">v0</span><span class="p">);</span><span class="w">  </span><span class="c1">// 10.0f</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">label1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">complex</span><span class="p">.</span><span class="n">get_label</span><span class="p">(</span><span class="n">v1</span><span class="p">);</span><span class="w">  </span><span class="c1">// 20.0f</span>
+
+<span class="c1">// But they&#39;re in the same equivalence class</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">glued</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">complex</span><span class="p">.</span><span class="n">are_glued</span><span class="p">(</span><span class="n">v0</span><span class="p">,</span><span class="w"> </span><span class="n">v1</span><span class="p">);</span><span class="w">  </span><span class="c1">// true</span>
+</code></pre></div>
+<hr />
+<h2 id="common-use-cases">Common Use Cases<a class="headerlink" href="#common-use-cases" title="Permanent link">&para;</a></h2>
+<h3 id="1-topological-identification">1. Topological Identification<a class="headerlink" href="#1-topological-identification" title="Permanent link">&para;</a></h3>
+<p>Create quotient spaces by identifying points:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Identify boundary of a disk to a single point</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">SimplicialComplexNonHausdorff</span><span class="w"> </span><span class="n">complex</span><span class="p">;</span>
+
+<span class="c1">// ... create disk of triangles ...</span>
+
+<span class="c1">// Glue all boundary vertices to a single point</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">boundary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="cm">/* get boundary vertices */</span><span class="p">;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">representative</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">boundary</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">boundary</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">complex</span><span class="p">.</span><span class="n">glue_simplices</span><span class="p">(</span><span class="n">representative</span><span class="p">,</span><span class="w"> </span><span class="n">boundary</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="p">}</span>
+
+<span class="c1">// Result: Sphere (disk + point = sphere)</span>
+</code></pre></div>
+<h3 id="2-symmetric-meshes">2. Symmetric Meshes<a class="headerlink" href="#2-symmetric-meshes" title="Permanent link">&para;</a></h3>
+<p>Identify symmetric vertices:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Create symmetric cube</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">SimplicialComplexNonHausdorff</span><span class="w"> </span><span class="n">complex</span><span class="p">;</span>
+
+<span class="c1">// ... create cube with 8 vertices ...</span>
+
+<span class="c1">// Glue opposite vertices (identify through center)</span>
+<span class="n">complex</span><span class="p">.</span><span class="n">glue_simplices</span><span class="p">(</span><span class="n">v0</span><span class="p">,</span><span class="w"> </span><span class="n">v6</span><span class="p">);</span>
+<span class="n">complex</span><span class="p">.</span><span class="n">glue_simplices</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span><span class="w"> </span><span class="n">v7</span><span class="p">);</span>
+<span class="n">complex</span><span class="p">.</span><span class="n">glue_simplices</span><span class="p">(</span><span class="n">v2</span><span class="p">,</span><span class="w"> </span><span class="n">v4</span><span class="p">);</span>
+<span class="n">complex</span><span class="p">.</span><span class="n">glue_simplices</span><span class="p">(</span><span class="n">v3</span><span class="p">,</span><span class="w"> </span><span class="n">v5</span><span class="p">);</span>
+
+<span class="c1">// Result: Projective plane-like structure</span>
+</code></pre></div>
+<h3 id="3-mesh-merging">3. Mesh Merging<a class="headerlink" href="#3-mesh-merging" title="Permanent link">&para;</a></h3>
+<p>Combine two meshes along a common boundary:</p>
+<div class="highlight"><pre><span></span><code><span class="n">cebu</span><span class="o">::</span><span class="n">SimplicialComplexNonHausdorff</span><span class="w"> </span><span class="n">complex</span><span class="p">;</span>
+
+<span class="c1">// Add mesh 1</span>
+<span class="c1">// ... add vertices and triangles for mesh 1 ...</span>
+
+<span class="c1">// Add mesh 2</span>
+<span class="c1">// ... add vertices and triangles for mesh 2 ...</span>
+
+<span class="c1">// Glue boundary vertices</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">boundary1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="cm">/* get boundary of mesh 1 */</span><span class="p">;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">boundary2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="cm">/* get boundary of mesh 2 */</span><span class="p">;</span>
+
+<span class="n">assert</span><span class="p">(</span><span class="n">boundary1</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">boundary2</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">boundary1</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">complex</span><span class="p">.</span><span class="n">glue_simplices</span><span class="p">(</span><span class="n">boundary1</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">boundary2</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="p">}</span>
+
+<span class="c1">// Result: Single merged mesh</span>
+</code></pre></div>
+<h3 id="4-torus-construction">4. Torus Construction<a class="headerlink" href="#4-torus-construction" title="Permanent link">&para;</a></h3>
+<p>Create a torus by gluing opposite edges of a square:</p>
+<div class="highlight"><pre><span></span><code><span class="n">cebu</span><span class="o">::</span><span class="n">SimplicialComplexNonHausdorff</span><span class="w"> </span><span class="n">complex</span><span class="p">;</span>
+
+<span class="c1">// Create square mesh</span>
+<span class="c1">// ... create triangulated square ...</span>
+
+<span class="c1">// Glue top and bottom edges</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">top_edge</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">complex</span><span class="p">.</span><span class="n">glue_simplices</span><span class="p">(</span><span class="n">top_edge</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">bottom_edge</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="p">}</span>
+
+<span class="c1">// Glue left and right edges</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">left_edge</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">complex</span><span class="p">.</span><span class="n">glue_simplices</span><span class="p">(</span><span class="n">left_edge</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">right_edge</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="p">}</span>
+
+<span class="c1">// Result: Torus</span>
+</code></pre></div>
+<hr />
+<h2 id="api-reference">API Reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h2>
+<h3 id="equivalenceclassmanager_1">EquivalenceClassManager<a class="headerlink" href="#equivalenceclassmanager_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">EquivalenceClassManager</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="c1">// Add a simplex (initially in its own class)</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">add_simplex</span><span class="p">(</span><span class="n">SimplexID</span><span class="w"> </span><span class="n">simplex_id</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Remove a simplex from all classes</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">remove_simplex</span><span class="p">(</span><span class="n">SimplexID</span><span class="w"> </span><span class="n">simplex_id</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Glue two simplices (union their classes)</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">glue</span><span class="p">(</span><span class="n">SimplexID</span><span class="w"> </span><span class="n">simplex_a</span><span class="p">,</span><span class="w"> </span><span class="n">SimplexID</span><span class="w"> </span><span class="n">simplex_b</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Unglue a simplex from its class</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">unglue</span><span class="p">(</span><span class="n">SimplexID</span><span class="w"> </span><span class="n">simplex_id</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Check if two simplices are equivalent</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">are_equivalent</span><span class="p">(</span><span class="n">SimplexID</span><span class="w"> </span><span class="n">simplex_a</span><span class="p">,</span><span class="w"> </span><span class="n">SimplexID</span><span class="w"> </span><span class="n">simplex_b</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Find the representative of a simplex&#39;s class</span>
+<span class="w">    </span><span class="n">SimplexID</span><span class="w"> </span><span class="nf">find_representative</span><span class="p">(</span><span class="n">SimplexID</span><span class="w"> </span><span class="n">simplex_id</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Get all members of an equivalence class</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">SimplexID</span><span class="o">&gt;</span><span class="w"> </span><span class="n">get_class_members</span><span class="p">(</span><span class="n">SimplexID</span><span class="w"> </span><span class="n">simplex_id</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Get the equivalence class for a simplex</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">EquivalenceClass</span><span class="o">&amp;</span><span class="w"> </span><span class="nf">find_class</span><span class="p">(</span><span class="n">SimplexID</span><span class="w"> </span><span class="n">simplex_id</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Get all equivalence classes</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">SimplexID</span><span class="p">,</span><span class="w"> </span><span class="n">EquivalenceClass</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">get_all_classes</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Get number of equivalence classes</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="nf">class_count</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<h3 id="simplicialcomplexnonhausdorff">SimplicialComplexNonHausdorff<a class="headerlink" href="#simplicialcomplexnonhausdorff" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">SimplicialComplexNonHausdorff</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">SimplicialComplex</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="c1">// Glue two simplices together</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">glue_simplices</span><span class="p">(</span><span class="n">SimplexID</span><span class="w"> </span><span class="n">simplex_a</span><span class="p">,</span><span class="w"> </span><span class="n">SimplexID</span><span class="w"> </span><span class="n">simplex_b</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Unglue a simplex</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">unglue_simplex</span><span class="p">(</span><span class="n">SimplexID</span><span class="w"> </span><span class="n">simplex_id</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Check if two simplices are glued</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">are_glued</span><span class="p">(</span><span class="n">SimplexID</span><span class="w"> </span><span class="n">simplex_a</span><span class="p">,</span><span class="w"> </span><span class="n">SimplexID</span><span class="w"> </span><span class="n">simplex_b</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Get all simplices glued to the given one</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">SimplexID</span><span class="o">&gt;</span><span class="w"> </span><span class="n">get_glued_simplices</span><span class="p">(</span><span class="n">SimplexID</span><span class="w"> </span><span class="n">simplex_id</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Get the equivalence class manager</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">EquivalenceClassManager</span><span class="o">&amp;</span><span class="w"> </span><span class="nf">get_equivalence_manager</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<h3 id="labeled-non-hausdorff-complex">Labeled Non-Hausdorff Complex<a class="headerlink" href="#labeled-non-hausdorff-complex" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">LabelType</span><span class="o">&gt;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SimplicialComplexNonHausdorffLabeled</span>
+<span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">SimplicialComplexLabeled</span><span class="o">&lt;</span><span class="n">LabelType</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="c1">// Glue two simplices together</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">glue_simplices</span><span class="p">(</span><span class="n">SimplexID</span><span class="w"> </span><span class="n">simplex_a</span><span class="p">,</span><span class="w"> </span><span class="n">SimplexID</span><span class="w"> </span><span class="n">simplex_b</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Unglue a simplex</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">unglue_simplex</span><span class="p">(</span><span class="n">SimplexID</span><span class="w"> </span><span class="n">simplex_id</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Check if two simplices are glued</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">are_glued</span><span class="p">(</span><span class="n">SimplexID</span><span class="w"> </span><span class="n">simplex_a</span><span class="p">,</span><span class="w"> </span><span class="n">SimplexID</span><span class="w"> </span><span class="n">simplex_b</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Get all simplices glued to the given one</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">SimplexID</span><span class="o">&gt;</span><span class="w"> </span><span class="n">get_glued_simplices</span><span class="p">(</span><span class="n">SimplexID</span><span class="w"> </span><span class="n">simplex_id</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<hr />
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<h3 id="1-glue-before-adding-relationships">1. Glue Before Adding Relationships<a class="headerlink" href="#1-glue-before-adding-relationships" title="Permanent link">&para;</a></h3>
+<p>Always glue simplices before adding faces that depend on them:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Good</span>
+<span class="n">complex</span><span class="p">.</span><span class="n">add_simplex</span><span class="p">({});</span><span class="w">  </span><span class="c1">// v0</span>
+<span class="n">complex</span><span class="p">.</span><span class="n">add_simplex</span><span class="p">({});</span><span class="w">  </span><span class="c1">// v1</span>
+<span class="n">complex</span><span class="p">.</span><span class="n">glue_simplices</span><span class="p">(</span><span class="n">v0</span><span class="p">,</span><span class="w"> </span><span class="n">v1</span><span class="p">);</span>
+<span class="n">complex</span><span class="p">.</span><span class="n">add_simplex</span><span class="p">({</span><span class="n">v0</span><span class="p">,</span><span class="w"> </span><span class="n">v1</span><span class="p">});</span><span class="w">  </span><span class="c1">// Edge works correctly</span>
+
+<span class="c1">// Bad</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">v0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">complex</span><span class="p">.</span><span class="n">add_simplex</span><span class="p">({});</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">v1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">complex</span><span class="p">.</span><span class="n">add_simplex</span><span class="p">({});</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">e01</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">complex</span><span class="p">.</span><span class="n">add_simplex</span><span class="p">({</span><span class="n">v0</span><span class="p">,</span><span class="w"> </span><span class="n">v1</span><span class="p">});</span>
+<span class="n">complex</span><span class="p">.</span><span class="n">glue_simplices</span><span class="p">(</span><span class="n">v0</span><span class="p">,</span><span class="w"> </span><span class="n">v1</span><span class="p">);</span><span class="w">  </span><span class="c1">// May cause issues</span>
+</code></pre></div>
+<h3 id="2-use-representatives-for-queries">2. Use Representatives for Queries<a class="headerlink" href="#2-use-representatives-for-queries" title="Permanent link">&para;</a></h3>
+<p>When querying glued simplices, use the representative:</p>
+<div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">rep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">complex</span><span class="p">.</span><span class="n">find_representative</span><span class="p">(</span><span class="n">simplex_id</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">neighbors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">complex</span><span class="p">.</span><span class="n">get_neighbors</span><span class="p">(</span><span class="n">rep</span><span class="p">);</span><span class="w">  </span><span class="c1">// Query representative</span>
+</code></pre></div>
+<h3 id="3-handle-label-conflicts">3. Handle Label Conflicts<a class="headerlink" href="#3-handle-label-conflicts" title="Permanent link">&para;</a></h3>
+<p>Be aware that glued simplices can have different labels:</p>
+<div class="highlight"><pre><span></span><code><span class="n">complex</span><span class="p">.</span><span class="n">add_simplex</span><span class="p">({},</span><span class="w"> </span><span class="mf">10.0f</span><span class="p">);</span><span class="w">  </span><span class="c1">// v0 with label 10.0</span>
+<span class="n">complex</span><span class="p">.</span><span class="n">add_simplex</span><span class="p">({},</span><span class="w"> </span><span class="mf">20.0f</span><span class="p">);</span><span class="w">  </span><span class="c1">// v1 with label 20.0</span>
+<span class="n">complex</span><span class="p">.</span><span class="n">glue_simplices</span><span class="p">(</span><span class="n">v0</span><span class="p">,</span><span class="w"> </span><span class="n">v1</span><span class="p">);</span>
+
+<span class="c1">// They&#39;re glued but have different labels</span>
+<span class="c1">// Decide how to handle this in your application</span>
+</code></pre></div>
+<h3 id="4-consider-topology-vs-geometry">4. Consider Topology vs Geometry<a class="headerlink" href="#4-consider-topology-vs-geometry" title="Permanent link">&para;</a></h3>
+<p>Gluing affects topology, not geometry. For spatial queries with glued simplices, consider:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Topologically glued, but geometrically separate</span>
+<span class="n">complex</span><span class="p">.</span><span class="n">glue_simplices</span><span class="p">(</span><span class="n">v0</span><span class="p">,</span><span class="w"> </span><span class="n">v1</span><span class="p">);</span>
+
+<span class="c1">// Spatial queries need special handling</span>
+<span class="c1">// Use equivalence classes to group geometric positions</span>
+</code></pre></div>
+<hr />
+<h2 id="performance-considerations">Performance Considerations<a class="headerlink" href="#performance-considerations" title="Permanent link">&para;</a></h2>
+<h3 id="union-find-complexity">Union-Find Complexity<a class="headerlink" href="#union-find-complexity" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>add_simplex</strong>: O(1)</li>
+<li><strong>glue</strong>: O(α(n)) ≈ O(1) with path compression</li>
+<li><strong>are_equivalent</strong>: O(α(n)) ≈ O(1)</li>
+<li><strong>get_class_members</strong>: O(k) where k is class size</li>
+</ul>
+<h3 id="memory-overhead">Memory Overhead<a class="headerlink" href="#memory-overhead" title="Permanent link">&para;</a></h3>
+<p>Each equivalence class stores:
+- Representative simplex ID
+- Set of member simplex IDs</p>
+<p><strong>Approximate overhead</strong>: ~32 bytes per simplex</p>
+<hr />
+<h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
+<h3 id="1-no-automatic-geometric-gluing">1. No Automatic Geometric Gluing<a class="headerlink" href="#1-no-automatic-geometric-gluing" title="Permanent link">&para;</a></h3>
+<p>The system doesn't automatically adjust vertex positions. You must handle geometry manually:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Gluing doesn&#39;t move vertices</span>
+<span class="n">complex</span><span class="p">.</span><span class="n">glue_simplices</span><span class="p">(</span><span class="n">v0</span><span class="p">,</span><span class="w"> </span><span class="n">v1</span><span class="p">);</span>
+
+<span class="c1">// You may need to manually align geometry</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">needs_alignment</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">align_geometry</span><span class="p">(</span><span class="n">v0</span><span class="p">,</span><span class="w"> </span><span class="n">v1</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="2-cascade-deletion">2. Cascade Deletion<a class="headerlink" href="#2-cascade-deletion" title="Permanent link">&para;</a></h3>
+<p>Removing a simplex unglues it from its class but doesn't affect others:</p>
+<div class="highlight"><pre><span></span><code><span class="n">complex</span><span class="p">.</span><span class="n">remove_simplex</span><span class="p">(</span><span class="n">simplex_id</span><span class="p">);</span>
+<span class="c1">// Other members of the equivalence class remain</span>
+</code></pre></div>
+<h3 id="3-label-independence">3. Label Independence<a class="headerlink" href="#3-label-independence" title="Permanent link">&para;</a></h3>
+<p>Glued simplices maintain independent labels. If you need shared labels, handle explicitly:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// After gluing, synchronize labels if needed</span>
+<span class="n">complex</span><span class="p">.</span><span class="n">glue_simplices</span><span class="p">(</span><span class="n">v0</span><span class="p">,</span><span class="w"> </span><span class="n">v1</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">shared_label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">compute_shared_label</span><span class="p">(</span><span class="n">v0</span><span class="p">,</span><span class="w"> </span><span class="n">v1</span><span class="p">);</span>
+<span class="n">complex</span><span class="p">.</span><span class="n">set_label</span><span class="p">(</span><span class="n">v0</span><span class="p">,</span><span class="w"> </span><span class="n">shared_label</span><span class="p">);</span>
+<span class="n">complex</span><span class="p">.</span><span class="n">set_label</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span><span class="w"> </span><span class="n">shared_label</span><span class="p">);</span>
+</code></pre></div>
+<hr />
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="issue-simplex-not-found-in-equivalence-manager">Issue: "Simplex not found in equivalence manager"<a class="headerlink" href="#issue-simplex-not-found-in-equivalence-manager" title="Permanent link">&para;</a></h3>
+<p><strong>Cause</strong>: Trying to glue a simplex that hasn't been added to the manager.</p>
+<p><strong>Solution</strong>: Ensure simplex exists before gluing:
+<div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">v0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">complex</span><span class="p">.</span><span class="n">add_simplex</span><span class="p">({});</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">v1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">complex</span><span class="p">.</span><span class="n">add_simplex</span><span class="p">({});</span>
+<span class="n">complex</span><span class="p">.</span><span class="n">glue_simplices</span><span class="p">(</span><span class="n">v0</span><span class="p">,</span><span class="w"> </span><span class="n">v1</span><span class="p">);</span><span class="w">  </span><span class="c1">// OK</span>
+</code></pre></div></p>
+<h3 id="issue-glued-simplices-dont-appear-together-in-queries">Issue: Glued simplices don't appear together in queries<a class="headerlink" href="#issue-glued-simplices-dont-appear-together-in-queries" title="Permanent link">&para;</a></h3>
+<p><strong>Cause</strong>: Querying a specific simplex instead of the equivalence class.</p>
+<p><strong>Solution</strong>: Use the representative or query all members:
+<div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">rep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">complex</span><span class="p">.</span><span class="n">find_representative</span><span class="p">(</span><span class="n">simplex_id</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">members</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">complex</span><span class="p">.</span><span class="n">get_class_members</span><span class="p">(</span><span class="n">rep</span><span class="p">);</span>
+</code></pre></div></p>
+<h3 id="issue-performance-degrades-with-many-gluing-operations">Issue: Performance degrades with many gluing operations<a class="headerlink" href="#issue-performance-degrades-with-many-gluing-operations" title="Permanent link">&para;</a></h3>
+<p><strong>Cause</strong>: Large equivalence classes reduce path compression effectiveness.</p>
+<p><strong>Solution</strong>: Consider the topology structure and minimize unnecessary gluing.</p>
+<hr />
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<p>Equivalence classes enable powerful non-Hausdorff topological constructions:</p>
+<ul>
+<li><strong>Glue simplices</strong> to create quotient spaces</li>
+<li><strong>Maintain independent labels</strong> and attributes</li>
+<li><strong>Efficient Union-Find</strong> implementation</li>
+<li><strong>Use cases</strong>: topological identification, symmetric meshes, mesh merging</li>
+</ul>
+<p>For more advanced usage, see the API reference and examples.</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2026-03-28T04:20:28+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2026-03-28</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © 2026 CeaserZhao (Oasis Company). All rights reserved.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/ceaserzhao/cebu" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://twitter.com/ceaserzhao" target="_blank" rel="noopener" title="Twitter" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "search.suggest", "search.highlight", "search.share", "navigation.top"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+        <script src="../../js/timeago.min.js"></script>
+      
+        <script src="../../js/timeago_mkdocs_material.js"></script>
+      
+        <script src="../../js/custom.js"></script>
+      
+    
+  </body>
+</html>

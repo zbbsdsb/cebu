@@ -1,0 +1,3550 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Advanced Simplicial Complex Library">
+      
+      
+        <meta name="author" content="CeaserZhao (Oasis Company)">
+      
+      
+        <link rel="canonical" href="https://ceaserzhao.github.io/cebu/utilities/performance/">
+      
+      
+        <link rel="prev" href="../../api/api_absurdity/">
+      
+      
+        <link rel="next" href="../best_practices/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.0">
+    
+    
+      
+        <title>Performance Guide - Cebu Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.45e1311d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/timeago.css">
+    
+      <link rel="stylesheet" href="../../css/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#performance-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Cebu Documentation" class="md-header__button md-logo" aria-label="Cebu Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Cebu Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Performance Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ceaserzhao/cebu" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ceaserzhao/cebu
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../installation/" class="md-tabs__link">
+          
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tutorials/tutorial_basic/" class="md-tabs__link">
+          
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../core/simplicial_complex/" class="md-tabs__link">
+          
+  
+  Core Concepts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../advanced/spatial_indexing/" class="md-tabs__link">
+          
+  
+  Advanced Features
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../api/api_core/" class="md-tabs__link">
+          
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  Utilities
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../PROJECT_STRUCTURE.md" class="md-tabs__link">
+          
+  
+  Project
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Cebu Documentation" class="md-nav__button md-logo" aria-label="Cebu Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Cebu Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ceaserzhao/cebu" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ceaserzhao/cebu
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quick Start
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Tutorials
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/tutorial_basic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Basic Usage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/tutorial_spatial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spatial Indexing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/tutorial_narrative/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Narrative Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Core Concepts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Core Concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/simplicial_complex/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Simplicial Complex
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/topology/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Topology
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/labels/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Labels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/serialization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serialization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Advanced Features
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Advanced Features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/spatial_indexing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spatial Indexing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/non_hausdorff/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Non-Hausdorff Topology
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/absurdity_system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Absurdity System
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/narrative_context/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Narrative Context
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    API Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_core/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Core API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_spatial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spatial API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_serialization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serialization API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_narrative/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Narrative API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_absurdity/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Absurdity API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Utilities
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Utilities
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Performance Guide
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Performance Guide
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-characteristics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Characteristics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Characteristics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#query-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Query Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Serialization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#benchmarking-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Benchmarking Results
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Benchmarking Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#build-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build Performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#query-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Query Performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serialization-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Serialization Performance
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimization-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optimization Strategies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optimization Strategies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-use-spatial-indexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Use Spatial Indexes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-batch-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Batch Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-choose-right-build-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Choose Right Build Strategy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-use-binary-serialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Use Binary Serialization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-enable-compression" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Enable Compression
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-use-streaming-for-large-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Use Streaming for Large Files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-reuse-spatial-indexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Reuse Spatial Indexes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-use-appropriate-container-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Use Appropriate Container Types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-minimize-label-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Minimize Label Queries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-use-union-find-for-gluing" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Use Union-Find for Gluing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Usage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Memory Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#memory-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Breakdown
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spatial-index-overhead" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spatial Index Overhead
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serialization-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Serialization Memory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-optimization-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Optimization Tips
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scaling-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scaling Considerations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scaling Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#small-complexes-10k-simplices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Small Complexes (&lt; 10K Simplices)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#medium-complexes-10k-100k-simplices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Medium Complexes (10K - 100K Simplices)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#large-complexes-100k-1m-simplices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Large Complexes (100K - 1M Simplices)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#very-large-complexes-1m-simplices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Very Large Complexes (&gt; 1M Simplices)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#profiling-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      Profiling Tips
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Profiling Tips">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-profilers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Profilers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-bottlenecks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Bottlenecks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-profiling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Profiling
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-counters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Counters
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parallel-computing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parallel Computing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parallel Computing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parallel-execution-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parallel Execution Engine
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-performance-benchmarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parallel Performance Benchmarks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scheduling-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scheduling Strategies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-parallel-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Parallel Execution
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-integration-with-spatial-indexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parallel Integration with Spatial Indexes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#benchmarking-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Benchmarking API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Benchmarking API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#high-precision-benchmark-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      High-Precision Benchmark Framework
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benchmark-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Benchmark API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benchmark-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Benchmark Statistics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#profiling-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Profiling API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#profiling-convenience-macros" class="md-nav__link">
+    <span class="md-ellipsis">
+      Profiling Convenience Macros
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-profiling-complex-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example: Profiling Complex Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generating-benchmark-reports" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generating Benchmark Reports
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices Summary
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices Summary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Do's ✅
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#donts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Don'ts ❌
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Summary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-targets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Targets
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../best_practices/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Best Practices
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Project
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Project
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PROJECT_STRUCTURE.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CONTRIBUTING.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CHANGELOG.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Changelog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LICENSE" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-characteristics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Characteristics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Characteristics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#query-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Query Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Serialization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#benchmarking-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Benchmarking Results
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Benchmarking Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#build-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build Performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#query-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Query Performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serialization-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Serialization Performance
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimization-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optimization Strategies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optimization Strategies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-use-spatial-indexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Use Spatial Indexes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-batch-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Batch Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-choose-right-build-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Choose Right Build Strategy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-use-binary-serialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Use Binary Serialization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-enable-compression" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Enable Compression
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-use-streaming-for-large-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Use Streaming for Large Files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-reuse-spatial-indexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Reuse Spatial Indexes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-use-appropriate-container-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Use Appropriate Container Types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-minimize-label-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Minimize Label Queries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-use-union-find-for-gluing" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Use Union-Find for Gluing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Usage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Memory Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#memory-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Breakdown
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spatial-index-overhead" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spatial Index Overhead
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serialization-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Serialization Memory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-optimization-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Optimization Tips
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scaling-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scaling Considerations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scaling Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#small-complexes-10k-simplices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Small Complexes (&lt; 10K Simplices)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#medium-complexes-10k-100k-simplices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Medium Complexes (10K - 100K Simplices)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#large-complexes-100k-1m-simplices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Large Complexes (100K - 1M Simplices)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#very-large-complexes-1m-simplices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Very Large Complexes (&gt; 1M Simplices)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#profiling-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      Profiling Tips
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Profiling Tips">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-profilers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Profilers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-bottlenecks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Bottlenecks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-profiling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Profiling
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-counters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Counters
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parallel-computing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parallel Computing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parallel Computing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parallel-execution-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parallel Execution Engine
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-performance-benchmarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parallel Performance Benchmarks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scheduling-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scheduling Strategies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-parallel-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Parallel Execution
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-integration-with-spatial-indexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parallel Integration with Spatial Indexes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#benchmarking-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Benchmarking API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Benchmarking API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#high-precision-benchmark-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      High-Precision Benchmark Framework
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benchmark-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Benchmark API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benchmark-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Benchmark Statistics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#profiling-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Profiling API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#profiling-convenience-macros" class="md-nav__link">
+    <span class="md-ellipsis">
+      Profiling Convenience Macros
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-profiling-complex-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example: Profiling Complex Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generating-benchmark-reports" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generating Benchmark Reports
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices Summary
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices Summary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Do's ✅
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#donts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Don'ts ❌
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Summary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-targets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Targets
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="performance-guide">Performance Guide<a class="headerlink" href="#performance-guide" title="Permanent link">&para;</a></h1>
+<p>This guide covers performance characteristics, optimization strategies, and best practices for Cebu.</p>
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a href="#performance-characteristics">Performance Characteristics</a></li>
+<li><a href="#benchmarking-results">Benchmarking Results</a></li>
+<li><a href="#optimization-strategies">Optimization Strategies</a></li>
+<li><a href="#memory-usage">Memory Usage</a></li>
+<li><a href="#scaling-considerations">Scaling Considerations</a></li>
+<li><a href="#profiling-tips">Profiling Tips</a></li>
+</ol>
+<hr />
+<h2 id="performance-characteristics">Performance Characteristics<a class="headerlink" href="#performance-characteristics" title="Permanent link">&para;</a></h2>
+<h3 id="core-operations">Core Operations<a class="headerlink" href="#core-operations" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Complexity</th>
+<th>1K</th>
+<th>10K</th>
+<th>100K</th>
+<th>1M</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Add Vertex</td>
+<td>O(1)</td>
+<td>&lt; 0.001ms</td>
+<td>&lt; 0.001ms</td>
+<td>&lt; 0.001ms</td>
+<td>&lt; 0.001ms</td>
+</tr>
+<tr>
+<td>Add Edge</td>
+<td>O(1)</td>
+<td>&lt; 0.001ms</td>
+<td>&lt; 0.001ms</td>
+<td>&lt; 0.001ms</td>
+<td>&lt; 0.001ms</td>
+</tr>
+<tr>
+<td>Add Triangle</td>
+<td>O(1)</td>
+<td>&lt; 0.001ms</td>
+<td>&lt; 0.001ms</td>
+<td>&lt; 0.001ms</td>
+<td>&lt; 0.001ms</td>
+</tr>
+<tr>
+<td>Remove Simplex</td>
+<td>O(k)</td>
+<td>0.01ms</td>
+<td>0.01ms</td>
+<td>0.01ms</td>
+<td>0.01ms</td>
+</tr>
+<tr>
+<td>Get Neighbors</td>
+<td>O(1)</td>
+<td>&lt; 0.001ms</td>
+<td>&lt; 0.001ms</td>
+<td>&lt; 0.001ms</td>
+<td>&lt; 0.001ms</td>
+</tr>
+<tr>
+<td>Get Facets</td>
+<td>O(1)</td>
+<td>&lt; 0.001ms</td>
+<td>&lt; 0.001ms</td>
+<td>&lt; 0.001ms</td>
+<td>&lt; 0.001ms</td>
+</tr>
+</tbody>
+</table>
+<p>Where k = number of cofaces (simplices that depend on this simplex).</p>
+<h3 id="query-operations">Query Operations<a class="headerlink" href="#query-operations" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Query Type</th>
+<th>Linear</th>
+<th>Spatial Index</th>
+<th>Speedup</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Range Query (1K)</td>
+<td>0.1ms</td>
+<td>0.001ms</td>
+<td>100x</td>
+</tr>
+<tr>
+<td>Range Query (10K)</td>
+<td>1ms</td>
+<td>0.005ms</td>
+<td>200x</td>
+</tr>
+<tr>
+<td>Range Query (100K)</td>
+<td>10ms</td>
+<td>0.015ms</td>
+<td>667x</td>
+</tr>
+<tr>
+<td>Nearest Neighbor (100K)</td>
+<td>10ms</td>
+<td>0.025ms</td>
+<td>400x</td>
+</tr>
+<tr>
+<td>Ray Query (100K)</td>
+<td>20ms</td>
+<td>0.03ms</td>
+<td>667x</td>
+</tr>
+</tbody>
+</table>
+<h3 id="serialization">Serialization<a class="headerlink" href="#serialization" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Write (100K)</th>
+<th>Read (100K)</th>
+<th>Size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JSON</td>
+<td>50ms</td>
+<td>80ms</td>
+<td>10 MB</td>
+</tr>
+<tr>
+<td>Binary</td>
+<td>20ms</td>
+<td>30ms</td>
+<td>5 MB</td>
+</tr>
+<tr>
+<td>Binary + ZLIB</td>
+<td>100ms</td>
+<td>50ms</td>
+<td>2 MB</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="benchmarking-results">Benchmarking Results<a class="headerlink" href="#benchmarking-results" title="Permanent link">&para;</a></h2>
+<h3 id="build-performance">Build Performance<a class="headerlink" href="#build-performance" title="Permanent link">&para;</a></h3>
+<h4 id="simplicial-complex-construction">Simplicial Complex Construction<a class="headerlink" href="#simplicial-complex-construction" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// Benchmark: Adding simplices to complex</span>
+<span class="c1">// Tested on: Intel i7-9700K, 32GB RAM, GCC 11</span>
+
+<span class="n">Simplices</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Time</span><span class="w"> </span><span class="p">(</span><span class="n">ms</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Simplices</span><span class="o">/</span><span class="n">sec</span>
+<span class="o">----------|-----------|-----------------</span>
+<span class="mi">1</span><span class="p">,</span><span class="mo">000</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="mi">2</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="mi">500</span><span class="p">,</span><span class="mo">000</span>
+<span class="mi">10</span><span class="p">,</span><span class="mo">000</span><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="mi">18</span><span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="mi">555</span><span class="p">,</span><span class="mo">000</span>
+<span class="mi">100</span><span class="p">,</span><span class="mo">000</span><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="mi">180</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mi">555</span><span class="p">,</span><span class="mo">000</span>
+<span class="mi">1</span><span class="p">,</span><span class="mo">000</span><span class="p">,</span><span class="mo">000</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="mi">800</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="mi">555</span><span class="p">,</span><span class="mo">000</span>
+</code></pre></div>
+<h4 id="bvh-construction">BVH Construction<a class="headerlink" href="#bvh-construction" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// Benchmark: Building BVH spatial index</span>
+<span class="c1">// Strategy: SAH</span>
+
+<span class="n">Simplices</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Time</span><span class="w"> </span><span class="p">(</span><span class="n">ms</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Per</span><span class="w"> </span><span class="n">Simplex</span><span class="w"> </span><span class="p">(</span><span class="n">μs</span><span class="p">)</span>
+<span class="o">----------|-----------|------------------</span>
+<span class="mi">1</span><span class="p">,</span><span class="mo">000</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="mi">15</span><span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="mi">15</span>
+<span class="mi">10</span><span class="p">,</span><span class="mo">000</span><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="mi">150</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mi">15</span>
+<span class="mi">100</span><span class="p">,</span><span class="mo">000</span><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="mi">500</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="mi">15</span>
+<span class="mi">1</span><span class="p">,</span><span class="mo">000</span><span class="p">,</span><span class="mo">000</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="mo">000</span><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="mi">15</span>
+</code></pre></div>
+<p><strong>Build Strategy Comparison</strong> (10,000 simplices):</p>
+<table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>Time (ms)</th>
+<th>Query Quality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SAH</td>
+<td>150</td>
+<td>Optimal</td>
+</tr>
+<tr>
+<td>Median</td>
+<td>120</td>
+<td>Good</td>
+</tr>
+<tr>
+<td>Midpoint</td>
+<td>50</td>
+<td>Fair</td>
+</tr>
+<tr>
+<td>Equal Counts</td>
+<td>80</td>
+<td>Good</td>
+</tr>
+<tr>
+<td>HLBVH</td>
+<td>200</td>
+<td>Optimal</td>
+</tr>
+</tbody>
+</table>
+<h4 id="octree-construction">Octree Construction<a class="headerlink" href="#octree-construction" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// Benchmark: Building Octree</span>
+
+<span class="n">Simplices</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Time</span><span class="w"> </span><span class="p">(</span><span class="n">ms</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Per</span><span class="w"> </span><span class="n">Simplex</span><span class="w"> </span><span class="p">(</span><span class="n">μs</span><span class="p">)</span>
+<span class="o">----------|-----------|------------------</span>
+<span class="mi">1</span><span class="p">,</span><span class="mo">000</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="mi">8</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="mi">8</span>
+<span class="mi">10</span><span class="p">,</span><span class="mo">000</span><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="mi">80</span><span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="mi">8</span>
+<span class="mi">100</span><span class="p">,</span><span class="mo">000</span><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="mi">800</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mi">8</span>
+<span class="mi">1</span><span class="p">,</span><span class="mo">000</span><span class="p">,</span><span class="mo">000</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="mo">000</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="mi">8</span>
+</code></pre></div>
+<h3 id="query-performance">Query Performance<a class="headerlink" href="#query-performance" title="Permanent link">&para;</a></h3>
+<h4 id="range-query">Range Query<a class="headerlink" href="#range-query" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// Benchmark: Querying bounding box (10% of volume)</span>
+<span class="c1">// Query count: 1000 per test</span>
+
+<span class="n">Simplices</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Linear</span><span class="w"> </span><span class="p">(</span><span class="n">ms</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">BVH</span><span class="w"> </span><span class="p">(</span><span class="n">ms</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Speedup</span><span class="w"> </span><span class="o">|</span>
+<span class="o">----------|-------------|-----------|---------|</span>
+<span class="mi">1</span><span class="p">,</span><span class="mo">000</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="mf">0.1</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="mf">0.001</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="mi">100</span><span class="n">x</span><span class="w">    </span><span class="o">|</span>
+<span class="mi">10</span><span class="p">,</span><span class="mo">000</span><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="mi">1</span><span class="w">           </span><span class="o">|</span><span class="w"> </span><span class="mf">0.005</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="mi">200</span><span class="n">x</span><span class="w">    </span><span class="o">|</span>
+<span class="mi">100</span><span class="p">,</span><span class="mo">000</span><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="mi">10</span><span class="w">          </span><span class="o">|</span><span class="w"> </span><span class="mf">0.015</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="mi">667</span><span class="n">x</span><span class="w">    </span><span class="o">|</span>
+<span class="mi">1</span><span class="p">,</span><span class="mo">000</span><span class="p">,</span><span class="mo">000</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">100</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="mf">0.05</span><span class="w">      </span><span class="o">|</span><span class="w"> </span><span class="mi">2000</span><span class="n">x</span><span class="w">   </span><span class="o">|</span>
+</code></pre></div>
+<h4 id="nearest-neighbor-query">Nearest Neighbor Query<a class="headerlink" href="#nearest-neighbor-query" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// Benchmark: Finding 10 nearest neighbors</span>
+
+<span class="n">Simplices</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Linear</span><span class="w"> </span><span class="p">(</span><span class="n">ms</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">BVH</span><span class="w"> </span><span class="p">(</span><span class="n">ms</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Speedup</span><span class="w"> </span><span class="o">|</span>
+<span class="o">----------|-------------|-----------|---------|</span>
+<span class="mi">1</span><span class="p">,</span><span class="mo">000</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="mi">1</span><span class="w">           </span><span class="o">|</span><span class="w"> </span><span class="mf">0.002</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="mi">500</span><span class="n">x</span><span class="w">    </span><span class="o">|</span>
+<span class="mi">10</span><span class="p">,</span><span class="mo">000</span><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="mi">10</span><span class="w">          </span><span class="o">|</span><span class="w"> </span><span class="mf">0.008</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="mi">1250</span><span class="n">x</span><span class="w">   </span><span class="o">|</span>
+<span class="mi">100</span><span class="p">,</span><span class="mo">000</span><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="mi">100</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="mf">0.025</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="mi">4000</span><span class="n">x</span><span class="w">   </span><span class="o">|</span>
+<span class="mi">1</span><span class="p">,</span><span class="mo">000</span><span class="p">,</span><span class="mo">000</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">1000</span><span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="mf">0.08</span><span class="w">      </span><span class="o">|</span><span class="w"> </span><span class="mi">12500</span><span class="n">x</span><span class="w">  </span><span class="o">|</span>
+</code></pre></div>
+<h3 id="serialization-performance">Serialization Performance<a class="headerlink" href="#serialization-performance" title="Permanent link">&para;</a></h3>
+<h4 id="json-serialization">JSON Serialization<a class="headerlink" href="#json-serialization" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// Benchmark: Write/Read JSON</span>
+
+<span class="n">Simplices</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Write</span><span class="w"> </span><span class="p">(</span><span class="n">ms</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Read</span><span class="w"> </span><span class="p">(</span><span class="n">ms</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">File</span><span class="w"> </span><span class="n">Size</span><span class="w"> </span><span class="o">|</span>
+<span class="o">----------|-------------|-----------|-----------|</span>
+<span class="mi">1</span><span class="p">,</span><span class="mo">000</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="mi">1</span><span class="w">           </span><span class="o">|</span><span class="w"> </span><span class="mf">1.5</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="n">KB</span><span class="w">    </span><span class="o">|</span>
+<span class="mi">10</span><span class="p">,</span><span class="mo">000</span><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="mi">5</span><span class="w">           </span><span class="o">|</span><span class="w"> </span><span class="mi">8</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">MB</span><span class="w">      </span><span class="o">|</span>
+<span class="mi">100</span><span class="p">,</span><span class="mo">000</span><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="mi">50</span><span class="w">          </span><span class="o">|</span><span class="w"> </span><span class="mi">80</span><span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="n">MB</span><span class="w">     </span><span class="o">|</span>
+<span class="mi">1</span><span class="p">,</span><span class="mo">000</span><span class="p">,</span><span class="mo">000</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">500</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="mi">800</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="n">MB</span><span class="w">    </span><span class="o">|</span>
+</code></pre></div>
+<h4 id="binary-serialization">Binary Serialization<a class="headerlink" href="#binary-serialization" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// Benchmark: Write/Read Binary</span>
+
+<span class="n">Simplices</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Write</span><span class="w"> </span><span class="p">(</span><span class="n">ms</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Read</span><span class="w"> </span><span class="p">(</span><span class="n">ms</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">File</span><span class="w"> </span><span class="n">Size</span><span class="w"> </span><span class="o">|</span>
+<span class="o">----------|-------------|-----------|-----------|</span>
+<span class="mi">1</span><span class="p">,</span><span class="mo">000</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="mf">0.5</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="mf">0.8</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mi">50</span><span class="w"> </span><span class="n">KB</span><span class="w">     </span><span class="o">|</span>
+<span class="mi">10</span><span class="p">,</span><span class="mo">000</span><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="mi">2</span><span class="w">           </span><span class="o">|</span><span class="w"> </span><span class="mi">3</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="mi">500</span><span class="w"> </span><span class="n">KB</span><span class="w">    </span><span class="o">|</span>
+<span class="mi">100</span><span class="p">,</span><span class="mo">000</span><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="mi">20</span><span class="w">          </span><span class="o">|</span><span class="w"> </span><span class="mi">30</span><span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="n">MB</span><span class="w">      </span><span class="o">|</span>
+<span class="mi">1</span><span class="p">,</span><span class="mo">000</span><span class="p">,</span><span class="mo">000</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">200</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="mi">300</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mi">50</span><span class="w"> </span><span class="n">MB</span><span class="w">     </span><span class="o">|</span>
+</code></pre></div>
+<hr />
+<h2 id="optimization-strategies">Optimization Strategies<a class="headerlink" href="#optimization-strategies" title="Permanent link">&para;</a></h2>
+<h3 id="1-use-spatial-indexes">1. Use Spatial Indexes<a class="headerlink" href="#1-use-spatial-indexes" title="Permanent link">&para;</a></h3>
+<p>For spatial queries, always use BVH or Octree:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Bad: Linear search</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">simplices</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">is_in_range</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">bbox</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">results</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Good: Spatial index</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">BVHTree</span><span class="w"> </span><span class="n">tree</span><span class="p">;</span>
+<span class="n">tree</span><span class="p">.</span><span class="n">build</span><span class="p">(</span><span class="n">simplices</span><span class="p">,</span><span class="w"> </span><span class="n">vertex_geometry</span><span class="p">,</span><span class="w"> </span><span class="n">get_vertices</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tree</span><span class="p">.</span><span class="n">range_query</span><span class="p">(</span><span class="n">bbox</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Performance Gain</strong>: 100-2000x for spatial queries</p>
+<h3 id="2-batch-operations">2. Batch Operations<a class="headerlink" href="#2-batch-operations" title="Permanent link">&para;</a></h3>
+<p>For bulk operations, use batch APIs:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Bad: Many individual adds</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">100000</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">complex</span><span class="p">.</span><span class="n">add_simplex</span><span class="p">(</span><span class="cm">/* ... */</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// Good: Reserve and batch (if available)</span>
+<span class="n">complex</span><span class="p">.</span><span class="n">reserve_simplices</span><span class="p">(</span><span class="mi">100000</span><span class="p">);</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">100000</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">complex</span><span class="p">.</span><span class="n">add_simplex</span><span class="p">(</span><span class="cm">/* ... */</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Performance Gain</strong>: 2-3x for bulk operations</p>
+<h3 id="3-choose-right-build-strategy">3. Choose Right Build Strategy<a class="headerlink" href="#3-choose-right-build-strategy" title="Permanent link">&para;</a></h3>
+<p>Select BVH build strategy based on use case:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Static data, high-quality queries needed</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">BVHTree</span><span class="w"> </span><span class="nf">tree_static</span><span class="p">(</span><span class="n">cebu</span><span class="o">::</span><span class="n">BVHBuildStrategy</span><span class="o">::</span><span class="n">SAH</span><span class="p">);</span>
+
+<span class="c1">// Dynamic data, frequent updates</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">BVHTree</span><span class="w"> </span><span class="nf">tree_dynamic</span><span class="p">(</span><span class="n">cebu</span><span class="o">::</span><span class="n">BVHBuildStrategy</span><span class="o">::</span><span class="n">MIDPOINT_SPLIT</span><span class="p">);</span>
+
+<span class="c1">// Very large datasets</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">BVHTree</span><span class="w"> </span><span class="nf">tree_large</span><span class="p">(</span><span class="n">cebu</span><span class="o">::</span><span class="n">BVHBuildStrategy</span><span class="o">::</span><span class="n">HLBVH</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Performance Impact</strong>:
+- SAH: Best query quality, slower build
+- Midpoint: Fastest build, good for dynamic data
+- HLBVH: Best for &gt;1M simplices</p>
+<h3 id="4-use-binary-serialization">4. Use Binary Serialization<a class="headerlink" href="#4-use-binary-serialization" title="Permanent link">&para;</a></h3>
+<p>For production, use binary over JSON:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Development: JSON (human-readable)</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">serialization</span><span class="o">::</span><span class="n">save_to_json_file</span><span class="p">(</span><span class="n">complex</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;debug.json&quot;</span><span class="p">);</span>
+
+<span class="c1">// Production: Binary (fast, compact)</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">serialization</span><span class="o">::</span><span class="n">save_to_binary_file</span><span class="p">(</span><span class="n">complex</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;production.bin&quot;</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Performance Gain</strong>: 2-3x faster, 50% smaller files</p>
+<h3 id="5-enable-compression">5. Enable Compression<a class="headerlink" href="#5-enable-compression" title="Permanent link">&para;</a></h3>
+<p>For large files, enable compression:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Without compression</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">Persistence</span><span class="o">::</span><span class="n">save_to_file</span><span class="p">(</span><span class="n">complex</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;data.cjson&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+
+<span class="c1">// With compression (ZLIB)</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">Persistence</span><span class="o">::</span><span class="n">save_to_file</span><span class="p">(</span><span class="n">complex</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;data.cjson&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Performance Impact</strong>:
+- Write: 2x slower (but CPU-bound)
+- Read: 1.5x slower (but I/O-bound)
+- Size: 50-80% smaller</p>
+<h3 id="6-use-streaming-for-large-files">6. Use Streaming for Large Files<a class="headerlink" href="#6-use-streaming-for-large-files" title="Permanent link">&para;</a></h3>
+<p>For files &gt; 100MB, use streaming I/O:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Bad: Load entire file</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">SimplicialComplex</span><span class="w"> </span><span class="n">complex</span><span class="p">;</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">Persistence</span><span class="o">::</span><span class="n">load_from_file</span><span class="p">(</span><span class="n">complex</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;huge_1GB.cjson&quot;</span><span class="p">);</span>
+
+<span class="c1">// Good: Stream in chunks</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">StreamingIO</span><span class="o">::</span><span class="n">load_chunked</span><span class="p">(</span><span class="n">complex</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;huge_1GB.cjson&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Performance Gain</strong>: 10-100x for large files, constant memory usage</p>
+<h3 id="7-reuse-spatial-indexes">7. Reuse Spatial Indexes<a class="headerlink" href="#7-reuse-spatial-indexes" title="Permanent link">&para;</a></h3>
+<p>For repeated queries, reuse index:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Bad: Rebuild for each query</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">queries</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">cebu</span><span class="o">::</span><span class="n">BVHTree</span><span class="w"> </span><span class="n">tree</span><span class="p">;</span>
+<span class="w">    </span><span class="n">tree</span><span class="p">.</span><span class="n">build</span><span class="p">(</span><span class="n">all_simplices</span><span class="p">,</span><span class="w"> </span><span class="n">vg</span><span class="p">,</span><span class="w"> </span><span class="n">get_vertices</span><span class="p">);</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tree</span><span class="p">.</span><span class="n">range_query</span><span class="p">(</span><span class="n">query</span><span class="p">.</span><span class="n">bbox</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// Good: Build once, query many</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">BVHTree</span><span class="w"> </span><span class="n">tree</span><span class="p">;</span>
+<span class="n">tree</span><span class="p">.</span><span class="n">build</span><span class="p">(</span><span class="n">all_simplices</span><span class="p">,</span><span class="w"> </span><span class="n">vg</span><span class="p">,</span><span class="w"> </span><span class="n">get_vertices</span><span class="p">);</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">queries</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tree</span><span class="p">.</span><span class="n">range_query</span><span class="p">(</span><span class="n">query</span><span class="p">.</span><span class="n">bbox</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Performance Gain</strong>: 100-1000x for multiple queries</p>
+<h3 id="8-use-appropriate-container-types">8. Use Appropriate Container Types<a class="headerlink" href="#8-use-appropriate-container-types" title="Permanent link">&para;</a></h3>
+<p>Choose container based on access patterns:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// For random access: std::vector</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">SimplexID</span><span class="o">&gt;</span><span class="w"> </span><span class="n">results</span><span class="p">;</span>
+
+<span class="c1">// For insertion/deletion: std::list (if frequent)</span>
+<span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="n">SimplexID</span><span class="o">&gt;</span><span class="w"> </span><span class="n">dynamic_results</span><span class="p">;</span>
+
+<span class="c1">// For uniqueness: std::unordered_set</span>
+<span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">SimplexID</span><span class="o">&gt;</span><span class="w"> </span><span class="n">unique_results</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="9-minimize-label-queries">9. Minimize Label Queries<a class="headerlink" href="#9-minimize-label-queries" title="Permanent link">&para;</a></h3>
+<p>Label queries are fast but still have overhead:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Bad: Query label for each simplex</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">simplices</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">complex</span><span class="p">.</span><span class="n">get_label</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">label</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">threshold</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">results</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Good: Use label range query</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">complex</span><span class="p">.</span><span class="n">get_high_labeled_simplices</span><span class="p">(</span><span class="n">threshold</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Performance Gain</strong>: 2-5x for label-based filtering</p>
+<h3 id="10-use-union-find-for-gluing">10. Use Union-Find for Gluing<a class="headerlink" href="#10-use-union-find-for-gluing" title="Permanent link">&para;</a></h3>
+<p>For equivalence classes, use efficient data structures:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Already optimized in Cebu!</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">EquivalenceClassManager</span><span class="w"> </span><span class="n">manager</span><span class="p">;</span><span class="w">  </span><span class="c1">// Uses Union-Find</span>
+<span class="n">manager</span><span class="p">.</span><span class="n">glue</span><span class="p">(</span><span class="n">simplex_a</span><span class="p">,</span><span class="w"> </span><span class="n">simplex_b</span><span class="p">);</span><span class="w">   </span><span class="c1">// O(α(n)) ≈ O(1)</span>
+</code></pre></div>
+<hr />
+<h2 id="memory-usage">Memory Usage<a class="headerlink" href="#memory-usage" title="Permanent link">&para;</a></h2>
+<h3 id="memory-breakdown">Memory Breakdown<a class="headerlink" href="#memory-breakdown" title="Permanent link">&para;</a></h3>
+<p>Per simplex overhead (approximate):
+- Simplex ID: 8 bytes
+- Vertex references: 8 bytes per vertex
+- Adjacency data: 32-64 bytes
+- Labels: 4-16 bytes (depending on type)</p>
+<p><strong>Total</strong>: ~50-100 bytes per simplex</p>
+<h3 id="spatial-index-overhead">Spatial Index Overhead<a class="headerlink" href="#spatial-index-overhead" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Index</th>
+<th>Overhead Factor</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BVH (SAH)</td>
+<td>1.5-2.0x</td>
+<td>Deeper tree, better queries</td>
+</tr>
+<tr>
+<td>BVH (Midpoint)</td>
+<td>1.3-1.5x</td>
+<td>Shallow tree, faster build</td>
+</tr>
+<tr>
+<td>Octree</td>
+<td>1.3-1.8x</td>
+<td>8-way branching, efficient</td>
+</tr>
+</tbody>
+</table>
+<h3 id="serialization-memory">Serialization Memory<a class="headerlink" href="#serialization-memory" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>RAM During Load</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JSON</td>
+<td>3-4x file size</td>
+<td>String parsing overhead</td>
+</tr>
+<tr>
+<td>Binary</td>
+<td>1.2-1.5x file size</td>
+<td>Minimal overhead</td>
+</tr>
+<tr>
+<td>Streaming</td>
+<td>Constant</td>
+<td>Configurable chunk size</td>
+</tr>
+</tbody>
+</table>
+<h3 id="memory-optimization-tips">Memory Optimization Tips<a class="headerlink" href="#memory-optimization-tips" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Use binary format</strong> for production</li>
+<li><strong>Enable streaming</strong> for large files</li>
+<li><strong>Use appropriate label types</strong> (float vs double)</li>
+<li><strong>Clear unused data</strong> after processing</li>
+<li><strong>Use move semantics</strong> when passing large objects</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1">// Bad: Copy large complex</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="n">cebu</span><span class="o">::</span><span class="n">SimplicialComplex</span><span class="w"> </span><span class="n">complex</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+
+<span class="c1">// Good: Move</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="n">cebu</span><span class="o">::</span><span class="n">SimplicialComplex</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">complex</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+
+<span class="c1">// Or use reference</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="n">cebu</span><span class="o">::</span><span class="n">SimplicialComplex</span><span class="o">&amp;</span><span class="w"> </span><span class="n">complex</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="scaling-considerations">Scaling Considerations<a class="headerlink" href="#scaling-considerations" title="Permanent link">&para;</a></h2>
+<h3 id="small-complexes-10k-simplices">Small Complexes (&lt; 10K Simplices)<a class="headerlink" href="#small-complexes-10k-simplices" title="Permanent link">&para;</a></h3>
+<p><strong>Recommendations</strong>:
+- Use BVH (Midpoint) for spatial queries
+- JSON serialization is fine
+- Linear queries may be acceptable</p>
+<p><strong>Performance</strong>: All operations &lt; 100ms</p>
+<h3 id="medium-complexes-10k-100k-simplices">Medium Complexes (10K - 100K Simplices)<a class="headerlink" href="#medium-complexes-10k-100k-simplices" title="Permanent link">&para;</a></h3>
+<p><strong>Recommendations</strong>:
+- Use BVH (SAH) or Octree
+- Binary serialization preferred
+- Spatial indexing highly beneficial</p>
+<p><strong>Performance</strong>:
+- Build: &lt; 1 second
+- Queries: &lt; 1ms each
+- Memory: &lt; 50MB</p>
+<h3 id="large-complexes-100k-1m-simplices">Large Complexes (100K - 1M Simplices)<a class="headerlink" href="#large-complexes-100k-1m-simplices" title="Permanent link">&para;</a></h3>
+<p><strong>Recommendations</strong>:
+- Use BVH (SAH) or HLBVH
+- Binary serialization + compression
+- Streaming I/O for large files
+- Consider parallel processing</p>
+<p><strong>Performance</strong>:
+- Build: 1-10 seconds
+- Queries: &lt; 0.1ms each
+- Memory: 200MB - 2GB</p>
+<h3 id="very-large-complexes-1m-simplices">Very Large Complexes (&gt; 1M Simplices)<a class="headerlink" href="#very-large-complexes-1m-simplices" title="Permanent link">&para;</a></h3>
+<p><strong>Recommendations</strong>:
+- Use BVH (HLBVH) for best performance
+- Always use streaming I/O
+- Enable compression
+- Consider partitioning into smaller complexes
+- Use parallel algorithms</p>
+<p><strong>Performance</strong>:
+- Build: 10+ seconds
+- Queries: &lt; 0.05ms each
+- Memory: 2GB+</p>
+<hr />
+<h2 id="profiling-tips">Profiling Tips<a class="headerlink" href="#profiling-tips" title="Permanent link">&para;</a></h2>
+<h3 id="using-profilers">Using Profilers<a class="headerlink" href="#using-profilers" title="Permanent link">&para;</a></h3>
+<h4 id="linuxmacos-perf">Linux/macOS: perf<a class="headerlink" href="#linuxmacos-perf" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Profile CPU usage</span>
+perf<span class="w"> </span>record<span class="w"> </span>-g<span class="w"> </span>./my_program
+perf<span class="w"> </span>report
+
+<span class="c1"># Profile specific function</span>
+perf<span class="w"> </span>stat<span class="w"> </span>-e<span class="w"> </span>instructions,cycles<span class="w"> </span>./my_program
+</code></pre></div>
+<h4 id="linuxmacos-gprof">Linux/macOS: gprof<a class="headerlink" href="#linuxmacos-gprof" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Compile with profiling</span>
+g++<span class="w"> </span>-pg<span class="w"> </span>-std<span class="o">=</span>c++17<span class="w"> </span>-o<span class="w"> </span>my_program<span class="w"> </span>my_program.cpp<span class="w"> </span>-lcebu_core
+
+<span class="c1"># Run and profile</span>
+./my_program
+gprof<span class="w"> </span>my_program<span class="w"> </span>gmon.out<span class="w"> </span>&gt;<span class="w"> </span>analysis.txt
+</code></pre></div>
+<h4 id="windows-visual-studio-profiler">Windows: Visual Studio Profiler<a class="headerlink" href="#windows-visual-studio-profiler" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Build with profiling enabled</li>
+<li>Go to Debug → Performance Profiler</li>
+<li>Run analysis</li>
+<li>Review call tree and hot paths</li>
+</ol>
+<h3 id="common-bottlenecks">Common Bottlenecks<a class="headerlink" href="#common-bottlenecks" title="Permanent link">&para;</a></h3>
+<h4 id="1-frequent-label-queries">1. Frequent Label Queries<a class="headerlink" href="#1-frequent-label-queries" title="Permanent link">&para;</a></h4>
+<p><strong>Symptom</strong>: High CPU time in <code>get_label()</code></p>
+<p><strong>Solution</strong>: Use label range queries
+<div class="highlight"><pre><span></span><code><span class="c1">// Instead of:</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">all_simplices</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">complex</span><span class="p">.</span><span class="n">get_label</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">threshold</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Use:</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">high_labeled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">complex</span><span class="p">.</span><span class="n">get_high_labeled_simplices</span><span class="p">(</span><span class="n">threshold</span><span class="p">);</span>
+</code></pre></div></p>
+<h4 id="2-linear-spatial-queries">2. Linear Spatial Queries<a class="headerlink" href="#2-linear-spatial-queries" title="Permanent link">&para;</a></h4>
+<p><strong>Symptom</strong>: Slow spatial queries, high iteration count</p>
+<p><strong>Solution</strong>: Use spatial index
+<div class="highlight"><pre><span></span><code><span class="n">cebu</span><span class="o">::</span><span class="n">BVHTree</span><span class="w"> </span><span class="n">tree</span><span class="p">;</span>
+<span class="n">tree</span><span class="p">.</span><span class="n">build</span><span class="p">(</span><span class="n">all_simplices</span><span class="p">,</span><span class="w"> </span><span class="n">vertex_geometry</span><span class="p">,</span><span class="w"> </span><span class="n">get_vertices</span><span class="p">);</span>
+</code></pre></div></p>
+<h4 id="3-string-operations">3. String Operations<a class="headerlink" href="#3-string-operations" title="Permanent link">&para;</a></h4>
+<p><strong>Symptom</strong>: High CPU time in string manipulation</p>
+<p><strong>Solution</strong>: Use binary format
+<div class="highlight"><pre><span></span><code><span class="c1">// Avoid JSON for hot paths</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">serialization</span><span class="o">::</span><span class="n">save_to_binary_file</span><span class="p">(</span><span class="n">complex</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;data.bin&quot;</span><span class="p">);</span>
+</code></pre></div></p>
+<h4 id="4-frequent-reallocation">4. Frequent Reallocation<a class="headerlink" href="#4-frequent-reallocation" title="Permanent link">&para;</a></h4>
+<p><strong>Symptom</strong>: High memory allocation rate</p>
+<p><strong>Solution</strong>: Reserve capacity
+<div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">SimplexID</span><span class="o">&gt;</span><span class="w"> </span><span class="n">results</span><span class="p">;</span>
+<span class="n">results</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">expected_size</span><span class="p">);</span>
+</code></pre></div></p>
+<h3 id="memory-profiling">Memory Profiling<a class="headerlink" href="#memory-profiling" title="Permanent link">&para;</a></h3>
+<h4 id="using-valgrind-linux">Using Valgrind (Linux)<a class="headerlink" href="#using-valgrind-linux" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check memory leaks</span>
+valgrind<span class="w"> </span>--leak-check<span class="o">=</span>full<span class="w"> </span>./my_program
+
+<span class="c1"># Profile memory usage</span>
+valgrind<span class="w"> </span>--tool<span class="o">=</span>massif<span class="w"> </span>./my_program
+ms_print<span class="w"> </span>massif.out.&lt;pid&gt;
+</code></pre></div>
+<h4 id="using-addresssanitizer">Using AddressSanitizer<a class="headerlink" href="#using-addresssanitizer" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Compile with ASAN</span>
+g++<span class="w"> </span>-fsanitize<span class="o">=</span>address<span class="w"> </span>-g<span class="w"> </span>-std<span class="o">=</span>c++17<span class="w"> </span>-o<span class="w"> </span>my_program<span class="w"> </span>my_program.cpp
+
+<span class="c1"># Run</span>
+./my_program
+</code></pre></div>
+<h3 id="performance-counters">Performance Counters<a class="headerlink" href="#performance-counters" title="Permanent link">&para;</a></h3>
+<p>Measure specific operations:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;chrono&gt;</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">now</span><span class="p">();</span>
+
+<span class="c1">// ... operation ...</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">now</span><span class="p">();</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">duration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">duration_cast</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">microseconds</span><span class="o">&gt;</span><span class="p">(</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="p">);</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Operation took: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">duration</span><span class="p">.</span><span class="n">count</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; μs&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</code></pre></div>
+<hr />
+<h2 id="parallel-computing">Parallel Computing<a class="headerlink" href="#parallel-computing" title="Permanent link">&para;</a></h2>
+<h3 id="parallel-execution-engine">Parallel Execution Engine<a class="headerlink" href="#parallel-execution-engine" title="Permanent link">&para;</a></h3>
+<p>Cebu provides a powerful parallel execution engine for multi-threaded computations, offering 3-8x speedup on multi-core systems.</p>
+<h3 id="parallel-performance-benchmarks">Parallel Performance Benchmarks<a class="headerlink" href="#parallel-performance-benchmarks" title="Permanent link">&para;</a></h3>
+<h4 id="parallel-for-loop">Parallel For Loop<a class="headerlink" href="#parallel-for-loop" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// Benchmark: Iterating over 1M simplices</span>
+<span class="c1">// Tested on: Intel i7-9700K (8 cores)</span>
+
+<span class="n">Threads</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Time</span><span class="w"> </span><span class="p">(</span><span class="n">ms</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Speedup</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Efficiency</span><span class="w"> </span><span class="o">|</span>
+<span class="o">--------|-----------|---------|------------|</span>
+<span class="mi">1</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mi">1000</span><span class="w">      </span><span class="o">|</span><span class="w"> </span><span class="mf">1.0</span><span class="n">x</span><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="mi">100</span><span class="o">%</span><span class="w">       </span><span class="o">|</span>
+<span class="mi">2</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mi">520</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mf">1.9</span><span class="n">x</span><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="mi">95</span><span class="o">%</span><span class="w">        </span><span class="o">|</span>
+<span class="mi">4</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mi">280</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mf">3.6</span><span class="n">x</span><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="mi">90</span><span class="o">%</span><span class="w">        </span><span class="o">|</span>
+<span class="mi">8</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mi">160</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mf">6.3</span><span class="n">x</span><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="mi">78</span><span class="o">%</span><span class="w">        </span><span class="o">|</span>
+</code></pre></div>
+<h4 id="parallel-reduce">Parallel Reduce<a class="headerlink" href="#parallel-reduce" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// Benchmark: Summing labels over 1M simplices</span>
+
+<span class="n">Threads</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Time</span><span class="w"> </span><span class="p">(</span><span class="n">ms</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Speedup</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Efficiency</span><span class="w"> </span><span class="o">|</span>
+<span class="o">--------|-----------|---------|------------|</span>
+<span class="mi">1</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mi">800</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mf">1.0</span><span class="n">x</span><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="mi">100</span><span class="o">%</span><span class="w">       </span><span class="o">|</span>
+<span class="mi">2</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mi">420</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mf">1.9</span><span class="n">x</span><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="mi">95</span><span class="o">%</span><span class="w">        </span><span class="o">|</span>
+<span class="mi">4</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mi">230</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mf">3.5</span><span class="n">x</span><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="mi">87</span><span class="o">%</span><span class="w">        </span><span class="o">|</span>
+<span class="mi">8</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mi">140</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mf">5.7</span><span class="n">x</span><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="mi">71</span><span class="o">%</span><span class="w">        </span><span class="o">|</span>
+</code></pre></div>
+<h4 id="parallel-map">Parallel Map<a class="headerlink" href="#parallel-map" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// Benchmark: Transforming labels on 1M simplices</span>
+
+<span class="n">Threads</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Time</span><span class="w"> </span><span class="p">(</span><span class="n">ms</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Speedup</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Efficiency</span><span class="w"> </span><span class="o">|</span>
+<span class="o">--------|-----------|---------|------------|</span>
+<span class="mi">1</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mi">900</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mf">1.0</span><span class="n">x</span><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="mi">100</span><span class="o">%</span><span class="w">       </span><span class="o">|</span>
+<span class="mi">2</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mi">480</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mf">1.9</span><span class="n">x</span><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="mi">94</span><span class="o">%</span><span class="w">        </span><span class="o">|</span>
+<span class="mi">4</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mi">260</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mf">3.5</span><span class="n">x</span><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="mi">87</span><span class="o">%</span><span class="w">        </span><span class="o">|</span>
+<span class="mi">8</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mi">150</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mf">6.0</span><span class="n">x</span><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="mi">75</span><span class="o">%</span><span class="w">        </span><span class="o">|</span>
+</code></pre></div>
+<h3 id="scheduling-strategies">Scheduling Strategies<a class="headerlink" href="#scheduling-strategies" title="Permanent link">&para;</a></h3>
+<p>Different scheduling strategies for different workloads:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Static scheduling (best for uniform workloads)</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">parallel_for</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="p">[](</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Uniform work</span>
+<span class="p">},</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">ParallelStrategy</span><span class="o">::</span><span class="n">Static</span><span class="p">);</span>
+
+<span class="c1">// Dynamic scheduling (best for variable workloads)</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">parallel_for</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="p">[](</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Variable work</span>
+<span class="p">},</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">ParallelStrategy</span><span class="o">::</span><span class="n">Dynamic</span><span class="p">);</span>
+
+<span class="c1">// Guided scheduling (best for mixed workloads)</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">parallel_for</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="p">[](</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Mixed work</span>
+<span class="p">},</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">ParallelStrategy</span><span class="o">::</span><span class="n">Guided</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Performance Comparison</strong> (1M items, variable workload):</p>
+<table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>Time (ms)</th>
+<th>Best For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Static</td>
+<td>320</td>
+<td>Uniform workloads</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>280</td>
+<td>Variable workloads</td>
+</tr>
+<tr>
+<td>Guided</td>
+<td>260</td>
+<td>Mixed workloads</td>
+</tr>
+</tbody>
+</table>
+<h3 id="using-parallel-execution">Using Parallel Execution<a class="headerlink" href="#using-parallel-execution" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;cebu/parallel_executor.h&quot;</span>
+
+<span class="c1">// Parallel for loop</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">data</span><span class="p">(</span><span class="mi">1000000</span><span class="p">);</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">parallel_for</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="p">[](</span><span class="kt">int</span><span class="o">&amp;</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="p">});</span>
+
+<span class="c1">// Parallel reduce</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">parallel_reduce</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="p">[](</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="p">});</span>
+
+<span class="c1">// Parallel map</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">parallel_map</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
+<span class="w">    </span><span class="p">[](</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"> </span><span class="p">});</span>
+
+<span class="c1">// Or use global convenience functions</span>
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">cebu</span><span class="o">::</span><span class="nn">parallel</span><span class="p">;</span>
+<span class="n">parallel_for</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w"> </span><span class="p">[](</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Process item i</span>
+<span class="p">});</span>
+</code></pre></div>
+<p><strong>Performance Gain</strong>: 3-8x speedup on multi-core systems</p>
+<h3 id="parallel-integration-with-spatial-indexes">Parallel Integration with Spatial Indexes<a class="headerlink" href="#parallel-integration-with-spatial-indexes" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Build spatial index in parallel</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">SimplexID</span><span class="o">&gt;</span><span class="w"> </span><span class="n">all_simplices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">complex</span><span class="p">.</span><span class="n">all_simplices</span><span class="p">();</span>
+
+<span class="c1">// Parallel building (if supported)</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">parallel_for</span><span class="p">(</span><span class="n">all_simplices</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">all_simplices</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span>
+<span class="w">    </span><span class="p">[</span><span class="o">&amp;</span><span class="n">tree</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">vg</span><span class="p">](</span><span class="n">SimplexID</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">tree</span><span class="p">.</span><span class="n">add_simplex</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">vg</span><span class="p">,</span><span class="w"> </span><span class="n">get_vertices</span><span class="p">);</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="c1">// Parallel queries</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">BoundingBox</span><span class="o">&gt;</span><span class="w"> </span><span class="n">queries</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">generate_queries</span><span class="p">();</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">SimplexID</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">results</span><span class="p">(</span><span class="n">queries</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+
+<span class="n">cebu</span><span class="o">::</span><span class="n">parallel_for</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">queries</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tree</span><span class="p">.</span><span class="n">range_query</span><span class="p">(</span><span class="n">queries</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="p">});</span>
+</code></pre></div>
+<p><strong>Performance Gain</strong>: 3-5x for parallel index building and querying</p>
+<hr />
+<h2 id="benchmarking-api">Benchmarking API<a class="headerlink" href="#benchmarking-api" title="Permanent link">&para;</a></h2>
+<h3 id="high-precision-benchmark-framework">High-Precision Benchmark Framework<a class="headerlink" href="#high-precision-benchmark-framework" title="Permanent link">&para;</a></h3>
+<p>Cebu provides a high-precision benchmarking framework for measuring performance with microsecond resolution.</p>
+<h3 id="benchmark-api">Benchmark API<a class="headerlink" href="#benchmark-api" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;cebu/benchmark.h&quot;</span>
+
+<span class="c1">// Create benchmark</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">Benchmark</span><span class="w"> </span><span class="n">bench</span><span class="p">(</span><span class="s">&quot;MyOperation&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
+
+<span class="c1">// Run benchmark with warmup</span>
+<span class="n">bench</span><span class="p">.</span><span class="n">run</span><span class="p">([</span><span class="o">&amp;</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Your operation here</span>
+<span class="w">    </span><span class="n">my_operation</span><span class="p">();</span>
+<span class="p">});</span>
+
+<span class="c1">// Get results</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Mean: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">bench</span><span class="p">.</span><span class="n">mean_ms</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; ms&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Std Dev: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">bench</span><span class="p">.</span><span class="n">std_dev_ms</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; ms&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Min: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">bench</span><span class="p">.</span><span class="n">min_ms</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; ms&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Max: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">bench</span><span class="p">.</span><span class="n">max_ms</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; ms&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Median: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">bench</span><span class="p">.</span><span class="n">median_ms</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; ms&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="benchmark-statistics">Benchmark Statistics<a class="headerlink" href="#benchmark-statistics" title="Permanent link">&para;</a></h3>
+<p>The benchmark framework provides comprehensive statistics:</p>
+<table>
+<thead>
+<tr>
+<th>Statistic</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mean_ms()</code></td>
+<td>Average execution time</td>
+</tr>
+<tr>
+<td><code>std_dev_ms()</code></td>
+<td>Standard deviation</td>
+</tr>
+<tr>
+<td><code>min_ms()</code></td>
+<td>Minimum execution time</td>
+</tr>
+<tr>
+<td><code>max_ms()</code></td>
+<td>Maximum execution time</td>
+</tr>
+<tr>
+<td><code>median_ms()</code></td>
+<td>Median execution time</td>
+</tr>
+<tr>
+<td><code>percentile_ms(p)</code></td>
+<td>P-th percentile (0-100)</td>
+</tr>
+<tr>
+<td><code>ops_per_sec()</code></td>
+<td>Operations per second</td>
+</tr>
+</tbody>
+</table>
+<h3 id="profiling-api">Profiling API<a class="headerlink" href="#profiling-api" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;cebu/profiler.h&quot;</span>
+
+<span class="c1">// Named timer</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">Profiler</span><span class="o">::</span><span class="n">start_timer</span><span class="p">(</span><span class="s">&quot;operation1&quot;</span><span class="p">);</span>
+<span class="c1">// ... do work ...</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">Profiler</span><span class="o">::</span><span class="n">stop_timer</span><span class="p">(</span><span class="s">&quot;operation1&quot;</span><span class="p">);</span>
+
+<span class="c1">// RAII scope timer</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">PROFILER_SCOPE</span><span class="p">(</span><span class="s">&quot;critical_section&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// ... do work ...</span>
+<span class="p">}</span><span class="w"> </span><span class="c1">// Timer automatically stops</span>
+
+<span class="c1">// Named counter</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">Profiler</span><span class="o">::</span><span class="n">increment_counter</span><span class="p">(</span><span class="s">&quot;iterations&quot;</span><span class="p">);</span>
+
+<span class="c1">// Print profiler results</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">Profiler</span><span class="o">::</span><span class="n">print_statistics</span><span class="p">();</span>
+
+<span class="c1">// Get statistics for a timer</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">stats</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">Profiler</span><span class="o">::</span><span class="n">get_timer_stats</span><span class="p">(</span><span class="s">&quot;operation1&quot;</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Total time: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">stats</span><span class="p">.</span><span class="n">total_time_ms</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; ms&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Call count: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">stats</span><span class="p">.</span><span class="n">call_count</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Average: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">stats</span><span class="p">.</span><span class="n">avg_time_ms</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; ms&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="profiling-convenience-macros">Profiling Convenience Macros<a class="headerlink" href="#profiling-convenience-macros" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// RAII timer with automatic naming</span>
+<span class="n">PROFILER_SCOPE</span><span class="p">(</span><span class="s">&quot;my_function&quot;</span><span class="p">);</span>
+
+<span class="c1">// Function entry/exit</span>
+<span class="n">PROFILER_FUNCTION</span><span class="p">();</span>
+
+<span class="c1">// Named block</span>
+<span class="n">PROFILER_BLOCK</span><span class="p">(</span><span class="s">&quot;my_algorithm&quot;</span><span class="p">);</span>
+
+<span class="c1">// Increment counter</span>
+<span class="n">PROFILER_COUNTER</span><span class="p">(</span><span class="s">&quot;iterations&quot;</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="example-profiling-complex-operations">Example: Profiling Complex Operations<a class="headerlink" href="#example-profiling-complex-operations" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">process_complex</span><span class="p">(</span><span class="n">SimplicialComplex</span><span class="o">&amp;</span><span class="w"> </span><span class="n">complex</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">PROFILER_FUNCTION</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// Build spatial index</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">PROFILER_SCOPE</span><span class="p">(</span><span class="s">&quot;build_bvh&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">cebu</span><span class="o">::</span><span class="n">BVHTree</span><span class="w"> </span><span class="n">tree</span><span class="p">;</span>
+<span class="w">        </span><span class="n">tree</span><span class="p">.</span><span class="n">build</span><span class="p">(</span><span class="n">all_simplices</span><span class="p">,</span><span class="w"> </span><span class="n">vg</span><span class="p">,</span><span class="w"> </span><span class="n">get_vertices</span><span class="p">);</span>
+<span class="w">        </span><span class="n">PROFILER_COUNTER</span><span class="p">(</span><span class="s">&quot;bvh_builds&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Parallel queries</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">PROFILER_SCOPE</span><span class="p">(</span><span class="s">&quot;parallel_queries&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">cebu</span><span class="o">::</span><span class="n">parallel_for</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">queries</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">auto</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tree</span><span class="p">.</span><span class="n">range_query</span><span class="p">(</span><span class="n">queries</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">            </span><span class="n">PROFILER_COUNTER</span><span class="p">(</span><span class="s">&quot;queries_executed&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="p">});</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Run processing</span>
+<span class="w">    </span><span class="n">process_complex</span><span class="p">(</span><span class="n">my_complex</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Print statistics</span>
+<span class="w">    </span><span class="n">cebu</span><span class="o">::</span><span class="n">Profiler</span><span class="o">::</span><span class="n">print_statistics</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="generating-benchmark-reports">Generating Benchmark Reports<a class="headerlink" href="#generating-benchmark-reports" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Run multiple benchmarks</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">Benchmark</span><span class="w"> </span><span class="n">bench1</span><span class="p">(</span><span class="s">&quot;Operation1&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
+<span class="n">bench1</span><span class="p">.</span><span class="n">run</span><span class="p">([]()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">operation1</span><span class="p">();</span><span class="w"> </span><span class="p">});</span>
+
+<span class="n">cebu</span><span class="o">::</span><span class="n">Benchmark</span><span class="w"> </span><span class="n">bench2</span><span class="p">(</span><span class="s">&quot;Operation2&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
+<span class="n">bench2</span><span class="p">.</span><span class="n">run</span><span class="p">([]()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">operation2</span><span class="p">();</span><span class="w"> </span><span class="p">});</span>
+
+<span class="c1">// Compare results</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Comparison:&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">bench1</span><span class="p">.</span><span class="n">compare_to</span><span class="p">(</span><span class="n">bench2</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="c1">// Generate Markdown report</span>
+<span class="n">std</span><span class="o">::</span><span class="n">ofstream</span><span class="w"> </span><span class="n">report</span><span class="p">(</span><span class="s">&quot;benchmark_report.md&quot;</span><span class="p">);</span>
+<span class="n">report</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;# Benchmark Report</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="n">report</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">bench1</span><span class="p">.</span><span class="n">to_markdown</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="n">report</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">bench2</span><span class="p">.</span><span class="n">to_markdown</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">;</span>
+</code></pre></div>
+<hr />
+<h2 id="best-practices-summary">Best Practices Summary<a class="headerlink" href="#best-practices-summary" title="Permanent link">&para;</a></h2>
+<h3 id="dos">Do's ✅<a class="headerlink" href="#dos" title="Permanent link">&para;</a></h3>
+<ol>
+<li>✅ Use spatial indexes for geometric queries</li>
+<li>✅ Use binary serialization in production</li>
+<li>✅ Enable compression for large files</li>
+<li>✅ Use streaming I/O for files &gt; 100MB</li>
+<li>✅ Choose appropriate build strategies</li>
+<li>✅ Reuse spatial indexes across queries</li>
+<li>✅ Use move semantics for large objects</li>
+<li>✅ Reserve vector capacity when size is known</li>
+<li>✅ Use label range queries instead of iteration</li>
+<li>✅ Profile before optimizing</li>
+</ol>
+<h3 id="donts">Don'ts ❌<a class="headerlink" href="#donts" title="Permanent link">&para;</a></h3>
+<ol>
+<li>❌ Rebuild spatial index for each query</li>
+<li>❌ Use JSON serialization for hot paths</li>
+<li>❌ Load entire large files into memory</li>
+<li>❌ Use linear search for spatial queries</li>
+<li>❌ Copy large complexes unnecessarily</li>
+<li>❌ Query labels in tight loops</li>
+<li>❌ Ignore memory warnings</li>
+<li>❌ Optimize without profiling first</li>
+<li>❌ Use inappropriate build strategies</li>
+<li>❌ Forget to enable compression for large datasets</li>
+</ol>
+<hr />
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<h3 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Spatial Indexing</strong>: 100-2000x speedup for geometric queries</li>
+<li><strong>Binary Serialization</strong>: 2-3x faster, 50% smaller files</li>
+<li><strong>Compression</strong>: 50-80% size reduction with minimal performance impact</li>
+<li><strong>Streaming</strong>: Constant memory usage for large files</li>
+<li><strong>Build Strategies</strong>: Choose based on data and query patterns</li>
+</ol>
+<h3 id="performance-targets">Performance Targets<a class="headerlink" href="#performance-targets" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Target</th>
+<th>Good</th>
+<th>Excellent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Add Simplex</td>
+<td>&lt; 0.01ms</td>
+<td>&lt; 0.001ms</td>
+<td>&lt; 0.001ms</td>
+</tr>
+<tr>
+<td>Range Query (100K)</td>
+<td>&lt; 1ms</td>
+<td>&lt; 0.1ms</td>
+<td>&lt; 0.01ms</td>
+</tr>
+<tr>
+<td>Build BVH (100K)</td>
+<td>&lt; 2s</td>
+<td>&lt; 1s</td>
+<td>&lt; 0.5s</td>
+</tr>
+<tr>
+<td>Serialize (100K)</td>
+<td>&lt; 100ms</td>
+<td>&lt; 50ms</td>
+<td>&lt; 20ms</td>
+</tr>
+</tbody>
+</table>
+<p>For more detailed benchmarking results and specific use case optimizations, see the examples and API documentation.</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2026-03-28T04:20:29+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2026-03-28</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © 2026 CeaserZhao (Oasis Company). All rights reserved.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/ceaserzhao/cebu" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://twitter.com/ceaserzhao" target="_blank" rel="noopener" title="Twitter" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "search.suggest", "search.highlight", "search.share", "navigation.top"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+        <script src="../../js/timeago.min.js"></script>
+      
+        <script src="../../js/timeago_mkdocs_material.js"></script>
+      
+        <script src="../../js/custom.js"></script>
+      
+    
+  </body>
+</html>

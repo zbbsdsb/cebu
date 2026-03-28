@@ -1,0 +1,2880 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Advanced Simplicial Complex Library">
+      
+      
+        <meta name="author" content="CeaserZhao (Oasis Company)">
+      
+      
+        <link rel="canonical" href="https://ceaserzhao.github.io/cebu/architecture/">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.0">
+    
+    
+      
+        <title>Cebu Library Architecture - Cebu Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.45e1311d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/timeago.css">
+    
+      <link rel="stylesheet" href="../css/custom.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cebu-library-architecture" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Cebu Documentation" class="md-header__button md-logo" aria-label="Cebu Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Cebu Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Cebu Library Architecture
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ceaserzhao/cebu" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ceaserzhao/cebu
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../installation/" class="md-tabs__link">
+          
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../tutorials/tutorial_basic/" class="md-tabs__link">
+          
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../core/simplicial_complex/" class="md-tabs__link">
+          
+  
+  Core Concepts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../advanced/spatial_indexing/" class="md-tabs__link">
+          
+  
+  Advanced Features
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../api/api_core/" class="md-tabs__link">
+          
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../utilities/performance/" class="md-tabs__link">
+          
+  
+  Utilities
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../PROJECT_STRUCTURE.md" class="md-tabs__link">
+          
+  
+  Project
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Cebu Documentation" class="md-nav__button md-logo" aria-label="Cebu Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Cebu Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ceaserzhao/cebu" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ceaserzhao/cebu
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting_started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quick Start
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Tutorials
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/tutorial_basic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Basic Usage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/tutorial_spatial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spatial Indexing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/tutorial_narrative/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Narrative Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Core Concepts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Core Concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../core/simplicial_complex/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Simplicial Complex
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../core/topology/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Topology
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../core/labels/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Labels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../core/serialization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serialization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Advanced Features
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Advanced Features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced/spatial_indexing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spatial Indexing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced/non_hausdorff/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Non-Hausdorff Topology
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced/absurdity_system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Absurdity System
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced/narrative_context/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Narrative Context
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    API Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/api_core/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Core API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/api_spatial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spatial API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/api_serialization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serialization API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/api_narrative/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Narrative API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/api_absurdity/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Absurdity API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Utilities
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Utilities
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utilities/performance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performance Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utilities/best_practices/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Best Practices
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utilities/faq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utilities/troubleshooting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Project
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Project
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PROJECT_STRUCTURE.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CONTRIBUTING.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CHANGELOG.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Changelog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LICENSE" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Project Structure
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Components
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#01-command-system-v031" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.1. Command System (v0.3.1+)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#02-serialization-system-v031" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.2. Serialization System (v0.3.1+)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#0-narrative-layer-v030" class="md-nav__link">
+    <span class="md-ellipsis">
+      0. Narrative Layer (v0.3.0+)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-label-system-v020" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Label System (v0.2.0+)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-simplex-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Simplex Class
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-simplicialcomplex-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. SimplicialComplex Class
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Algorithms
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Algorithms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#simplex-addition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Simplex Addition
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#simplex-removal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Simplex Removal
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adjacency-building" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adjacency Building
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-trade-offs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Design Trade-offs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Design Trade-offs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-adjacency-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Adjacency Storage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-id-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. ID Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-duplicate-prevention" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Duplicate Prevention
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#future-enhancements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Future Enhancements
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Future Enhancements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#performance-optimizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Optimizations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feature-additions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Feature Additions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-improvements" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Improvements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thread-safety" class="md-nav__link">
+    <span class="md-ellipsis">
+      Thread Safety
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error Handling
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error Handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exceptions-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exceptions Used
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-handling-philosophy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error Handling Philosophy
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Memory Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ownership" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ownership
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lifetime" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lifetime
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deletion-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deletion Strategy
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing Strategy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unit-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Unit Tests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-coverage-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test Coverage Goals
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-tests-future" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration Tests (Future)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build System
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Build System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cmake-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      CMake Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compiler-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compiler Requirements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dependencies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#api-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Documentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#architecture-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Architecture Documentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-guides" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Guides
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#version-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      Version History
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Version History">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v050-current-fractal-dimension-dynamic-adjustment" class="md-nav__link">
+    <span class="md-ellipsis">
+      v0.5.0 (Current) - Fractal Dimension Dynamic Adjustment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refinement-system-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      Refinement System (New)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v031-advanced-narrative-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      v0.3.1 - Advanced Narrative Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v030-narrative-driven-topology" class="md-nav__link">
+    <span class="md-ellipsis">
+      v0.3.0 - Narrative-Driven Topology
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v020-label-system-unified-topology" class="md-nav__link">
+    <span class="md-ellipsis">
+      v0.2.0 - Label System &amp; Unified Topology
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v010" class="md-nav__link">
+    <span class="md-ellipsis">
+      v0.1.0
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contributing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    <span class="md-ellipsis">
+      License
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="cebu-library-architecture">Cebu Library Architecture<a class="headerlink" href="#cebu-library-architecture" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The cebu library is designed as a modular C++ library for manipulating dynamic simplicial complexes. This document describes the architectural decisions and implementation details.</p>
+<h2 id="project-structure">Project Structure<a class="headerlink" href="#project-structure" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>cebu/
+├── include/cebu/       # Public header files
+│   ├── simplex.h       # Simplex class definition
+│   └── simplicial_complex.h  # SimplicialComplex class definition
+├── src/                # Implementation files
+│   ├── simplex.cpp
+│   └── simplicial_complex.cpp
+├── tests/              # Unit tests
+│   ├── test_basic.cpp  # Basic functionality tests
+│   └── test_dynamic.cpp # Dynamic operations tests
+├── docs/               # Documentation
+│   ├── api.md          # API reference
+│   └── architecture.md # This file
+├── examples/           # Example code (to be added)
+├── CMakeLists.txt      # Build configuration
+├── LICENSE             # MIT License
+└── README.md           # Project overview
+</code></pre></div>
+<h2 id="core-components">Core Components<a class="headerlink" href="#core-components" title="Permanent link">&para;</a></h2>
+<h3 id="01-command-system-v031">0.1. Command System (v0.3.1+)<a class="headerlink" href="#01-command-system-v031" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose</strong>: Enables undo/redo functionality for all reversible operations.</p>
+<p><strong>Design Rationale</strong>:
+- Command pattern for reversible operations
+- State capture for accurate undo
+- History management with size limits
+- Template-based for flexibility across complex types</p>
+<p><strong>Key Classes</strong>:</p>
+<ol>
+<li><strong>Command</strong> (Base class)</li>
+<li>Abstract interface for all commands</li>
+<li>Execute/Undo methods</li>
+<li>
+<p>Description for debugging</p>
+</li>
+<li>
+<p><strong>Concrete Commands</strong></p>
+</li>
+<li>AddSimplexCommand: Stores vertices, removes simplex on undo</li>
+<li>RemoveSimplexCommand: Stores simplex data for recreation</li>
+<li>SetLabelCommand: Stores old label for restoration</li>
+<li>
+<p>ApplyEventCommand: Stores old labels of affected simplices</p>
+</li>
+<li>
+<p><strong>CommandHistory</strong></p>
+</li>
+<li>Manages command execution stack</li>
+<li>Supports undo/redo navigation</li>
+<li>Size limits to control memory usage</li>
+<li>Truncates future commands on new execution</li>
+</ol>
+<p><strong>Data Flow</strong>:
+<div class="highlight"><pre><span></span><code>User Action → Command::execute() → History.push()
+             ↓
+         State Change
+         ↓
+         History.position++
+
+Undo → Command::undo() → State Restore → History.position--
+Redo → Command::execute() → State Change → History.position++
+</code></pre></div></p>
+<p><strong>Memory Management</strong>:
+- Commands capture minimal state needed for undo
+- Max size prevents unbounded memory growth
+- Unique_ptr ensures proper ownership</p>
+<h3 id="02-serialization-system-v031">0.2. Serialization System (v0.3.1+)<a class="headerlink" href="#02-serialization-system-v031" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose</strong>: Enables saving and loading complex states for persistence.</p>
+<p><strong>Design Rationale</strong>:
+- JSON format for human-readable storage
+- Binary format for efficient storage
+- Template-based for all complex types
+- Versioning support for future compatibility</p>
+<p><strong>Key Classes</strong>:</p>
+<ol>
+<li><strong>JsonSerializer</strong></li>
+<li>Serialize basic complexes (simplices only)</li>
+<li>Serialize labeled complexes (includes labels)</li>
+<li>Serialize narrative complexes (includes timeline, events)</li>
+<li>
+<p>Hierarchical JSON structure</p>
+</li>
+<li>
+<p><strong>BinarySerializer</strong></p>
+</li>
+<li>Compact binary format</li>
+<li>Magic number and versioning</li>
+<li>Efficient deserialization</li>
+<li>Direct binary read/write</li>
+</ol>
+<p><strong>JSON Format</strong>:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;narrative&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;simplices&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;labels&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">...</span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;timeline&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">...</span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;events&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;current_time&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">50.0</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p><strong>Binary Format</strong>:
+- Header: 4-byte magic + 4-byte version
+- Simplex count: 8 bytes
+- Per-simplex: ID (8) + vertex count (8) + vertices (4 each)</p>
+<h3 id="0-narrative-layer-v030">0. Narrative Layer (v0.3.0+)<a class="headerlink" href="#0-narrative-layer-v030" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose</strong>: Enables timeline-driven narrative evolution of simplicial complexes.</p>
+<p><strong>Design Rationale</strong>:
+- Separation of concerns: timeline, events, and complex management
+- Event-driven architecture for flexible narrative composition
+- Integration with label system for absurdity evolution</p>
+<p><strong>Key Classes</strong>:</p>
+<ol>
+<li><strong>StoryEvent</strong></li>
+<li>Represents a single narrative event</li>
+<li>Contains timestamp, description, and affected simplices</li>
+<li>
+<p>Carries AbsurdityContext for label evolution</p>
+</li>
+<li>
+<p><strong>StoryEventSystem</strong></p>
+</li>
+<li>Manages collection of story events</li>
+<li>Time-range queries for event retrieval</li>
+<li>
+<p>Validations for timestamps and event operations</p>
+</li>
+<li>
+<p><strong>Timeline</strong></p>
+</li>
+<li>Manages narrative time bounds [start, end]</li>
+<li>Supports milestones at specific times</li>
+<li>Navigation methods (next/previous milestone)</li>
+<li>
+<p>Validation for event timestamps</p>
+</li>
+<li>
+<p><strong>TopologyOperations</strong></p>
+</li>
+<li>Static utility class for topological operations</li>
+<li>Vertex gluing (identification)</li>
+<li>Batch vertex gluing</li>
+<li>Simplex boundary gluing</li>
+<li>Boundary computation</li>
+<li>Connected components analysis</li>
+<li>Dimension filtering</li>
+<li>Euler characteristic computation</li>
+<li>
+<p>Manifold checking</p>
+</li>
+<li>
+<p><strong>SimplicialComplexNarrative<LabelType></strong></p>
+</li>
+<li>Extends SimplicialComplexLabeled with narrative support</li>
+<li>Integrates timeline and event system</li>
+<li>Evolves labels based on events through timeline</li>
+<li>Template-based for flexible label types</li>
+</ol>
+<p><strong>Data Flow</strong>:
+<div class="highlight"><pre><span></span><code>Timeline → Events → Simplices → Labels
+   ↓           ↓           ↓          ↓
+Milestones  Context    Selection   Evolution
+</code></pre></div></p>
+<p><strong>Evolution Process</strong>:
+1. User calls <code>evolve_to(timestamp)</code>
+2. Timeline validates timestamp
+3. Event system returns events in range [start, timestamp]
+4. For each event, apply to affected simplices
+5. Labels evolve based on AbsurdityContext
+6. Current time updates to timestamp</p>
+<h3 id="1-label-system-v020">1. Label System (v0.2.0+)<a class="headerlink" href="#1-label-system-v020" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose</strong>: Attaches semantic data to simplices for narrative-driven topology.</p>
+<p><strong>Design Rationale</strong>:
+- Template-based design supports arbitrary label types
+- Separation of storage logic from complex management
+- Query capabilities for labeled simplices</p>
+<p><strong>Key Classes</strong>:</p>
+<ol>
+<li><strong>LabelSystem<T></strong> (Base class)</li>
+<li>Pure virtual interface for label operations</li>
+<li>Predicate-based queries for flexible filtering</li>
+<li>
+<p>Type-safe label storage and retrieval</p>
+</li>
+<li>
+<p><strong>DefaultLabelSystem<T></strong></p>
+</li>
+<li>Unordered_map-based storage for O(1) operations</li>
+<li>Suitable for numeric and simple label types</li>
+<li>
+<p>Provides range queries (high/low/in_range) for arithmetic types</p>
+</li>
+<li>
+<p><strong>AbsurdityLabelSystem</strong></p>
+</li>
+<li>Specialized for interval-valued fuzzy numbers</li>
+<li>Provides absurdity-specific queries (high/low absurdity, uncertainty)</li>
+<li>
+<p>Supports context-driven evolution</p>
+</li>
+<li>
+<p><strong>SimplicialComplexLabeled<LabelType, LabelSystemType></strong></p>
+</li>
+<li>Wraps SimplicialComplex with label support</li>
+<li>Forwards topology operations to underlying complex</li>
+<li>Provides unified API for topology + labels</li>
+</ol>
+<p><strong>Label Types</strong>:</p>
+<ol>
+<li><strong>Absurdity</strong>: Interval fuzzy number [lower, upper] × confidence</li>
+<li>Represents narrative absurdity with uncertainty</li>
+<li>Evolves based on AbsurdityContext</li>
+<li>
+<p>Metrics: midpoint, uncertainty (range width)</p>
+</li>
+<li>
+<p><strong>AbsurdityContext</strong>: Environmental factors for evolution</p>
+</li>
+<li>surprisal, logical_deviation, user_laughter, narrative_tension</li>
+<li>Drives dynamic absurdity changes</li>
+</ol>
+<p><strong>Query Mechanisms</strong>:
+- Predicate-based: <code>find_by_label([](const auto&amp; label) { return label &gt; threshold; })</code>
+- Range queries: <code>find_high_labels(0.7)</code>, <code>find_labels_in_range(min, max)</code>
+- Type-specific: <code>find_high_absurdity(0.5)</code>, <code>find_high_uncertainty(0.3)</code></p>
+<h3 id="1-simplex-class">1. Simplex Class<a class="headerlink" href="#1-simplex-class" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose</strong>: Represents a single simplex in the complex.</p>
+<p><strong>Design Rationale</strong>:
+- Stores minimal information (ID, vertices, neighbors)
+- Uses sorted vertices to ensure canonical representation
+- Maintains adjacency relations for efficient traversal</p>
+<p><strong>Key Features</strong>:
+- Immutable vertex list (after construction)
+- Dynamic neighbor management
+- Efficient neighbor lookup using <code>std::unordered_set</code></p>
+<p><strong>Memory Layout</strong>:
+<div class="highlight"><pre><span></span><code>Simplex
+├── id_ (SimplexID)
+├── vertices_ (std::vector&lt;VertexID&gt;)
+└── neighbors_ (std::unordered_set&lt;SimplexID&gt;)
+</code></pre></div></p>
+<h3 id="2-simplicialcomplex-class">2. SimplicialComplex Class<a class="headerlink" href="#2-simplicialcomplex-class" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose</strong>: Manages the entire collection of simplices and maintains consistency.</p>
+<p><strong>Design Rationale</strong>:
+- Centralized management of all simplices
+- Efficient bidirectional mappings
+- Automatic adjacency maintenance</p>
+<p><strong>Key Data Structures</strong>:</p>
+<ol>
+<li><strong>Simplices Map</strong>: <code>std::unordered_map&lt;SimplexID, Simplex&gt;</code></li>
+<li>O(1) lookup by ID</li>
+<li>Stable IDs after deletion (never reused)</li>
+<li>
+<p>Contains ALL simplices including 0-simplices (vertices)</p>
+</li>
+<li>
+<p><strong>Vertex-to-Simplex Mapping</strong>: <code>std::unordered_map&lt;VertexID, std::unordered_set&lt;SimplexID&gt;&gt;</code></p>
+</li>
+<li>Reverse lookup: find all simplices containing a vertex</li>
+<li>Essential for cascade deletion</li>
+<li>
+<p>Key design: Vertices are themselves 0-simplices</p>
+</li>
+<li>
+<p><strong>ID Generation</strong>: <code>SimplexID next_simplex_id_</code></p>
+</li>
+<li>Monotonically increasing counter</li>
+<li>Never reuses IDs to avoid stale references</li>
+<li><strong>Critical</strong>: Vertices and higher-dim simplices share same ID space</li>
+</ol>
+<p><strong>Design Innovation - Unified Simplex Model</strong>:
+- Vertices are NOT separate entities from simplices
+- A vertex IS a 0-simplex (dimension = 0, vertices = {id})
+- This eliminates ID conflicts between vertices and simplices
+- VertexID is just an alias for the SimplexID of 0-simplices
+- All topological operations work uniformly across all dimensions</p>
+<h2 id="key-algorithms">Key Algorithms<a class="headerlink" href="#key-algorithms" title="Permanent link">&para;</a></h2>
+<h3 id="simplex-addition">Simplex Addition<a class="headerlink" href="#simplex-addition" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>1. Validate input (vertex existence, count)
+2. Check for duplicates using vertex comparison
+3. Generate new simplex ID
+4. Create simplex with sorted vertices
+5. Update vertex-to-simplex mapping
+6. Build adjacency relations with existing simplices
+7. Return new simplex ID
+</code></pre></div>
+<p><strong>Complexity</strong>:
+- Duplicate check: O(n) where n = number of existing simplices
+- Adjacency building: O(n × m) where m = average vertices per simplex
+- Can be optimized with spatial indexing for large complexes</p>
+<h3 id="simplex-removal">Simplex Removal<a class="headerlink" href="#simplex-removal" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>1. If cascade enabled:
+   a. Find all simplices containing this simplex as a face
+   b. Recursively remove each
+2. Remove from adjacency lists of all neighbors
+3. Remove from vertex-to-simplex mapping
+4. Remove from simplex map
+</code></pre></div>
+<p><strong>Complexity</strong>:
+- Without cascade: O(k) where k = number of neighbors
+- With cascade: O(n) worst case</p>
+<h3 id="adjacency-building">Adjacency Building<a class="headerlink" href="#adjacency-building" title="Permanent link">&para;</a></h3>
+<p>Two simplices are considered adjacent if they share at least one vertex:</p>
+<div class="highlight"><pre><span></span><code>for each vertex in simplex A:
+    for each vertex in simplex B:
+        if vertices equal:
+            simplices are adjacent
+</code></pre></div>
+<p><strong>Simplification</strong>: Current implementation uses vertex sharing rather than proper face intersection. This is sufficient for many use cases but may produce "false positives" in adjacency.</p>
+<h2 id="design-trade-offs">Design Trade-offs<a class="headerlink" href="#design-trade-offs" title="Permanent link">&para;</a></h2>
+<h3 id="1-adjacency-storage">1. Adjacency Storage<a class="headerlink" href="#1-adjacency-storage" title="Permanent link">&para;</a></h3>
+<p><strong>Option Chosen</strong>: Each simplex stores its neighbors explicitly.</p>
+<p><strong>Pros</strong>:
+- O(1) neighbor lookup
+- Simple iteration over neighbors</p>
+<p><strong>Cons</strong>:
+- More memory (each edge stored twice)
+- Need to maintain consistency on removal</p>
+<p><strong>Alternative</strong>: Compute adjacency on-demand using vertex intersections.</p>
+<p><strong>Trade-off Decision</strong>: Explicit storage chosen for performance at the cost of memory.</p>
+<h3 id="2-id-management">2. ID Management<a class="headerlink" href="#2-id-management" title="Permanent link">&para;</a></h3>
+<p><strong>Option Chosen</strong>: Never reuse IDs, use monotonically increasing counter.</p>
+<p><strong>Pros</strong>:
+- No risk of stale references
+- Simple implementation</p>
+<p><strong>Cons</strong>:
+- Can overflow after 2^64 operations (practically never)
+- Memory overhead if many deletions</p>
+<p><strong>Alternative</strong>: Reuse IDs from deleted simplices.</p>
+<p><strong>Trade-off Decision</strong>: Non-reuse chosen for safety and simplicity.</p>
+<h3 id="3-duplicate-prevention">3. Duplicate Prevention<a class="headerlink" href="#3-duplicate-prevention" title="Permanent link">&para;</a></h3>
+<p><strong>Option Chosen</strong>: Return existing simplex ID instead of creating duplicate.</p>
+<p><strong>Pros</strong>:
+- Maintains mathematical definition of simplicial complex
+- Prevents inconsistency</p>
+<p><strong>Cons</strong>:
+- O(n) check on each insertion
+- May hide bugs in user code</p>
+<p><strong>Alternative</strong>: Allow duplicates, merge later.</p>
+<p><strong>Trade-off Decision</strong>: Prevention chosen for correctness.</p>
+<h2 id="future-enhancements">Future Enhancements<a class="headerlink" href="#future-enhancements" title="Permanent link">&para;</a></h2>
+<h3 id="performance-optimizations">Performance Optimizations<a class="headerlink" href="#performance-optimizations" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Spatial Indexing</strong>: Use R-tree or kd-tree for faster spatial queries</li>
+<li><strong>Lazy Adjacency</strong>: Compute adjacency only when needed</li>
+<li><strong>Batch Operations</strong>: Support adding/removing multiple simplices efficiently</li>
+<li><strong>Memory Pool</strong>: Custom allocator for frequent simplex creation/deletion</li>
+</ol>
+<h3 id="feature-additions">Feature Additions<a class="headerlink" href="#feature-additions" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Label System</strong>: Attach arbitrary data to simplices</li>
+<li><strong>Morph Operations</strong>: Dynamic topology transformations</li>
+<li><strong>Non-Hausdorff Support</strong>: Gluing operations for advanced topology</li>
+<li><strong>Event System</strong>: Callbacks for topology changes</li>
+<li><strong>Serialization</strong>: Save/load complex state</li>
+</ol>
+<h3 id="api-improvements">API Improvements<a class="headerlink" href="#api-improvements" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Range-based Iteration</strong>: Support <code>for (auto&amp; simplex : complex)</code></li>
+<li><strong>Query Builders</strong>: Fluent interface for complex queries</li>
+<li><strong>Immutable Views</strong>: Snapshot complex state for thread-safe access</li>
+</ol>
+<h2 id="thread-safety">Thread Safety<a class="headerlink" href="#thread-safety" title="Permanent link">&para;</a></h2>
+<p>Current implementation is <strong>not thread-safe</strong>:
+- All operations should be performed from a single thread
+- No locking mechanisms
+- Shared state access is unprotected</p>
+<p><strong>Future Work</strong>:
+- Add read-write locks for concurrent queries
+- Provide immutable snapshot API
+- Consider lock-free data structures for hot paths</p>
+<h2 id="error-handling">Error Handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h2>
+<h3 id="exceptions-used">Exceptions Used<a class="headerlink" href="#exceptions-used" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>std::invalid_argument</code>: Invalid vertex IDs or simplex configuration</li>
+<li>`std::out_of_range**: Requesting non-existent simplex</li>
+</ul>
+<h3 id="error-handling-philosophy">Error Handling Philosophy<a class="headerlink" href="#error-handling-philosophy" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Fail fast with exceptions</li>
+<li>Validate inputs early</li>
+<li>Maintain invariants even on error</li>
+</ul>
+<h2 id="memory-management">Memory Management<a class="headerlink" href="#memory-management" title="Permanent link">&para;</a></h2>
+<h3 id="ownership">Ownership<a class="headerlink" href="#ownership" title="Permanent link">&para;</a></h3>
+<ul>
+<li>SimplicialComplex owns all simplices</li>
+<li>Simplex objects are stored by value in unordered_map</li>
+<li>No raw pointers to internal state exposed</li>
+</ul>
+<h3 id="lifetime">Lifetime<a class="headerlink" href="#lifetime" title="Permanent link">&para;</a></h3>
+<ul>
+<li>SimplicialComplex manages all memory</li>
+<li>No external ownership of internal objects</li>
+<li>References returned from getters are valid only during object lifetime</li>
+</ul>
+<h3 id="deletion-strategy">Deletion Strategy<a class="headerlink" href="#deletion-strategy" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Cascade deletion ensures consistency</li>
+<li>No memory leaks (verified with Valgrind/AddressSanitizer)</li>
+<li>Optional non-cascade deletion for advanced use cases</li>
+</ul>
+<h2 id="testing-strategy">Testing Strategy<a class="headerlink" href="#testing-strategy" title="Permanent link">&para;</a></h2>
+<h3 id="unit-tests">Unit Tests<a class="headerlink" href="#unit-tests" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>test_basic.cpp</code>: Core functionality (9 tests)</li>
+<li>Vertex/edge/triangle creation</li>
+<li>Adjacency and facet queries</li>
+<li>Dimension queries</li>
+<li>Duplicate prevention</li>
+<li>
+<p>Tetrahedron (3-simplex) support</p>
+</li>
+<li>
+<p><code>test_dynamic.cpp</code>: Dynamic operations (9 tests)</p>
+</li>
+<li>Simplex and vertex removal</li>
+<li>Cascade deletion</li>
+<li>Add/remove cycles</li>
+<li>Adjacency consistency after removal</li>
+<li>
+<p>Vertex-to-simplex mapping</p>
+</li>
+<li>
+<p><code>test_labels.cpp</code>: Label system (10 tests)</p>
+</li>
+<li>Basic label operations (set/get/remove)</li>
+<li>Label queries (high/low/range)</li>
+<li>Predicate-based filtering</li>
+<li>Simplex removal with labels</li>
+<li>Absurdity labels and evolution</li>
+<li>Partial labeling</li>
+<li>
+<p>Combined topology+label queries</p>
+</li>
+<li>
+<p><code>test_story_events.cpp</code>: Story event system (9 tests)</p>
+</li>
+<li>Add/retrieve events</li>
+<li>Time-range queries</li>
+<li>Event removal and clearing</li>
+<li>Invalid input handling</li>
+<li>
+<p>Multiple events</p>
+</li>
+<li>
+<p><code>test_timeline.cpp</code>: Timeline management (12 tests)</p>
+</li>
+<li>Timeline bounds and duration</li>
+<li>Milestone management</li>
+<li>Time containment</li>
+<li>Navigation (next/previous milestone)</li>
+<li>
+<p>Invalid input handling</p>
+</li>
+<li>
+<p><code>test_topology_ops.cpp</code>: Topological operations (9 tests)</p>
+</li>
+<li>Vertex gluing</li>
+<li>Boundary computation</li>
+<li>Dimension filtering</li>
+<li>Connected components</li>
+<li>
+<p>Error handling</p>
+</li>
+<li>
+<p><code>test_narrative.cpp</code>: Narrative complex integration (8 tests)</p>
+</li>
+<li>Basic narrative complex operations</li>
+<li>Event addition and application</li>
+<li>Timeline evolution</li>
+<li>Bounds validation</li>
+<li>Multi-component scenarios</li>
+<li>
+<p>Milestone integration</p>
+</li>
+<li>
+<p><code>test_topology_ops_advanced.cpp</code>: Advanced topology operations (13 tests)</p>
+</li>
+<li>Simplex boundary gluing</li>
+<li>Batch vertex gluing</li>
+<li>Euler characteristic computation</li>
+<li>Manifold checking</li>
+<li>
+<p>Error handling</p>
+</li>
+<li>
+<p><code>test_command_history.cpp</code>: Command system (14 tests)</p>
+</li>
+<li>AddSimplexCommand</li>
+<li>RemoveSimplexCommand</li>
+<li>SetLabelCommand</li>
+<li>CommandHistory basic operations</li>
+<li>Undo/redo functionality</li>
+<li>Multiple undo/redo</li>
+<li>History size limits</li>
+<li>
+<p>Error cases</p>
+</li>
+<li>
+<p><code>test_serialization.cpp</code>: Serialization system (11 tests)</p>
+</li>
+<li>JSON serialization (basic, labeled, absurdity, narrative)</li>
+<li>Binary serialization</li>
+<li>Round-trip testing</li>
+<li>Error handling</li>
+<li>Format validity</li>
+</ul>
+<h3 id="test-coverage-goals">Test Coverage Goals<a class="headerlink" href="#test-coverage-goals" title="Permanent link">&para;</a></h3>
+<ul>
+<li>All public methods tested</li>
+<li>Edge cases covered (empty complex, invalid IDs, etc.)</li>
+<li>Memory leak testing</li>
+<li>Stress testing for large complexes</li>
+<li>Label system correctness (type safety, query accuracy)</li>
+<li>Timeline consistency and validation</li>
+<li>Narrative evolution correctness</li>
+</ul>
+<h3 id="integration-tests-future">Integration Tests (Future)<a class="headerlink" href="#integration-tests-future" title="Permanent link">&para;</a></h3>
+<ul>
+<li>End-to-end workflows</li>
+<li>Performance benchmarks</li>
+<li>Concurrency tests (when thread safety is added)</li>
+<li>Complex narrative scenarios with multiple events</li>
+<li>Absurdity-driven topological transformations</li>
+</ul>
+<h2 id="build-system">Build System<a class="headerlink" href="#build-system" title="Permanent link">&para;</a></h2>
+<h3 id="cmake-configuration">CMake Configuration<a class="headerlink" href="#cmake-configuration" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Minimum version: 3.14</li>
+<li>C++17 standard</li>
+<li>Separate library and test targets</li>
+</ul>
+<h3 id="compiler-requirements">Compiler Requirements<a class="headerlink" href="#compiler-requirements" title="Permanent link">&para;</a></h3>
+<ul>
+<li>C++17 compliant compiler</li>
+<li>Tested with: MSVC 19.5, GCC 9+, Clang 10+</li>
+</ul>
+<h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>External</strong>: None (STL only)</li>
+<li><strong>Internal</strong>: None</li>
+</ul>
+<p><strong>C++17 Features Used</strong>:
+- <code>std::optional</code> for nullable return values
+- <code>std::unordered_map</code> for efficient lookups
+- Template metaprogramming for type-safe label system
+- <code>std::enable_if_t</code> for SFINAE-based type constraints</p>
+<h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h2>
+<h3 id="api-documentation">API Documentation<a class="headerlink" href="#api-documentation" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Comprehensive API reference in <code>docs/api.md</code></li>
+<li>Doxygen comments in source (to be added)</li>
+</ul>
+<h3 id="architecture-documentation">Architecture Documentation<a class="headerlink" href="#architecture-documentation" title="Permanent link">&para;</a></h3>
+<ul>
+<li>This document (<code>docs/architecture.md</code>)</li>
+<li>Design rationale and implementation details</li>
+</ul>
+<h3 id="user-guides">User Guides<a class="headerlink" href="#user-guides" title="Permanent link">&para;</a></h3>
+<ul>
+<li>README.md: Quick start and build instructions</li>
+<li>Examples: Practical usage patterns (to be added)</li>
+</ul>
+<h2 id="version-history">Version History<a class="headerlink" href="#version-history" title="Permanent link">&para;</a></h2>
+<h3 id="v050-current-fractal-dimension-dynamic-adjustment">v0.5.0 (Current) - Fractal Dimension Dynamic Adjustment<a class="headerlink" href="#v050-current-fractal-dimension-dynamic-adjustment" title="Permanent link">&para;</a></h3>
+<h3 id="refinement-system-new">Refinement System (New)<a class="headerlink" href="#refinement-system-new" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose</strong>: Enables dynamic mesh refinement and coarsening for adaptive multi-resolution analysis.</p>
+<p><strong>Design Rationale</strong>:
+- Template-based design for integration with any label type
+- Strategy pattern for flexible label inheritance
+- Hierarchical refinement level tracking
+- Reversible operations (refinement ↔ coarsening)
+- Adaptive refinement based on label predicates</p>
+<p><strong>Key Classes</strong>:</p>
+<ol>
+<li><strong>RefinementResult</strong></li>
+<li>Contains information about refinement operations</li>
+<li>Maps original simplices to their refined children</li>
+<li>Tracks new vertices and their parent edges</li>
+<li>
+<p>Counts new simplices and vertices created</p>
+</li>
+<li>
+<p><strong>RefinementOptions<LabelType></strong></p>
+</li>
+<li>Configurable refinement behavior</li>
+<li>Label inheritance strategy selection</li>
+<li>Custom function support for label distribution</li>
+<li>Maximum refinement level limits</li>
+<li>
+<p>Parent label preservation options</p>
+</li>
+<li>
+<p><strong>SimplicialComplexRefinement<LabelType></strong></p>
+</li>
+<li>Extends SimplicialComplexLabeled with refinement capabilities</li>
+<li>Edge refinement: splits edges by inserting midpoints</li>
+<li>Triangle refinement: splits triangles into 4 sub-triangles</li>
+<li>Coarsening: reverses refinement operations</li>
+<li>Adaptive refinement/coarsening based on label predicates</li>
+<li>
+<p>Refinement level management</p>
+</li>
+<li>
+<p><strong>RefinementUtils</strong></p>
+</li>
+<li>Static utility class for refinement operations</li>
+<li>Ideal refinement level calculation</li>
+<li>Fractal dimension estimation</li>
+</ol>
+<p><strong>Refinement Algorithms</strong>:</p>
+<h4 id="edge-refinement">Edge Refinement<a class="headerlink" href="#edge-refinement" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>Algorithm refine_edge(edge_id):
+1. Validate edge exists and is 1D
+2. Extract vertices v0, v1
+3. Create midpoint vertex vm
+4. Remove original edge
+5. Create edges v0-vm and vm-v1
+6. Apply label inheritance
+7. Update refinement levels
+8. Return result
+</code></pre></div>
+<h4 id="triangle-refinement">Triangle Refinement<a class="headerlink" href="#triangle-refinement" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>Algorithm refine_triangle(triangle_id):
+1. Validate triangle exists and is 2D
+2. Extract vertices v0, v1, v2
+3. Create midpoints vm01, vm12, vm20
+4. Remove original triangle
+5. Create boundary edges (6)
+6. Create interior edges (3)
+7. Create 4 sub-triangles
+8. Apply label inheritance
+9. Update refinement levels
+10. Return result
+</code></pre></div>
+<h4 id="coarsening">Coarsening<a class="headerlink" href="#coarsening" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>Algorithm coarsen_edge(midpoint_vertex):
+1. Verify vertex has degree 2
+2. Get adjacent edges e0, e1
+3. Extract endpoints (non-midpoint vertices)
+4. Remove both edges and midpoint
+5. Create new edge connecting endpoints
+
+Algorithm coarsen_triangle(center_vertex):
+1. Verify vertex has degree 3
+2. Get adjacent triangles (should be 4)
+3. Remove all triangles
+4. Remove interior edges
+5. Remove center vertex
+6. Create new triangle from corners
+</code></pre></div>
+<p><strong>Label Inheritance Strategies</strong>:</p>
+<ol>
+<li><strong>INHERIT_COPY</strong></li>
+<li>All children receive identical parent label</li>
+<li>Simple and predictable</li>
+<li>
+<p>Suitable for categorical data</p>
+</li>
+<li>
+<p><strong>INHERIT_INTERPOLATE</strong></p>
+</li>
+<li>Linear interpolation for numeric types</li>
+<li>Smooth label transitions</li>
+<li>
+<p>Preserves average value</p>
+</li>
+<li>
+<p><strong>INHERIT_DISTRIBUTE</strong></p>
+</li>
+<li>Splits label value evenly</li>
+<li>Example: parent=1.0, 4 children → each=0.25</li>
+<li>
+<p>Suitable for partitionable quantities</p>
+</li>
+<li>
+<p><strong>INHERIT_CUSTOM</strong></p>
+</li>
+<li>User-defined function</li>
+<li>Maximum flexibility</li>
+<li>Can implement complex logic</li>
+</ol>
+<p><strong>Data Structures</strong>:
+<div class="highlight"><pre><span></span><code>SimplicialComplexRefinement
+├── refinement_levels_ (unordered_map&lt;SimplexID, int&gt;)
+│   └── Tracks refinement level per simplex
+├── Inherits from SimplicialComplexLabeled
+│   ├── complex_ (SimplicialComplex)
+│   └── label_system_ (LabelSystemType)
+</code></pre></div></p>
+<p><strong>Complexity Analysis</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Time Complexity</th>
+<th>Space Complexity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>refine_edge()</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>refine_triangle()</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>refine_simplex()</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>refine_region()</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>coarsen_edge()</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>coarsen_triangle()</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>coarsen_region()</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>adaptive_refine()</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>get_refinement_level()</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>get_simplices_at_level()</td>
+<td>O(k)</td>
+<td>O(k)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Integration with Existing Systems</strong>:</p>
+<ol>
+<li><strong>Label System</strong></li>
+<li>Fully compatible with SimplicialComplexLabeled</li>
+<li>Supports all label types (double, Absurdity, custom)</li>
+<li>
+<p>Label inheritance strategies work with any label type</p>
+</li>
+<li>
+<p><strong>Narrative System</strong></p>
+</li>
+<li>Refinement can be based on narrative labels</li>
+<li>Adaptive refinement uses label predicates</li>
+<li>
+<p>Timeline-aware refinement possible</p>
+</li>
+<li>
+<p><strong>Non-Hausdorff Topology</strong></p>
+</li>
+<li>Refinement works with glued simplices</li>
+<li>Coarsening respects gluing relationships</li>
+<li>
+<p>Equivalence classes maintained</p>
+</li>
+<li>
+<p><strong>Command System</strong></p>
+</li>
+<li>Can wrap refinement operations in commands</li>
+<li>Supports undo/redo of refinement</li>
+<li>Snapshot-friendly</li>
+</ol>
+<p><strong>Limitations</strong>:</p>
+<ol>
+<li><strong>Dimension Support</strong></li>
+<li>Currently: 1D (edge) and 2D (triangle) only</li>
+<li>
+<p>Future: 3D (tetrahedron) and higher</p>
+</li>
+<li>
+<p><strong>Boundary Handling</strong></p>
+</li>
+<li>Boundary simplices may require special handling</li>
+<li>Coarsening may create boundary holes</li>
+<li>
+<p>Current implementation assumes interior operations</p>
+</li>
+<li>
+<p><strong>Performance</strong></p>
+</li>
+<li>Large-scale refinements are O(n)</li>
+<li>No spatial indexing for acceleration</li>
+<li>
+<p>Serial execution (no parallelization)</p>
+</li>
+<li>
+<p><strong>Topology Constraints</strong></p>
+</li>
+<li>Coarsening requires refinement-compatible topology</li>
+<li>Cannot coarsen arbitrary vertex configurations</li>
+<li>Strict degree requirements (2 for edges, 3 for triangles)</li>
+</ol>
+<p><strong>Future Enhancements</strong>:</p>
+<ol>
+<li><strong>High-Dimensional Refinement</strong></li>
+<li>Tetrahedron refinement (3D)</li>
+<li>General k-simplex refinement algorithms</li>
+<li>
+<p>Barycentric subdivision</p>
+</li>
+<li>
+<p><strong>Boundary-Aware Refinement</strong></p>
+</li>
+<li>Detect and handle boundary simplices</li>
+<li>Preserve boundary integrity</li>
+<li>
+<p>Special coarsening rules for boundaries</p>
+</li>
+<li>
+<p><strong>Performance Optimization</strong></p>
+</li>
+<li>Spatial indexing (BVH, Octree)</li>
+<li>Batch refinement operations</li>
+<li>Parallel refinement with thread pool</li>
+<li>
+<p>GPU acceleration for large meshes</p>
+</li>
+<li>
+<p><strong>Advanced Features</strong></p>
+</li>
+<li>Error-based adaptive refinement</li>
+<li>Time-dependent refinement</li>
+<li>Multi-resolution editing</li>
+<li>Level-of-detail (LOD) management</li>
+</ol>
+<p><strong>Test Coverage</strong>:</p>
+<ul>
+<li><code>test_refinement.cpp</code>: Refinement system (401 lines)</li>
+<li>Edge refinement basic operations</li>
+<li>Triangle refinement basic operations</li>
+<li>Label inheritance (all strategies)</li>
+<li>Edge coarsening</li>
+<li>Triangle coarsening</li>
+<li>Adaptive refinement</li>
+<li>Adaptive coarsening</li>
+<li>Refinement level management</li>
+<li>Midpoint detection</li>
+<li>Edge cases and error handling</li>
+</ul>
+<h3 id="v031-advanced-narrative-features">v0.3.1 - Advanced Narrative Features<a class="headerlink" href="#v031-advanced-narrative-features" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Advanced Topology Operations</strong>:</li>
+<li>Simplex boundary gluing (glue_simplices_by_boundary)</li>
+<li>Batch vertex gluing (batch_glue_vertices)</li>
+<li>Euler characteristic computation (compute_euler_characteristic)</li>
+<li>Manifold checking (is_manifold)</li>
+<li><strong>Command System</strong>: Undo/redo support for reversible operations</li>
+<li>Command base class and concrete implementations</li>
+<li>CommandHistory manager with size limits</li>
+<li>Support for AddSimplex, RemoveSimplex, SetLabel, ApplyEvent commands</li>
+<li><strong>Serialization System</strong>:</li>
+<li>JSON serialization for basic, labeled, and narrative complexes</li>
+<li>Binary serialization for efficient storage</li>
+<li>Round-trip serialization/deserialization</li>
+<li><strong>Enhanced Narrative Complex</strong>:</li>
+<li>Integrated CommandHistory for undo/redo</li>
+<li>State serialization methods</li>
+<li>Snapshot creation and restoration</li>
+<li>Helper methods: undo(), redo(), can_undo(), can_redo()</li>
+<li>All tests passing (basic, dynamic, labels, story_events, timeline, topology_ops, narrative, topology_ops_advanced, serialization)</li>
+</ul>
+<h3 id="v030-narrative-driven-topology">v0.3.0 - Narrative-Driven Topology<a class="headerlink" href="#v030-narrative-driven-topology" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Story Event System</strong>: Timeline-based narrative events affecting simplices</li>
+<li><strong>Timeline Management</strong>: Time bounds, milestones, and navigation</li>
+<li><strong>Topology Operations</strong>: Vertex gluing, boundary computation, connected components</li>
+<li><strong>Narrative Complex</strong>: Integration of events, timeline, and label evolution</li>
+<li><strong>Absurdity Evolution</strong>: Dynamic label changes based on narrative context</li>
+<li>All tests passing (basic, dynamic, labels, story_events, timeline, topology_ops, narrative)</li>
+</ul>
+<h3 id="v020-label-system-unified-topology">v0.2.0 - Label System &amp; Unified Topology<a class="headerlink" href="#v020-label-system-unified-topology" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Unified Simplex Model</strong>: Vertices are now 0-simplices</li>
+<li>Template-based label system for arbitrary label types</li>
+<li>DefaultLabelSystem for numeric labels</li>
+<li>AbsurdityLabelSystem for interval-valued fuzzy numbers</li>
+<li>Labeled simplicial complex with query support</li>
+<li>Range queries and predicate-based filters</li>
+<li>Absurdity metrics with confidence and uncertainty</li>
+<li>All tests passing (basic, dynamic, labels)</li>
+</ul>
+<h3 id="v010">v0.1.0<a class="headerlink" href="#v010" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Basic simplex representation</li>
+<li>Dynamic simplicial complex</li>
+<li>Add/remove operations</li>
+<li>Cascade deletion</li>
+<li>Adjacency queries</li>
+<li>Comprehensive test suite</li>
+</ul>
+<h2 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">&para;</a></h2>
+<p>See the project's contribution guidelines (to be added).</p>
+<h2 id="license">License<a class="headerlink" href="#license" title="Permanent link">&para;</a></h2>
+<p>MIT License - See LICENSE file for details.</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2026-03-28T04:20:27+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2026-03-28</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © 2026 CeaserZhao (Oasis Company). All rights reserved.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/ceaserzhao/cebu" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://twitter.com/ceaserzhao" target="_blank" rel="noopener" title="Twitter" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "search.suggest", "search.highlight", "search.share", "navigation.top"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+        <script src="../js/timeago.min.js"></script>
+      
+        <script src="../js/timeago_mkdocs_material.js"></script>
+      
+        <script src="../js/custom.js"></script>
+      
+    
+  </body>
+</html>
