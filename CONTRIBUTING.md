@@ -133,4 +133,10 @@ enum class BuildStrategy {
 
 #### Formatting
 
-- Use
+- Use 4 spaces for indentation, no tabs
+- Maximum 100 characters per line
+- Opening braces on the same line
+- Use clang-format for automatic formatting
+
+```cpp
+// Correct example
