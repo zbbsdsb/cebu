@@ -412,4 +412,11 @@ Brief description of changes
 ### Review Process
 
 1. **Automated Checks** - CI runs tests and style checks
-2. **Peer Review** - At least
+2. **Peer Review** - At least one maintainer reviews the code
+3. **Feedback** - Address any review comments
+4. **Approval** - Maintainer approves the PR
+5. **Merge** - PR is merged into main branch
+
+### Review Criteria
+
+- Code quality
