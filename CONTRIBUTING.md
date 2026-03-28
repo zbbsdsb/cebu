@@ -480,4 +480,13 @@ What actually happened
 
 ## Environment
 - OS: [e.g., Windows 11]
-- Compiler: [e.g., GCC
+- Compiler: [e.g., GCC 11.2]
+- CMake version: [e.g., 3.22]
+- Cebu version: [e.g., 0.8.0]
+
+## Additional Context
+Any other relevant information
+```
+
+### Issue Labels
+
