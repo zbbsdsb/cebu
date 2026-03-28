@@ -353,4 +353,20 @@ git commit -s -m "Your commit message"
 
 # Or configure Git to auto-sign all commits
 git config --local user.name "Your Name"
-git config --local user
+git config --local user.email "your.email@example.com"
+```
+
+Your commit message must include:
+```
+Signed-off-by: Your Name <your.email@example.com>
+```
+
+For more information, see the [DCO](DCO) file.
+
+## Pull Request Process
+
+### Before Submitting
+
+1. **Update Documentation** - Ensure all changes are documented
+2. **Add Tests** - New features must include tests
+3. **Run Tests Locally**
