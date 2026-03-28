@@ -262,4 +262,19 @@ ctest --output-on-failure
 # Run specific tests
 ctest -R test_simplicial_complex
 
-#
+# Run with verbose output
+ctest -V
+
+# Generate coverage report (requires configuration)
+cmake --build . --target coverage
+```
+
+### Test Example
+
+```cpp
+#include <gtest/gtest.h>
+#include "cebu/simplicial_complex.h"
+
+class SimplicialComplexTest : public ::testing::Test {
+protected:
+    void SetUp
