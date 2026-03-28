@@ -96,4 +96,13 @@ Recommended extensions:
 - Use "Open Folder" feature to open project root
 
 #### CLion
-- Open project root directory
+- Open project root directory directly
+- CLion will automatically recognize CMake configuration
+
+## Code Style Guide
+
+### C++ Code Standards
+
+Follow the [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html) with these key points:
+
+#### Naming
