@@ -1,0 +1,3345 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Advanced Simplicial Complex Library">
+      
+      
+        <meta name="author" content="CeaserZhao (Oasis Company)">
+      
+      
+        <link rel="canonical" href="https://ceaserzhao.github.io/cebu/advanced/absurdity_system/">
+      
+      
+        <link rel="prev" href="../non_hausdorff/">
+      
+      
+        <link rel="next" href="../narrative_context/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.0">
+    
+    
+      
+        <title>Absurdity System - Cebu Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.45e1311d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/timeago.css">
+    
+      <link rel="stylesheet" href="../../css/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#absurdity-system" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Cebu Documentation" class="md-header__button md-logo" aria-label="Cebu Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Cebu Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Absurdity System
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ceaserzhao/cebu" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ceaserzhao/cebu
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../installation/" class="md-tabs__link">
+          
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tutorials/tutorial_basic/" class="md-tabs__link">
+          
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../core/simplicial_complex/" class="md-tabs__link">
+          
+  
+  Core Concepts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../spatial_indexing/" class="md-tabs__link">
+          
+  
+  Advanced Features
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../api/api_core/" class="md-tabs__link">
+          
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../utilities/performance/" class="md-tabs__link">
+          
+  
+  Utilities
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../PROJECT_STRUCTURE.md" class="md-tabs__link">
+          
+  
+  Project
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Cebu Documentation" class="md-nav__button md-logo" aria-label="Cebu Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Cebu Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ceaserzhao/cebu" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ceaserzhao/cebu
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quick Start
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Tutorials
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/tutorial_basic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Basic Usage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/tutorial_spatial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spatial Indexing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/tutorial_narrative/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Narrative Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Core Concepts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Core Concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/simplicial_complex/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Simplicial Complex
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/topology/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Topology
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/labels/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Labels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/serialization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serialization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Advanced Features
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Advanced Features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spatial_indexing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spatial Indexing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../non_hausdorff/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Non-Hausdorff Topology
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Absurdity System
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Absurdity System
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fuzzy-interval-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fuzzy Interval Numbers
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fuzzy Interval Numbers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      Concept
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arithmetic-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Arithmetic Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uncertainty-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uncertainty Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparison-with-uncertainty" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comparison with Uncertainty
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stochastic-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stochastic Evolution
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Stochastic Evolution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Concept
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Evolution
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#neighborhood-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Neighborhood Evolution
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#noise-generators" class="md-nav__link">
+    <span class="md-ellipsis">
+      Noise Generators
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-source-fusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multi-Source Fusion
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Multi-Source Fusion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Concept
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fusion-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fusion Strategies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fusion-method-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fusion Method Selection
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#absurdity-field" class="md-nav__link">
+    <span class="md-ellipsis">
+      Absurdity Field
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Absurdity Field">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Concept
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#field-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Field Evolution
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spatial-diffusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spatial Diffusion
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#query-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Query Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#absurdity-labels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Absurdity Labels
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dynamic-topology-morph" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dynamic Topology Morph
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dynamic Topology Morph">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Concept
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#morph-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Morph Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-morph-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Morph Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#morph-presets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Morph Presets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-rule-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      Batch Rule Application
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deferred-morphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deferred Morphs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-evolution-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete Evolution Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage Examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-interactive-absurdity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 1: Interactive Absurdity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-narrative-driven-morph" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 2: Narrative-Driven Morph
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-sensor-fusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 3: Sensor Fusion
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Reference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Classes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utility-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Utility Classes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Considerations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#complexity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complexity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimization-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optimization Tips
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-absurdity-range" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Absurdity Range
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-evolution-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Evolution Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-morph-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Morph Rules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Performance
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#issue-complex-grows-too-large" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue: Complex grows too large
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-morphs-too-frequent" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue: Morphs too frequent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-absurdity-becomes-unstable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue: Absurdity becomes unstable
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      See Also
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../narrative_context/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Narrative Context
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    API Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_core/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Core API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_spatial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spatial API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_serialization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serialization API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_narrative/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Narrative API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_absurdity/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Absurdity API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Utilities
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Utilities
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../utilities/performance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performance Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../utilities/best_practices/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Best Practices
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../utilities/faq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../utilities/troubleshooting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Project
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Project
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PROJECT_STRUCTURE.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CONTRIBUTING.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CHANGELOG.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Changelog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LICENSE" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fuzzy-interval-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fuzzy Interval Numbers
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fuzzy Interval Numbers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      Concept
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arithmetic-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Arithmetic Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uncertainty-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uncertainty Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparison-with-uncertainty" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comparison with Uncertainty
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stochastic-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stochastic Evolution
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Stochastic Evolution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Concept
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Evolution
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#neighborhood-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Neighborhood Evolution
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#noise-generators" class="md-nav__link">
+    <span class="md-ellipsis">
+      Noise Generators
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-source-fusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multi-Source Fusion
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Multi-Source Fusion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Concept
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fusion-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fusion Strategies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fusion-method-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fusion Method Selection
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#absurdity-field" class="md-nav__link">
+    <span class="md-ellipsis">
+      Absurdity Field
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Absurdity Field">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Concept
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#field-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Field Evolution
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spatial-diffusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spatial Diffusion
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#query-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Query Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#absurdity-labels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Absurdity Labels
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dynamic-topology-morph" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dynamic Topology Morph
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dynamic Topology Morph">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Concept
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#morph-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Morph Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-morph-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Morph Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#morph-presets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Morph Presets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-rule-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      Batch Rule Application
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deferred-morphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deferred Morphs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-evolution-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete Evolution Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage Examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-interactive-absurdity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 1: Interactive Absurdity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-narrative-driven-morph" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 2: Narrative-Driven Morph
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-sensor-fusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 3: Sensor Fusion
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Reference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Classes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utility-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Utility Classes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Considerations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#complexity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complexity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimization-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optimization Tips
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-absurdity-range" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Absurdity Range
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-evolution-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Evolution Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-morph-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Morph Rules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Performance
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#issue-complex-grows-too-large" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue: Complex grows too large
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-morphs-too-frequent" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue: Morphs too frequent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-absurdity-becomes-unstable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue: Absurdity becomes unstable
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      See Also
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="absurdity-system">Absurdity System<a class="headerlink" href="#absurdity-system" title="Permanent link">&para;</a></h1>
+<p>The absurdity system is the core innovation of Cebu - a semantic layer that drives topological changes through narrative and emotional metrics. This document covers Phase 9a and Phase 9b implementations.</p>
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#fuzzy-interval-numbers">Fuzzy Interval Numbers</a></li>
+<li><a href="#stochastic-evolution">Stochastic Evolution</a></li>
+<li><a href="#multi-source-fusion">Multi-Source Fusion</a></li>
+<li><a href="#absurdity-field">Absurdity Field</a></li>
+<li><a href="#dynamic-topology-morph">Dynamic Topology Morph</a></li>
+<li><a href="#usage-examples">Usage Examples</a></li>
+<li><a href="#api-reference">API Reference</a></li>
+</ol>
+<hr />
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The absurdity system transforms narrative and emotional metrics into topological changes:</p>
+<div class="highlight"><pre><span></span><code>Narrative Context → Absurdity Values → Topology Morphs → Structural Change
+</code></pre></div>
+<p><strong>Key Features</strong>:
+- <strong>Uncertainty-Aware</strong>: Fuzzy interval numbers express measurement uncertainty
+- <strong>Stochastic Evolution</strong>: Random differential equations model dynamic behavior
+- <strong>Multi-Source Fusion</strong>: Combine absurdity from multiple sensors/observers
+- <strong>Topology-Driven</strong>: Absurdity values trigger structural deformations</p>
+<hr />
+<h2 id="fuzzy-interval-numbers">Fuzzy Interval Numbers<a class="headerlink" href="#fuzzy-interval-numbers" title="Permanent link">&para;</a></h2>
+<h3 id="concept">Concept<a class="headerlink" href="#concept" title="Permanent link">&para;</a></h3>
+<p>A fuzzy interval number represents uncertainty as:</p>
+<p>[
+\mathcal{A} = [\alpha^-, \alpha^+] \times \mu
+]</p>
+<p>Where:
+- ([\alpha^-, \alpha^+]): Plausible range of absurdity values
+- (\mu \in [0,1]): Confidence in our measurement</p>
+<p><strong>Example</strong>: <code>[0.7, 0.9] × 0.8</code> means we're 80% confident the absurdity is between 0.7 and 0.9.</p>
+<h3 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;cebu/absurdity.h&quot;</span>
+
+<span class="c1">// Create a fuzzy interval</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="w"> </span><span class="nf">a</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span><span class="w"> </span><span class="mf">0.9</span><span class="p">,</span><span class="w"> </span><span class="mf">0.8</span><span class="p">);</span><span class="w">  </span><span class="c1">// [0.7, 0.9] × 0.8</span>
+
+<span class="c1">// Access properties</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">lower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">lower</span><span class="p">;</span><span class="w">        </span><span class="c1">// 0.7</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">upper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">upper</span><span class="p">;</span><span class="w">        </span><span class="c1">// 0.9</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">confidence</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">confidence</span><span class="p">;</span><span class="w"> </span><span class="c1">// 0.8</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">midpoint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">midpoint</span><span class="p">();</span><span class="w">  </span><span class="c1">// 0.8</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">width</span><span class="p">();</span><span class="w">       </span><span class="c1">// 0.2</span>
+
+<span class="c1">// Check properties</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">is_crisp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">is_crisp</span><span class="p">();</span><span class="w">      </span><span class="c1">// false (width &gt; 0)</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">is_certain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">is_certain</span><span class="p">();</span><span class="w">   </span><span class="c1">// false (confidence &lt; 0.9)</span>
+
+<span class="c1">// String representation</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">to_string</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w">  </span><span class="c1">// &quot;[0.700, 0.900] × 0.800&quot;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">to_latex</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w">   </span><span class="c1">// &quot;[0.700, 0.900] \\times 0.800&quot;</span>
+</code></pre></div>
+<h3 id="arithmetic-operations">Arithmetic Operations<a class="headerlink" href="#arithmetic-operations" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="w"> </span><span class="nf">a</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="mf">0.8</span><span class="p">);</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="w"> </span><span class="nf">b</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span><span class="w"> </span><span class="mf">0.6</span><span class="p">,</span><span class="w"> </span><span class="mf">0.9</span><span class="p">);</span>
+
+<span class="c1">// Addition</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w">  </span><span class="c1">// [0.7, 1.1] × 0.85</span>
+
+<span class="c1">// Subtraction</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="w"> </span><span class="n">diff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w">  </span><span class="c1">// [-0.3, 0.1] × 0.85</span>
+
+<span class="c1">// Multiplication</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="w"> </span><span class="n">product</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w">  </span><span class="c1">// [0.12, 0.3] × 0.85</span>
+
+<span class="c1">// Scalar multiplication</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="w"> </span><span class="n">scaled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2.0</span><span class="p">;</span><span class="w">  </span><span class="c1">// [0.6, 1.0] × 0.8</span>
+
+<span class="c1">// Division (throws if divisor contains zero)</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="w"> </span><span class="n">ratio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="uncertainty-operations">Uncertainty Operations<a class="headerlink" href="#uncertainty-operations" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="w"> </span><span class="nf">a</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span><span class="w"> </span><span class="mf">0.6</span><span class="p">,</span><span class="w"> </span><span class="mf">0.8</span><span class="p">);</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="w"> </span><span class="nf">b</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> </span><span class="mf">0.9</span><span class="p">);</span>
+
+<span class="c1">// Intersection (common range)</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="w"> </span><span class="n">inter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">intersect</span><span class="p">(</span><span class="n">b</span><span class="p">);</span><span class="w">  </span><span class="c1">// [0.5, 0.6] × ...</span>
+
+<span class="c1">// Union (combined range)</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="w"> </span><span class="n">uni</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">union_with</span><span class="p">(</span><span class="n">b</span><span class="p">);</span><span class="w">  </span><span class="c1">// [0.3, 0.7] × ...</span>
+
+<span class="c1">// Overlap degree (0.0 to 1.0)</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">overlap_degree</span><span class="p">(</span><span class="n">b</span><span class="p">);</span><span class="w">  </span><span class="c1">// 0.333...</span>
+</code></pre></div>
+<h3 id="comparison-with-uncertainty">Comparison with Uncertainty<a class="headerlink" href="#comparison-with-uncertainty" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="w"> </span><span class="nf">a</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="mf">0.8</span><span class="p">);</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="w"> </span><span class="nf">b</span><span class="p">(</span><span class="mf">0.6</span><span class="p">,</span><span class="w"> </span><span class="mf">0.8</span><span class="p">,</span><span class="w"> </span><span class="mf">0.9</span><span class="p">);</span>
+
+<span class="c1">// Uncertainty-aware comparison</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">less</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w">    </span><span class="c1">// true (with uncertainty)</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">greater</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="c1">// false</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w">   </span><span class="c1">// false</span>
+
+<span class="c1">// Check if definitely less</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">def_less</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">UncertaintyComparison</span><span class="o">::</span><span class="n">definitely_less</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
+
+<span class="c1">// Probability that a &lt; b</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">prob</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">UncertaintyComparison</span><span class="o">::</span><span class="n">probability_less</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
+
+<span class="c1">// Full comparison result</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">UncertaintyComparison</span><span class="o">::</span><span class="n">compare</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
+<span class="c1">// result.less: probability that a &lt; b</span>
+<span class="c1">// result.equal: probability that a ≈ b</span>
+<span class="c1">// result.greater: probability that a &gt; b</span>
+</code></pre></div>
+<hr />
+<h2 id="stochastic-evolution">Stochastic Evolution<a class="headerlink" href="#stochastic-evolution" title="Permanent link">&para;</a></h2>
+<h3 id="concept_1">Concept<a class="headerlink" href="#concept_1" title="Permanent link">&para;</a></h3>
+<p>Absurdity evolves according to a stochastic differential equation:</p>
+<p>[
+d\mathcal{A} = (\kappa \cdot (S - \mathcal{A}) + \eta \cdot L) dt + \sigma \cdot \mathcal{A} \cdot dW
+]</p>
+<p>Where:
+- (S): Surprisal (narrative context)
+- (L): Logical deviation (1 - rationality)
+- (\kappa, \eta): Coupling constants
+- (\sigma): Noise intensity
+- (dW): Wiener process (Gaussian noise)</p>
+<h3 id="basic-evolution">Basic Evolution<a class="headerlink" href="#basic-evolution" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;cebu/absurdity.h&quot;</span>
+
+<span class="c1">// Define evolution parameters</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">EvolutionParams</span><span class="w"> </span><span class="n">params</span><span class="p">;</span>
+<span class="n">params</span><span class="p">.</span><span class="n">decay_rate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.95</span><span class="p">;</span><span class="w">          </span><span class="c1">// Exponential decay per step</span>
+<span class="n">params</span><span class="p">.</span><span class="n">diffusion_rate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.05</span><span class="p">;</span><span class="w">       </span><span class="c1">// Spatial diffusion</span>
+<span class="n">params</span><span class="p">.</span><span class="n">volatility</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1</span><span class="p">;</span><span class="w">           </span><span class="c1">// Noise magnitude</span>
+<span class="n">params</span><span class="p">.</span><span class="n">coupling_strength</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.3</span><span class="p">;</span><span class="w">    </span><span class="c1">// Neighbor influence</span>
+<span class="n">params</span><span class="p">.</span><span class="n">threshold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="p">;</span><span class="w">            </span><span class="c1">// Activation threshold</span>
+
+<span class="c1">// Create evolution engine</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">StochasticEvolution</span><span class="w"> </span><span class="nf">evolution</span><span class="p">(</span><span class="n">params</span><span class="p">);</span>
+
+<span class="c1">// Evolve a single value</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="w"> </span><span class="nf">current</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="mf">0.6</span><span class="p">,</span><span class="w"> </span><span class="mf">0.8</span><span class="p">);</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="w"> </span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">evolution</span><span class="p">.</span><span class="n">step</span><span class="p">(</span><span class="n">current</span><span class="p">,</span><span class="w"> </span><span class="mf">0.1</span><span class="p">);</span><span class="w">  </span><span class="c1">// dt = 0.1</span>
+
+<span class="c1">// Evolve over multiple steps</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">trajectory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">evolution</span><span class="p">.</span><span class="n">evolve</span><span class="p">(</span><span class="n">current</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+<span class="c1">// trajectory[0]: initial</span>
+<span class="c1">// trajectory[1]: after 1 step</span>
+<span class="c1">// ...</span>
+<span class="c1">// trajectory[10]: after 10 steps</span>
+</code></pre></div>
+<h3 id="neighborhood-evolution">Neighborhood Evolution<a class="headerlink" href="#neighborhood-evolution" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Evolve values with neighbor coupling</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="o">&gt;</span><span class="w"> </span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="mf">0.8</span><span class="p">),</span>
+<span class="w">    </span><span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span><span class="w"> </span><span class="mf">0.6</span><span class="p">,</span><span class="w"> </span><span class="mf">0.9</span><span class="p">),</span>
+<span class="w">    </span><span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> </span><span class="mf">0.85</span><span class="p">)</span>
+<span class="p">};</span>
+
+<span class="c1">// Define adjacency (neighbors for each value)</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">adjacency</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">{</span><span class="mi">1</span><span class="p">},</span><span class="w">        </span><span class="c1">// Value 0 neighbors: value 1</span>
+<span class="w">    </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">},</span><span class="w">     </span><span class="c1">// Value 1 neighbors: values 0, 2</span>
+<span class="w">    </span><span class="p">{</span><span class="mi">1</span><span class="p">}</span><span class="w">         </span><span class="c1">// Value 2 neighbors: value 1</span>
+<span class="p">};</span>
+
+<span class="c1">// Evolve with neighbor coupling</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">next_values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">evolution</span><span class="p">.</span><span class="n">evolve_neighborhood</span><span class="p">(</span><span class="n">values</span><span class="p">,</span><span class="w"> </span><span class="n">adjacency</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="noise-generators">Noise Generators<a class="headerlink" href="#noise-generators" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Gaussian noise (default)</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">NoiseGenerator</span><span class="w"> </span><span class="nf">noise</span><span class="p">(</span>
+<span class="w">    </span><span class="n">cebu</span><span class="o">::</span><span class="n">NoiseGenerator</span><span class="o">::</span><span class="n">Type</span><span class="o">::</span><span class="n">Gaussian</span><span class="p">,</span>
+<span class="w">    </span><span class="mf">0.0</span><span class="p">,</span><span class="w">  </span><span class="c1">// mean</span>
+<span class="w">    </span><span class="mf">0.1</span><span class="w">   </span><span class="c1">// std deviation</span>
+<span class="p">);</span>
+
+<span class="c1">// Uniform noise</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">NoiseGenerator</span><span class="w"> </span><span class="nf">uniform_noise</span><span class="p">(</span>
+<span class="w">    </span><span class="n">cebu</span><span class="o">::</span><span class="n">NoiseGenerator</span><span class="o">::</span><span class="n">Type</span><span class="o">::</span><span class="n">Uniform</span><span class="p">,</span>
+<span class="w">    </span><span class="mf">0.0</span><span class="p">,</span><span class="w">  </span><span class="c1">// min</span>
+<span class="w">    </span><span class="mf">1.0</span><span class="w">   </span><span class="c1">// max</span>
+<span class="p">);</span>
+
+<span class="c1">// Poisson noise</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">NoiseGenerator</span><span class="w"> </span><span class="nf">poisson_noise</span><span class="p">(</span>
+<span class="w">    </span><span class="n">cebu</span><span class="o">::</span><span class="n">NoiseGenerator</span><span class="o">::</span><span class="n">Type</span><span class="o">::</span><span class="n">Poisson</span><span class="p">,</span>
+<span class="w">    </span><span class="mf">5.0</span><span class="w">   </span><span class="c1">// lambda</span>
+<span class="p">);</span>
+
+<span class="c1">// Levy flight (heavy-tailed)</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">NoiseGenerator</span><span class="w"> </span><span class="nf">levy_noise</span><span class="p">(</span>
+<span class="w">    </span><span class="n">cebu</span><span class="o">::</span><span class="n">NoiseGenerator</span><span class="o">::</span><span class="n">Type</span><span class="o">::</span><span class="n">Levy</span><span class="p">,</span>
+<span class="w">    </span><span class="mf">0.0</span><span class="p">,</span><span class="w">  </span><span class="c1">// location</span>
+<span class="w">    </span><span class="mf">0.1</span><span class="p">,</span><span class="w">  </span><span class="c1">// scale</span>
+<span class="w">    </span><span class="mf">1.5</span><span class="w">   </span><span class="c1">// exponent</span>
+<span class="p">);</span>
+
+<span class="c1">// Generate noise</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">noise</span><span class="p">();</span><span class="w">  </span><span class="c1">// Sample from distribution</span>
+
+<span class="c1">// Seed for reproducibility</span>
+<span class="n">noise</span><span class="p">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">12345</span><span class="p">);</span>
+</code></pre></div>
+<hr />
+<h2 id="multi-source-fusion">Multi-Source Fusion<a class="headerlink" href="#multi-source-fusion" title="Permanent link">&para;</a></h2>
+<h3 id="concept_2">Concept<a class="headerlink" href="#concept_2" title="Permanent link">&para;</a></h3>
+<p>When multiple observers/sensors provide absurdity estimates, fuse them using various strategies:</p>
+<p>[
+\mathcal{A}<em i="1">{\text{fused}} = \bigoplus</em>_i
+]}^n w_i \mathcal{A</p>
+<h3 id="fusion-strategies">Fusion Strategies<a class="headerlink" href="#fusion-strategies" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;cebu/absurdity.h&quot;</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="o">&gt;</span><span class="w"> </span><span class="n">sources</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="mf">0.8</span><span class="p">),</span>
+<span class="w">    </span><span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span><span class="w"> </span><span class="mf">0.6</span><span class="p">,</span><span class="w"> </span><span class="mf">0.9</span><span class="p">),</span>
+<span class="w">    </span><span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> </span><span class="mf">0.85</span><span class="p">)</span>
+<span class="p">};</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">weights</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mf">0.3</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">};</span><span class="w">  </span><span class="c1">// Must sum to 1.0</span>
+
+<span class="c1">// Weighted average (default)</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">fused_avg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">FusionStrategy</span><span class="o">::</span><span class="n">fuse</span><span class="p">(</span>
+<span class="w">    </span><span class="n">sources</span><span class="p">,</span>
+<span class="w">    </span><span class="n">weights</span><span class="p">,</span>
+<span class="w">    </span><span class="n">cebu</span><span class="o">::</span><span class="n">FusionStrategy</span><span class="o">::</span><span class="n">Method</span><span class="o">::</span><span class="n">WeightedAverage</span>
+<span class="p">);</span>
+
+<span class="c1">// Dempster-Shafer (evidence theory)</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">fused_ds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">FusionStrategy</span><span class="o">::</span><span class="n">fuse</span><span class="p">(</span>
+<span class="w">    </span><span class="n">sources</span><span class="p">,</span>
+<span class="w">    </span><span class="n">weights</span><span class="p">,</span>
+<span class="w">    </span><span class="n">cebu</span><span class="o">::</span><span class="n">FusionStrategy</span><span class="o">::</span><span class="n">Method</span><span class="o">::</span><span class="n">DempsterShafer</span>
+<span class="p">);</span>
+
+<span class="c1">// Bayesian (probabilistic)</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">fused_bayes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">FusionStrategy</span><span class="o">::</span><span class="n">fuse</span><span class="p">(</span>
+<span class="w">    </span><span class="n">sources</span><span class="p">,</span>
+<span class="w">    </span><span class="n">weights</span><span class="p">,</span>
+<span class="w">    </span><span class="n">cebu</span><span class="o">::</span><span class="n">FusionStrategy</span><span class="o">::</span><span class="n">Method</span><span class="o">::</span><span class="n">Bayesian</span>
+<span class="p">);</span>
+
+<span class="c1">// Fuzzy logic (T-conorm)</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">fused_fuzzy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">FusionStrategy</span><span class="o">::</span><span class="n">fuse</span><span class="p">(</span>
+<span class="w">    </span><span class="n">sources</span><span class="p">,</span>
+<span class="w">    </span><span class="n">weights</span><span class="p">,</span>
+<span class="w">    </span><span class="n">cebu</span><span class="o">::</span><span class="n">FusionStrategy</span><span class="o">::</span><span class="n">Method</span><span class="o">::</span><span class="n">FuzzyLogic</span>
+<span class="p">);</span>
+
+<span class="c1">// Possibility theory</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">fused_possible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">FusionStrategy</span><span class="o">::</span><span class="n">fuse</span><span class="p">(</span>
+<span class="w">    </span><span class="n">sources</span><span class="p">,</span>
+<span class="w">    </span><span class="n">weights</span><span class="p">,</span>
+<span class="w">    </span><span class="n">cebu</span><span class="o">::</span><span class="n">FusionStrategy</span><span class="o">::</span><span class="n">Method</span><span class="o">::</span><span class="n">Possibility</span>
+<span class="p">);</span>
+
+<span class="c1">// Adaptive (automatically chooses best method)</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">fused_adaptive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">FusionStrategy</span><span class="o">::</span><span class="n">fuse</span><span class="p">(</span>
+<span class="w">    </span><span class="n">sources</span><span class="p">,</span>
+<span class="w">    </span><span class="n">weights</span><span class="p">,</span>
+<span class="w">    </span><span class="n">cebu</span><span class="o">::</span><span class="n">FusionStrategy</span><span class="o">::</span><span class="n">Method</span><span class="o">::</span><span class="n">Adaptive</span>
+<span class="p">);</span>
+</code></pre></div>
+<h3 id="fusion-method-selection">Fusion Method Selection<a class="headerlink" href="#fusion-method-selection" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Analyze sources to recommend method</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">recommendation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">FusionStrategy</span><span class="o">::</span><span class="n">recommend_method</span><span class="p">(</span><span class="n">sources</span><span class="p">);</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Recommended: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">recommendation</span><span class="p">.</span><span class="n">method</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Confidence: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">recommendation</span><span class="p">.</span><span class="n">confidence</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</code></pre></div>
+<hr />
+<h2 id="absurdity-field">Absurdity Field<a class="headerlink" href="#absurdity-field" title="Permanent link">&para;</a></h2>
+<h3 id="concept_3">Concept<a class="headerlink" href="#concept_3" title="Permanent link">&para;</a></h3>
+<p>The absurdity field manages absurdity values across all simplices in a complex:</p>
+<p>[
+\mathcal{A}: \text{SimplexID} \rightarrow [\alpha^-, \alpha^+] \times \mu
+]</p>
+<h3 id="basic-operations">Basic Operations<a class="headerlink" href="#basic-operations" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;cebu/absurdity.h&quot;</span>
+
+<span class="n">cebu</span><span class="o">::</span><span class="n">SimplicialComplex</span><span class="w"> </span><span class="n">complex</span><span class="p">;</span>
+<span class="c1">// ... build complex ...</span>
+
+<span class="n">cebu</span><span class="o">::</span><span class="n">AbsurdityField</span><span class="w"> </span><span class="n">field</span><span class="p">;</span>
+
+<span class="c1">// Set absurdity for a simplex</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">SimplexID</span><span class="w"> </span><span class="n">simplex_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="cm">/* ... */</span><span class="p">;</span>
+<span class="n">field</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">simplex_id</span><span class="p">,</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span><span class="w"> </span><span class="mf">0.9</span><span class="p">,</span><span class="w"> </span><span class="mf">0.85</span><span class="p">));</span>
+
+<span class="c1">// Get absurdity</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">absurdity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">field</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">simplex_id</span><span class="p">);</span>
+
+<span class="c1">// Check if simplex has absurdity</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">has_absurdity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">field</span><span class="p">.</span><span class="n">has</span><span class="p">(</span><span class="n">simplex_id</span><span class="p">);</span>
+
+<span class="c1">// Remove absurdity</span>
+<span class="n">field</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="n">simplex_id</span><span class="p">);</span>
+
+<span class="c1">// Clear all values</span>
+<span class="n">field</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="field-evolution">Field Evolution<a class="headerlink" href="#field-evolution" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Update entire field</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">EvolutionParams</span><span class="w"> </span><span class="n">params</span><span class="p">;</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">StochasticEvolution</span><span class="w"> </span><span class="nf">evolution</span><span class="p">(</span><span class="n">params</span><span class="p">);</span>
+
+<span class="c1">// Evolve all values</span>
+<span class="n">field</span><span class="p">.</span><span class="n">evolve</span><span class="p">(</span><span class="n">evolution</span><span class="p">,</span><span class="w"> </span><span class="mf">0.1</span><span class="p">);</span><span class="w">  </span><span class="c1">// dt = 0.1</span>
+
+<span class="c1">// Evolve specific region</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">cebu</span><span class="o">::</span><span class="n">SimplexID</span><span class="o">&gt;</span><span class="w"> </span><span class="n">region</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">id1</span><span class="p">,</span><span class="w"> </span><span class="n">id2</span><span class="p">,</span><span class="w"> </span><span class="n">id3</span><span class="p">};</span>
+<span class="n">field</span><span class="p">.</span><span class="n">evolve_region</span><span class="p">(</span><span class="n">region</span><span class="p">,</span><span class="w"> </span><span class="n">evolution</span><span class="p">,</span><span class="w"> </span><span class="mf">0.1</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="spatial-diffusion">Spatial Diffusion<a class="headerlink" href="#spatial-diffusion" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Diffuse absurdity across neighbors (smoothing)</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">diffusion_rate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">iterations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+
+<span class="n">field</span><span class="p">.</span><span class="n">diffuse</span><span class="p">(</span><span class="n">diffusion_rate</span><span class="p">,</span><span class="w"> </span><span class="n">iterations</span><span class="p">);</span>
+
+<span class="c1">// This models &quot;absurdity infection&quot; across the complex</span>
+</code></pre></div>
+<h3 id="query-operations">Query Operations<a class="headerlink" href="#query-operations" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Find simplices above threshold</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">high_absurdity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">field</span><span class="p">.</span><span class="n">find_above_threshold</span><span class="p">(</span>
+<span class="w">    </span><span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span><span class="w"> </span><span class="mf">0.8</span><span class="p">,</span><span class="w"> </span><span class="mf">0.9</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="c1">// Find simplices below threshold</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">low_absurdity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">field</span><span class="p">.</span><span class="n">find_below_threshold</span><span class="p">(</span>
+<span class="w">    </span><span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.3</span><span class="p">,</span><span class="w"> </span><span class="mf">0.9</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="c1">// Find in range</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">in_range</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">field</span><span class="p">.</span><span class="n">find_in_range</span><span class="p">(</span>
+<span class="w">    </span><span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span><span class="w"> </span><span class="mf">0.6</span><span class="p">,</span><span class="w"> </span><span class="mf">0.9</span><span class="p">),</span>
+<span class="w">    </span><span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> </span><span class="mf">0.9</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="c1">// Get statistics</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">stats</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">field</span><span class="p">.</span><span class="n">get_statistics</span><span class="p">();</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Mean: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">stats</span><span class="p">.</span><span class="n">mean</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Std dev: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">stats</span><span class="p">.</span><span class="n">std_dev</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Min: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">stats</span><span class="p">.</span><span class="n">min</span><span class="p">.</span><span class="n">to_string</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Max: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">stats</span><span class="p">.</span><span class="n">max</span><span class="p">.</span><span class="n">to_string</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="absurdity-labels">Absurdity Labels<a class="headerlink" href="#absurdity-labels" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Convert absurdity to human-readable label</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">AbsurdityLabel</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">absurdity_to_label</span><span class="p">(</span>
+<span class="w">    </span><span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="p">(</span><span class="mf">0.85</span><span class="p">,</span><span class="w"> </span><span class="mf">0.95</span><span class="p">,</span><span class="w"> </span><span class="mf">0.98</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">label</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w">           </span><span class="c1">// &quot;EXTREME&quot;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">label</span><span class="p">.</span><span class="n">description</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w">    </span><span class="c1">// Description</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">label</span><span class="p">.</span><span class="n">color</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w">          </span><span class="c1">// RGB color</span>
+
+<span class="c1">// Get all available labels</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">all_labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">AbsurdityLabel</span><span class="o">::</span><span class="n">all_labels</span><span class="p">();</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">all_labels</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">l</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">l</span><span class="p">.</span><span class="n">range</span><span class="p">.</span><span class="n">to_string</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="dynamic-topology-morph">Dynamic Topology Morph<a class="headerlink" href="#dynamic-topology-morph" title="Permanent link">&para;</a></h2>
+<h3 id="concept_4">Concept<a class="headerlink" href="#concept_4" title="Permanent link">&para;</a></h3>
+<p>When absurdity exceeds thresholds, trigger topological deformations:</p>
+<div class="highlight"><pre><span></span><code>High Absurdity → Split/Morph → More Complexity
+Low Absurdity → Merge/Contract → Less Complexity
+</code></pre></div>
+<h3 id="morph-operations">Morph Operations<a class="headerlink" href="#morph-operations" title="Permanent link">&para;</a></h3>
+<p><strong>10 Morph Types</strong>:</p>
+<ol>
+<li><strong>SPLIT</strong>: Break simplex into pieces</li>
+<li><strong>MERGE</strong>: Combine adjacent simplices</li>
+<li><strong>DELETE</strong>: Remove simplex</li>
+<li><strong>CREATE</strong>: Add new simplex</li>
+<li><strong>EXPAND</strong>: Increase dimension (edge → face)</li>
+<li><strong>CONTRACT</strong>: Decrease dimension (face → edge)</li>
+<li><strong>GLUE</strong>: Identify vertices</li>
+<li><strong>REFINE</strong>: Add interior vertex</li>
+<li><strong>COARSEN</strong>: Remove interior vertex</li>
+<li><strong>WRAP</strong>: Create non-orientable topology</li>
+</ol>
+<h3 id="basic-morph-usage">Basic Morph Usage<a class="headerlink" href="#basic-morph-usage" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;cebu/topology_morph.h&quot;</span>
+
+<span class="n">cebu</span><span class="o">::</span><span class="n">SimplicialComplex</span><span class="w"> </span><span class="n">complex</span><span class="p">;</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">AbsurdityField</span><span class="w"> </span><span class="n">field</span><span class="p">;</span>
+
+<span class="c1">// ... build complex and set absurdity ...</span>
+
+<span class="c1">// Create morph rule</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">MorphRule</span><span class="w"> </span><span class="n">rule</span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;high_absurdity_split&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">cebu</span><span class="o">::</span><span class="n">MorphType</span><span class="o">::</span><span class="n">SPLIT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">cebu</span><span class="o">::</span><span class="n">TriggerCondition</span><span class="o">::</span><span class="n">ABSURDITY_THRESHOLD</span><span class="p">,</span>
+<span class="w">    </span><span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span><span class="w"> </span><span class="mf">0.8</span><span class="p">,</span><span class="w"> </span><span class="mf">0.9</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="n">rule</span><span class="p">.</span><span class="n">probability</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.8</span><span class="p">;</span><span class="w">  </span><span class="c1">// 80% chance</span>
+<span class="n">rule</span><span class="p">.</span><span class="n">priority</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w">     </span><span class="c1">// Higher = checked first</span>
+
+<span class="c1">// Create morph engine</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">TopologyMorph</span><span class="w"> </span><span class="n">morph</span><span class="p">;</span>
+<span class="n">morph</span><span class="p">.</span><span class="n">add_rule</span><span class="p">(</span><span class="n">rule</span><span class="p">);</span>
+
+<span class="c1">// Apply morph</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">MorphContext</span><span class="w"> </span><span class="nf">context</span><span class="p">(</span><span class="n">complex</span><span class="p">,</span><span class="w"> </span><span class="n">field</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.1</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">morph</span><span class="p">.</span><span class="n">apply_morph</span><span class="p">(</span><span class="n">rule</span><span class="p">,</span><span class="w"> </span><span class="n">simplex_id</span><span class="p">,</span><span class="w"> </span><span class="n">context</span><span class="p">);</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">success</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Success: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">message</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Created: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">created</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; simplices&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Removed: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">removed</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; simplices&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="morph-presets">Morph Presets<a class="headerlink" href="#morph-presets" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Default rules (balanced)</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">default_rules</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">MorphPresets</span><span class="o">::</span><span class="n">default_rules</span><span class="p">();</span>
+
+<span class="c1">// Conservative rules (minimal changes)</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">conservative</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">MorphPresets</span><span class="o">::</span><span class="n">conservative_rules</span><span class="p">();</span>
+
+<span class="c1">// Aggressive rules (lots of deformation)</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">aggressive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">MorphPresets</span><span class="o">::</span><span class="n">aggressive_rules</span><span class="p">();</span>
+
+<span class="c1">// Chaos mode (extreme deformation)</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">chaos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">MorphPresets</span><span class="o">::</span><span class="n">chaos_rules</span><span class="p">();</span>
+
+<span class="c1">// Artistic rules (aesthetic, controlled)</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">artistic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">MorphPresets</span><span class="o">::</span><span class="n">artistic_rules</span><span class="p">();</span>
+
+<span class="c1">// Scientific rules (structure-preserving)</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">scientific</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">MorphPresets</span><span class="o">::</span><span class="n">scientific_rules</span><span class="p">();</span>
+
+<span class="c1">// Load preset</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">TopologyMorph</span><span class="w"> </span><span class="n">morph</span><span class="p">;</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">rule</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">conservative</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">morph</span><span class="p">.</span><span class="n">add_rule</span><span class="p">(</span><span class="n">rule</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="batch-rule-application">Batch Rule Application<a class="headerlink" href="#batch-rule-application" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Apply all matching rules</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">morph</span><span class="p">.</span><span class="n">apply_rules</span><span class="p">(</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="n">max_operations</span><span class="p">);</span>
+
+<span class="c1">// Iterate results</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">results</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">success</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Applied: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">message</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Check statistics</span>
+<span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">stats</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">morph</span><span class="p">.</span><span class="n">get_stats</span><span class="p">();</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Total operations: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">stats</span><span class="p">.</span><span class="n">total_operations</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Successful: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">stats</span><span class="p">.</span><span class="n">successful_operations</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Splits: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">stats</span><span class="p">.</span><span class="n">operation_counts</span><span class="p">[</span><span class="n">cebu</span><span class="o">::</span><span class="n">MorphType</span><span class="o">::</span><span class="n">SPLIT</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="deferred-morphs">Deferred Morphs<a class="headerlink" href="#deferred-morphs" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Queue morphs for delayed execution</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">MorphQueue</span><span class="w"> </span><span class="n">queue</span><span class="p">;</span>
+
+<span class="n">queue</span><span class="p">.</span><span class="n">enqueue</span><span class="p">(</span><span class="n">cebu</span><span class="o">::</span><span class="n">QueuedMorph</span><span class="p">(</span><span class="n">rule</span><span class="p">,</span><span class="w"> </span><span class="n">simplex_id</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5</span><span class="p">));</span><span class="w">  </span><span class="c1">// 0.5s delay</span>
+<span class="n">queue</span><span class="p">.</span><span class="n">enqueue</span><span class="p">(</span><span class="n">cebu</span><span class="o">::</span><span class="n">QueuedMorph</span><span class="p">(</span><span class="n">rule2</span><span class="p">,</span><span class="w"> </span><span class="n">simplex_id2</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">));</span><span class="w"> </span><span class="c1">// 1.0s delay</span>
+
+<span class="c1">// Execute ready morphs</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">queue</span><span class="p">.</span><span class="n">execute_ready</span><span class="p">(</span><span class="n">current_time</span><span class="p">,</span><span class="w"> </span><span class="n">context</span><span class="p">);</span>
+
+<span class="c1">// Cancel morphs</span>
+<span class="n">queue</span><span class="p">.</span><span class="n">cancel_for_simplex</span><span class="p">(</span><span class="n">simplex_id</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="complete-evolution-example">Complete Evolution Example<a class="headerlink" href="#complete-evolution-example" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Setup</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">SimplicialComplex</span><span class="w"> </span><span class="n">complex</span><span class="p">;</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">AbsurdityField</span><span class="w"> </span><span class="n">field</span><span class="p">;</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">TopologyMorph</span><span class="w"> </span><span class="n">morph</span><span class="p">;</span>
+<span class="n">cebu</span><span class="o">::</span><span class="n">StochasticEvolution</span><span class="w"> </span><span class="n">evolution</span><span class="p">;</span>
+
+<span class="c1">// Load rules</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">rules</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">MorphPresets</span><span class="o">::</span><span class="n">default_rules</span><span class="p">();</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">rule</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">rules</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">morph</span><span class="p">.</span><span class="n">add_rule</span><span class="p">(</span><span class="n">rule</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// Evolve over time</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">10.0</span><span class="p">;</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mf">0.1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Evolve absurdity</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="p">[</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">simplex</span><span class="p">]</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">complex</span><span class="p">.</span><span class="n">get_simplices</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">current</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">field</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">evolution</span><span class="p">.</span><span class="n">step</span><span class="p">(</span><span class="n">current</span><span class="p">,</span><span class="w"> </span><span class="mf">0.1</span><span class="p">);</span>
+<span class="w">        </span><span class="n">field</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">next</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Apply morph rules</span>
+<span class="w">    </span><span class="n">cebu</span><span class="o">::</span><span class="n">MorphContext</span><span class="w"> </span><span class="n">context</span><span class="p">(</span><span class="n">complex</span><span class="p">,</span><span class="w"> </span><span class="n">field</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="mf">0.1</span><span class="p">);</span>
+<span class="w">    </span><span class="n">morph</span><span class="p">.</span><span class="n">apply_rules</span><span class="p">(</span><span class="n">context</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Time &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;: &quot;</span><span class="w"> </span>
+<span class="w">              </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">complex</span><span class="p">.</span><span class="n">get_simplices</span><span class="p">().</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; simplices&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="usage-examples">Usage Examples<a class="headerlink" href="#usage-examples" title="Permanent link">&para;</a></h2>
+<h3 id="example-1-interactive-absurdity">Example 1: Interactive Absurdity<a class="headerlink" href="#example-1-interactive-absurdity" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// User interaction increases absurdity in focused region</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">on_user_focus</span><span class="p">(</span><span class="n">SimplexID</span><span class="w"> </span><span class="n">focused_simplex</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Increase absurdity</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">current</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">field</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">focused_simplex</span><span class="p">);</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">increased</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">current</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1.5</span><span class="p">;</span><span class="w">  </span><span class="c1">// 50% increase</span>
+<span class="w">    </span><span class="n">field</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">focused_simplex</span><span class="p">,</span><span class="w"> </span><span class="n">increased</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Trigger morph check</span>
+<span class="w">    </span><span class="n">MorphContext</span><span class="w"> </span><span class="n">context</span><span class="p">(</span><span class="n">complex</span><span class="p">,</span><span class="w"> </span><span class="n">field</span><span class="p">,</span><span class="w"> </span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">dt</span><span class="p">);</span>
+<span class="w">    </span><span class="n">morph</span><span class="p">.</span><span class="n">apply_rules</span><span class="p">(</span><span class="n">context</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="example-2-narrative-driven-morph">Example 2: Narrative-Driven Morph<a class="headerlink" href="#example-2-narrative-driven-morph" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Story events drive topology changes</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">on_plot_twist</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Boost absurdity globally</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="p">[</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">simplex</span><span class="p">]</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">complex</span><span class="p">.</span><span class="n">get_simplices</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">current</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">field</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">boosted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="p">(</span>
+<span class="w">            </span><span class="n">std</span><span class="o">::</span><span class="n">min</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span><span class="w"> </span><span class="n">current</span><span class="p">.</span><span class="n">lower</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.3</span><span class="p">),</span>
+<span class="w">            </span><span class="n">std</span><span class="o">::</span><span class="n">min</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">current</span><span class="p">.</span><span class="n">upper</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.3</span><span class="p">),</span>
+<span class="w">            </span><span class="n">current</span><span class="p">.</span><span class="n">confidence</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.9</span>
+<span class="w">        </span><span class="p">);</span>
+<span class="w">        </span><span class="n">field</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">boosted</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Morph triggers naturally</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="example-3-sensor-fusion">Example 3: Sensor Fusion<a class="headerlink" href="#example-3-sensor-fusion" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Combine multiple sensor inputs</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">update_from_sensors</span><span class="p">(</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">cebu</span><span class="o">::</span><span class="n">FuzzyInterval</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">sensor_readings</span><span class="p">,</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">sensor_reliabilities</span>
+<span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Fuse readings</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">fused</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">FusionStrategy</span><span class="o">::</span><span class="n">fuse</span><span class="p">(</span>
+<span class="w">        </span><span class="n">sensor_readings</span><span class="p">,</span>
+<span class="w">        </span><span class="n">sensor_reliabilities</span><span class="p">,</span>
+<span class="w">        </span><span class="n">cebu</span><span class="o">::</span><span class="n">FusionStrategy</span><span class="o">::</span><span class="n">Method</span><span class="o">::</span><span class="n">Adaptive</span>
+<span class="w">    </span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Update field</span>
+<span class="w">    </span><span class="n">field</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">target_simplex</span><span class="p">,</span><span class="w"> </span><span class="n">fused</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="api-reference">API Reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h2>
+<h3 id="core-classes">Core Classes<a class="headerlink" href="#core-classes" title="Permanent link">&para;</a></h3>
+<h4 id="fuzzyinterval">FuzzyInterval<a class="headerlink" href="#fuzzyinterval" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">FuzzyInterval</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">lower</span><span class="p">;</span><span class="w">           </span><span class="c1">// Lower bound</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">upper</span><span class="p">;</span><span class="w">           </span><span class="c1">// Upper bound</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">confidence</span><span class="p">;</span><span class="w">      </span><span class="c1">// Confidence [0,1]</span>
+
+<span class="w">    </span><span class="n">FuzzyInterval</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">c</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="nf">midpoint</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="nf">width</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">is_crisp</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">is_certain</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FuzzyInterval</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FuzzyInterval</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">&gt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FuzzyInterval</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">&gt;=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FuzzyInterval</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FuzzyInterval</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">!=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FuzzyInterval</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">FuzzyInterval</span><span class="w"> </span><span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FuzzyInterval</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">FuzzyInterval</span><span class="w"> </span><span class="k">operator</span><span class="o">-</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FuzzyInterval</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">FuzzyInterval</span><span class="w"> </span><span class="k">operator</span><span class="o">*</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FuzzyInterval</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">FuzzyInterval</span><span class="w"> </span><span class="k">operator</span><span class="o">/</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FuzzyInterval</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">FuzzyInterval</span><span class="w"> </span><span class="k">operator</span><span class="o">*</span><span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">FuzzyInterval</span><span class="w"> </span><span class="nf">intersect</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FuzzyInterval</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">FuzzyInterval</span><span class="w"> </span><span class="nf">union_with</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FuzzyInterval</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="nf">overlap_degree</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FuzzyInterval</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="nf">to_string</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="nf">to_latex</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<h4 id="absurdityfield">AbsurdityField<a class="headerlink" href="#absurdityfield" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">AbsurdityField</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">set</span><span class="p">(</span><span class="n">SimplexID</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">FuzzyInterval</span><span class="o">&amp;</span><span class="w"> </span><span class="n">absurdity</span><span class="p">);</span>
+<span class="w">    </span><span class="n">FuzzyInterval</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="n">SimplexID</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">has</span><span class="p">(</span><span class="n">SimplexID</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">remove</span><span class="p">(</span><span class="n">SimplexID</span><span class="w"> </span><span class="n">id</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">clear</span><span class="p">();</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">evolve</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">StochasticEvolution</span><span class="o">&amp;</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">dt</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">evolve_region</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">SimplexID</span><span class="o">&gt;&amp;</span><span class="p">,</span>
+<span class="w">                      </span><span class="k">const</span><span class="w"> </span><span class="n">StochasticEvolution</span><span class="o">&amp;</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">dt</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">diffuse</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">rate</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">iterations</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">SimplexID</span><span class="o">&gt;</span><span class="w"> </span><span class="n">find_above_threshold</span><span class="p">(</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">FuzzyInterval</span><span class="o">&amp;</span><span class="w"> </span><span class="n">threshold</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">SimplexID</span><span class="o">&gt;</span><span class="w"> </span><span class="n">find_below_threshold</span><span class="p">(</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">FuzzyInterval</span><span class="o">&amp;</span><span class="w"> </span><span class="n">threshold</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">Statistics</span><span class="w"> </span><span class="nf">get_statistics</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<h4 id="topologymorph">TopologyMorph<a class="headerlink" href="#topologymorph" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">TopologyMorph</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">add_rule</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">MorphRule</span><span class="o">&amp;</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">remove_rule</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">name</span><span class="p">);</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">MorphRule</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">get_rules</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">MorphResult</span><span class="o">&gt;</span><span class="w"> </span><span class="n">apply_rules</span><span class="p">(</span>
+<span class="w">        </span><span class="n">MorphContext</span><span class="o">&amp;</span><span class="w"> </span><span class="n">context</span><span class="p">,</span>
+<span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">max_operations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">MorphRule</span><span class="o">*</span><span class="w"> </span><span class="nf">find_matching_rule</span><span class="p">(</span>
+<span class="w">        </span><span class="n">SimplexID</span><span class="w"> </span><span class="n">simplex_id</span><span class="p">,</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">MorphContext</span><span class="o">&amp;</span><span class="w"> </span><span class="n">context</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">MorphResult</span><span class="w"> </span><span class="nf">apply_morph</span><span class="p">(</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">MorphRule</span><span class="o">&amp;</span><span class="w"> </span><span class="n">rule</span><span class="p">,</span>
+<span class="w">        </span><span class="n">SimplexID</span><span class="w"> </span><span class="n">simplex_id</span><span class="p">,</span>
+<span class="w">        </span><span class="n">MorphContext</span><span class="o">&amp;</span><span class="w"> </span><span class="n">context</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Stats</span><span class="o">&amp;</span><span class="w"> </span><span class="nf">get_stats</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">reset_stats</span><span class="p">();</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">set_enabled</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">enabled</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">is_enabled</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Static morph operations</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">MorphResult</span><span class="w"> </span><span class="nf">split_simplex</span><span class="p">(</span>
+<span class="w">        </span><span class="n">SimplicialComplex</span><span class="o">&amp;</span><span class="w"> </span><span class="n">complex</span><span class="p">,</span>
+<span class="w">        </span><span class="n">SimplexID</span><span class="w"> </span><span class="n">simplex_id</span><span class="p">,</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">AbsurdityField</span><span class="o">&amp;</span><span class="w"> </span><span class="n">field</span><span class="p">,</span>
+<span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">pieces</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">MorphResult</span><span class="w"> </span><span class="nf">merge_simplices</span><span class="p">(</span>
+<span class="w">        </span><span class="n">SimplicialComplex</span><span class="o">&amp;</span><span class="w"> </span><span class="n">complex</span><span class="p">,</span>
+<span class="w">        </span><span class="n">SimplexID</span><span class="w"> </span><span class="n">simplex_id</span><span class="p">,</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">AbsurdityField</span><span class="o">&amp;</span><span class="w"> </span><span class="n">field</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// ... other morph operations</span>
+<span class="p">};</span>
+</code></pre></div>
+<h3 id="utility-classes">Utility Classes<a class="headerlink" href="#utility-classes" title="Permanent link">&para;</a></h3>
+<h4 id="stochasticevolution">StochasticEvolution<a class="headerlink" href="#stochasticevolution" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">StochasticEvolution</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">explicit</span><span class="w"> </span><span class="n">StochasticEvolution</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">EvolutionParams</span><span class="o">&amp;</span><span class="w"> </span><span class="n">params</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">FuzzyInterval</span><span class="w"> </span><span class="nf">step</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FuzzyInterval</span><span class="o">&amp;</span><span class="w"> </span><span class="n">current</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">dt</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">FuzzyInterval</span><span class="o">&gt;</span><span class="w"> </span><span class="n">evolve</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FuzzyInterval</span><span class="o">&amp;</span><span class="w"> </span><span class="n">initial</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">steps</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">FuzzyInterval</span><span class="o">&gt;</span><span class="w"> </span><span class="n">evolve_neighborhood</span><span class="p">(</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">FuzzyInterval</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">values</span><span class="p">,</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;&gt;&amp;</span><span class="w"> </span><span class="n">adjacency</span><span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div>
+<h4 id="fusionstrategy">FusionStrategy<a class="headerlink" href="#fusionstrategy" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">FusionStrategy</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Method</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">WeightedAverage</span><span class="p">,</span>
+<span class="w">        </span><span class="n">DempsterShafer</span><span class="p">,</span>
+<span class="w">        </span><span class="n">Bayesian</span><span class="p">,</span>
+<span class="w">        </span><span class="n">FuzzyLogic</span><span class="p">,</span>
+<span class="w">        </span><span class="n">Possibility</span><span class="p">,</span>
+<span class="w">        </span><span class="n">Adaptive</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">FuzzyInterval</span><span class="w"> </span><span class="nf">fuse</span><span class="p">(</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">FuzzyInterval</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">sources</span><span class="p">,</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">weights</span><span class="p">,</span>
+<span class="w">        </span><span class="n">Method</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Method</span><span class="o">::</span><span class="n">WeightedAverage</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">MethodRecommendation</span><span class="w"> </span><span class="nf">recommend_method</span><span class="p">(</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">FuzzyInterval</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">sources</span><span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div>
+<hr />
+<h2 id="performance-considerations">Performance Considerations<a class="headerlink" href="#performance-considerations" title="Permanent link">&para;</a></h2>
+<h3 id="complexity">Complexity<a class="headerlink" href="#complexity" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Time Complexity</th>
+<th>Space Complexity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FuzzyInterval operations</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Evolution step</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Field evolution (all)</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Diffusion</td>
+<td>O(n·k)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Morph rule matching</td>
+<td>O(n·r)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Single morph</td>
+<td>O(k)</td>
+<td>O(k)</td>
+</tr>
+</tbody>
+</table>
+<p>Where:
+- n = number of simplices
+- r = number of rules
+- k = morph complexity
+- k = diffusion iterations</p>
+<h3 id="optimization-tips">Optimization Tips<a class="headerlink" href="#optimization-tips" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Batch Operations</strong>: Evolve entire field at once</li>
+<li><strong>Spatial Indexing</strong>: Use BVH/Octree for regional queries</li>
+<li><strong>Rule Limiting</strong>: Limit rules applied per frame</li>
+<li><strong>Probability Thresholds</strong>: Use low probability for aggressive rules</li>
+<li><strong>Lazy Evaluation</strong>: Only evaluate rules when needed</li>
+</ol>
+<hr />
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<h3 id="1-absurdity-range">1. Absurdity Range<a class="headerlink" href="#1-absurdity-range" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Keep absurdity in <code>[0, 1]</code> range</li>
+<li>Use confidence to express uncertainty</li>
+<li>Clamp values if they drift out of range</li>
+</ul>
+<h3 id="2-evolution-parameters">2. Evolution Parameters<a class="headerlink" href="#2-evolution-parameters" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Decay rate</strong>: 0.9-0.99 for smooth evolution</li>
+<li><strong>Volatility</strong>: 0.05-0.2 for controlled randomness</li>
+<li><strong>Coupling strength</strong>: 0.2-0.5 for neighbor influence</li>
+</ul>
+<h3 id="3-morph-rules">3. Morph Rules<a class="headerlink" href="#3-morph-rules" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Use <strong>priority</strong> to order rule checking</li>
+<li>Set <strong>probability</strong> to control frequency</li>
+<li>Use <strong>max_applications</strong> to prevent excessive morphs</li>
+<li>Test rules in isolation first</li>
+</ul>
+<h3 id="4-performance">4. Performance<a class="headerlink" href="#4-performance" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Limit field size for real-time applications</li>
+<li>Use spatial indexing for large complexes</li>
+<li>Batch morph operations</li>
+<li>Profile evolution and morph costs</li>
+</ul>
+<hr />
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="issue-complex-grows-too-large">Issue: Complex grows too large<a class="headerlink" href="#issue-complex-grows-too-large" title="Permanent link">&para;</a></h3>
+<p><strong>Solution</strong>: Add conservative rules or increase thresholds
+<div class="highlight"><pre><span></span><code><span class="n">MorphRule</span><span class="w"> </span><span class="n">conservative</span><span class="p">(</span><span class="s">&quot;conservative&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">MorphType</span><span class="o">::</span><span class="n">SPLIT</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">TriggerCondition</span><span class="o">::</span><span class="n">ABSURDITY_THRESHOLD</span><span class="p">,</span>
+<span class="w">    </span><span class="n">FuzzyInterval</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span><span class="w"> </span><span class="mf">0.95</span><span class="p">,</span><span class="w"> </span><span class="mf">0.98</span><span class="p">));</span><span class="w">  </span><span class="c1">// Higher threshold</span>
+</code></pre></div></p>
+<h3 id="issue-morphs-too-frequent">Issue: Morphs too frequent<a class="headerlink" href="#issue-morphs-too-frequent" title="Permanent link">&para;</a></h3>
+<p><strong>Solution</strong>: Reduce probability or add max applications
+<div class="highlight"><pre><span></span><code><span class="n">rule</span><span class="p">.</span><span class="n">probability</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.3</span><span class="p">;</span><span class="w">  </span><span class="c1">// 30% chance</span>
+<span class="n">rule</span><span class="p">.</span><span class="n">max_applications</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w">  </span><span class="c1">// Limit to 10 applications</span>
+</code></pre></div></p>
+<h3 id="issue-absurdity-becomes-unstable">Issue: Absurdity becomes unstable<a class="headerlink" href="#issue-absurdity-becomes-unstable" title="Permanent link">&para;</a></h3>
+<p><strong>Solution</strong>: Reduce volatility or increase decay rate
+<div class="highlight"><pre><span></span><code><span class="n">params</span><span class="p">.</span><span class="n">volatility</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.05</span><span class="p">;</span><span class="w">  </span><span class="c1">// Lower noise</span>
+<span class="n">params</span><span class="p">.</span><span class="n">decay_rate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.98</span><span class="p">;</span><span class="w">   </span><span class="c1">// Faster decay</span>
+</code></pre></div></p>
+<hr />
+<h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="api.md">API Reference</a> - Complete API documentation</li>
+<li><a href="topology_operations.md">Topology Operations</a> - Topological operations</li>
+<li><a href="performance.md">Performance Guide</a> - Performance optimization</li>
+</ul>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2026-03-28T03:56:52+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2026-03-28</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © 2026 CeaserZhao (Oasis Company). All rights reserved.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/ceaserzhao/cebu" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://twitter.com/ceaserzhao" target="_blank" rel="noopener" title="Twitter" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "search.suggest", "search.highlight", "search.share", "navigation.top"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+        <script src="../../js/timeago.min.js"></script>
+      
+        <script src="../../js/timeago_mkdocs_material.js"></script>
+      
+        <script src="../../js/custom.js"></script>
+      
+    
+  </body>
+</html>

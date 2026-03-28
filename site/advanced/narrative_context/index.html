@@ -1,0 +1,2720 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Advanced Simplicial Complex Library">
+      
+      
+        <meta name="author" content="CeaserZhao (Oasis Company)">
+      
+      
+        <link rel="canonical" href="https://ceaserzhao.github.io/cebu/advanced/narrative_context/">
+      
+      
+        <link rel="prev" href="../absurdity_system/">
+      
+      
+        <link rel="next" href="../../api/api_core/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.0">
+    
+    
+      
+        <title>Narrative Context - Cebu Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.45e1311d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/timeago.css">
+    
+      <link rel="stylesheet" href="../../css/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#phase-9c-narrative-context-system" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Cebu Documentation" class="md-header__button md-logo" aria-label="Cebu Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Cebu Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Narrative Context
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ceaserzhao/cebu" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ceaserzhao/cebu
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../installation/" class="md-tabs__link">
+          
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tutorials/tutorial_basic/" class="md-tabs__link">
+          
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../core/simplicial_complex/" class="md-tabs__link">
+          
+  
+  Core Concepts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../spatial_indexing/" class="md-tabs__link">
+          
+  
+  Advanced Features
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../api/api_core/" class="md-tabs__link">
+          
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../utilities/performance/" class="md-tabs__link">
+          
+  
+  Utilities
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../PROJECT_STRUCTURE.md" class="md-tabs__link">
+          
+  
+  Project
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Cebu Documentation" class="md-nav__button md-logo" aria-label="Cebu Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Cebu Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ceaserzhao/cebu" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ceaserzhao/cebu
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quick Start
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Tutorials
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/tutorial_basic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Basic Usage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/tutorial_spatial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spatial Indexing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/tutorial_narrative/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Narrative Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Core Concepts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Core Concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/simplicial_complex/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Simplicial Complex
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/topology/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Topology
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/labels/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Labels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/serialization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serialization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Advanced Features
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Advanced Features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spatial_indexing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spatial Indexing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../non_hausdorff/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Non-Hausdorff Topology
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../absurdity_system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Absurdity System
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Narrative Context
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Narrative Context
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Concepts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#narrative-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      Narrative Context
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-with-absurdity-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration with Absurdity Evolution
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Reference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#narrativecontext" class="md-nav__link">
+    <span class="md-ellipsis">
+      NarrativeContext
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dramaticeventtype" class="md-nav__link">
+    <span class="md-ellipsis">
+      DramaticEventType
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storybeat" class="md-nav__link">
+    <span class="md-ellipsis">
+      StoryBeat
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#narrativepresets" class="md-nav__link">
+    <span class="md-ellipsis">
+      NarrativePresets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#narrativestructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      NarrativeStructure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#narrativetemplate" class="md-nav__link">
+    <span class="md-ellipsis">
+      NarrativeTemplate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#narrativeanalyzer" class="md-nav__link">
+    <span class="md-ellipsis">
+      NarrativeAnalyzer
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage Examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-presets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Presets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#context-fusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Context Fusion
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-story-beats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating Story Beats
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-narrative-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Narrative Templates
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#narrative-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Narrative Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-with-absurdity-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration with Absurdity System
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-with-topology-morph" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration with Topology Morph
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-demo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete Demo
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Complete Demo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#demo-1-absurdity-narrative-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Demo 1: Absurdity &amp; Narrative Evolution
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-characteristics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Characteristics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Modules
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    API Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_core/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Core API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_spatial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spatial API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_serialization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serialization API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_narrative/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Narrative API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_absurdity/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Absurdity API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Utilities
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Utilities
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../utilities/performance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performance Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../utilities/best_practices/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Best Practices
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../utilities/faq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../utilities/troubleshooting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Project
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Project
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PROJECT_STRUCTURE.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CONTRIBUTING.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CHANGELOG.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Changelog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LICENSE" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Concepts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#narrative-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      Narrative Context
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-with-absurdity-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration with Absurdity Evolution
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Reference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#narrativecontext" class="md-nav__link">
+    <span class="md-ellipsis">
+      NarrativeContext
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dramaticeventtype" class="md-nav__link">
+    <span class="md-ellipsis">
+      DramaticEventType
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storybeat" class="md-nav__link">
+    <span class="md-ellipsis">
+      StoryBeat
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#narrativepresets" class="md-nav__link">
+    <span class="md-ellipsis">
+      NarrativePresets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#narrativestructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      NarrativeStructure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#narrativetemplate" class="md-nav__link">
+    <span class="md-ellipsis">
+      NarrativeTemplate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#narrativeanalyzer" class="md-nav__link">
+    <span class="md-ellipsis">
+      NarrativeAnalyzer
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage Examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-presets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Presets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#context-fusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Context Fusion
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-story-beats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating Story Beats
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-narrative-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Narrative Templates
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#narrative-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Narrative Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-with-absurdity-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration with Absurdity System
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-with-topology-morph" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration with Topology Morph
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-demo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete Demo
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Complete Demo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#demo-1-absurdity-narrative-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Demo 1: Absurdity &amp; Narrative Evolution
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-characteristics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Characteristics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Modules
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="phase-9c-narrative-context-system">Phase 9c: Narrative Context System<a class="headerlink" href="#phase-9c-narrative-context-system" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Phase 9c implements a complete narrative context system, deeply integrating absurdity evolution with dramatic narrative structure. By providing key parameters such as <strong>Surprisal (S)</strong>, <strong>Logic Deviation (L)</strong>, <strong>Emotional Intensity</strong>, and <strong>Dramatic Tension</strong>, it drives the Phase 9a absurdity stochastic evolution equation (SDE).</p>
+<h2 id="core-concepts">Core Concepts<a class="headerlink" href="#core-concepts" title="Permanent link">&para;</a></h2>
+<h3 id="narrative-context">Narrative Context<a class="headerlink" href="#narrative-context" title="Permanent link">&para;</a></h3>
+<p>Narrative context describes the dramatic state of a story at a specific moment, containing the following core dimensions:</p>
+<ul>
+<li><strong>Surprisal (S)</strong>: <code>[0, 1]</code> - The degree of unexpectedness in the current situation</li>
+<li><strong>Logic Deviation (L)</strong>: <code>[0, 1]</code> - The degree of deviation from logical consistency</li>
+<li><strong>Emotional Intensity (E)</strong>: <code>[0, 1]</code> - Current emotional state</li>
+<li><strong>Dramatic Tension (T)</strong>: <code>[0, 1]</code> - Narrative tension level</li>
+<li><strong>Time Distance (D)</strong>: <code>[0, 1]</code> - Distance from the climax (0 = climax, 1 = beginning)</li>
+</ul>
+<h3 id="integration-with-absurdity-evolution">Integration with Absurdity Evolution<a class="headerlink" href="#integration-with-absurdity-evolution" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">NarrativeContext</span><span class="w"> </span><span class="nf">ctx</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> </span><span class="mf">0.9</span><span class="p">,</span><span class="w"> </span><span class="mf">0.9</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">);</span>
+
+<span class="c1">// Drive absurdity SDE equation</span>
+<span class="n">params</span><span class="p">.</span><span class="n">volatility</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">get_volatility</span><span class="p">();</span><span class="w">           </span><span class="c1">// σ = σ₀ · (1 + E) · (1 + T)</span>
+<span class="n">params</span><span class="p">.</span><span class="n">coupling_strength</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">get_driving_force</span><span class="p">();</span><span class="w"> </span><span class="c1">// κ·S + η·L</span>
+
+<span class="c1">// Evolve absurdity</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">new_absurdity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">evolution</span><span class="p">.</span><span class="n">step</span><span class="p">(</span><span class="n">current</span><span class="p">,</span><span class="w"> </span><span class="n">params</span><span class="p">);</span>
+</code></pre></div>
+<h2 id="api-reference">API Reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h2>
+<h3 id="narrativecontext"><code>NarrativeContext</code><a class="headerlink" href="#narrativecontext" title="Permanent link">&para;</a></h3>
+<h4 id="constructor">Constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">NarrativeContext</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">surprisal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">              </span><span class="c1">// Surprisal S</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">logic_deviation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">        </span><span class="c1">// Logic Deviation L</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">emotional_intensity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">    </span><span class="c1">// Emotional Intensity E</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">dramatic_tension</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">      </span><span class="c1">// Dramatic Tension T</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">time_distance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="w">          </span><span class="c1">// Time Distance D</span>
+<span class="p">);</span>
+</code></pre></div>
+<h4 id="core-methods">Core Methods<a class="headerlink" href="#core-methods" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// Get SDE driving term: κ·S + η·L</span>
+<span class="kt">double</span><span class="w"> </span><span class="nf">get_driving_force</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">kappa</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">eta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="c1">// Get volatility: σ₀ · (1 + E) · (1 + T)</span>
+<span class="kt">double</span><span class="w"> </span><span class="nf">get_volatility</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">base_volatility</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="c1">// Fuse with another context</span>
+<span class="n">NarrativeContext</span><span class="w"> </span><span class="nf">fuse</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">NarrativeContext</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">weight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="c1">// Convert to string</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="nf">to_string</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div>
+<h4 id="getter-methods">Getter Methods<a class="headerlink" href="#getter-methods" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kt">double</span><span class="w"> </span><span class="nf">surprisal</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w">           </span><span class="c1">// Surprisal S</span>
+<span class="kt">double</span><span class="w"> </span><span class="nf">logic_deviation</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w">     </span><span class="c1">// Logic Deviation L</span>
+<span class="kt">double</span><span class="w"> </span><span class="nf">emotional_intensity</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"> </span><span class="c1">// Emotional Intensity E</span>
+<span class="kt">double</span><span class="w"> </span><span class="nf">dramatic_tension</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w">    </span><span class="c1">// Dramatic Tension T</span>
+<span class="kt">double</span><span class="w"> </span><span class="nf">time_distance</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w">      </span><span class="c1">// Time Distance D</span>
+</code></pre></div>
+<hr />
+<h3 id="dramaticeventtype"><code>DramaticEventType</code><a class="headerlink" href="#dramaticeventtype" title="Permanent link">&para;</a></h3>
+<p>Dramatic event type enumeration, 17 types total:</p>
+<h4 id="classic-events-9-types">Classic Events (9 types)<a class="headerlink" href="#classic-events-9-types" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Event Type</th>
+<th>Enum</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exposition</td>
+<td><code>EXPOSITION</code></td>
+<td>Setup: Introduce characters and setting</td>
+</tr>
+<tr>
+<td>Inciting Incident</td>
+<td><code>INCITING_INCIDENT</code></td>
+<td>Inciting Incident: Disrupts equilibrium</td>
+</tr>
+<tr>
+<td>Rising Action</td>
+<td><code>RISING_ACTION</code></td>
+<td>Rising Action: Escalating conflict</td>
+</tr>
+<tr>
+<td>Plot Point 1</td>
+<td><code>PLOT_POINT_1</code></td>
+<td>Plot Point 1: Enter Act 2</td>
+</tr>
+<tr>
+<td>Midpoint</td>
+<td><code>MIDPOINT</code></td>
+<td>Midpoint: Direction changes</td>
+</tr>
+<tr>
+<td>Plot Point 2</td>
+<td><code>PLOT_POINT_2</code></td>
+<td>Plot Point 2: Enter Act 3</td>
+</tr>
+<tr>
+<td>Climax</td>
+<td><code>CLIMAX</code></td>
+<td>Climax: Final confrontation</td>
+</tr>
+<tr>
+<td>Falling Action</td>
+<td><code>FALLING_ACTION</code></td>
+<td>Falling Action: Conflict resolution</td>
+</tr>
+<tr>
+<td>Resolution</td>
+<td><code>RESOLUTION</code></td>
+<td>Resolution: New equilibrium</td>
+</tr>
+</tbody>
+</table>
+<h4 id="special-events-8-types">Special Events (8 types)<a class="headerlink" href="#special-events-8-types" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Event Type</th>
+<th>Enum</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Twist</td>
+<td><code>TWIST</code></td>
+<td>Plot Twist: Unexpected reversal</td>
+</tr>
+<tr>
+<td>Revelation</td>
+<td><code>REVELATION</code></td>
+<td>Revelation: Important information revealed</td>
+</tr>
+<tr>
+<td>Conflict</td>
+<td><code>CONFLICT</code></td>
+<td>Conflict: Opposing forces clash</td>
+</tr>
+<tr>
+<td>Transition</td>
+<td><code>TRANSITION</code></td>
+<td>Transition: Scene/time switch</td>
+</tr>
+<tr>
+<td>Pause</td>
+<td><code>PAUSE</code></td>
+<td>Pause: Slow down pacing</td>
+</tr>
+<tr>
+<td>Flashback</td>
+<td><code>FLASHBACK</code></td>
+<td>Flashback: Past scene</td>
+</tr>
+<tr>
+<td>Flashforward</td>
+<td><code>FLASHFORWARD</code></td>
+<td>Flashforward: Future scene</td>
+</tr>
+<tr>
+<td>Montage</td>
+<td><code>MONTAGE</code></td>
+<td>Montage: Quick cuts</td>
+</tr>
+<tr>
+<td>Time Skip</td>
+<td><code>TIME_SKIP</code></td>
+<td>Time Skip: Jump forward</td>
+</tr>
+<tr>
+<td>Custom</td>
+<td><code>CUSTOM</code></td>
+<td>Custom event</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="storybeat"><code>StoryBeat</code><a class="headerlink" href="#storybeat" title="Permanent link">&para;</a></h3>
+<p>Story beat structure containing event type and corresponding narrative context:</p>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">StoryBeat</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">DramaticEventType</span><span class="w"> </span><span class="n">type</span><span class="p">;</span><span class="w">    </span><span class="c1">// Event type</span>
+<span class="w">    </span><span class="n">NarrativeContext</span><span class="w"> </span><span class="n">context</span><span class="p">;</span><span class="w">  </span><span class="c1">// Narrative context</span>
+
+<span class="w">    </span><span class="c1">// Constructor</span>
+<span class="w">    </span><span class="n">StoryBeat</span><span class="p">(</span><span class="n">DramaticEventType</span><span class="w"> </span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">NarrativeContext</span><span class="o">&amp;</span><span class="w"> </span><span class="n">context</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Convert to string</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="nf">to_string</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<hr />
+<h3 id="narrativepresets"><code>NarrativePresets</code><a class="headerlink" href="#narrativepresets" title="Permanent link">&para;</a></h3>
+<p>Preset narrative context factory, providing standard configurations for all event types.</p>
+<h4 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// Get preset context for specific event type</span>
+<span class="k">static</span><span class="w"> </span><span class="n">NarrativeContext</span><span class="w"> </span><span class="nf">get_preset</span><span class="p">(</span><span class="n">DramaticEventType</span><span class="w"> </span><span class="n">type</span><span class="p">);</span>
+
+<span class="c1">// Variable-intensity presets</span>
+<span class="k">static</span><span class="w"> </span><span class="n">NarrativeContext</span><span class="w"> </span><span class="nf">climax</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">intensity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">);</span>
+<span class="k">static</span><span class="w"> </span><span class="n">NarrativeContext</span><span class="w"> </span><span class="nf">twist</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">magnitude</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.8</span><span class="p">);</span>
+<span class="k">static</span><span class="w"> </span><span class="n">NarrativeContext</span><span class="w"> </span><span class="nf">conflict</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">intensity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.7</span><span class="p">);</span>
+
+<span class="c1">// Flashback and flashforward</span>
+<span class="k">static</span><span class="w"> </span><span class="n">NarrativeContext</span><span class="w"> </span><span class="nf">flashback</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">intensity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">distance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="p">);</span>
+<span class="k">static</span><span class="w"> </span><span class="n">NarrativeContext</span><span class="w"> </span><span class="nf">flashforward</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">intensity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">distance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="p">);</span>
+
+<span class="c1">// Time skip</span>
+<span class="k">static</span><span class="w"> </span><span class="n">NarrativeContext</span><span class="w"> </span><span class="nf">time_skip</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">distance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.3</span><span class="p">);</span>
+
+<span class="c1">// Fully custom</span>
+<span class="k">static</span><span class="w"> </span><span class="n">NarrativeContext</span><span class="w"> </span><span class="nf">custom</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">surprisal</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">logic_deviation</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">emotional_intensity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">dramatic_tension</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">time_distance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span>
+<span class="p">);</span>
+</code></pre></div>
+<h4 id="preset-parameter-table">Preset Parameter Table<a class="headerlink" href="#preset-parameter-table" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Event Type</th>
+<th>S</th>
+<th>L</th>
+<th>E</th>
+<th>T</th>
+<th>D</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exposition</td>
+<td>0.1</td>
+<td>0.0</td>
+<td>0.2</td>
+<td>0.1</td>
+<td>1.0</td>
+<td>Calm introduction</td>
+</tr>
+<tr>
+<td>Inciting Incident</td>
+<td>0.7</td>
+<td>0.3</td>
+<td>0.5</td>
+<td>0.4</td>
+<td>0.9</td>
+<td>Inciting incident</td>
+</tr>
+<tr>
+<td>Rising Action</td>
+<td>0.4</td>
+<td>0.2</td>
+<td>0.4</td>
+<td>0.5</td>
+<td>0.7</td>
+<td>Rising action</td>
+</tr>
+<tr>
+<td>Plot Point 1</td>
+<td>0.6</td>
+<td>0.5</td>
+<td>0.6</td>
+<td>0.7</td>
+<td>0.6</td>
+<td>First turning point</td>
+</tr>
+<tr>
+<td>Midpoint</td>
+<td>0.5</td>
+<td>0.3</td>
+<td>0.7</td>
+<td>0.6</td>
+<td>0.5</td>
+<td>Midpoint</td>
+</tr>
+<tr>
+<td>Plot Point 2</td>
+<td>0.7</td>
+<td>0.6</td>
+<td>0.8</td>
+<td>0.8</td>
+<td>0.4</td>
+<td>Second turning point</td>
+</tr>
+<tr>
+<td>Climax</td>
+<td>1.0</td>
+<td>0.8</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>Climax</td>
+</tr>
+<tr>
+<td>Falling Action</td>
+<td>0.3</td>
+<td>0.2</td>
+<td>0.4</td>
+<td>0.3</td>
+<td>0.2</td>
+<td>Falling action</td>
+</tr>
+<tr>
+<td>Resolution</td>
+<td>0.1</td>
+<td>0.0</td>
+<td>0.2</td>
+<td>0.1</td>
+<td>0.0</td>
+<td>Resolution</td>
+</tr>
+<tr>
+<td>Twist</td>
+<td>0.9</td>
+<td>0.9</td>
+<td>0.8</td>
+<td>0.9</td>
+<td>0.5</td>
+<td>Plot twist</td>
+</tr>
+<tr>
+<td>Revelation</td>
+<td>0.8</td>
+<td>0.4</td>
+<td>0.7</td>
+<td>0.6</td>
+<td>0.5</td>
+<td>Revelation</td>
+</tr>
+<tr>
+<td>Conflict</td>
+<td>0.6</td>
+<td>0.3</td>
+<td>0.7</td>
+<td>0.8</td>
+<td>0.5</td>
+<td>Conflict</td>
+</tr>
+<tr>
+<td>Transition</td>
+<td>0.3</td>
+<td>0.2</td>
+<td>0.3</td>
+<td>0.3</td>
+<td>0.5</td>
+<td>Transition</td>
+</tr>
+<tr>
+<td>Pause</td>
+<td>0.2</td>
+<td>0.1</td>
+<td>0.2</td>
+<td>0.1</td>
+<td>0.5</td>
+<td>Pause</td>
+</tr>
+<tr>
+<td>Flashback</td>
+<td>0.4</td>
+<td>0.3</td>
+<td>0.5</td>
+<td>0.4</td>
+<td>0.5</td>
+<td>Flashback</td>
+</tr>
+<tr>
+<td>Flashforward</td>
+<td>0.5</td>
+<td>0.4</td>
+<td>0.6</td>
+<td>0.5</td>
+<td>0.5</td>
+<td>Flashforward</td>
+</tr>
+<tr>
+<td>Montage</td>
+<td>0.4</td>
+<td>0.2</td>
+<td>0.5</td>
+<td>0.5</td>
+<td>0.5</td>
+<td>Montage</td>
+</tr>
+<tr>
+<td>Time Skip</td>
+<td>0.6</td>
+<td>0.3</td>
+<td>0.4</td>
+<td>0.3</td>
+<td>0.5</td>
+<td>Time skip</td>
+</tr>
+<tr>
+<td>Custom</td>
+<td>Variable</td>
+<td>Variable</td>
+<td>Variable</td>
+<td>Variable</td>
+<td>Variable</td>
+<td>Custom</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="narrativestructure"><code>NarrativeStructure</code><a class="headerlink" href="#narrativestructure" title="Permanent link">&para;</a></h3>
+<p>Narrative structure type enumeration:</p>
+<div class="highlight"><pre><span></span><code><span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">NarrativeStructure</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">THREE_ACT</span><span class="p">,</span><span class="w">         </span><span class="c1">// Three-Act Structure</span>
+<span class="w">    </span><span class="n">HEROS_JOURNEY</span><span class="p">,</span><span class="w">     </span><span class="c1">// Hero&#39;s Journey</span>
+<span class="w">    </span><span class="n">SAVE_THE_CAT</span><span class="p">,</span><span class="w">      </span><span class="c1">// Save the Cat</span>
+<span class="w">    </span><span class="n">CUSTOM</span><span class="w">             </span><span class="c1">// Custom Structure</span>
+<span class="p">};</span>
+</code></pre></div>
+<hr />
+<h3 id="narrativetemplate"><code>NarrativeTemplate</code><a class="headerlink" href="#narrativetemplate" title="Permanent link">&para;</a></h3>
+<p>Narrative template providing standard story structure beat sequences.</p>
+<h4 id="methods_1">Methods<a class="headerlink" href="#methods_1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// Get beat sequence for specific structure</span>
+<span class="k">static</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">StoryBeat</span><span class="o">&gt;</span><span class="w"> </span><span class="n">get_template</span><span class="p">(</span><span class="n">NarrativeStructure</span><span class="w"> </span><span class="n">type</span><span class="p">);</span>
+
+<span class="c1">// Three-Act Structure (9 beats)</span>
+<span class="k">static</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">StoryBeat</span><span class="o">&gt;</span><span class="w"> </span><span class="n">three_act_structure</span><span class="p">();</span>
+
+<span class="c1">// Hero&#39;s Journey (12 beats)</span>
+<span class="k">static</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">StoryBeat</span><span class="o">&gt;</span><span class="w"> </span><span class="n">heros_journey</span><span class="p">();</span>
+
+<span class="c1">// Save the Cat (15 beats)</span>
+<span class="k">static</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">StoryBeat</span><span class="o">&gt;</span><span class="w"> </span><span class="n">save_the_cat</span><span class="p">();</span>
+</code></pre></div>
+<h4 id="three-act-structure-beats">Three-Act Structure Beats<a class="headerlink" href="#three-act-structure-beats" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="p">{</span><span class="n">EXPOSITION</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mf">0.1</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">}},</span><span class="w">       </span><span class="c1">// Act 1: Setup</span>
+<span class="w">    </span><span class="p">{</span><span class="n">INCITING_INCIDENT</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mf">0.7</span><span class="p">,</span><span class="w"> </span><span class="mf">0.3</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="mf">0.4</span><span class="p">,</span><span class="w"> </span><span class="mf">0.9</span><span class="p">}},</span>
+<span class="w">    </span><span class="p">{</span><span class="n">RISING_ACTION</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mf">0.4</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.4</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="mf">0.7</span><span class="p">}},</span>
+<span class="w">    </span><span class="p">{</span><span class="n">PLOT_POINT_1</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mf">0.6</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="mf">0.6</span><span class="p">,</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> </span><span class="mf">0.6</span><span class="p">}},</span><span class="w">    </span><span class="c1">// Act 2: Confrontation</span>
+<span class="w">    </span><span class="p">{</span><span class="n">MIDPOINT</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="mf">0.3</span><span class="p">,</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> </span><span class="mf">0.6</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5</span><span class="p">}},</span>
+<span class="w">    </span><span class="p">{</span><span class="n">RISING_ACTION</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mf">0.4</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> </span><span class="mf">0.4</span><span class="p">}},</span>
+<span class="w">    </span><span class="p">{</span><span class="n">PLOT_POINT_2</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mf">0.7</span><span class="p">,</span><span class="w"> </span><span class="mf">0.6</span><span class="p">,</span><span class="w"> </span><span class="mf">0.8</span><span class="p">,</span><span class="w"> </span><span class="mf">0.8</span><span class="p">,</span><span class="w"> </span><span class="mf">0.4</span><span class="p">}},</span><span class="w">    </span><span class="c1">// Act 3: Resolution</span>
+<span class="w">    </span><span class="p">{</span><span class="n">CLIMAX</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.8</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">}},</span>
+<span class="w">    </span><span class="p">{</span><span class="n">FALLING_ACTION</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mf">0.3</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.4</span><span class="p">,</span><span class="w"> </span><span class="mf">0.3</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">}},</span>
+<span class="w">    </span><span class="p">{</span><span class="n">RESOLUTION</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mf">0.1</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">}}</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h3 id="narrativeanalyzer"><code>NarrativeAnalyzer</code><a class="headerlink" href="#narrativeanalyzer" title="Permanent link">&para;</a></h3>
+<p>Dynamic narrative analyzer, analyzing current state based on historical and future beats.</p>
+<h4 id="constructor_1">Constructor<a class="headerlink" href="#constructor_1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">NarrativeAnalyzer</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">StoryBeat</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">beats</span><span class="p">);</span>
+</code></pre></div>
+<h4 id="methods_2">Methods<a class="headerlink" href="#methods_2" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// Analyze narrative state at specific position</span>
+<span class="n">NarrativeContext</span><span class="w"> </span><span class="nf">analyze_at</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">position</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="c1">// Calculate narrative tension</span>
+<span class="kt">double</span><span class="w"> </span><span class="nf">calculate_tension</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="c1">// Detect if approaching climax</span>
+<span class="kt">bool</span><span class="w"> </span><span class="nf">is_approaching_climax</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">position</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">threshold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="c1">// Predict next event type</span>
+<span class="n">DramaticEventType</span><span class="w"> </span><span class="nf">predict_next_type</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">position</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="c1">// Calculate rhythm (event density)</span>
+<span class="kt">double</span><span class="w"> </span><span class="nf">calculate_rhythm</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">position</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">window</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div>
+<hr />
+<h2 id="usage-examples">Usage Examples<a class="headerlink" href="#usage-examples" title="Permanent link">&para;</a></h2>
+<h3 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;cebu/narrative_context.h&quot;</span>
+
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">cebu</span><span class="p">;</span>
+
+<span class="c1">// Create narrative context</span>
+<span class="n">NarrativeContext</span><span class="w"> </span><span class="nf">ctx</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> </span><span class="mf">0.9</span><span class="p">,</span><span class="w"> </span><span class="mf">0.9</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">);</span>
+
+<span class="c1">// Get driving force and volatility</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">driving_force</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">get_driving_force</span><span class="p">();</span><span class="w">      </span><span class="c1">// κ·S + η·L</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">volatility</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">get_volatility</span><span class="p">();</span><span class="w">            </span><span class="c1">// σ₀ · (1 + E) · (1 + T)</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Driving Force: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">driving_force</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Volatility: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">volatility</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Context: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">to_string</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="using-presets">Using Presets<a class="headerlink" href="#using-presets" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Use preset contexts</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">climax_ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NarrativePresets</span><span class="o">::</span><span class="n">climax</span><span class="p">(</span><span class="mf">1.0</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">twist_ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NarrativePresets</span><span class="o">::</span><span class="n">twist</span><span class="p">(</span><span class="mf">0.8</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">conflict_ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NarrativePresets</span><span class="o">::</span><span class="n">conflict</span><span class="p">(</span><span class="mf">0.7</span><span class="p">);</span>
+
+<span class="c1">// Custom context</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">custom_ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NarrativePresets</span><span class="o">::</span><span class="n">custom</span><span class="p">(</span>
+<span class="w">    </span><span class="mf">0.9</span><span class="p">,</span><span class="w"> </span><span class="mf">0.8</span><span class="p">,</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> </span><span class="mf">0.6</span><span class="p">,</span><span class="w"> </span><span class="mf">0.3</span>
+<span class="p">);</span>
+</code></pre></div>
+<h3 id="context-fusion">Context Fusion<a class="headerlink" href="#context-fusion" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">NarrativeContext</span><span class="w"> </span><span class="nf">ctx1</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> </span><span class="mf">0.9</span><span class="p">,</span><span class="w"> </span><span class="mf">0.9</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">);</span>
+<span class="n">NarrativeContext</span><span class="w"> </span><span class="nf">ctx2</span><span class="p">(</span><span class="mf">0.6</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> </span><span class="mf">0.8</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">);</span>
+
+<span class="c1">// Fuse two contexts (weight 0.5)</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">fused</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx1</span><span class="p">.</span><span class="n">fuse</span><span class="p">(</span><span class="n">ctx2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="creating-story-beats">Creating Story Beats<a class="headerlink" href="#creating-story-beats" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Create story beat</span>
+<span class="n">StoryBeat</span><span class="w"> </span><span class="nf">beat</span><span class="p">(</span><span class="n">DramaticEventType</span><span class="o">::</span><span class="n">CLIMAX</span><span class="p">,</span>
+<span class="w">               </span><span class="n">NarrativePresets</span><span class="o">::</span><span class="n">climax</span><span class="p">(</span><span class="mf">1.0</span><span class="p">));</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">beat</span><span class="p">.</span><span class="n">to_string</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="c1">// Output: Climax: S=1.0, L=0.8, E=1.0, T=1.0, D=0.0</span>
+</code></pre></div>
+<h3 id="using-narrative-templates">Using Narrative Templates<a class="headerlink" href="#using-narrative-templates" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Get Three-Act Structure</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">beats</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NarrativeTemplate</span><span class="o">::</span><span class="n">three_act_structure</span><span class="p">();</span>
+
+<span class="c1">// Iterate through beats</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">beats</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Beat &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">beats</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">to_string</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Get Hero&#39;s Journey</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">hero_journey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NarrativeTemplate</span><span class="o">::</span><span class="n">heros_journey</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="narrative-analysis">Narrative Analysis<a class="headerlink" href="#narrative-analysis" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Create analyzer</span>
+<span class="n">NarrativeAnalyzer</span><span class="w"> </span><span class="nf">analyzer</span><span class="p">(</span><span class="n">beats</span><span class="p">);</span>
+
+<span class="c1">// Analyze state at specific position</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">analyzer</span><span class="p">.</span><span class="n">analyze_at</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Analysis: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">to_string</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+
+<span class="c1">// Check if approaching climax</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">analyzer</span><span class="p">.</span><span class="n">is_approaching_climax</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Approaching climax!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Predict next event type</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">next_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">analyzer</span><span class="p">.</span><span class="n">predict_next_type</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Next event: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">next_type</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+
+<span class="c1">// Calculate rhythm</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">rhythm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">analyzer</span><span class="p">.</span><span class="n">calculate_rhythm</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Rhythm: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">rhythm</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="integration-with-absurdity-system">Integration with Absurdity System<a class="headerlink" href="#integration-with-absurdity-system" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;cebu/absurdity_evolution.h&quot;</span>
+
+<span class="c1">// Create narrative context</span>
+<span class="n">NarrativeContext</span><span class="w"> </span><span class="nf">ctx</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> </span><span class="mf">0.9</span><span class="p">,</span><span class="w"> </span><span class="mf">0.9</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">);</span>
+
+<span class="c1">// Configure absurdity evolution parameters</span>
+<span class="n">SDEEvolutionParams</span><span class="w"> </span><span class="n">params</span><span class="p">;</span>
+<span class="n">params</span><span class="p">.</span><span class="n">volatility</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">get_volatility</span><span class="p">();</span><span class="w">                    </span><span class="c1">// σ</span>
+<span class="n">params</span><span class="p">.</span><span class="n">coupling_strength</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">get_driving_force</span><span class="p">();</span><span class="w">          </span><span class="c1">// κ·S + η·L</span>
+<span class="n">params</span><span class="p">.</span><span class="n">diffusion_strength</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1</span><span class="p">;</span>
+<span class="n">params</span><span class="p">.</span><span class="n">time_step</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.01</span><span class="p">;</span>
+
+<span class="c1">// Create evolver</span>
+<span class="n">SDEEvolution</span><span class="w"> </span><span class="n">evolution</span><span class="p">;</span>
+
+<span class="c1">// Evolve absurdity</span>
+<span class="n">FuzzyInterval</span><span class="w"> </span><span class="nf">current</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="mf">0.1</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">evolved</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">evolution</span><span class="p">.</span><span class="n">step</span><span class="p">(</span><span class="n">current</span><span class="p">,</span><span class="w"> </span><span class="n">params</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="integration-with-topology-morph">Integration with Topology Morph<a class="headerlink" href="#integration-with-topology-morph" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;cebu/topology_morph.h&quot;</span>
+
+<span class="c1">// Create topology morph system</span>
+<span class="n">TopologyMorphSystem</span><span class="w"> </span><span class="n">morph_system</span><span class="p">;</span>
+
+<span class="c1">// Create story beat</span>
+<span class="n">StoryBeat</span><span class="w"> </span><span class="nf">beat</span><span class="p">(</span><span class="n">DramaticEventType</span><span class="o">::</span><span class="n">CLIMAX</span><span class="p">,</span>
+<span class="w">               </span><span class="n">NarrativePresets</span><span class="o">::</span><span class="n">climax</span><span class="p">(</span><span class="mf">1.0</span><span class="p">));</span>
+
+<span class="c1">// Trigger morph based on dramatic tension</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">beat</span><span class="p">.</span><span class="n">context</span><span class="p">.</span><span class="n">dramatic_tension</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0.8</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">morph_system</span><span class="p">.</span><span class="n">apply</span><span class="p">(</span>
+<span class="w">        </span><span class="n">ChaosMorphRules</span><span class="p">(),</span>
+<span class="w">        </span><span class="n">complex</span><span class="p">,</span>
+<span class="w">        </span><span class="n">beat</span><span class="p">.</span><span class="n">context</span><span class="p">.</span><span class="n">get_driving_force</span><span class="p">()</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="complete-demo">Complete Demo<a class="headerlink" href="#complete-demo" title="Permanent link">&para;</a></h2>
+<h3 id="demo-1-absurdity-narrative-evolution">Demo 1: Absurdity &amp; Narrative Evolution<a class="headerlink" href="#demo-1-absurdity-narrative-evolution" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;cebu/narrative_context.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;cebu/absurdity_evolution.h&quot;</span>
+
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">cebu</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Create Three-Act Structure</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">beats</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NarrativeTemplate</span><span class="o">::</span><span class="n">three_act_structure</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// Initialize absurdity</span>
+<span class="w">    </span><span class="n">FuzzyInterval</span><span class="w"> </span><span class="n">absurdity</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="mf">0.1</span><span class="p">);</span>
+<span class="w">    </span><span class="n">SDEEvolution</span><span class="w"> </span><span class="n">evolution</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;=== Absurdity &amp; Narrative Evolution ===</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Iterate through story beats</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">beats</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">beat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">beats</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Beat &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">beat</span><span class="p">.</span><span class="n">to_string</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1">// Configure evolution parameters</span>
+<span class="w">        </span><span class="n">SDEEvolutionParams</span><span class="w"> </span><span class="n">params</span><span class="p">;</span>
+<span class="w">        </span><span class="n">params</span><span class="p">.</span><span class="n">volatility</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">beat</span><span class="p">.</span><span class="n">context</span><span class="p">.</span><span class="n">get_volatility</span><span class="p">();</span>
+<span class="w">        </span><span class="n">params</span><span class="p">.</span><span class="n">coupling_strength</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">beat</span><span class="p">.</span><span class="n">context</span><span class="p">.</span><span class="n">get_driving_force</span><span class="p">();</span>
+<span class="w">        </span><span class="n">params</span><span class="p">.</span><span class="n">diffusion_strength</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1</span><span class="p">;</span>
+<span class="w">        </span><span class="n">params</span><span class="p">.</span><span class="n">time_step</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.01</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1">// Evolve absurdity</span>
+<span class="w">        </span><span class="n">absurdity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">evolution</span><span class="p">.</span><span class="n">step</span><span class="p">(</span><span class="n">absurdity</span><span class="p">,</span><span class="w"> </span><span class="n">params</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;  → Absurdity: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">absurdity</span><span class="p">.</span><span class="n">to_string</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;  → Volatility: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">params</span><span class="p">.</span><span class="n">volatility</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;  → Driving Force: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">params</span><span class="p">.</span><span class="n">coupling_strength</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h2>
+<p>Run test suite:</p>
+<div class="highlight"><pre><span></span><code>./build/test_phase9c_narrative
+</code></pre></div>
+<p>Test coverage:
+- Narrative Context basics
+- Driving force and volatility calculation
+- Context fusion
+- Narrative presets
+- Narrative structure templates
+- Narrative analyzer</p>
+<hr />
+<h2 id="performance-characteristics">Performance Characteristics<a class="headerlink" href="#performance-characteristics" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Time Complexity</th>
+<th>Space Complexity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Create context</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Get driving force/volatility</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Context fusion</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Get template</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Narrative analysis</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="related-modules">Related Modules<a class="headerlink" href="#related-modules" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Phase 9a</strong>: Absurdity System (<code>absurdity.h</code>)</li>
+<li><strong>Phase 9b</strong>: Topology Morph (<code>topology_morph.h</code>)</li>
+<li><strong>Narrative System</strong>: <code>story_event.h</code>, <code>simplicial_complex_narrative.h</code>, <code>timeline.h</code></li>
+</ul>
+<hr />
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../prepare/荒谬度.md">Absurdity Requirements</a></li>
+<li><a href=".codebuddy/phase9a_summary.md">Phase 9a Completion</a></li>
+<li><a href=".codebuddy/phase9b_summary.md">Phase 9b Completion</a></li>
+</ul>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2026-03-28T03:56:52+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2026-03-28</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © 2026 CeaserZhao (Oasis Company). All rights reserved.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/ceaserzhao/cebu" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://twitter.com/ceaserzhao" target="_blank" rel="noopener" title="Twitter" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "search.suggest", "search.highlight", "search.share", "navigation.top"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+        <script src="../../js/timeago.min.js"></script>
+      
+        <script src="../../js/timeago_mkdocs_material.js"></script>
+      
+        <script src="../../js/custom.js"></script>
+      
+    
+  </body>
+</html>

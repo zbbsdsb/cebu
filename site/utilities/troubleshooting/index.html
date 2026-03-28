@@ -1,0 +1,2725 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Advanced Simplicial Complex Library">
+      
+      
+        <meta name="author" content="CeaserZhao (Oasis Company)">
+      
+      
+        <link rel="canonical" href="https://ceaserzhao.github.io/cebu/utilities/troubleshooting/">
+      
+      
+        <link rel="prev" href="../faq/">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.0">
+    
+    
+      
+        <title>Troubleshooting - Cebu Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.45e1311d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/timeago.css">
+    
+      <link rel="stylesheet" href="../../css/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#troubleshooting-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Cebu Documentation" class="md-header__button md-logo" aria-label="Cebu Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Cebu Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Troubleshooting
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ceaserzhao/cebu" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ceaserzhao/cebu
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../installation/" class="md-tabs__link">
+          
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tutorials/tutorial_basic/" class="md-tabs__link">
+          
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../core/simplicial_complex/" class="md-tabs__link">
+          
+  
+  Core Concepts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../advanced/spatial_indexing/" class="md-tabs__link">
+          
+  
+  Advanced Features
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../api/api_core/" class="md-tabs__link">
+          
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../performance/" class="md-tabs__link">
+          
+  
+  Utilities
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../PROJECT_STRUCTURE.md" class="md-tabs__link">
+          
+  
+  Project
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Cebu Documentation" class="md-nav__button md-logo" aria-label="Cebu Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Cebu Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ceaserzhao/cebu" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ceaserzhao/cebu
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quick Start
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Tutorials
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/tutorial_basic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Basic Usage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/tutorial_spatial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spatial Indexing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/tutorial_narrative/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Narrative Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Core Concepts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Core Concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/simplicial_complex/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Simplicial Complex
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/topology/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Topology
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/labels/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Labels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/serialization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serialization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Advanced Features
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Advanced Features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/spatial_indexing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spatial Indexing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/non_hausdorff/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Non-Hausdorff Topology
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/absurdity_system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Absurdity System
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/narrative_context/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Narrative Context
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    API Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_core/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Core API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_spatial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spatial API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_serialization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serialization API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_narrative/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Narrative API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_absurdity/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Absurdity API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Utilities
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Utilities
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performance Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../best_practices/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Best Practices
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-cmake-cannot-find-cebu" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. CMake Cannot Find Cebu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-missing-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Missing Dependencies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-package-manager-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Package Manager Issues
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build Errors
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Build Errors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-c20-not-supported" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. C++20 Not Supported
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-undefined-symbols" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Undefined Symbols
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-header-not-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Header Not Found
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtime-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Runtime Errors
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Runtime Errors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-invalid-simplex-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Invalid Simplex ID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-memory-access-violation" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Memory Access Violation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-unexpected-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Unexpected Behavior
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-slow-build-times" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Slow Build Times
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-slow-query-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Slow Query Performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-high-memory-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. High Memory Usage
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serialization-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Serialization Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Serialization Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-failed-to-saveload" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Failed to Save/Load
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-large-file-sizes" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Large File Sizes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-data-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Data Loss
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spatial-indexing-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spatial Indexing Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Spatial Indexing Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-incorrect-query-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Incorrect Query Results
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-index-rebuilding-too-slow" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Index Rebuilding Too Slow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-index-not-updating" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Index Not Updating
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#narrative-features-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Narrative Features Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Narrative Features Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-events-not-triggering" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Events Not Triggering
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-context-values-not-persisting" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Context Values Not Persisting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-timeline-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Timeline Issues
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#general-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      General Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="General Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-enable-debug-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Enable Debug Mode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-check-cebu-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Check Cebu Version
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-run-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Run Tests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-check-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Check Documentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-report-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Report Issues
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-error-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Error Messages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Error Messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-simplex-not-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. "Simplex not found"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-invalid-simplex-faces" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. "Invalid simplex faces"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-geometry-not-initialized" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. "Geometry not initialized"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-serialization-failed" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. "Serialization failed"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-timeline-not-updated" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. "Timeline not updated"
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Project
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Project
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PROJECT_STRUCTURE.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CONTRIBUTING.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CHANGELOG.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Changelog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LICENSE" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-cmake-cannot-find-cebu" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. CMake Cannot Find Cebu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-missing-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Missing Dependencies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-package-manager-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Package Manager Issues
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build Errors
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Build Errors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-c20-not-supported" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. C++20 Not Supported
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-undefined-symbols" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Undefined Symbols
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-header-not-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Header Not Found
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtime-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Runtime Errors
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Runtime Errors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-invalid-simplex-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Invalid Simplex ID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-memory-access-violation" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Memory Access Violation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-unexpected-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Unexpected Behavior
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-slow-build-times" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Slow Build Times
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-slow-query-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Slow Query Performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-high-memory-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. High Memory Usage
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serialization-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Serialization Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Serialization Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-failed-to-saveload" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Failed to Save/Load
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-large-file-sizes" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Large File Sizes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-data-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Data Loss
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spatial-indexing-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spatial Indexing Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Spatial Indexing Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-incorrect-query-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Incorrect Query Results
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-index-rebuilding-too-slow" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Index Rebuilding Too Slow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-index-not-updating" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Index Not Updating
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#narrative-features-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Narrative Features Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Narrative Features Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-events-not-triggering" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Events Not Triggering
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-context-values-not-persisting" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Context Values Not Persisting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-timeline-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Timeline Issues
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#general-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      General Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="General Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-enable-debug-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Enable Debug Mode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-check-cebu-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Check Cebu Version
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-run-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Run Tests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-check-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Check Documentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-report-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Report Issues
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-error-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Error Messages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Error Messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-simplex-not-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. "Simplex not found"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-invalid-simplex-faces" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. "Invalid simplex faces"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-geometry-not-initialized" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. "Geometry not initialized"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-serialization-failed" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. "Serialization failed"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-timeline-not-updated" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. "Timeline not updated"
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="troubleshooting-guide">Troubleshooting Guide<a class="headerlink" href="#troubleshooting-guide" title="Permanent link">&para;</a></h1>
+<p>This document provides solutions to common issues you might encounter when using Cebu.</p>
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a href="#installation-issues">Installation Issues</a></li>
+<li><a href="#build-errors">Build Errors</a></li>
+<li><a href="#runtime-errors">Runtime Errors</a></li>
+<li><a href="#performance-issues">Performance Issues</a></li>
+<li><a href="#serialization-issues">Serialization Issues</a></li>
+<li><a href="#spatial-indexing-issues">Spatial Indexing Issues</a></li>
+<li><a href="#narrative-features-issues">Narrative Features Issues</a></li>
+<li><a href="#general-troubleshooting">General Troubleshooting</a></li>
+</ol>
+<hr />
+<h2 id="installation-issues">Installation Issues<a class="headerlink" href="#installation-issues" title="Permanent link">&para;</a></h2>
+<h3 id="1-cmake-cannot-find-cebu">1. CMake Cannot Find Cebu<a class="headerlink" href="#1-cmake-cannot-find-cebu" title="Permanent link">&para;</a></h3>
+<p><strong>Issue</strong>: CMake fails to find Cebu with <code>find_package(cebu)</code></p>
+<p><strong>Possible Causes</strong>:
+- Cebu is not installed
+- Cebu is installed in a non-standard location
+- CMake cannot find the Cebu package configuration file</p>
+<p><strong>Solutions</strong>:
+- Ensure Cebu is properly installed
+- Specify the Cebu installation directory:
+  <div class="highlight"><pre><span></span><code><span class="nb">set</span><span class="p">(</span><span class="s">cebu_DIR</span><span class="w"> </span><span class="s">/path/to/cebu/lib/cmake/cebu</span><span class="p">)</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">cebu</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
+</code></pre></div>
+- Use the <code>CMAKE_PREFIX_PATH</code> variable:
+  <div class="highlight"><pre><span></span><code>cmake<span class="w"> </span>..<span class="w"> </span>-DCMAKE_PREFIX_PATH<span class="o">=</span>/path/to/cebu
+</code></pre></div></p>
+<h3 id="2-missing-dependencies">2. Missing Dependencies<a class="headerlink" href="#2-missing-dependencies" title="Permanent link">&para;</a></h3>
+<p><strong>Issue</strong>: Build fails due to missing dependencies (nlohmann_json, ZLIB)</p>
+<p><strong>Possible Causes</strong>:
+- Dependencies are not installed
+- CMake cannot find the dependencies</p>
+<p><strong>Solutions</strong>:
+- Install the required dependencies:
+  - <strong>nlohmann_json</strong>: <code>vcpkg install nlohmann-json</code> or download from GitHub
+  - <strong>ZLIB</strong>: <code>vcpkg install zlib</code> or install via system package manager
+- Specify dependency locations:
+  <div class="highlight"><pre><span></span><code><span class="nb">set</span><span class="p">(</span><span class="s">nlohmann_json_DIR</span><span class="w"> </span><span class="s">/path/to/nlohmann_json/lib/cmake/nlohmann_json</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">ZLIB_ROOT</span><span class="w"> </span><span class="s">/path/to/zlib</span><span class="p">)</span>
+</code></pre></div></p>
+<h3 id="3-package-manager-issues">3. Package Manager Issues<a class="headerlink" href="#3-package-manager-issues" title="Permanent link">&para;</a></h3>
+<p><strong>Issue</strong>: Cannot install Cebu via vcpkg or Conan</p>
+<p><strong>Possible Causes</strong>:
+- Package not available in the repository
+- Network issues
+- Incorrect package name or version</p>
+<p><strong>Solutions</strong>:
+- For vcpkg: Ensure the port file is in the correct location
+- For Conan: Ensure the recipe is properly configured
+- Check network connectivity
+- Verify the package name and version</p>
+<hr />
+<h2 id="build-errors">Build Errors<a class="headerlink" href="#build-errors" title="Permanent link">&para;</a></h2>
+<h3 id="1-c20-not-supported">1. C++20 Not Supported<a class="headerlink" href="#1-c20-not-supported" title="Permanent link">&para;</a></h3>
+<p><strong>Issue</strong>: Compiler error about C++20 features</p>
+<p><strong>Possible Causes</strong>:
+- Compiler does not support C++20
+- CMake is not configured to use C++20</p>
+<p><strong>Solutions</strong>:
+- Update your compiler to a C++20 compatible version:
+  - GCC 10+
+  - Clang 10+
+  - MSVC 2019+
+- Ensure CMake is configured for C++20:
+  <div class="highlight"><pre><span></span><code><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD</span><span class="w"> </span><span class="s">20</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD_REQUIRED</span><span class="w"> </span><span class="s">ON</span><span class="p">)</span>
+</code></pre></div></p>
+<h3 id="2-undefined-symbols">2. Undefined Symbols<a class="headerlink" href="#2-undefined-symbols" title="Permanent link">&para;</a></h3>
+<p><strong>Issue</strong>: Linker errors about undefined symbols</p>
+<p><strong>Possible Causes</strong>:
+- Missing library link
+- Incorrect library name
+- Mismatched library versions</p>
+<p><strong>Solutions</strong>:
+- Ensure you're linking to the correct library:
+  <div class="highlight"><pre><span></span><code><span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">your_target</span><span class="w"> </span><span class="s">cebu::cebu</span><span class="p">)</span>
+</code></pre></div>
+- Check that the library was built correctly
+- Verify library versions match</p>
+<h3 id="3-header-not-found">3. Header Not Found<a class="headerlink" href="#3-header-not-found" title="Permanent link">&para;</a></h3>
+<p><strong>Issue</strong>: Compiler cannot find Cebu headers</p>
+<p><strong>Possible Causes</strong>:
+- Include directories not set
+- Headers not installed
+- Incorrect include path</p>
+<p><strong>Solutions</strong>:
+- Add Cebu include directory:
+  <div class="highlight"><pre><span></span><code><span class="nb">target_include_directories</span><span class="p">(</span><span class="s">your_target</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">/path/to/cebu/include</span><span class="p">)</span>
+</code></pre></div>
+- Ensure Cebu is properly installed
+- Check include statements in your code:
+  <div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;cebu/simplicial_complex.h&quot;</span><span class="c1">  // Correct</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;simplicial_complex.h&quot;</span><span class="c1">        // Incorrect</span>
+</code></pre></div></p>
+<hr />
+<h2 id="runtime-errors">Runtime Errors<a class="headerlink" href="#runtime-errors" title="Permanent link">&para;</a></h2>
+<h3 id="1-invalid-simplex-id">1. Invalid Simplex ID<a class="headerlink" href="#1-invalid-simplex-id" title="Permanent link">&para;</a></h3>
+<p><strong>Issue</strong>: Error about invalid simplex ID</p>
+<p><strong>Possible Causes</strong>:
+- Using a simplex ID that doesn't exist
+- Using a simplex ID after it has been removed
+- Invalid simplex creation parameters</p>
+<p><strong>Solutions</strong>:
+- Check if the simplex exists before using it:
+  <div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">complex</span><span class="p">.</span><span class="n">has_simplex</span><span class="p">(</span><span class="n">simplex_id</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Use simplex</span>
+<span class="p">}</span>
+</code></pre></div>
+- Ensure all vertices exist before creating higher-dimensional simplices
+- Check return values from simplex creation functions:
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">simplex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">complex</span><span class="p">.</span><span class="n">add_simplex</span><span class="p">(</span><span class="n">faces</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">simplex</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">INVALID_SIMPLEX</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Handle error</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h3 id="2-memory-access-violation">2. Memory Access Violation<a class="headerlink" href="#2-memory-access-violation" title="Permanent link">&para;</a></h3>
+<p><strong>Issue</strong>: Segmentation fault or access violation</p>
+<p><strong>Possible Causes</strong>:
+- Using invalid simplex IDs
+- Accessing deleted simplices
+- Invalid geometry data
+- Stack overflow from deep recursion</p>
+<p><strong>Solutions</strong>:
+- Validate all simplex IDs before use
+- Ensure geometry data is properly initialized
+- Check for infinite recursion in custom callbacks
+- Use bounds checking for array access</p>
+<h3 id="3-unexpected-behavior">3. Unexpected Behavior<a class="headerlink" href="#3-unexpected-behavior" title="Permanent link">&para;</a></h3>
+<p><strong>Issue</strong>: Complex behavior doesn't match expectations</p>
+<p><strong>Possible Causes</strong>:
+- Incorrect understanding of Cebu's API
+- Wrong parameters passed to functions
+- Missing required initialization
+- Race conditions in multi-threaded code</p>
+<p><strong>Solutions</strong>:
+- Review the API documentation
+- Check function parameters and return values
+- Ensure proper initialization of all components
+- Use proper synchronization in multi-threaded code</p>
+<hr />
+<h2 id="performance-issues">Performance Issues<a class="headerlink" href="#performance-issues" title="Permanent link">&para;</a></h2>
+<h3 id="1-slow-build-times">1. Slow Build Times<a class="headerlink" href="#1-slow-build-times" title="Permanent link">&para;</a></h3>
+<p><strong>Issue</strong>: BVH or Octree build is too slow</p>
+<p><strong>Possible Causes</strong>:
+- Large number of simplices
+- Complex build strategy
+- Single-threaded build</p>
+<p><strong>Solutions</strong>:
+- Use a faster build strategy for BVH:
+  <div class="highlight"><pre><span></span><code><span class="n">cebu</span><span class="o">::</span><span class="n">BVH</span><span class="w"> </span><span class="nf">bvh</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span><span class="w"> </span><span class="n">vg</span><span class="p">,</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">BVH</span><span class="o">::</span><span class="n">BuildStrategy</span><span class="o">::</span><span class="n">Median</span><span class="p">);</span>
+</code></pre></div>
+- Enable parallel building:
+  <div class="highlight"><pre><span></span><code><span class="n">cebu</span><span class="o">::</span><span class="n">BVH</span><span class="w"> </span><span class="nf">bvh</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span><span class="w"> </span><span class="n">vg</span><span class="p">,</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">BVH</span><span class="o">::</span><span class="n">BuildStrategy</span><span class="o">::</span><span class="n">SAH</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+</code></pre></div>
+- Consider using Octree for uniformly distributed data</p>
+<h3 id="2-slow-query-performance">2. Slow Query Performance<a class="headerlink" href="#2-slow-query-performance" title="Permanent link">&para;</a></h3>
+<p><strong>Issue</strong>: Spatial queries are too slow</p>
+<p><strong>Possible Causes</strong>:
+- Inefficient index structure
+- Inappropriate index type
+- Complex query parameters</p>
+<p><strong>Solutions</strong>:
+- Use BVH for irregularly distributed data
+- Use Octree for uniformly distributed data
+- Choose the appropriate build strategy for BVH
+- Batch queries when possible</p>
+<h3 id="3-high-memory-usage">3. High Memory Usage<a class="headerlink" href="#3-high-memory-usage" title="Permanent link">&para;</a></h3>
+<p><strong>Issue</strong>: Cebu uses too much memory</p>
+<p><strong>Possible Causes</strong>:
+- Large number of simplices
+- Detailed spatial indexes
+- Memory leaks</p>
+<p><strong>Solutions</strong>:
+- Release unused resources:
+  <div class="highlight"><pre><span></span><code><span class="n">vg</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+</code></pre></div>
+- Use appropriate index types for your data
+- Check for memory leaks in your code
+- Consider using smaller data types where possible</p>
+<hr />
+<h2 id="serialization-issues">Serialization Issues<a class="headerlink" href="#serialization-issues" title="Permanent link">&para;</a></h2>
+<h3 id="1-failed-to-saveload">1. Failed to Save/Load<a class="headerlink" href="#1-failed-to-saveload" title="Permanent link">&para;</a></h3>
+<p><strong>Issue</strong>: Serialization or deserialization fails</p>
+<p><strong>Possible Causes</strong>:
+- Invalid file path
+- Insufficient permissions
+- Corrupted file
+- Version mismatch</p>
+<p><strong>Solutions</strong>:
+- Check file paths and permissions
+- Verify the file is not corrupted
+- Ensure the same Cebu version is used for save and load
+- Handle serialization errors:
+  <div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="n">success</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cebu</span><span class="o">::</span><span class="n">serialization</span><span class="o">::</span><span class="n">save_to_json_file</span><span class="p">(</span><span class="n">complex</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;file.json&quot;</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">success</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Handle error</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h3 id="2-large-file-sizes">2. Large File Sizes<a class="headerlink" href="#2-large-file-sizes" title="Permanent link">&para;</a></h3>
+<p><strong>Issue</strong>: Serialized files are too large</p>
+<p><strong>Possible Causes</strong>:
+- Using JSON format for large complexes
+- No compression enabled
+- Redundant data</p>
+<p><strong>Solutions</strong>:
+- Use binary format for large complexes:
+  <div class="highlight"><pre><span></span><code><span class="n">cebu</span><span class="o">::</span><span class="n">serialization</span><span class="o">::</span><span class="n">save_to_binary_file</span><span class="p">(</span><span class="n">complex</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;file.bin&quot;</span><span class="p">);</span>
+</code></pre></div>
+- Enable compression:
+  <div class="highlight"><pre><span></span><code><span class="n">cebu</span><span class="o">::</span><span class="n">Persistence</span><span class="o">::</span><span class="n">save_to_file</span><span class="p">(</span><span class="n">complex</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;file.cjson&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+</code></pre></div>
+- Remove unnecessary data before serialization</p>
+<h3 id="3-data-loss">3. Data Loss<a class="headerlink" href="#3-data-loss" title="Permanent link">&para;</a></h3>
+<p><strong>Issue</strong>: Data is lost during serialization/deserialization</p>
+<p><strong>Possible Causes</strong>:
+- Incomplete serialization implementation
+- Version incompatibility
+- Custom data not properly serialized</p>
+<p><strong>Solutions</strong>:
+- Ensure all custom data is properly serialized
+- Use version control for serialized files
+- Test serialization/deserialization with your specific data</p>
+<hr />
+<h2 id="spatial-indexing-issues">Spatial Indexing Issues<a class="headerlink" href="#spatial-indexing-issues" title="Permanent link">&para;</a></h2>
+<h3 id="1-incorrect-query-results">1. Incorrect Query Results<a class="headerlink" href="#1-incorrect-query-results" title="Permanent link">&para;</a></h3>
+<p><strong>Issue</strong>: Spatial queries return wrong results</p>
+<p><strong>Possible Causes</strong>:
+- Incorrect geometry data
+- Outdated index
+- Incorrect query parameters</p>
+<p><strong>Solutions</strong>:
+- Verify geometry data is correct:
+  <div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vg</span><span class="p">.</span><span class="n">get_position</span><span class="p">(</span><span class="n">vertex_id</span><span class="p">);</span>
+</code></pre></div>
+- Rebuild the index after modifying the complex:
+  <div class="highlight"><pre><span></span><code><span class="n">bvh</span><span class="p">.</span><span class="n">rebuild</span><span class="p">();</span>
+</code></pre></div>
+- Check query parameters and coordinate systems</p>
+<h3 id="2-index-rebuilding-too-slow">2. Index Rebuilding Too Slow<a class="headerlink" href="#2-index-rebuilding-too-slow" title="Permanent link">&para;</a></h3>
+<p><strong>Issue</strong>: Rebuilding spatial indexes takes too long</p>
+<p><strong>Possible Causes</strong>:
+- Large number of simplices
+- Frequent modifications
+- Complex build strategy</p>
+<p><strong>Solutions</strong>:
+- Use incremental updates instead of full rebuilds:
+  <div class="highlight"><pre><span></span><code><span class="n">bvh</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">new_simplex</span><span class="p">);</span>
+<span class="n">bvh</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="n">deleted_simplex</span><span class="p">);</span>
+</code></pre></div>
+- Use a faster build strategy
+- Batch modifications before rebuilding</p>
+<h3 id="3-index-not-updating">3. Index Not Updating<a class="headerlink" href="#3-index-not-updating" title="Permanent link">&para;</a></h3>
+<p><strong>Issue</strong>: Index doesn't reflect changes to the complex</p>
+<p><strong>Possible Causes</strong>:
+- Forgetting to rebuild the index
+- Incremental updates not working
+- Index out of sync</p>
+<p><strong>Solutions</strong>:
+- Rebuild the index after modifications:
+  <div class="highlight"><pre><span></span><code><span class="n">bvh</span><span class="p">.</span><span class="n">rebuild</span><span class="p">();</span>
+</code></pre></div>
+- Use incremental updates for small changes
+- Verify the index is using the correct complex and geometry</p>
+<hr />
+<h2 id="narrative-features-issues">Narrative Features Issues<a class="headerlink" href="#narrative-features-issues" title="Permanent link">&para;</a></h2>
+<h3 id="1-events-not-triggering">1. Events Not Triggering<a class="headerlink" href="#1-events-not-triggering" title="Permanent link">&para;</a></h3>
+<p><strong>Issue</strong>: Story events don't trigger at the expected time</p>
+<p><strong>Possible Causes</strong>:
+- Timeline not updated
+- Event conditions not met
+- Incorrect event time</p>
+<p><strong>Solutions</strong>:
+- Ensure the timeline is updated regularly:
+  <div class="highlight"><pre><span></span><code><span class="n">timeline</span><span class="p">.</span><span class="n">advance</span><span class="p">(</span><span class="n">delta</span><span class="p">);</span>
+<span class="n">timeline</span><span class="p">.</span><span class="n">update</span><span class="p">();</span>
+</code></pre></div>
+- Check event conditions:
+  <div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">event</span><span class="p">.</span><span class="n">check_condition</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Condition is met</span>
+<span class="p">}</span>
+</code></pre></div>
+- Verify event times are set correctly</p>
+<h3 id="2-context-values-not-persisting">2. Context Values Not Persisting<a class="headerlink" href="#2-context-values-not-persisting" title="Permanent link">&para;</a></h3>
+<p><strong>Issue</strong>: Narrative context values are lost</p>
+<p><strong>Possible Causes</strong>:
+- Context not properly maintained
+- Values not set correctly
+- Scope issues</p>
+<p><strong>Solutions</strong>:
+- Ensure context is properly scoped
+- Check value types when setting and getting:
+  <div class="highlight"><pre><span></span><code><span class="n">context</span><span class="p">.</span><span class="n">set_value</span><span class="p">(</span><span class="s">&quot;key&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">42</span><span class="p">);</span><span class="w">  </span><span class="c1">// int</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">context</span><span class="p">.</span><span class="n">get_value</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;key&quot;</span><span class="p">);</span><span class="w">  </span><span class="c1">// Correct type</span>
+</code></pre></div>
+- Verify values are set before accessing</p>
+<h3 id="3-timeline-issues">3. Timeline Issues<a class="headerlink" href="#3-timeline-issues" title="Permanent link">&para;</a></h3>
+<p><strong>Issue</strong>: Timeline not advancing or behaving incorrectly</p>
+<p><strong>Possible Causes</strong>:
+- Incorrect time values
+- Timeline not updated
+- Milestones not properly set</p>
+<p><strong>Solutions</strong>:
+- Ensure timeline is updated:
+  <div class="highlight"><pre><span></span><code><span class="n">timeline</span><span class="p">.</span><span class="n">advance</span><span class="p">(</span><span class="n">delta</span><span class="p">);</span>
+</code></pre></div>
+- Check time values are within valid range
+- Verify milestone times are correctly ordered</p>
+<hr />
+<h2 id="general-troubleshooting">General Troubleshooting<a class="headerlink" href="#general-troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="1-enable-debug-mode">1. Enable Debug Mode<a class="headerlink" href="#1-enable-debug-mode" title="Permanent link">&para;</a></h3>
+<p><strong>Solution</strong>:
+Enable debug mode for more detailed error messages:</p>
+<div class="highlight"><pre><span></span><code><span class="err">cmake</span><span class="w"> </span><span class="err">..</span><span class="w"> </span><span class="err">-DCMAKE_BUILD_TYPE=Debug</span>
+</code></pre></div>
+<h3 id="2-check-cebu-version">2. Check Cebu Version<a class="headerlink" href="#2-check-cebu-version" title="Permanent link">&para;</a></h3>
+<p><strong>Solution</strong>:
+Verify you're using the correct Cebu version:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;cebu/version.h&quot;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Cebu version: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">CEBU_VERSION</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="3-run-tests">3. Run Tests<a class="headerlink" href="#3-run-tests" title="Permanent link">&para;</a></h3>
+<p><strong>Solution</strong>:
+Run the Cebu test suite to ensure basic functionality:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>build
+ctest<span class="w"> </span>--output-on-failure
+</code></pre></div>
+<h3 id="4-check-documentation">4. Check Documentation<a class="headerlink" href="#4-check-documentation" title="Permanent link">&para;</a></h3>
+<p><strong>Solution</strong>:
+Refer to the documentation for usage examples and API details:
+- <a href="../../api/api_core/">API Documentation</a>
+- <a href="../../getting_started/">Getting Started Guide</a>
+- <a href="../best_practices/">Best Practices</a></p>
+<h3 id="5-report-issues">5. Report Issues<a class="headerlink" href="#5-report-issues" title="Permanent link">&para;</a></h3>
+<p><strong>Solution</strong>:
+If you encounter a bug that you can't resolve, report it on the GitHub Issues page with:
+- Cebu version
+- Compiler and OS information
+- Minimal reproducible example
+- Expected vs actual behavior</p>
+<hr />
+<h2 id="common-error-messages">Common Error Messages<a class="headerlink" href="#common-error-messages" title="Permanent link">&para;</a></h2>
+<h3 id="1-simplex-not-found">1. "Simplex not found"<a class="headerlink" href="#1-simplex-not-found" title="Permanent link">&para;</a></h3>
+<p><strong>Cause</strong>: Attempting to use a simplex ID that doesn't exist
+<strong>Solution</strong>: Check if the simplex exists before using it</p>
+<h3 id="2-invalid-simplex-faces">2. "Invalid simplex faces"<a class="headerlink" href="#2-invalid-simplex-faces" title="Permanent link">&para;</a></h3>
+<p><strong>Cause</strong>: Attempting to create a simplex with invalid faces
+<strong>Solution</strong>: Ensure all face simplex IDs exist and form a valid simplex</p>
+<h3 id="3-geometry-not-initialized">3. "Geometry not initialized"<a class="headerlink" href="#3-geometry-not-initialized" title="Permanent link">&para;</a></h3>
+<p><strong>Cause</strong>: Using spatial indexing without setting geometry data
+<strong>Solution</strong>: Set positions for all vertices before building spatial indexes</p>
+<h3 id="4-serialization-failed">4. "Serialization failed"<a class="headerlink" href="#4-serialization-failed" title="Permanent link">&para;</a></h3>
+<p><strong>Cause</strong>: Error saving or loading complex
+<strong>Solution</strong>: Check file permissions and path</p>
+<h3 id="5-timeline-not-updated">5. "Timeline not updated"<a class="headerlink" href="#5-timeline-not-updated" title="Permanent link">&para;</a></h3>
+<p><strong>Cause</strong>: Story events not triggering
+<strong>Solution</strong>: Call <code>timeline.update()</code> after advancing time</p>
+<hr />
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+<p>By following this troubleshooting guide, you should be able to resolve most issues you encounter when using Cebu. If you're still having problems, don't hesitate to reach out to the community for help.</p>
+<p>For more information, see the <a href="../../api/api_core/">API Documentation</a> and <a href="../best_practices/">Best Practices</a>.</p>
+<hr />
+<p><strong>Cebu Version</strong>: 0.8.0
+<strong>Last Updated</strong>: 2026-03-18</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2026-03-28T03:56:53+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2026-03-28</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © 2026 CeaserZhao (Oasis Company). All rights reserved.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/ceaserzhao/cebu" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://twitter.com/ceaserzhao" target="_blank" rel="noopener" title="Twitter" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "search.suggest", "search.highlight", "search.share", "navigation.top"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+        <script src="../../js/timeago.min.js"></script>
+      
+        <script src="../../js/timeago_mkdocs_material.js"></script>
+      
+        <script src="../../js/custom.js"></script>
+      
+    
+  </body>
+</html>
