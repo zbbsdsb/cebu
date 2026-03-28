@@ -343,4 +343,10 @@ Closes #123
 
 ## Developer Certificate of Origin (DCO)
 
-All contributions must
+All contributions must include a Developer Certificate of Origin (DCO) sign-off. This certifies that you have the right to submit the contribution under the project's license.
+
+To sign your commits:
+
+```bash
+# Sign individual commits
+git commit -s -m
