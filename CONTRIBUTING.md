@@ -157,4 +157,16 @@ public:
 
 /**
  * Multi-line comments: for detailed descriptions
- * Including parameters, return values
+ * Including parameters, return values, exceptions, etc.
+ * 
+ * @param id The simplex identifier
+ * @return True if successful, false otherwise
+ * @throws std::runtime_error If simplex not found
+ */
+bool remove_simplex(SimplexID id);
+```
+
+#### Error Handling
+
+```cpp
+// Use exceptions
