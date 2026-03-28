@@ -384,4 +384,12 @@ For more information, see the [DCO](DCO) file.
 
 ### PR Template
 
-When creating a
+When creating a PR, please include:
+
+```markdown
+## Description
+Brief description of changes
+
+## Type of Change
+- [ ] Bug fix
+- [ ]
