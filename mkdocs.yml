@@ -1,0 +1,110 @@
+site_name: Cebu Documentation
+site_description: Advanced Simplicial Complex Library
+site_author: CeaserZhao (Oasis Company)
+site_url: https://ceaserzhao.github.io/cebu/
+
+# Repository
+repo_url: https://github.com/ceaserzhao/cebu
+repo_name: ceaserzhao/cebu
+
+# Theme
+theme:
+  name: material
+  palette:
+    primary: blue
+    accent: cyan
+  font:
+    text: Roboto
+    code: Roboto Mono
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - search.suggest
+    - search.highlight
+    - search.share
+    - navigation.top
+
+# Navigation
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Installation: installation.md
+    - Quick Start: getting_started.md
+  - Tutorials:
+    - Basic Usage: tutorials/tutorial_basic.md
+    - Spatial Indexing: tutorials/tutorial_spatial.md
+    - Narrative Features: tutorials/tutorial_narrative.md
+  - Core Concepts:
+    - Simplicial Complex: core/simplicial_complex.md
+    - Topology: core/topology.md
+    - Labels: core/labels.md
+    - Serialization: core/serialization.md
+  - Advanced Features:
+    - Spatial Indexing: advanced/spatial_indexing.md
+    - Non-Hausdorff Topology: advanced/non_hausdorff.md
+    - Absurdity System: advanced/absurdity_system.md
+    - Narrative Context: advanced/narrative_context.md
+  - API Reference:
+    - Core API: api/api_core.md
+    - Spatial API: api/api_spatial.md
+    - Serialization API: api/api_serialization.md
+    - Narrative API: api/api_narrative.md
+    - Absurdity API: api/api_absurdity.md
+  - Utilities:
+    - Performance Guide: utilities/performance.md
+    - Best Practices: utilities/best_practices.md
+    - FAQ: utilities/faq.md
+    - Troubleshooting: utilities/troubleshooting.md
+  - Project:
+    - Architecture: ../PROJECT_STRUCTURE.md
+    - Contributing: ../CONTRIBUTING.md
+    - Changelog: ../CHANGELOG.md
+    - License: ../LICENSE
+
+# Plugins
+plugins:
+  - search
+  - git-revision-date-localized:
+      type: timeago
+
+# Markdown Extensions
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.details
+  - pymdownx.snippets
+  - attr_list
+  - md_in_html
+
+# Extra CSS
+extra_css:
+  - css/custom.css
+
+# Extra JavaScript
+extra_javascript:
+  - js/custom.js
+
+# Extra variables
+extra:
+  version:
+    provider: mike
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/ceaserzhao/cebu
+      name: GitHub
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/ceaserzhao
+      name: Twitter
+
+# Copyright
+copyright: "© 2026 CeaserZhao (Oasis Company). All rights reserved."

@@ -1,0 +1,20 @@
+# MkDocs and related packages
+mkdocs==1.6.0
+mkdocs-material==9.5.0
+
+# Plugins
+mkdocs-git-revision-date-localized-plugin==1.2.0
+mkdocs-git-revision-date-plugin==0.3.1
+mkdocstrings>=0.24.2
+mkdocstrings-python==1.10.0
+
+# Markdown extensions
+pymdown-extensions==10.21
+
+# Development tools
+black==24.3.0
+flake8==6.1.0
+isort==5.13.2
+
+# Optional packages
+mike==1.1.2  # For versioning documentation
