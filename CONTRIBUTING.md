@@ -349,4 +349,6 @@ To sign your commits:
 
 ```bash
 # Sign individual commits
-git commit -s -m
+git commit -s -m "Your commit message"
+
+# Or configure Git to
