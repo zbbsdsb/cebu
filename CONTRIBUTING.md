@@ -319,3 +319,7 @@ TEST_F(SimplicialComplexTest, RemoveNonExistentSimplexThrows) {
 - `feat`: New feature
 - `fix`: Bug fix
 - `docs`: Documentation update
+- `style`: Code formatting (no functionality change)
+- `refactor`: Code refactoring
+- `test`: Test-related
+- `ch
