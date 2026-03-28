@@ -500,4 +500,15 @@ Any other relevant information
 
 - **GitHub Issues** - For bug reports and feature requests
 - **GitHub Discussions** - For questions and general discussion
-- **Email** - Contact
+- **Email** - Contact maintainers directly for sensitive issues
+
+## Recognition
+
+Contributors are recognized in:
+- README.md contributors section
+- Release notes
+- Project documentation
+
+---
+
+Thank you for contributing to Cebu! Your efforts help make this project better for everyone.
