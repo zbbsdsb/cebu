@@ -469,4 +469,15 @@ Clear description of the issue
 
 ## Steps to Reproduce
 1. Step one
-2
+2. Step two
+3. Step three
+
+## Expected Behavior
+What you expected to happen
+
+## Actual Behavior
+What actually happened
+
+## Environment
+- OS: [e.g., Windows 11]
+- Compiler: [e.g., GCC
