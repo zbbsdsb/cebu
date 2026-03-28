@@ -419,4 +419,15 @@ Brief description of changes
 
 ### Review Criteria
 
-- Code quality
+- Code quality and readability
+- Test coverage and correctness
+- Documentation completeness
+- Performance implications
+- Breaking changes
+- Security considerations
+
+## Documentation Contributions
+
+### Types of Documentation
+
+- **API Documentation** -
