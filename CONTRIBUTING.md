@@ -140,3 +140,21 @@ enum class BuildStrategy {
 
 ```cpp
 // Correct example
+class Example {
+public:
+    void method() {
+        if (condition) {
+            do_something();
+        }
+    }
+};
+```
+
+#### Comment Standards
+
+```cpp
+// Single-line comments: for brief explanations
+
+/**
+ * Multi-line comments: for detailed descriptions
+ * Including parameters, return values
