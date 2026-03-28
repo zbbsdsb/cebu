@@ -105,4 +105,11 @@ Recommended extensions:
 
 Follow the [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html) with these key points:
 
-#### Naming
+#### Naming Conventions
+
+```cpp
+// Class names: PascalCase
+class SimplicialComplex { };
+
+// Function names: snake_case
+void add_simple
