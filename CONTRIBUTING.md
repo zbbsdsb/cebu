@@ -398,4 +398,10 @@ Brief description of changes
 
 ## Testing
 - [ ] Tests added/updated
-- [ ] All
+- [ ] All tests pass locally
+
+## Checklist
+- [ ] Code follows style guidelines
+- [ ] Documentation updated
+- [ ] CHANGELOG.md updated
+-
