@@ -297,4 +297,23 @@ TEST_F(SimplicialComplexTest, AddVertexIncreasesCount) {
     EXPECT_TRUE(complex_.has_simplex(v));
 }
 
-TEST_F(SimplicialComplex
+TEST_F(SimplicialComplexTest, RemoveNonExistentSimplexThrows) {
+    EXPECT_THROW(complex_.remove_simplex(999), std::runtime_error);
+}
+```
+
+## Commit Guidelines
+
+### Commit Message Format
+
+```
+<type>(<scope>): <subject>
+
+<body>
+
+<footer>
+```
+
+### Type Categories
+
+-
