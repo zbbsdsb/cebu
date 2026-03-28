@@ -235,7 +235,4 @@ private:
 
 ```cpp
 // Test file naming: test_<module>.cpp
-// Example: test_simplicial_complex.cpp
-
-// Test function naming: test_<function>_<scenario>
-TEST(Simplic
+// Example: test_simplic
