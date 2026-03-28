@@ -330,4 +330,8 @@ TEST_F(SimplicialComplexTest, RemoveNonExistentSimplexThrows) {
 ```
 feat(core): add spatial indexing with BVH tree
 
-Implement BVH (Bounding Volume Hierarchy) tree for
+Implement BVH (Bounding Volume Hierarchy) tree for efficient spatial queries.
+This provides 100-667x speedup for range queries compared to linear search.
+
+- Add BVHTree class with SAH build strategy
+- Implement nearest neighbor queries
