@@ -457,4 +457,16 @@ make html     # For Sphinx
 ### Before Reporting
 
 1. **Search Existing Issues** - Check if the issue has already been reported
-2. **Gather Information** - Collect relevant details
+2. **Gather Information** - Collect relevant details about the problem
+
+### Issue Template
+
+When creating an issue, please include:
+
+```markdown
+## Description
+Clear description of the issue
+
+## Steps to Reproduce
+1. Step one
+2
