@@ -10,6 +10,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Assign PR
-      uses: kentaro-m/auto-assign-action@v2.0.0
+      uses: kentaro-m/auto-assign-action@v2.0.2
       with:
         configuration-path: '.github/auto-assign.yml'
