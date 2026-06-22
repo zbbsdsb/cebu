@@ -24,7 +24,7 @@ jobs:
             compiler: clang
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
 
     - name: Set up CMake
       uses: actions/setup-cmake@v4
@@ -55,7 +55,7 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
 
     - name: Set up CMake
       uses: actions/setup-cmake@v4
